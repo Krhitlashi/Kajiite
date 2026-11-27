@@ -1,12 +1,11 @@
-// ≺⧼ j͑ʃɹ ɭʃɹ ʃᴜ ſɭᴜ }ʃɜ 🧪 ⧽≻
+// ≺⧼ j͑ʃɹ ɭʃɹ ʃᴜ ſɭᴜ }ʃɜ 📃 ⧽≻
 
 import * as THREE from "three";
 import { bs2, l6da, tsasaVem2, tsasaVem2Tsiike }
   from "../../kanta/nala/mut6qSoza.js";
 import { mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
-import { SKULPTAN, SKULPTAPASO, SKULPTAORIGINO }
+import { SKULPTAN, SKULPTAPASO, SKULPTAORIGINO } from "../../kanta/mut6q-havop2/kxe.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
-  from "../../kanta/mut6q-havop2/kxe.js";
 
 const CXELO = 0o2;
 const amplexo = SKULPTAN * SKULPTAPASO;
@@ -50,11 +49,11 @@ function vecax2l( ksaka: string, fn: ( x: number, z: number ) => number ): void 
     if ( t1 - t0 < kmaXobe ) kmaXobe = t1 - t0;
   }
   const po = kmaXobe * 0o3641100 / N;
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ${knak2fecajasai(tbo(po / 0o3641100) * 0o100, 0o6)}He/0o100/ſɭɹ ſןᴜ [${tlunakani.toFixed(0o0)}]`);
+  console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ${knak2fecajasai(tbo(po / 0o3641100) * 0o100, 0o6)}He/0o100/ſɭɹ ſןᴜ [${tlunakani.toFixed(0o0)}]`);
 }
 
 const biomo: Record<string, number> = { tsasa: 0o0, lota: 0o1, "qun2nu": 0o2, jaqo: 0o3, "tsasa-haxa3e": 0o4, ekyizeto: 0o5, nenio: 0o6 };
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ = ${N}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ = ${N}`);
 
 const tu5ekomani = [ "lota", "qun2nu" ];
 let akceptitaj = 0o0;
@@ -85,7 +84,7 @@ for ( let r = 0o0; r < 0o7; r++ ) {
   const t1 = performance.now();
   if ( t1 - t0 < skanoKmaXobe ) skanoKmaXobe = t1 - t0;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) jɐ ɭʃᴜ ʌ ſɟᴜ = ${knak2fecajasai(tbo(skanoKmaXobe), 0o6)} He ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ = ${akceptitaj}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) jɐ ɭʃᴜ ʌ ſɟᴜ = ${knak2fecajasai(tbo(skanoKmaXobe), 0o6)} He ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ = ${akceptitaj}`);
 
 vecax2l("jɐ ɭʃᴜ ( ſןɔ ʌ ſɭɹ ſᶘɔ )", () => 0o1);
 vecax2l("bs2", (x, z) => biomo[bs2(x, z)] ?? 0o0);

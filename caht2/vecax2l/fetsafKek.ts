@@ -1,9 +1,9 @@
-// ≺⧼ ſȷɔ ſᶘᴜ ſȷƽɔƽ 🧪 ⧽≻
+// ≺⧼ ſȷɔ ſᶘᴜ ſȷƽɔƽ 📃 ⧽≻
 
 import * as THREE from "three";
 import { mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
 import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
-import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+import { k2fSeheni } from "./k61e.js";
 
 const N = 0o333333;
 const HERBAMALHELIGO = 0o62 / 0o100;
@@ -44,7 +44,7 @@ function vecax2l( ksaka: string, hatom6: number, fn: () => void ): void {
     if ( t1 - t0 < kmaXobe ) kmaXobe = t1 - t0;
   }
   const po = kmaXobe * 0o3641100 / ( N * hatom6 );
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ${knak2fecajasai(tbo(po / 0o3641100) * 0o100, 0o6)}He/0o100/ſɭw ʃᴜ`);
+  k2fSeheni(ksaka, kmaXobe, po, 0o30);
 }
 
 let cakamaha = new THREE.InstancedMesh(zace, pukek, N);
@@ -106,4 +106,4 @@ vecax2l("ſןɔ ʌ ſɭɹ ſᶘɔ", 0o1, () => {
   for ( let i = 0o0; i < N; i++ ) if ( hatufo[i].x < -0o1000 ) console.log("ſɭɜ ɭʃᴜ ʃɔ ʌ ⺓ ʌ }ʃɹƽ ⟅");
 });
 
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) l6da=${l6da(0o0, 0o0).toFixed(0o3)} N=${N}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) l6da=${l6da(0o0, 0o0).toFixed(0o3)} N=${N}`);

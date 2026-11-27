@@ -1257,7 +1257,7 @@ var Vector2 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector2} A reference to this vector.
 	*/
@@ -2821,7 +2821,7 @@ var Vector3 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector3} A reference to this vector.
 	*/
@@ -4980,7 +4980,7 @@ var Vector4 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector4} A reference to this vector.
 	*/
@@ -7545,7 +7545,7 @@ const _colorKeywords = {
 	"darkgreen": 25600,
 	"darkgrey": 11119017,
 	"darkkhaki": 12433259,
-	"darsupgenta": 9109643,
+	"darkmagenta": 9109643,
 	"darkolivegreen": 5597999,
 	"darkorange": 16747520,
 	"darkorchid": 10040012,
@@ -10246,13 +10246,13 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// kantaoj/mut6q-havop2/geles/tsasa.ts
-const SKULPTA_AKVA_NIVELO = -288 / 64;
-// kantaoj/tom6nu/interpolo.ts
-function glata(t) {
+// ../../kanta/mut6q-havop2/geles/tsasa.ts
+const SKULPTAAKVANIVELO = -288 / 64;
+// ../../kanta/k2fe/fkabe.ts
+function xaha(t) {
 	return t * t * (3 - 2 * t);
 }
-// eskekoj/tom6nu/haweh2.ts
+// ../../skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -10264,17 +10264,17 @@ function veb6qaiWeh2Ruva(weh2) {
 function veb6qaiWeh2Kek(kek) {
 	return kek & 248;
 }
-function veb6qaiW2d2(alfo) {
-	const cacaja = Math.round(Math.max(0, Math.min(1, alfo)) * 255);
+function veb6qaiW2d2(cento) {
+	const cacaja = Math.round(Math.max(0, Math.min(1, cento)) * 255);
 	if (cacaja <= 0) return 0;
 	if (cacaja >= 255) return 1;
 	return veb6qaiWeh2Kek(cacaja) / 255;
 }
 function veb6qaiCss(css) {
 	const s2banani = css.trim();
-	const kongruo = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
-	if (kongruo) {
-		const hakek = kongruo[1].split(",").map((ero) => ero.trim());
+	const kpapa = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
+	if (kpapa) {
+		const hakek = kpapa[1].split(",").map((kek) => kek.trim());
 		return `rgba(${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[0])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[1])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[2])))))},${hakek[3] === void 0 ? 1 : veb6qaiW2d2(Number(hakek[3]))})`;
 	}
 	const h6 = /^#([0-9a-f]{6})$/i.exec(s2banani);
@@ -10282,8 +10282,8 @@ function veb6qaiCss(css) {
 	const h8 = /^#([0-9a-f]{6})([0-9a-f]{2})$/i.exec(s2banani);
 	if (h8) {
 		const weh2 = veb6qaiWeh2(parseInt(h8[1], 16));
-		const alfo = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
-		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${alfo})`;
+		const cento = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
+		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${cento})`;
 	}
 	const h3 = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(s2banani);
 	if (h3) {
@@ -10297,12 +10297,12 @@ function veb6qaiCss(css) {
 function kf2Veb6qaiKs2bu() {
 	if (typeof CanvasGradient === "undefined") return;
 	const kozunuSkek = CanvasGradient.prototype;
-	if (kozunuSkek.__veb6qai) return;
+	if (kozunuSkek.veb6qai) return;
 	const xaqadi = kozunuSkek.addColorStop;
 	kozunuSkek.addColorStop = function(raqa, weh2) {
 		xaqadi.call(this, raqa, veb6qaiCss(weh2));
 	};
-	kozunuSkek.__veb6qai = true;
+	kozunuSkek.veb6qai = true;
 }
 kf2Veb6qaiKs2bu();
 function hunanuWeh2(weh2, n = 1) {
@@ -10311,145 +10311,145 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// eskekoj/tom6nu/kozuhaweh2.ts
-function bruoKrado(xi, zi) {
+// ../../skek2/p6kpu/mut6qHaweh2.ts
+function xetoh2Qox2n2k(xi, zi) {
 	let n = xi * 2683120 + zi * 2676968 | 0;
 	n = (n ^ n >>> 13) * 4759592;
 	return ((n ^ n >>> 16) >>> 0) / 4294967296;
 }
-function bruo2D$1(x, z) {
+function xetoh2D$1(x, z) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;
-	const a = bruoKrado(ix, iz), b = bruoKrado(ix + 1, iz);
-	const c = bruoKrado(ix, iz + 1), d = bruoKrado(ix + 1, iz + 1);
-	const u = glata(fx);
-	const v = glata(fz);
+	const a = xetoh2Qox2n2k(ix, iz), b = xetoh2Qox2n2k(ix + 1, iz);
+	const c = xetoh2Qox2n2k(ix, iz + 1), d = xetoh2Qox2n2k(ix + 1, iz + 1);
+	const u = xaha(fx);
+	const v = xaha(fz);
 	return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 }
-const KOZUA_HAWEH2 = {
+const T6LIMAHAWEH2 = {
 	fe1afA: new Color(16424),
 	fe1afB: new Color(4223064),
 	nex2caFe1af: new Color(3178600),
 	t6keq: new Color(6842464),
-	t6keqOmbro: new Color(hunanuWeh2(6842464, 3)),
-	profunda: new Color(2109496),
-	malfe1af: new Color(3168320),
+	t6keqHunanu: new Color(hunanuWeh2(6842464, 3)),
+	jufu: new Color(2109496),
+	tlutsu: new Color(3168320),
 	qacacu: new Color(3172432),
-	silto: new Color(3702888),
+	tlutsubaz2: new Color(3702888),
 	c23u: new Color(4753528),
 	fas: new Color(10524792),
 	camutsa: new Color(3688520),
-	nego: new Color(14739696),
-	glacio: new Color(11059408),
+	xana: new Color(14739696),
+	kzi3a: new Color(11059408),
 	k6h6T6lima: new Color(3688496),
-	k6h6Malbaz2: new Color(5261368),
-	k6h6Roko: new Color(5789784),
-	k6h6Bazo: new Color(3160120)
+	k6h6K6k: new Color(5261368),
+	k6h6T6keq: new Color(5789784),
+	k6h6Kozunu: new Color(3160120)
 };
-const TSASA_NIVELO$1 = SKULPTA_AKVA_NIVELO;
-function ombraKkaxte$1(haga) {
+const TSASAVEM2$1 = SKULPTAAKVANIVELO;
+function hunanuKkaxte$1(haga) {
 	return Math.max(0, Math.min(1, (haga - 1 / 8) / (6 / 8)));
 }
-function fiksu01(v) {
+function qacepu01(v) {
 	return v < 0 ? 0 : v > 1 ? 1 : v;
 }
 new Color(11059368), new Color(11581608), new Color(4743248), new Color(12634296), new Color(7901312), new Color(10004632);
 new Color().setRGB(36 / 64, 40 / 64, 38 / 64);
-function kozuaWeh2En$1(celo, h, x, z, haga, vem2Fn) {
-	const P = KOZUA_HAWEH2;
-	const makulo = 2 * bruo2D$1(x / 45, z / 45) - 1;
-	const makulo2 = 2 * bruo2D$1(x / 11, z / 11) - 1;
-	const makulo3 = 2 * bruo2D$1(x / 3, z / 3) - 1;
-	const malsekeco = 5 / 8 + 12 / 64 * makulo + 8 / 64 * makulo2 + 3 / 64 * makulo3;
+function mut6qWeh2En$1(natakatomasai, h, x, z, haga, vem2Fn) {
+	const P = T6LIMAHAWEH2;
+	const xet7 = 2 * xetoh2D$1(x / 45, z / 45) - 1;
+	const xet72 = 2 * xetoh2D$1(x / 11, z / 11) - 1;
+	const xet73 = 2 * xetoh2D$1(x / 3, z / 3) - 1;
+	const tsasaF = 5 / 8 + 12 / 64 * xet7 + 8 / 64 * xet72 + 3 / 64 * xet73;
 	let r = P.fe1afA.r, g = P.fe1afA.g, b = P.fe1afA.b;
-	let f = fiksu01(malsekeco);
+	let f = qacepu01(tsasaF);
 	r += (P.fe1afB.r - r) * f;
 	g += (P.fe1afB.g - g) * f;
 	b += (P.fe1afB.b - b) * f;
-	f = fiksu01((h - 8) / 22) * 4 / 8;
+	f = qacepu01((h - 8) / 22) * 4 / 8;
 	r += (P.nex2caFe1af.r - r) * f;
 	g += (P.nex2caFe1af.g - g) * f;
 	b += (P.nex2caFe1af.b - b) * f;
-	const hunanu = ombraKkaxte$1(haga);
+	const hunanu = hunanuKkaxte$1(haga);
 	f = hunanu * 14 / 64;
-	r += (P.t6keqOmbro.r - r) * f;
-	g += (P.t6keqOmbro.g - g) * f;
-	b += (P.t6keqOmbro.b - b) * f;
-	f = Math.max(fiksu01((haga - 41 / 64) / (25 / 64)), fiksu01((h - 22) / 20) * 7 / 8);
+	r += (P.t6keqHunanu.r - r) * f;
+	g += (P.t6keqHunanu.g - g) * f;
+	b += (P.t6keqHunanu.b - b) * f;
+	f = Math.max(qacepu01((haga - 41 / 64) / (25 / 64)), qacepu01((h - 22) / 20) * 7 / 8);
 	r += (P.t6keq.r - r) * f;
 	g += (P.t6keq.g - g) * f;
 	b += (P.t6keq.b - b) * f;
-	const negoF = fiksu01((h - 36) / 12);
+	const negoF = qacepu01((h - 36) / 12);
 	if (negoF > 0) {
-		f = negoF * (1 - fiksu01((haga - 56 / 64) / (40 / 64)));
-		r += (P.nego.r - r) * f;
-		g += (P.nego.g - g) * f;
-		b += (P.nego.b - b) * f;
+		f = negoF * (1 - qacepu01((haga - 56 / 64) / (40 / 64)));
+		r += (P.xana.r - r) * f;
+		g += (P.xana.g - g) * f;
+		b += (P.xana.b - b) * f;
 		f = negoF * hunanu * 14 / 64;
-		r += (P.glacio.r - r) * f;
-		g += (P.glacio.g - g) * f;
-		b += (P.glacio.b - b) * f;
+		r += (P.kzi3a.r - r) * f;
+		g += (P.kzi3a.g - g) * f;
+		b += (P.kzi3a.b - b) * f;
 	}
-	const bordaBruo = (bruo2D$1(x / 8, z / 8) - 4 / 8) * 4 / 8 + (bruo2D$1(x / 32, z / 32) - 4 / 8) * 2 / 8;
-	const kma = h - (vem2Fn ? vem2Fn(x, z) : TSASA_NIVELO$1);
-	const plateau = 1 - fiksu01((haga - 21 / 64) / (37 / 64));
-	if (kma > 0) {
-		f = fiksu01((9 / 8 - kma + bordaBruo) / (9 / 8)) * plateau * 7 / 8;
+	const pukazXetoh2 = (xetoh2D$1(x / 8, z / 8) - 4 / 8) * 4 / 8 + (xetoh2D$1(x / 32, z / 32) - 4 / 8) * 2 / 8;
+	const teru = h - (vem2Fn ? vem2Fn(x, z) : TSASAVEM2$1);
+	const qun2 = 1 - qacepu01((haga - 21 / 64) / (37 / 64));
+	if (teru > 0) {
+		f = qacepu01((9 / 8 - teru + pukazXetoh2) / (9 / 8)) * qun2 * 7 / 8;
 		r += (P.fas.r - r) * f;
 		g += (P.fas.g - g) * f;
 		b += (P.fas.b - b) * f;
-		const c23uF = fiksu01((6 / 8 - kma + bordaBruo) / (6 / 8));
-		const granulo = fiksu01((bruo2D$1(x / 2, z / 2) - 37 / 64) * 12 / 8);
-		f = Math.min(1, c23uF * granulo * 14 / 8);
+		const c23uF = qacepu01((6 / 8 - teru + pukazXetoh2) / (6 / 8));
+		const baskek2 = qacepu01((xetoh2D$1(x / 2, z / 2) - 37 / 64) * 12 / 8);
+		f = Math.min(1, c23uF * baskek2 * 14 / 8);
 		r += (P.c23u.r - r) * f;
 		g += (P.c23u.g - g) * f;
 		b += (P.c23u.b - b) * f;
-		f = fiksu01((5 / 8 - kma + bordaBruo) / (5 / 8)) * 3 / 8 * plateau;
+		f = qacepu01((5 / 8 - teru + pukazXetoh2) / (5 / 8)) * 3 / 8 * qun2;
 		r += (P.qacacu.r - r) * f;
 		g += (P.qacacu.g - g) * f;
 		b += (P.qacacu.b - b) * f;
-		f = fiksu01((14 / 8 - kma + bordaBruo) / (14 / 8)) * 21 / 64;
-		r += (P.malfe1af.r - r) * f;
-		g += (P.malfe1af.g - g) * f;
-		b += (P.malfe1af.b - b) * f;
+		f = qacepu01((14 / 8 - teru + pukazXetoh2) / (14 / 8)) * 21 / 64;
+		r += (P.tlutsu.r - r) * f;
+		g += (P.tlutsu.g - g) * f;
+		b += (P.tlutsu.b - b) * f;
 	} else {
-		const prof = Math.max(0, -kma + bordaBruo);
-		const sedimento = fiksu01((1 - haga) / (10 / 8));
-		f = fiksu01((5 / 8 - prof) / (5 / 8)) * 5 / 8;
+		const prof = Math.max(0, -teru + pukazXetoh2);
+		const oztaq = qacepu01((1 - haga) / (10 / 8));
+		f = qacepu01((5 / 8 - prof) / (5 / 8)) * 5 / 8;
 		r += (P.fas.r - r) * f;
 		g += (P.fas.g - g) * f;
 		b += (P.fas.b - b) * f;
-		f = Math.min(1, prof) * (1 - sedimento) * 5 / 8;
+		f = Math.min(1, prof) * (1 - oztaq) * 5 / 8;
 		r += (P.camutsa.r - r) * f;
 		g += (P.camutsa.g - g) * f;
 		b += (P.camutsa.b - b) * f;
-		const siltaF = fiksu01(prof / (10 / 8)) * sedimento;
-		r += (P.silto.r - r) * siltaF;
-		g += (P.silto.g - g) * siltaF;
-		b += (P.silto.b - b) * siltaF;
+		const siltaF = qacepu01(prof / (10 / 8)) * oztaq;
+		r += (P.tlutsubaz2.r - r) * siltaF;
+		g += (P.tlutsubaz2.g - g) * siltaF;
+		b += (P.tlutsubaz2.b - b) * siltaF;
 		if (siltaF > 0) {
-			const c23u = bruo2D$1(x / 4, z / 4);
+			const c23u = xetoh2D$1(x / 4, z / 4);
 			f = siltaF * Math.max(0, c23u - 45 / 64) * 6 / 8;
 			r += (P.c23u.r - r) * f;
 			g += (P.c23u.g - g) * f;
 			b += (P.c23u.b - b) * f;
 		}
-		f = fiksu01((prof - 1) / (14 / 8)) * sedimento;
+		f = qacepu01((prof - 1) / (14 / 8)) * oztaq;
 		r += (P.camutsa.r - r) * f;
 		g += (P.camutsa.g - g) * f;
 		b += (P.camutsa.b - b) * f;
-		f = fiksu01((prof - 3) / (18 / 8));
-		r += (P.profunda.r - r) * f;
-		g += (P.profunda.g - g) * f;
-		b += (P.profunda.b - b) * f;
+		f = qacepu01((prof - 3) / (18 / 8));
+		r += (P.jufu.r - r) * f;
+		g += (P.jufu.g - g) * f;
+		b += (P.jufu.b - b) * f;
 	}
-	celo.r = r;
-	celo.g = g;
-	celo.b = b;
-	return celo;
+	natakatomasai.r = r;
+	natakatomasai.g = g;
+	natakatomasai.b = b;
+	return natakatomasai;
 }
-// hacaht2/vecax2l/h2y2k-kozuhaweh2.ts
-function bruo2D(x, z) {
+// h2y2k-mut6qHaweh2.ts
+function xetoh2D(x, z) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;
 	const h = (xi, zi) => {
@@ -10462,92 +10462,128 @@ function bruo2D(x, z) {
 	const v = fz * fz * (3 - 2 * fz);
 	return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 }
-const HERBO_A = new Color(5138761);
-const HERBO_B = new Color(7308632);
-const SEKHERBO = new Color(9144150);
-const ROKO = new Color(7236192);
-const ROKO_OMBRO = new Color(4146494);
-const PROFUNDA = new Color(2110773);
-const MALHERBO = new Color(4414271);
-const MARĈO = new Color(4082229);
-const SILTO = new Color(7110247);
-const C23U = new Color(9143672);
-const FAS = new Color(10984060);
-const CAMUTSA = new Color(3622730);
-const NEGO = new Color(15002610);
-const GLACIO = new Color(11519186);
-new Color(3950646);
-new Color(5261372);
-new Color(5790294);
-new Color(3356730);
-const TSASA_NIVELO = SKULPTA_AKVA_NIVELO;
-function ombraKkaxte(haga) {
+const HERBOA = new Color(4745288);
+const HERBOB = new Color(6848600);
+const SEKHERBO = new Color(8945744);
+const ROKO = new Color(6842464);
+const ROKOOMBRO = new Color(3686456);
+const PROFUNDA = new Color(2109488);
+const MALHERBO = new Color(4216888);
+const MARĈO = new Color(3688496);
+const SILTO = new Color(6846560);
+const C23U = new Color(8945784);
+const FAS = new Color(10524792);
+const CAMUTSA = new Color(3162184);
+const NEGO = new Color(14739696);
+const GLACIO = new Color(11059408);
+new Color(3688496);
+new Color(5261368);
+new Color(5789776);
+new Color(3160120);
+const TSASAVEM2 = SKULPTAAKVANIVELO;
+function hunanuKkaxte(haga) {
 	return Math.max(0, Math.min(1, (haga - 1 / 8) / (6 / 8)));
 }
-function bordiWeh2n(celo, h, x, z, haga, vem2Fn) {
-	const bordaBruo = (bruo2D(x / 8, z / 8) - 4 / 8) * 4 / 8 + (bruo2D(x / 32, z / 32) - 4 / 8) * 2 / 8;
-	const kma = h - (vem2Fn ? vem2Fn(x, z) : TSASA_NIVELO);
-	const plateau = 1 - Math.max(0, Math.min(1, (haga - 21 / 64) / (37 / 64)));
+function bordiWeh2n(natakatomasai, h, x, z, haga, vem2Fn) {
+	const pukazXetoh2 = (xetoh2D(x / 8, z / 8) - 4 / 8) * 4 / 8 + (xetoh2D(x / 32, z / 32) - 4 / 8) * 2 / 8;
+	const kma = h - (vem2Fn ? vem2Fn(x, z) : TSASAVEM2);
+	const qun2 = 1 - Math.max(0, Math.min(1, (haga - 21 / 64) / (37 / 64)));
 	if (kma > 0) {
-		const fasF = Math.max(0, Math.min(1, (9 / 8 - kma + bordaBruo) / (9 / 8))) * plateau;
-		celo.lerp(FAS, fasF * 7 / 8);
-		const c23uF = Math.max(0, Math.min(1, (6 / 8 - kma + bordaBruo) / (6 / 8)));
-		const granulo = Math.max(0, Math.min(1, (bruo2D(x / 2, z / 2) - 37 / 64) * 12 / 8));
-		celo.lerp(C23U, Math.min(1, c23uF * granulo * 14 / 8));
-		const qacacuF = Math.max(0, Math.min(1, (5 / 8 - kma + bordaBruo) / (5 / 8)));
-		celo.lerp(MARĈO, qacacuF * 3 / 8 * plateau);
-		const ohicaF = Math.max(0, Math.min(1, (14 / 8 - kma + bordaBruo) / (14 / 8)));
-		celo.lerp(MALHERBO, ohicaF * 21 / 64);
+		const fasF = Math.max(0, Math.min(1, (9 / 8 - kma + pukazXetoh2) / (9 / 8))) * qun2;
+		natakatomasai.lerp(FAS, fasF * 7 / 8);
+		const c23uF = Math.max(0, Math.min(1, (6 / 8 - kma + pukazXetoh2) / (6 / 8)));
+		const baskek2 = Math.max(0, Math.min(1, (xetoh2D(x / 2, z / 2) - 37 / 64) * 12 / 8));
+		natakatomasai.lerp(C23U, Math.min(1, c23uF * baskek2 * 14 / 8));
+		const qacacuF = Math.max(0, Math.min(1, (5 / 8 - kma + pukazXetoh2) / (5 / 8)));
+		natakatomasai.lerp(MARĈO, qacacuF * 3 / 8 * qun2);
+		const ohicaF = Math.max(0, Math.min(1, (14 / 8 - kma + pukazXetoh2) / (14 / 8)));
+		natakatomasai.lerp(MALHERBO, ohicaF * 21 / 64);
 		return;
 	}
-	const prof = Math.max(0, -kma + bordaBruo);
-	const sedimento = Math.max(0, Math.min(1, (1 - haga) / (10 / 8)));
-	celo.lerp(FAS, Math.max(0, Math.min(1, (5 / 8 - prof) / (5 / 8))) * 5 / 8);
-	celo.lerp(CAMUTSA, Math.min(1, prof) * (1 - sedimento) * 5 / 8);
-	const siltaF = Math.max(0, Math.min(1, prof / (10 / 8))) * sedimento;
-	celo.lerp(SILTO, siltaF);
+	const prof = Math.max(0, -kma + pukazXetoh2);
+	const oztaq = Math.max(0, Math.min(1, (1 - haga) / (10 / 8)));
+	natakatomasai.lerp(FAS, Math.max(0, Math.min(1, (5 / 8 - prof) / (5 / 8))) * 5 / 8);
+	natakatomasai.lerp(CAMUTSA, Math.min(1, prof) * (1 - oztaq) * 5 / 8);
+	const siltaF = Math.max(0, Math.min(1, prof / (10 / 8))) * oztaq;
+	natakatomasai.lerp(SILTO, siltaF);
 	if (siltaF > 0) {
-		const c23u = bruo2D(x / 4, z / 4);
-		celo.lerp(C23U, siltaF * Math.max(0, c23u - 45 / 64) * 6 / 8);
+		const c23u = xetoh2D(x / 4, z / 4);
+		natakatomasai.lerp(C23U, siltaF * Math.max(0, c23u - 45 / 64) * 6 / 8);
 	}
-	celo.lerp(CAMUTSA, Math.max(0, Math.min(1, (prof - 1) / (14 / 8))) * sedimento);
-	celo.lerp(PROFUNDA, Math.max(0, Math.min(1, (prof - 3) / (18 / 8))));
+	natakatomasai.lerp(CAMUTSA, Math.max(0, Math.min(1, (prof - 1) / (14 / 8))) * oztaq);
+	natakatomasai.lerp(PROFUNDA, Math.max(0, Math.min(1, (prof - 3) / (18 / 8))));
 }
-function kozuaWeh2En(celo, h, x, z, haga, vem2Fn) {
-	const makulo = 2 * bruo2D(x / 45, z / 45) - 1;
-	const makulo2 = 2 * bruo2D(x / 11, z / 11) - 1;
-	const makulo3 = 2 * bruo2D(x / 3, z / 3) - 1;
-	const malsekeco = 5 / 8 + 18 / 64 * makulo + 10 / 64 * makulo2 + 5 / 64 * makulo3;
-	celo.copy(HERBO_A).lerp(HERBO_B, Math.max(0, Math.min(1, malsekeco)));
-	celo.lerp(SEKHERBO, Math.max(0, Math.min(1, (h - 8) / 22)) * 7 / 8);
-	const hunanu = ombraKkaxte(haga);
-	celo.lerp(ROKO_OMBRO, hunanu * 18 / 64);
+function mut6qWeh2En(natakatomasai, h, x, z, haga, vem2Fn) {
+	const xet7 = 2 * xetoh2D(x / 45, z / 45) - 1;
+	const xet72 = 2 * xetoh2D(x / 11, z / 11) - 1;
+	const xet73 = 2 * xetoh2D(x / 3, z / 3) - 1;
+	const tsasaF = 5 / 8 + 18 / 64 * xet7 + 10 / 64 * xet72 + 5 / 64 * xet73;
+	natakatomasai.copy(HERBOA).lerp(HERBOB, Math.max(0, Math.min(1, tsasaF)));
+	natakatomasai.lerp(SEKHERBO, Math.max(0, Math.min(1, (h - 8) / 22)) * 7 / 8);
+	const hunanu = hunanuKkaxte(haga);
+	natakatomasai.lerp(ROKOOMBRO, hunanu * 18 / 64);
 	const rokF = Math.max(Math.max(0, Math.min(1, (haga - 41 / 64) / (25 / 64))), Math.max(0, Math.min(1, (h - 22) / 20)) * 7 / 8);
-	celo.lerp(ROKO, rokF);
+	natakatomasai.lerp(ROKO, rokF);
 	const negoF = Math.max(0, Math.min(1, (h - 36) / 12));
 	if (negoF > 0) {
-		const caqaxema = 1 - Math.max(0, Math.min(1, (haga - 56 / 64) / (40 / 64)));
-		celo.lerp(NEGO, negoF * caqaxema);
-		celo.lerp(GLACIO, negoF * hunanu * 14 / 64);
+		const cakuk = 1 - Math.max(0, Math.min(1, (haga - 56 / 64) / (40 / 64)));
+		natakatomasai.lerp(NEGO, negoF * cakuk);
+		natakatomasai.lerp(GLACIO, negoF * hunanu * 14 / 64);
 	}
-	bordiWeh2n(celo, h, x, z, haga, vem2Fn);
-	return celo;
+	bordiWeh2n(natakatomasai, h, x, z, haga, vem2Fn);
+	return natakatomasai;
 }
-// hacaht2/vecax2l/weh2.ts
+const HEKEBAR6Q = 9192631770 / 4294967296 / 1e3;
+function tbo(bar6q) {
+	return bar6q * HEKEBAR6Q;
+}
+const KNAK2FECAJASAI = "ɔıɿцэꞟɩƨ";
+function knak2fecajasai(k2fe, kuxa = 2) {
+	const neni = k2fe < 0;
+	const k2feSa = 8 ** kuxa;
+	const xekuxa = Math.round(Math.abs(k2fe) * k2feSa);
+	const k2feXa = Math.floor(xekuxa / k2feSa);
+	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
+	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
+}
+// k61e.ts
+const T2BAK2P2 = "( ɭʃɹ ʃᴜ ſɭɹ ſןɹ )";
+const FKATASTIH2 = "ſȷƽᴜ ɭʃᴜ j͑ʃƨꞇ ֭ſɭɹ";
+const KMAM2M2STIH2 = "ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ j͑ʃƨꞇ ֭ſɭɹ";
+const KALANI = "ſɭᴜ j͐ʃᴜ }ʃꞇ";
+const SEHENI = "j͑ʃɔ ֭ſɭɔ }ʃꞇ";
+const KANAQ = "ſןw ſɭᴜ }ʃᴜȝ";
+const VEQ6K2 = "}ʃɔ ȏoͩſ̀ȷᴜ }ʃꞇ";
+function knak2(n2k, kefn2k = 2) {
+	return knak2fecajasai(n2k, kefn2k);
+}
+function heKef(n2k) {
+	return `${knak2fecajasai(tbo(n2k), 6)} He`;
+}
+function k2fKanaq(ksaka, tifSef4, tifH2y2k, nlakaniSef4, nlakaniH2y2k, kefn2k = 0) {
+	tifSef4.sort((a, b) => a - b);
+	tifH2y2k.sort((a, b) => a - b);
+	const fkataSef4 = tifSef4[tifSef4.length >> 1], fkataH2y2k = tifH2y2k[tifH2y2k.length >> 1];
+	const kmam2m2Sef4 = Math.min(...tifSef4), kmam2m2H2y2k = Math.min(...tifH2y2k);
+	const kanaq = nlakaniSef4 === nlakaniH2y2k ? KANAQ : VEQ6K2;
+	const kapo = kefn2k > 0 ? ksaka.padEnd(kefn2k) : ksaka;
+	console.log(`${T2BAK2P2} ${kapo} ｡ ${FKATASTIH2} ｡ ${heKef(fkataH2y2k)} ｡ ${KMAM2M2STIH2} ｡ ${heKef(fkataSef4)} ｡ ${KALANI} ｡ ${knak2(fkataH2y2k / fkataSef4)} ｡ ${SEHENI} ｡ ${knak2(kmam2m2H2y2k / kmam2m2Sef4)} ｡ ${kanaq}`);
+}
+// weh2.ts
 const C2QR = 9;
 const KOLOJ = 65536;
 const kolA = new Color();
 const kolB = new Color();
-const proverboj = [];
-for (let i = 0; i < KOLOJ; i++) proverboj.push(i % 128 - 64, i % 512 - 320, i % 511 - 256, 21 / 64);
-let malsamaj = 0;
+const hax2paksupusai = [];
+for (let i = 0; i < KOLOJ; i++) hax2paksupusai.push(i % 128 - 64, i % 512 - 320, i % 511 - 256, 21 / 64);
+let veq6k2N2k = 0;
 for (let i = 0; i < KOLOJ; i++) {
 	const o = i * 4;
-	kozuaWeh2En(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
-	kozuaWeh2En$1(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
-	if (kolA.r !== kolB.r || kolA.g !== kolB.g || kolA.b !== kolB.b) malsamaj++;
+	mut6qWeh2En(kolA, hax2paksupusai[o], hax2paksupusai[o + 1], hax2paksupusai[o + 2], hax2paksupusai[o + 3]);
+	mut6qWeh2En$1(kolB, hax2paksupusai[o], hax2paksupusai[o + 1], hax2paksupusai[o + 2], hax2paksupusai[o + 3]);
+	if (kolA.r !== kolB.r || kolA.g !== kolB.g || kolA.b !== kolB.b) veq6k2N2k++;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͑ʃɹ j͐ʃɹ ŋᷠɔ ⟅ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ=${malsamaj}`);
+console.log(`${T2BAK2P2} ſɭɹ ſᶘɔ ｡ ${VEQ6K2} ｡ ${knak2(veq6k2N2k, 0)}`);
 function vecax2lPare(ksaka, sef4, h2y2k) {
 	for (let i = 0; i < 4; i++) {
 		sef4(kolB, 3, 10, 27, 21 / 64);
@@ -10561,40 +10597,37 @@ function vecax2lPare(ksaka, sef4, h2y2k) {
 			t0 = performance.now();
 			for (let i = 0; i < KOLOJ; i++) {
 				const o = i * 4;
-				sn += sef4(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
+				sn += sef4(kolB, hax2paksupusai[o], hax2paksupusai[o + 1], hax2paksupusai[o + 2], hax2paksupusai[o + 3]);
 			}
 			tn.push(performance.now() - t0);
 			t0 = performance.now();
 			for (let i = 0; i < KOLOJ; i++) {
 				const o = i * 4;
-				sm += h2y2k(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
+				sm += h2y2k(kolA, hax2paksupusai[o], hax2paksupusai[o + 1], hax2paksupusai[o + 2], hax2paksupusai[o + 3]);
 			}
 			tm.push(performance.now() - t0);
 		} else {
 			t0 = performance.now();
 			for (let i = 0; i < KOLOJ; i++) {
 				const o = i * 4;
-				sm += h2y2k(kolA, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
+				sm += h2y2k(kolA, hax2paksupusai[o], hax2paksupusai[o + 1], hax2paksupusai[o + 2], hax2paksupusai[o + 3]);
 			}
 			tm.push(performance.now() - t0);
 			t0 = performance.now();
 			for (let i = 0; i < KOLOJ; i++) {
 				const o = i * 4;
-				sn += sef4(kolB, proverboj[o], proverboj[o + 1], proverboj[o + 2], proverboj[o + 3]);
+				sn += sef4(kolB, hax2paksupusai[o], hax2paksupusai[o + 1], hax2paksupusai[o + 2], hax2paksupusai[o + 3]);
 			}
 			tn.push(performance.now() - t0);
 		}
 	}
-	tn.sort((a, b) => a - b);
-	tm.sort((a, b) => a - b);
-	const mn = tn[tn.length >> 1], mm = tm[tm.length >> 1];
-	console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ſɭˬɹ=${mm.toFixed(1)}ms ſɭɔ˞ɜƴ=${mn.toFixed(1)}ms j͑ʃɔ ֭ſɭɔ=${(mm / mn).toFixed(2)}x min ${Math.min(...tm).toFixed(1)} ${Math.min(...tn).toFixed(1)} j͑ʃɜ j͑ʃƨɹ=${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
+	k2fKanaq(ksaka, tn, tm, sn, sm);
 }
-vecax2lPare(`kozuaWeh2En x${KOLOJ}`, (c, h, x, z, d) => {
-	kozuaWeh2En$1(c, h, x, z, d);
+vecax2lPare(`ſᶘꞇ ɭl̀ɔ`, (c, h, x, z, d) => {
+	mut6qWeh2En$1(c, h, x, z, d);
 	return c.r;
 }, (c, h, x, z, d) => {
-	kozuaWeh2En(c, h, x, z, d);
+	mut6qWeh2En(c, h, x, z, d);
 	return c.r;
 });
 export {};

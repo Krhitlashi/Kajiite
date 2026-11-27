@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
 import { katmullRom } from "../../kanta/k2fe/fkabe.js";
-import { petrelajCac2sex } from "../p6kpu/cac2sex/petrela-plumaro.js";
+import { petrelajCac2sex } from "../p6kpu/cac2sex/temek-g2bo.js";
 
 interface PetrelaKa5asexaz { z: number; y: number; r: number; }
 

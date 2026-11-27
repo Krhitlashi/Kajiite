@@ -1,9 +1,9 @@
-// ≺⧼ j͐ʃɜ ᶅſᴜƽ 🧪 ⧽≻
+// ≺⧼ j͐ʃɜ ᶅſᴜƽ 📃 ⧽≻
 
 import * as THREE from "three";
 import { px01oBikuba, px01oX2pa2 } from "../../kanta/nala/tsasaVek2fe.js";
 import { xetoh2D, mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
-import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+import { k2fKmaNlakani } from "./k61e.js";
 
 function vecax2l(ksaka: string, hatom6: number, f: () => number): void {
   let kmaXobe = Infinity;
@@ -14,7 +14,7 @@ function vecax2l(ksaka: string, hatom6: number, f: () => number): void {
     const dt = performance.now() - t0;
     if (dt < kmaXobe) kmaXobe = dt;
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He  ${(hatom6 / kmaXobe / 0o1000).toFixed(0o1)} Mops  ȏoͩſ̀ȷᴜƽ ꞁȷ̀ᴜ }ʃꞇ = ${tlunakani.toFixed(0o2)}`);
+  k2fKmaNlakani(ksaka, kmaXobe, tlunakani, 0o30);
 }
 
 const N = 0o300;

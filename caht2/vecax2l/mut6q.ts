@@ -1,4 +1,4 @@
-// ≺⧼ ŋᷠw ɭʃэȝ 🧪 ⧽≻
+// ≺⧼ ŋᷠw ɭʃэȝ 📃 ⧽≻
 
 import * as THREE from "three";
 import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
@@ -95,7 +95,7 @@ function vecax2lPareHaweh2(): void {
   }
   tn.sort((a, b) => a - b); tm.sort((a, b) => a - b);
   const mn = tn[tn.length >> 0o1], mm = tm[tm.length >> 0o1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘꞇ ɭl̀ɔ ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(tbo(mm), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(tbo(mn), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${(mm / mn).toFixed(0o2)}x ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${Math.min(...tm).toFixed(0o1)} ${Math.min(...tn).toFixed(0o1)} ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
+  console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘꞇ ɭl̀ɔ ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(tbo(mm), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(tbo(mn), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${(mm / mn).toFixed(0o2)}x ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ = ${Math.min(...tm).toFixed(0o1)} ${Math.min(...tn).toFixed(0o1)} ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
 }
 
 function vecax2l(ksaka: string, f: () => number): void {
@@ -107,10 +107,10 @@ function vecax2l(ksaka: string, f: () => number): void {
     tif.push(performance.now() - t0);
   }
   tif.sort((a, b) => a - b);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o24)} ſȷƽᴜ ɭʃᴜ }ʃw = ${knak2fecajasai(tbo(tif[0o10]), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${knak2fecajasai(tbo(tif[0o0]), 0o6)} He`);
+  console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o24)} ſȷƽᴜ ɭʃᴜ }ʃw = ${knak2fecajasai(tbo(tif[0o10]), 0o6)} He ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ = ${knak2fecajasai(tbo(tif[0o0]), 0o6)} He`);
 }
 
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ${N}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſןᴜ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſɭᴜ ${N}`);
 vecax2l("hal6da", xafanitapuHal6da);
 vecax2l("haweh2", xafanitapuHaweh2);
 vecax2l("premo", xafanitapuPremo);

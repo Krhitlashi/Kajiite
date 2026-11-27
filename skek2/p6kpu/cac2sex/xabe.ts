@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { hunanu } from "../haweh2.js";
-import { k2fKonturanQoxan, kf2P2t6zoCac2sex, p2somani } from "./mafezi.js";
+import { k2fKonturanQoxan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 export type Fc2qWeh2Cax2lo = {
   kanvasaSefini: number;

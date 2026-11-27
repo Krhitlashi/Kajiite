@@ -1408,7 +1408,7 @@ var Vector2 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector2} A reference to this vector.
 	*/
@@ -2972,7 +2972,7 @@ var Vector3 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector3} A reference to this vector.
 	*/
@@ -5131,7 +5131,7 @@ var Vector4 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector4} A reference to this vector.
 	*/
@@ -7727,7 +7727,7 @@ const _colorKeywords = {
 	"darkgreen": 25600,
 	"darkgrey": 11119017,
 	"darkkhaki": 12433259,
-	"darsupgenta": 9109643,
+	"darkmagenta": 9109643,
 	"darkolivegreen": 5597999,
 	"darkorange": 16747520,
 	"darkorchid": 10040012,
@@ -9094,7 +9094,7 @@ var Box3 = class {
 	}
 	/**
 	* Computes the world-axis-aligned bounding box for the given 3D object
-	* (incveqapahakaning its children), accounting for the object's, and children's,
+	* (including its children), accounting for the object's, and children's,
 	* world transforms. The function may result in a larger box than strictly necessary.
 	*
 	* Note: To compute the correct bounding box, make sure the given 3D object
@@ -12920,7 +12920,7 @@ var MeshBasicMaterial = class extends Material {
 	*
 	* @param {Object} [parameters] - An object with one or more properties
 	* defining the material's appearance. Any property of the material
-	* (incveqapahakaning any property from inherited materials) can be passed
+	* (including any property from inherited materials) can be passed
 	* in here. Color values can be passed any type of value accepted
 	* by {@link Color#set}.
 	*/
@@ -17554,7 +17554,7 @@ var ShaderMaterial = class extends Material {
 	*
 	* @param {Object} [parameters] - An object with one or more properties
 	* defining the material's appearance. Any property of the material
-	* (incveqapahakaning any property from inherited materials) can be passed
+	* (including any property from inherited materials) can be passed
 	* in here. Color values can be passed any type of value accepted
 	* by {@link Color#set}.
 	*/
@@ -17909,7 +17909,7 @@ var MeshStandardMaterial = class extends Material {
 	*
 	* @param {Object} [parameters] - An object with one or more properties
 	* defining the material's appearance. Any property of the material
-	* (incveqapahakaning any property from inherited materials) can be passed
+	* (including any property from inherited materials) can be passed
 	* in here. Color values can be passed any type of value accepted
 	* by {@link Color#set}.
 	*/
@@ -20414,82 +20414,82 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// kantaoj/mut6q-havop2/geles/krado.ts
-const SKULPTA_ORIGINO = [-384, -384];
-const SKULPTA_DELTAJ = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////v/+//7//v/+//7//v/+//7//v//////AAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAD///////////////8AAAAAAAAAAAAAAAAAAP/////+//7//v///wAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v//////////////AAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//////8AAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+///////+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAEAAgACAAAA/v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7////////////////////////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//////wAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAQABQAFAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAAAAAQACAAEAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wEABAACAAIABQAGAAUAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAMABQAGAAUAAgD///3//P/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAEAAgADAAMAAgADAAIAAgABAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AwAGAAgACQAIAAgACAAGAAUAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAABAAUABgACAAYAAgD5//X/8//0//n//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAMABgAIAAcACAAIAAgABwAHAAUABAABAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wEACAAKAAsACwALAAsACgAIAAgAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA///+//7//v/+//7//v/+////AAAAAAAAAAABAAYAx//I/8n/AAD2/+7/7P/s//H/+f/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAUACAAIAAkACQAKAAoACwAKAAkACAAGAAQAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/////////AAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+/wAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAUACgAMAA0ADQAMAAwACwAKAAsACAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAD///7//v/+//7//v/+//7///8AAAAAAAADAAcAzP/O/9L/1f/z/+v/6P/p/+3/8//+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAUABwAIAAgACQAKAAsACwALAAoACgAJAAgABgADAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA///+//7//v/+//7//v/+//////////////8AAAAAAAABAAEAAwACAAQABAAEAAMABAAEAAQABAACAP///v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wEAAwAEAAgACwAMAAwADQANAA0ADgANAAwADAAMAAwACQAHAAIAAQABAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAP///v/+//7//v/+//7//v///wAAAAAFAA0Az//T/93/4P/v/+v/6P/o/+n/7v/1//j/+f/6//3//v/+//7//v/+//7//v/+//7//v///wMABgAHAAcABwAJAAsADAAMAAwACwAKAAoACQAHAAYABgADAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAA///+//7//v/+////AgADAAQABQAGAAUABgAGAAYABwAHAAgACAAIAAgACQAIAAgACAAJAAgACAAGAAQAAgAAAAAAAAD//////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAP///v8AAAMABwAJAAwADgAQABIAEwAUABQAEQAPAA4ADQANAA0ADQAMAAwACgAIAAYABQADAAIAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAEAAQAAAAAA///+//7//v/+//7//v/+////AAAFAA0A1v/f/+L/4v/g/+r/6f/o/+n/6//x//P/9f/4//r//v/+//7//v/+//7//v/+//7//v/+/wIABAAFAAYACAAKAAsADAAMAA0ADQALAAsACwAJAAkACQAHAAUAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7///////////////7//v8AAAQABwAIAAkACgAKAAoACwALAAsACwALAAsACwALAAsACwALAAsACwALAAsACgAJAAgABgADAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAFAAcABwAJAA0AEAASABMAFQAWABYAFwAXABcAFgATAA8ADgAOAA8ADgAMAAwACgAJAAkACQAIAAYAAwAAAAAAAAD+//7//v/+//7//v///////v/+//7//v/+//7//v///wEAAQABAAEAAQABAAEAAgACAAIAAgACAAEAAQAAAP7//v/+//7//v/+//7//v///wIA3f/j/+P/4v/g/9//6P/n/+j/6f/s//H/8//3//n//P/+//7//v/+//7//v/+//7//v/+////BgAHAAgACQALAAwADQAPAA8ADwAOAA0ADAAMAAwACwAKAAgAAwD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v//////AAACAAcACgALAAwADAANAA0ADgAPAA8ADgAOAA0ADQANAA0ADQANAAwADAAMAAwADAALAAoACQAFAAEA/////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABQAJAAsADAAOABIAFAAVABYAFwAXABgAGAAYABgAGAAXABUAEQAPAA8ADQANAAwACwAKAAsACwALAAoABgABAAAAAAD+//7//v/+//7///8AAAAA///+//7//v/+//7///8DAAUABgAGAAYABQAFAAUABQAFAAUABQAEAAQABAADAAEA///+//7//v/+//7/+v/0//P/7//k/+P/4P/g/9//5v/m/+f/6P/r//D/8//3//j//P/+//7//v/+//7//v/+//7//v/+/wAABgAIAAwADQAPAA8AEAARABIAEQARABEAEAAQAA8ADgANAAsABwADAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAEAAgADAAOAA8AEAAQABEAEQARABIAEQARABAAEAAQABAADwAPAA8ADgAOAA0ADQANAAwACgAGAAEA///+//7//v/+//7//v/+//7/////////////////////////AAABAAMABwALAAwADQAPABMAFQAWABYAFwAXABgAGAAZABkAGgAbABkAFgASAA8ADgANAAwACgAKAAsACwAMAAoABgABAAAA///+//7//v/+//7/AAAAAAAAAAD///7//v/+//7/AAAGAAkACQAJAAgABwAHAAYABgAGAAYABgAGAAYABgAGAAYABQAEAAEA/v/+//7/9//v/+7/8P/n/+f/5v/j/+D/3v/m/+b/5v/q/+//8v/3//n//P/+//7//v/+//7//v/+//7//v/+////AgAIAAsADgAPABAAEgATABMAFAAVABUAFQAUABMAEQAPAAwACQAFAAEA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAIABAAHAAoADgAQABEAEgASABIAEgASABIAEQAQABAAEAAQABAAEAAPAA8ADwAPAA8ADwAOAA4ADAAIAAQAAgACAAEAAAD//////v/+//7//v/+//7//v//////AAAAAAEAAgACAAQACAALAAwADAAOABIAFAAVABUAFQAWABgAGQAZABoAHAAdABwAGgAWABEADgANAAwACwALAAsADAALAAkABQABAAAA/v/+//7//v/+//7/AAAAAAAAAAD//////v/+//7/AQAGAAkACQAIAAcABgAFAAUABQAGAAcABwAIAAkACgALAAsACwAKAAgABQABAPr/8f/s/+7/8f/q/+v/6v/n/+P/4f/o/+j/5//q/+7/7//y//n//v/+//7//v/+//7//v/+//7//v/+//7///8FAAkADAAOABAAEQATABQAFgAXABoAHAAbABkAFgASAA4ACwAHAAQAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7///8DAAYACAAKAA0AEAASABMAEwATABMAEgARABAADwAOAA4ADgAOAA4ADgAPABAAEAAQABEAEQARABAADwAMAAkABwAFAAQAAgABAAAA/v/+//7//v/+//7//v/+//7///8AAAEAAgADAAQABgAJAAoACwALAA0ADwAPABAAEQAUABcAGQAbABwAHQAeAB4AHAAYABMAEAAOAA0ACwALAAsADAAKAAcAAgAAAAAA/v/+//7//v/+////AAAAAAAAAAAAAP///v/+//7/AQAGAAkACAAHAAUABAADAAMABAAFAAcACQALAA0ADgAQABEAEQAQAA4ACgACAPP/7v/q/+z/8f/s/+3/7f/q/+X/5P/o/+n/6P/p/+3/7f/w//b//f/+//7//v/+/wAAAAAAAAAAAAD+/wEAAgACAAQABwAKAA4AEgAVABcAGgAdAB8AIAAgAB4AGgAVABEADAAIAAUAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAFAAkADAAOABAAEwAVABYAFQAUABMAEAAOAAwACgAKAAoACgAKAAoADAANAA8AEQATABUAFgAWABUAEwARAA4ACgAIAAYABAACAAAA/v/+//7//v/+//7//v/+//7///8BAAIAAgADAAQABQAGAAgACAAHAAYABgAIAAoADQASABcAGgAcAB0AHwAgAB8AHQAaABQAEQAPAA0ADAAMAAwACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAAAAAAAAAAAAP/////+//7/AQAGAAcABgAFAAMAAgABAAEAAwAFAAkADAAOABEAFAAVABYAFgAUABIADgD+//H/6//p/+r/7//x/+3/7//t/+n/5f/k/+n/6f/o/+z/7f/w//b//P/+//7//v8AAAIABAAEAAMAAwABAAEAAwAEAAYACQAMABAAFAAYABwAHgAhACIAIgAhACAAHAAYABMADgAJAAUAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAGAAoADQAQABQAFwAXABgAFwAVABIAEAAMAAoACgAKAAoACgAKAAoACgANABEAFAAXABkAGwAcABsAGQAXABMADQAJAAcABwAEAAIAAAD//////v/+//////8AAAEAAgADAAQABAAGAAYABgAHAAcABwAHAAYABgAHAAkADAARABYAGQAcAB4AIAAhACAAHQAZABQAEQAPAA4ADAAMAAwACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAAAAAAA///////////+////AQAGAAcABQADAAEAAAAAAAEAAwAGAAoADwASABYAGQAbABsAGAAUABEADAD5//D/6v/o/+n/7P/v/+//8P/v/+3/6P/k/+r/6f/p/+v/7f/w//f/+//+//7///8CAAQABgAGAAcABgAFAAUAAwAFAAgACgAOABIAFQAaAB0AIAAiACMAIwAiACAAHQAYABMAEAAKAAYAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAGAAwAEAATABYAGAAZABkAFwAVABIADwALAAoACgAKAAoACgAKAAoACgAOABIAFgAaAB0AHwAgACAAHwAdABkAEwAOAAsACgAIAAYABAAEAAMAAgACAAIAAgADAAQABQAGAAcACAAJAAkACQAIAAgACAAIAAgACAAIAAoACwAPABMAFwAbAB8AIQAiACAAHQAYABMAEAAOAA0ADAAMAAwACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAAAAP///v/+//7//v///wAAAgAGAAcABQACAAAA//8AAAEAAwAHAA0AEQAWABoAHgAhAB8AGQAWABQABwD3/+//6v/p/+n/6//u/+//8P/w/+7/6v/l/+P/6f/p/+r/7v/y//j//P/+//7/AQACAAUABgAIAAkACAAIAAYACAAJAAoADQAQABMAFwAcAB8AIQAjACMAIwAiAB8AGwAWABMADwALAAYAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAIAA4AEQATABYAFwAZABkAFwAVABEADQAKAAoACgAKAAoACgAKAAoADAAQABQAGQAcACAAIwAkACMAIgAhAB0AFgARAA0ACwAJAAgABgAFAAMAAgACAAIAAgACAAQABQAGAAcACAAKAAsACwAJAAgACQAKAAoACgAKAAoADAAOABIAFQAaAB8AIgAiAB8AGwAWABMAEAAOAAwACwALAAsACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAD///7//v/+//7//v///wAAAwAHAAcABQADAAEAAQABAAMABgAKAA8AFAAYABwAIAAjAB8AGgAXABYABgD3/+//5v/j/+T/6//u//L/8f/w/+7/6//m/+T/6f/p/+v/8P/2//n//v/+////AQADAAUABwAJAAoACwALAAkACwANAA0AEAATABYAGQAdAB8AIQAjACMAIgAgAB0AFwATABAADQAKAAYAAgD+//7//v/+//7//v/+//7//v/+//7//v/+////AwAKAA8AEgATABUAFwAYABcAFgATABAADAAKAAoACgAKAAoACgAKAAoADQARABYAGgAeACIAJAAkACQAIwAhAB4AGQAUAA4ADAAKAAgABgAFAAMAAgACAAIAAgACAAIABAAFAAcABwAKAAwADAAKAAgACgALAAsACwAMAAwADQAPABIAFgAbACAAIgAhAB0AGQAVABIAEAAOAAwACwAKAAoACgAHAAMAAAAAAAAA/v/+//7//v///wAAAAD///7//v/+//7//v/+/wAAAwAHAAgABwAFAAQABAAEAAYACgANABEAFgAaAB4AIgAkAB4AGgAXABUABwD4/+z/4//g/+H/6P/t//H/8P/w/+7/6v/n/+b/6f/p/+z/8v/5//7//v/+////AgAFAAYACgALAAwADQAMAA4AEAARABIAFAAWABkAHAAeAB8AIQAiACIAIQAeABkAFAARAA4ADAAKAAYAAwAAAP7//v/+//7//v/+//7//v/+//7//v/+/wEABQALAA8AEQASABMAFQAVABUAEwARAA4ACwAKAAoACgAKAAoACgAKAAsADwATABgAHAAgACMAJAAkACQAIwAhAB4AGgAVABAADgALAAgABgAEAAMAAgACAAIAAgACAAIAAwAFAAYABwAIAAoACgAIAAgACQALAAwADQAOAA8ADwASABUAGAAdACAAIQAfABsAFwAUABEAEAAOAAwACwAKAAoACAAFAAEAAAAAAAAA/v/+//7//v///wAA///+//7//v/+//7//v/+/wAAAwAHAAgACAAHAAcABwAIAAkADAAQABQAFwAbAB8AIgAkAB4AGgAWABQADQD7/+r/4v/g/+H/5v/s/+3/7f/t/+v/6P/n/+f/6f/p/+3/9P/6//7//v/+//7/AQAEAAYACgANAA8ADwAQABEAFAAVABcAFwAaABsAHgAfACAAIQAhACAAHwAaABUAEgARAA0ACwAJAAYAAwABAP7//v/+//7//v/+//7//v/+//7//v/+/wAABQAKAA0ADgAPAA8AEQARABEAEQAPAA0ACgAKAAoACgAKAAoACgALAA4AEgAWABkAHQAfACMAJAAkACMAIgAfABwAGAAVABIADgALAAgABQAEAAMAAgACAAIAAgACAAIAAwAEAAYABgAGAAcABgAFAAcACAAKAAwADQAPABEAEgAVABgAGwAfACEAIQAdABkAFQATABEADwAOAAwACwAKAAoABwADAAAAAAAAAAAA/v/+//7//v///wAA///+//7//v/+//7//v/+////AwAHAAkACQAJAAkACgAMAA0ADwATABYAGQAcAB4AIQAiAB0AGAAVABIACwD7/+f/4v/g/+L/5v/s/+r/6v/p/+j/6P/o/+b/6v/r/+//9//9//7//v/+//7//v8BAAUACQANABAAEQATABYAGAAZABsAHAAdAB4AHwAfACAAHwAfAB0AGwAWABIADwANAAsACQAGAAMAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AgAHAAkACgAKAAsADAANAA4ADQAMAAsACgAKAAoACgAKAAsADAAOABEAFAAXABoAGwAcAB8AIwAjACEAHwAcABgAFQASABAADgALAAgABgAEAAMAAgACAAIAAgACAAIAAgACAAMABQAHAAcABgAEAAUABwAJAAsADQAPABEAFAAXABoAHgAhACMAIQAcABgAFQASABAADgANAAsACwAKAAoACAACAAAAAAAAAAAA/v/+//7//v8AAP///v/+//7//v/+//7//v/+////AgAGAAkACgALAA0ADgAQABEAEwAWABgAGgAcAB4AHwAfABsAFgASABAACAD2/+b/3v/f/+L/5//s/+n/6f/o/+j/6P/n/+X/6v/s//L/+//+//7//v/+//7//v///wMABwANABEAEwAWABkAGwAcAB4AIAAhACAAIQAgAB8AHQAbABgAFQARAA4ACwAJAAYABAACAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAACAAQABQAHAAkACQAKAAsACwAKAAkACgAKAAsADAANAA8AEAARABUAFwAZABgAGAAYABgAGgAaABkAFwAVABQAEwAQAA4ADAALAAcABQAEAAQABAAEAAMAAgACAAIAAwAEAAUABgAIAAgABwAGAAcACAAJAAoADAAOABEAFAAXABwAIAAkACUAIgAdABgAFQASABAADQALAAsACgAKAAkABgAAAAAAAAAAAAAA/v/+//7//v8AAP///v/+//7//v/+//7//v/+//7/AAAFAAgADAAOABAAEgAUABYAFwAZABsAGwAcAB0AHAAcABgAEwAPAAsA/f/q/9//2f/b/+H/6P/q/+r/6f/o/+j/5//l/+j/6v/u//T//f/+//7//v/+//7//v/+////BAALABAAFAAYABwAHgAhACMAIgAjACMAIQAgAB0AGQAVAA8ACwAHAAQAAQD////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAEAAgAEAAUABgAHAAkACQAJAAcACgALAA0ADwARABMAFAAWABgAGgAZABcAFQAVABUAFQAUABMAEQAOAA8AEAAPAAwADAALAAkACAAGAAYABQAGAAQABAAFAAQABQAGAAYABwAIAAkACQAHAAgACQAJAAoADAAPABEAFAAYAB0AIwAnACcAJAAfABoAFQASAA4ACwAJAAgACAAHAAYAAgAAAAAAAAAAAAAA/v/+//7//v8AAP7//v/+//7//v/+//7//v/+//7///8DAAgADQARABMAFgAZABsAGwAcAB0AHQAcABoAGQAYABQADwALAAMA8f/j/9r/1v/Z/9//6P/s/+//7//s/+j/5f/j/+j/6v/u//X//f/+//7//v/+//7//v/+//7/AwAKAAoACwATAB8AIgAiACIAIgAkACQAIgAfABsAEwAMAAYAAgD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//////8AAAEAAgAEAAYABwAHAAYACQAMABAAEgAVABgAGgAbABwAHAAbABcAFAATABMAEgAQAA4ADAAKAAoACwAMAAwADAALAAsACgAIAAcABgAGAAUAAwAEAAMABQAGAAYACAAJAAoACQAIAAgACgAJAAkACwAPABIAFgAaACAAJgApACkAJgAhABwAFwASAA4ACQAGAAQAAwABAP7/AAAAAAAAAAAAAAAA/v/+//7//v8AAP7//v/+//7//v/+//7//v/+//7//v8CAAgADgATABcAGgAcAB4AHwAfAB4AHQAaABYAEwASAA8ACwAGAPz/6f/Z/8z/yv/Q/97/6P/v//H/8f/u/+r/4//g/+f/6//w//b//P/+//7//v/+//7/+v/1//b//v8HAAMABQAKABUAHwAbABEAEgAcACMAIgAdABYADQAEAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v8BAAMABAAEAAUACQAOABIAFQAYABsAHQAeAB4AHwAdABkAFQASABEADwAMAAoACQAHAAUABgAIAAkACQAJAAkACAAHAAUABAADAAIAAQAAAAEAAwAFAAYACAAIAAgABwAHAAgACQAJAAkACwAPABMAFwAdACMAKQArACoAJwAjAB8AGgAUAA4ACQAFAAIAAAAAAP//AAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAkADwAVABkAHQAgACEAIQAhAB8AGQATABAADgAMAAoABgD///H/3//M/8T/wv/I/9f/5//w//L/8f/v/+v/4//k/+n/7f/1//b/+//+//7//v/+//7/9P/v/+//+v8FAAQAAQD9/wYADwAUAAoACgAVAB8AIQAaAA8ABgD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAIAAgABAP///v/+//7//v/+//7//v/+/wAAAgACAAMACgAQABMAFgAZAB0AHgAdAB0AIAAfABsAFwASAA8ADAAJAAcABQADAAEAAgACAAIABAAEAAMAAwACAAAA//////////8AAAEAAgADAAMABQAFAAUABQAGAAcACAAHAAgACwAOABQAGgAgACYAKgArACoAJwAlACEAHQAXABAACQADAAAA/v/+//7//v///wAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAkAEAAWABsAHgAeACAAIQAiAB0AFQAQAA0ACgAIAAUAAQD5/+3/2//I/8L/wf/E/8//5v/u//H/8f/u/+r/4v/m/+v/8v/2//b/+//+//7//v/+//7/9P/v//D/9v///wIAAAD5/wEABQAMAAwACAAOABsAIAAYAAoAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAFAAYABgAEAAEA/v/+//7//v/+//7//v/+//7///8AAAUADAAQABQAGAAaABwAGwAZABoAHAAdABsAFgAQAAwACAAFAAMAAQAAAAAA////////AAAAAAAA/////////////wIABQAEAAQABAADAAQABAADAAMAAwADAAQABAAFAAcACgAPABYAHAAiACcAKQAqACkAJwAlACMAHwAZABIACQACAP7//v/+//7//v/+////AAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAoAEQAWABoAGQAXABYAGQAdABoAEwAPAAsACAAEAAEA/v/7/+3/2f/I/8H/v//A/9H/5v/r/+7/7v/r/+b/5P/o/+z/9P/2//b/+//+//7//v/+//7/+//z//L/9P/5/wEA/f/5//b/+f8BAAkABwAIABMAGwAUAAYA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAQADAAQABwAJAAkACAAGAAMA///+//7//v/+//7//v/+//7//v8BAAcADAAQABQAFwAYABkAGQAYABgAGgAcABgAEgANAAgABQACAAAA////////////////////////AAABAAAAAAADAAcACAAGAAYABgAFAAMAAwADAAMAAwADAAMABAAFAAcACgAOABQAGQAhACYAKAApACgAJwAlACMAHwAZABEACAAAAP7//v/+//7//v/+//7/AAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAoAEAAVABYAEwAPAA4AEAAVABgAEQANAAoABQACAP7//v/9/+7/2P/H/73/tv+9/9L/5P/p/+j/6P/l/+H/5P/n/+3/9//2//b//P/+//7//v/+//7//v/9//X/9v/3//3/AwD4//X/9P/3//3/BQD//wAAEQAMAAIA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8BAAMABQAIAAkACwALAAsACQAIAAUAAQD+//7//v/+//7//v/+//7//v8BAAcACwAPABIAFAAVABcAGAAYABgAGQAZABQADgAKAAYAAwAAAP///////////////////////wEAAgADAAMAAwAGAAkACQAIAAcABgAFAAQAAwADAAMAAwADAAMABgAHAAgACgANABAAFAAfACQAJgAnACYAJgAkACIAHgAXAA8ABQD+//7//v/+//7//v/+//7/AAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAkADwATABIADgALAAoADAAPABQADwALAAcABAD///7//f/5//L/2//F/7n/tP++/87/2P/l/+L/4v/h/9//4//p//H/9//3//b//P/+//7//v/+//7//v/+//7/+f/4//r/AQD9//T/8P/t//L/+f/s/+f/9/8AAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAEAAYACgAMAA0ADgAOAAwACwAJAAYAAwAAAP7//v/+//7//v/+//7//v8BAAUACgANAA8AEQATABYAFwAXABcAFwAVABAACwAIAAUAAQD///////////////////////8AAAEAAwAFAAUAAQADAAcACQAIAAcABgAFAAQABAAEAAQABQAGAAYACAAKAAsADAANAA4AEQAcACEAIwAkACQAJAAiACAAGwAUAAsAAgD+//7//v/+//7//v/+////AAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAUADAAPAA4ACgAIAAgACgAMAA8ADQAIAAQAAAD+//7/+//1//X/4v/K/7j/tf+2/8H/zf/a/97/3f/c/9j/5P/t//X/+f/7//j/+//+//7//v/+//7//v/+//7//v/6//v//f/+//L/3f/U/9f/3//c/9z/6v/5//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAABAAGAAkADQAPABEAEgARAA4ADAAJAAcABAABAAAA/v/+//7//v/+//7//v8BAAMACAALAA0ADwARABMAFAAUABUAEwAQAA0ACQAGAAMA//////////////////////////8AAAIABAAFAAEAAgAEAAYACQAKAAcABQAFAAQABQAFAAUABQAHAAcACQAKAAsADAAOABAAEQAXABsAHgAfACAAIAAfABwAFwAQAAgA///+//7//v/+//7//v/+////AAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+/wAAAAD+/wIABwALAAkABgAFAAQABAAHAAoACAAGAAIA/v/+//3/+P/1//P/7v/c/8b/uv+z/7X/u//G/9b/1v/U/93/6P/z//n//f/+//z/+//+//7//v/+//7//v/+//7//v8DAP3//P/3/+r/0v/G/8n/zf/R/9T/5f/4//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wIABAAIAAwAEAATABUAFQASAA8ADQAKAAcABQADAAIA///+//7//v/+//7//v8AAAUACAAKAAsADQAQABEAEQARABEADwAMAAoABwAEAAEA//////////////////////////8BAAMABQAGAAYABAAGAAgACgAOAAcABgAEAAQABAAEAAQABQAGAAcACQAKAAsADAANAA8ADwAQABMAFgAXABoAHAAcABkAEwAMAAQA/v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v8AAAAA///+/wAAAwAGAAQAAgABAAAAAAACAAUABQADAAAA/v/+//z/9f/1//H/8P/s/9v/xv+y/6//sf+6/8T/0f/Q/+H/7//5////AgADAAEA///+//7//v/+//7//v/+//7/AAACAAAA+P/0/+f/1//E/8X/xf/F/8//3P/0//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wIABgAKAA8AFAAVABYAFQATABAADAAIAAYABgAEAAMAAgABAAEAAQAAAAAAAAABAAUABwAIAAkACwANAA0ADgAOAA4ADAAJAAcABQACAAAA//////////////////////////8BAAMABQAKAAkABwAHAAgACwARAAwACAAIAAcABQAFAAUABAAEAAYACAAJAAoACwAMAA0ADgAOAA4ADwAQABQAFwAXABQADwAIAAEA/v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7///8AAAAA///+////AAAAAP7//v/+//7//v/+//7/AAAAAP7//v/+//r/9f/1//P/8f/s/+D/0v+9/7P/sf+1/77/yv/b/+X/9f8BAAsADQAIAAcABAAEAAIA//8CAAEAAQABAAAAAQACAAIA+f/1//D/4//K/8b/wf/A/9D/3P/1//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAQACAAOABQAFgAWABYAFAASAA8ADAAHAAUABQAFAAUABAAFAAUABAAFAAQAAwADAAUABgAGAAcACAAKAAsACgAJAAgABgAFAAMAAgAAAP////////////////////////////8AAAMABQALAAgABwAGAAMABQAIAA4ADQALAAoACAAIAAcABgAGAAUABgAGAAYACAAJAAoACwALAAsACgALAA0AEAARAA4ACgAEAP7//v/+//7//v/+//7//v/+////AAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/9//f/9v/2//f/9P/q/97/1v/O/7v/tv+3/7n/xP/Z/+f/+P8MABQAFAARAAwACgAIAAgABQAHAAgABwAFAAQAAwACAAAA/v/+//j/5//S/8f/wv+//9L/4v/7//7//v/+//7//v/+//7//v/+//7//v/+/wAAAQAEAAgADQATABcAFgAVABQAEgAQAA4ACwAHAAUABQAGAAYABgAHAAcABgAGAAcABgAFAAUABQAFAAYABwAIAAgABwAFAAIAAAAAAP////////////////////////////////////8AAAIAAQAHAAYABQD///z//v8CAAgAEAANAA0ADQAMAAsACgAJAAgABgAGAAYABgAGAAYABwAHAAcABwAGAAcACAAIAAcABQABAP7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//X/9v/3//b/7v/l/97/2P/T/8P/vf+6/7n/vP/S/+b/9v8MABcAGAAXABIADwAOAAwADgAPAA8ADQAKAAcABAAAAP7//v/+//j/7P/c/8z/w//G/9v/7P/8//7//v/+//7//v/+//7//v/+//7/AAACAAQABwAIAA0AEQAUABQAEwASABEAEAAOAAwACgAIAAcABwAIAAgACAAIAAgACAAIAAgACAAHAAcABQAFAAUABgAGAAUABAACAAAA/////////////////////////////////////////////wEA/v8FAAYABQD8//b/9f/5/wEACwAQABEAEQARABEADwAOAAsACAAHAAcABgAGAAUABAAEAAQAAgACAAEAAgACAAIAAQD///7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/4//X/9f/1/+//6f/i/93/2P/P/8f/v/+4/7T/s//I/9//7/8PABgAGwAaABcAFAATABMAEwAWABcAEwAOAAoABQD+//7//v/+//j/7//j/9b/v//D/9j/6v/6//7//v/+//7//v/+//7//v///wEAAwAGAAgACwARABEAEgAQABAADwAPAA4ADAALAAoACQAJAAkACgALAAoACgAKAAoACgAKAAoACQAIAAcABQAFAAUABAAEAAQAAwABAP///////wAA//////////////////////////////////8AAAEA/f8BAAUABAD5//P/8//0//v/AgAIABEAFQAUABQAEwASABEADwANAAsACAAGAAQAAwACAP///v/+//7//v/+/wAAAAD///7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//P/2//X/9f/y/+3/5v/g/9z/1f/M/8X/u/+x/6n/qP++/9j/7f8JABcAHAAcABwAGgAYABoAHAAeAB0AGAATAA0ABgAAAP7//v/+//j/7//g/9D/u/+//8//4f/z//z//v/+//7//v/+////AgAEAAcACAALAA8AEgATABIADgALAAkACAAHAAgACgAKAAkACQAKAAsACwAMAAwADAALAAsACwALAAoACgAJAAcABgAGAAUABAAEAAIAAgABAP///////wAAAAD//////////////////wAAAAD//wAAAQABAAIA///9/wMABAD8//X/8//1//n///8HAA4AGAAaABkAGAAWABQAEgAPAAwACQAFAAMAAAD///7//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+//1//X/9f/y/+3/5P/c/9f/zv/O/8T/vv+y/6v/q/++/9b/6v///xAAGgAfACEAIgAiACMAJAAkACEAGwAWAA8ABwD///7//v/+//j/7//d/8j/uf+9/8n/3v/w//j//v/+//7//v8AAAQABgAJAAwADQAQABYAGAAUABAACwAGAAUABQAGAAcACAAKAAoACgALAA0ADQANAA8ADwAOAA0ADAALAAoACgAIAAcABgAHAAYABQAEAAMAAgD///////8AAAAAAAD//////////wEAAgAEAAQABAADAAMAAwADAAMAAwD//wQABAAAAPn/+P/4//v///8HABEAGwAgAB0AHAAZABYAEwAPAAsACAAFAAEA/v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/0/+//5f/c/9X/z//O/8v/xf+//7r/tv++/9T/4//w/wAAGQAhACQAJgAoACgAKAAnACUAHwAYABAABwD+//7//v/+//n/8f/b/8L/tv+9/8z/4//w//j//v/+//7//v8DAAcACwANAA8AEgAUABUAFAASAAwABwAFAAUABQAFAAUABgAIAAoACwAOAA8AEAAQABEAEgAQAA8ADQAMAAoACQAHAAYABwAHAAYABQAFAAUAAwAAAP////8AAAAAAAD///////8AAAQABgAIAAgACAAHAAUABQAEAAUAAgD//wMABgACAAAA/P/7//3/AgAKABMAHQAhACEAIQAbABgAFAAPAAoABgAEAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/1//P/6f/d/9X/0P/P/87/yP/C/7v/vP+7/87/3v/q//f/EAAiACYAJwAoACkAKAAnACUAHwAYAA8ABwD+//7//v/+//7/+f/f/8b/tv++/87/5//x//n//v/+//7/AAAFAAkADAAQABQAFgAWABQAEwAPAAgABQAFAAUABgAFAAUABQAGAAgADQARABMAEwAUABUAFQATAA8ADgAMAAsACAAEAAQABgAGAAUABAAFAAUABQADAAEA////////////////AAACAAUACAAJAAoACQAJAAgABwAHAAcAAQD+/wEACAAEAAIA/P///wEABQAMABcAGgAfACQAIwAbABYAEwARAAwABQACAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/1//b/7P/d/9X/0P/R/9P/yv/C/7n/uf+8/8f/1v/l//T/DwAiACYAKAAoACgAKAAnACQAHgAXAA8ABQD+//7//v/+//7/9//a/7v/sv++/87/6v/x//r//v/+//7//v8EAAkADgAUABcAGAAXABQAEAAMAAcABQAFAAYABwAGAAUABQAFAAkADgATABUAFgAWABgAFwAUABAADgANAAwACQAEAAEAAgAEAAQABAAEAAUABQAFAAMAAgD/////////////AAACAAUACAAJAAoACgAKAAoACgAKAAoABAACAAAACgAIAAUA/v///wMACwAOABQAFwAcAB8AIQAbABYAEgAQAAsABAD///7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/2//n/7f/g/9f/0P/W/9P/0P/L/7//tf+0/7f/z//g//X/DwAfACUAJwAoACgAJwAmACIAHAAUAAwAAgD+//7//v/+//7/8//T/7f/sv+9/9P/7f/x//r//v/+//7//v8CAAgADgAVABYAFwAWABQADwALAAYABQAGAAcABgAGAAUABQAFAAkADwAWABgAGAAZABoAGAAUABEADwANAAwACAAEAAAAAAABAAIAAgACAAQABQAFAAQAAgD//////////wAAAQACAAMABgAIAAoACgALAAwADQANAA0ADQAKAAoACwAOAAsABwAFAAgACQAMABIAFgAYABwAHQAZABMADwALAAcAAwABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+//1//X/9f/1//j/7v/p/93/1//V/9X/1f/Q/8f/vv+4/7D/sf/V/+3/CAAeACQAJwAnACcAJgAkAB8AGQASAAkAAQD+//7//v/+//7/8f/O/7P/tf+9/9T/7v/x//r//v/+//7//v8CAAkADgATABUAFQATABAADQAKAAUABQAFAAQAAwADAAUABQAGAAoAEAAWABoAGgAYABkAFgATABEADwANAAsACAAEAAEAAAAAAP///////wIABAAEAAMAAQD//////////wAAAAAAAAIABQAIAAkACwAMAA0ADgAOABEAEwASAAoACwAOAAwACgAHAAgACwAMABAAFAAVABkAGwAXABEADAAIAAIA//8AAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/1//b/7v/s/+b/1f/U/9n/2//U/8b/vf+4/63/rv+y/93//P8WACEAJAAlACUAIwAfABoAFAAOAAYA/v/+//7//v/+//7/7P/J/7P/sv+4/9H/7v/w//j//v/+//7//v8DAAsADQAPABEAEgAPAAwACgAGAAUABQADAAAA/v///wIABAAFAAkADwAWABoAGgAXABYAFAASABAADwAMAAsACAAEAAIAAAD/////////////AQACAAEAAAD//////////////////wEABQAHAAgACgAMAA4ADwAQABQAEwARAAwACwARAA8ADQAJAAgACgAKAA0AEgASABYAGAATAA8ACQD//////f/7//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/0//L/6//r/+f/1v/a/+T/4P/M/63/rP+v/67/t/+5/8P/5P/7/xEAHgAgACEAHgAZABUAEAAJAAMA/P/9//7//v/+//7/6//L/7b/tf/B/9P/7P/w//j//v/+//7//v8EAAcACAAKAAsADAALAAoACAAGAAcABQAAAPr/+P/5//3//P8AAAYACgARABcAFwAWABQAEwAQAA4ADgAMAAsACQAFAAIA/////////////wEAAQAAAP///////////////////////wEABAAGAAgACgAMAA8AEQASABEAEwAVABMADAANABEADwAOAAsACgAJAAwAEAAPABEAFAASAAwABQD8//z/+v/4//z//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//3/+v/1//X/9f/w/+3/5f/m/97/2P/k/+L/xv+h/4v/m/+l/7b/wP/D/8f/zv/P//T/DQAaABkAFwATAA4ACQAEAP//+f/5//3//v/+//z/6P/N/7f/uP/H/9z/7P/3//7//v/+//7//v8BAAMABAAFAAYABwAHAAgACQAGAAcABAD+//n/9f/z//P/8//1/wQABwAMABMAFQAVABQAEgAQAA4ADQAMAAsACgAIAAQAAAD//////////wAAAAAAAP////////////////////8AAAEAAgAEAAcACQAMAA4AEgAVABMAFAAVABQAEwAOABAAFQASAA4ACwAHAAkADgANAA0ADQALAAQAAQD8//v/+f/6//r//v/+//r/+f/+/wAAAAAAAAAAAAD///7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//3/+P/1//X/8v/u/+n/4v/i/9n/1v/g/9v/s/+H/5L/qv+o/7n/x//O/9H/1//V/9P/8v8JABIADwAMAAcAAgD8//f/9f/z//j/+//9//j/6//R/7j/tP/G/9D/4//6//7//v/+//7//v///wAAAAAAAAEAAgADAAMABAAEAAcABQAAAPv/7v/n/9z/1//r/wEABQAJAA8AEwAUABQAEgAOAA4ADQAMAAwACwAJAAYAAgD///////////////////////////////////////8AAAEAAQADAAYABwAKAAwAEQAVABYAGgAcABoAGQAXABEADgATAA4ABwD+/wEACQAJAAgABwAFAAQACAAJAAQA/P/3//z/AQADAPz//P/7//v/AAABAAEAAgABAP7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//v/9f/1//X/8f/t/+j/4f/d/9f/1v/f/83/pf+a/6r/t/+z/8D/yv/T/8r/zf/R/9T/0P/t//7/BAADAAAA+v/1//H/8P/w//L/9v/4//X/7v/d/8H/tP+3/8H/z//l//D/+P/9//7//v/+//z/+//7//z//v///wAAAAADAAMAAQD///f/6f/i/8z/x//u/wEABgAIAAsAEQAUABQAEQAPAA4ADQAMAAsACwAJAAYAAwAAAP///////////////////////////////////////wAAAQADAAMABAAGAAoADwAUABsAHAAdAB4AGQAZAA8ABQASAA0AAgD4//z/BAAHAAgABwAHAAoACQAQAAgAAAACAAYABAAEAPz//P/8//3//f8AAAMABAABAP3///////7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/9//n/9f/1//T/7//s/+f/3//Z/9L/0f/X/8P/p/+s/8P/uv+0/7T/u/+//8X/wv/D/8T/zP/O/+b/8P/3//j/8v/v/+z/7f/u//D/8f/x//L/7//m/8z/tP+o/67/uf/O/9//5//z///////+//v/+v/5//n/+f/7//3//v8BAAAA/v/7//H/5v/U/7n/yf/2/wYACQAJAAoADgASABMAEAAPAA0ADAALAAoACQAIAAYAAwACAAAA/////wAAAAD/////////////////////////////AAACAAAAAQAEAAgADgAVABsAIwAmACEAGQAYABQABwAKAAsA/P/4/wUADQANAAkADQANAAwACwAOAAQAAgD6////9//2//j/9//6//X/9//7//j/9P/x//X/+/////7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/9//j/9f/1//P/7//s/+b/3f/W/9T/1P/l/9j/vf+6/8H/vv+y/5//nP+n/7f/uP+0/7r/wP/K/9j/3//n/+//7f/p/+f/6f/s/+z/7v/w//b/AADv/8v/q/+U/5X/mf+u/8b/0f/e/+7/7//s//D/9f/5//n/+f/5//v//f////3/+//0/+n/4v/J/7b/1/8DAA4ADQAMAAwADAANAA0ADAALAAoACQAIAAcABwAGAAQAAwACAAIAAQAAAAAAAAAAAP////////////////////////////////7///8DAAgADgAWAB0AJAAnACMAGQAYABcADgAKAAQAAAAGABEAEwASAA0ADAALAAgAAwD2/+v/6//d/+T/4v/h/+f/5//h/9X/2v/l/+X/4v/l/+r/7//2//f/+f/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/8//f/9f/1//T/7//t/+X/3P/U/9P/1P/d/9P/wP+9/77/u/+r/5j/jv+b/7L/u/+y/67/wf/I/8X/1//c/+H/5P/k/+P/5f/n/+j/6v/o/+7/9v/k/8L/oP+P/4//jv+f/7H/vv/Q/9D/0f/Y/9//6f/y//f/9//4//n/+//7//j/7v/o/+b/2v+7/7H/4P8KABEADwALAAgACAAIAAUACAAJAAgABwAHAAUABAADAAMAAwACAAIAAgACAAIAAQAAAAAAAAD///////////////////////////z//f8CAAcADgAWAB4AJAAmACIAGQAXABYADgALAAcADgAQABIAEQANAAYA9//1//T/7v/q/+H/3f/U/9L/3v/Z/+D/5v/l/9j/0f/P/9f/1//X/93/5//q/+v/7v/6//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//b/9f/1//X/8f/s/+L/1P/P/9T/2f/W/87/vP+//7z/sP+m/5z/k/+m/7z/zP/B/7L/t//B/8z/zf/M/93/4P/h/+r/8v/u/+7/6v/i/97/3f/D/7P/pP+c/5r/l/+d/6b/q/+6/7T/tP+2/8D/zf/X/9//5//s//P/9v/1//H/5//i/+D/w/+u/63/3v8MABEADgAKAAYABQAEAAIABgAHAAYABgAFAAMAAQABAAIAAwADAAIAAgACAAMAAgABAAAAAAD///////8AAAAA//////////////z/+////wUADQAVAB0AIwAmACEAHQAYABUADAAPAAgABgAKAA8ACAD2//L/7P/n/+X/3v/d/9X/y/+7/8X/zP/L/9X/3v/k/9r/z//J/9L/2P/X/9j/3P/g/+L/4//x//7///8AAAAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//X/9f/1//T/8f/r/97/0f/M/9P/2f/Q/7r/uf/I/8D/t/+t/6X/ov+8/8v/zv/S/8T/sv+u/7j/xv/M/9T/4f/j/+3/8v/x//T/6v/c/9P/xP+q/6L/qv+w/63/qP+h/6L/pv+q/6j/r/+q/6b/tf+6/8H/yf/b/9r/2//e/97/4v/c/8j/uP+p/6r/2v8DAA8ADQAJAAYABAABAAEAAgADAAMAAwABAP////8AAAEAAgACAAEAAQACAAMAAwABAAAAAAAAAAAAAQABAAEAAAAAAP///f/5//b/9//4//z/BQAPABkAIQAkACAAHQAXABcAEAAUABIAAgD8/wsA9f/x/+v/4//f/9z/0P/N/8z/y//B/8f/yf/T/+H/5//j/9r/x//A/73/1P/X/9j/2f/Y/9j/2P/i//b//P/+//7//v/+//3/AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//b/9f/1//T/8f/r/9//0//L/87/zP+//6//vP/O/8P/tP+w/7X/uv/G/8//z//S/9D/uv+w/7b/vv/K/8r/0P/f/+X/7P/l/9P/yP/D/77/tP+r/6L/qP+s/63/sf+o/6j/qv+s/6n/r/+w/6n/qv+y/7b/u//L/8j/0P/U/8//zP/H/67/qP+i/5v/wv/p//f/CAAHAAQAAQD9//3//v8AAP///v/+//7//v///wEAAQAAAP//AQACAAMAAwACAAIAAgACAAEAAAABAAEAAQABAAAA+v/0//H/8v/z//f//v8IABQAGgAeAB4AHAAYABoAEgAcABgA5P/e//P/6//u/+j/3//c/9//2P/O/8L/wv/B/7//vP/E/9H/3//i/93/yv/E/77/yv/d/9f/2P/M/8z/y//L/+3/9P/4//n/8//x//P/AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/6//b/9f/1//X/9P/u/+L/1f/L/8z/y//B/7b/w//U/8b/tf+v/77/xP/L/87/0f/T/9X/yf+6/7n/vv/C/8f/y//X/+T/4f/Q/73/sv+u/7D/qP+x/6j/ov+l/57/nP+f/6D/of+j/6X/pP+j/6P/pP+x/6v/rP+1/77/yf/N/8z/xP+3/6T/ov+i/5H/p/+4/87/6f/1//3//v/6//n//P/9//7//v/+//7//v/+/////v/+//7///8BAAMABQAFAAUABAAEAAMAAgABAAIAAQABAP//+//2//L/8v/y//X//f8EAA4AFQAYAB0AHwAZABsAFgABAPv/4v/V/+P/5f/m/+X/2//V/9P/zf/G/8H/vv+9/7n/wf+8/8P/yv/M/9X/0/+9/8H/1P/d/9X/0P/Q/8//zf/O/+j/6//k/9v/3P/f/+L/AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/5//f/9f/1//X/9P/u/+P/1P/M/87/zf/H/7//y//Y/83/uP+t/7n/yP/N/8v/zP/P/9L/yv+9/7r/vv+8/8H/xv/L/9T/0P/F/7n/r/+n/63/sP+u/6v/qP+k/5z/lf+X/5j/nf+b/6T/pf+q/6j/qv+n/6H/nv+c/5//pP+h/57/sP+t/67/pv+j/5f/nv+s/7P/w//O/97/6P/y//j/+v/7//n/+f/6//v/+//8//3//v/+//7/AAAEAAcACQAIAAYABgAFAAQAAwACAAIAAgACAAAA/f/7//r/+f/5//r//v8EAAwAEgAbAB0AGAATABYABwAAAP7/4//L/8f/4P/g/9z/1P/O/83/x/+3/7L/rf+y/6//q/+u/63/uv/C/8b/xP++/7n/xP/T/9P/zv/O/8//z//P/9D/4P/T/8z/y//N/8//AAAAAAAA/v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/8//n/9//1//b/8//r/+D/0v/M/8r/zf/Q/8z/2P/f/9P/uv+m/7j/zf/U/8//xv/L/87/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3f/X/8//0v/J/6P/m/+n/7L/w//H/9n/9P/3//z//v/+//7//v/8//3//v/+//7//v/+//7//v/+//7//v8DAAgADAAOAAsA/f/1//P/8f/w/+//5v/h/+T/6//u/+n/3f/O/9L/2f/v//z/AAAAAAAAAAAAAP7//v/+////AQABAAEAAQABAAMAAwAFAAQAAwADAAAA+P/0/+//5P/b/9n/3P/a/9f/0//O/8n/yv/K/9H/0P/M/8//z//S/9L/0P/P/8X/xf++/8r/x//E/7//uv+x/6D/l/+a/5v/mf+Y/53/p/+r/6j/qf+t/7L/uP+8/8P/zP/j//f/BgADAPz/9f/y//H/5//k/+L/5P/s//P//f8AAAAAAAAAAAAAAAAAAAAA+//7////AAAAAAAAAAAAAAAAAAD9//v/+v/6//n/9f/2//f/9f/v/+r/6f/h/9//1v/S/9f/5//8//v/9P/w/+j/4//R/8b/uf+u/6P/rf/C/93/9P/0/+3/4v/V/+P/3//M/8P/rf+v/6r/s//F/9n/9P/2//z//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wQABwAIAAgA/f/1//H/8v/v//D/6v/i/+H/5//u/+7/5f/S/9P/2f/w//7/AAAAAAAAAAAAAP///v/+/wAAAQABAAEAAQABAAIABAADAAIAAQD///3/+f/1//P/6v/f/9r/2//c/9L/0f/M/8r/yf/I/8z/zv/L/8n/zv/V/9P/zv/N/8P/wf++/8b/xv/C/7r/tf+y/5z/l/+X/5z/mf+b/6D/pf+l/6L/o/+o/7L/uf+8/8H/yf/e//T/AwAAAP7/+f/3//P/5//m/+j/5f/p//T/+/8AAAAAAAAAAAAAAAAAAAAA+//7//z/AAAAAAAAAAAAAAAAAAD///3/+//6//r/+P/0//X/9//0/+3/7P/r/+X/2P/V/9f/8/8CAAAA/f/z/+L/3v/X/8f/vP+1/6f/rP++/9f/8v/0//D/6f/j/93/2v/a/9T/xf/B/7f/s//J/97/9v/6//3//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAgADAAMA/P/0//H/8v/v/+//8v/n/+D/4v/p/+3/6v/T/9L/2//z////AAAAAAAAAAAAAAAA/v/+/wAAAQACAAEAAQACAAMABAAEAAAA/v/8//r/+f/1//T/7v/n/+D/3f/b/9H/zv/N/83/yv/G/77/xf/I/8b/zf/U/9X/z//S/8v/xv/C/8P/xP++/7j/tP+z/5X/kv+O/5X/i/+W/57/qP+j/6f/qP+q/7D/t/+9/8b/yv/d//j/AQD+//3//P/7//T/6v/l/+n/6v/q//X/+v8AAAAAAAAAAAAAAAAAAAAA+//7//v/AAAAAAAAAAAAAAAAAAAAAP///P/6//r/+v/3//T/8//0//P/7f/q/+r/4v/Y/+H/8v8BAAIABQD5/+v/4v/a/8D/tv+8/7L/sP+7/9L/7P/1//L/7f/s/9//4f/l/9//zf/D/8H/vv/M//P/+//+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///////v/0//D/8P/v/+//8P/r/+H/4P/m/+v/6v/T/9L/2//1/wAAAAAAAAAAAAAAAAAA/////wAAAQABAAEAAgACAAMAAwADAP///f/7//r/+v/3//T/8v/t/+n/4P/b/9H/zv/S/87/yf/N/8P/vf+6/7r/yv/R/9L/zP/K/8r/yv/A/7//wv+9/7f/uf+t/4//lf+U/5H/iv+d/6L/rf+o/63/r/+w/7D/t/+8/8j/zP/Z//j////8//v//f/+//f/7f/n/+v/8v/w//X/+/8AAAAAAAAAAAAAAAAAAAAA+//8//v///8AAAAAAAAAAAAAAAAAAP7/+//6//r/+v/7//j/9P/z//L/7P/r/+v/4//d/9z/5P/+/wEAAgD3/+3/6//g/8P/tf+7/7X/uv+9/83/5v/5//f/9f/t/+r/6v/u/+f/0v/E/7//wv/Q//X//v8AAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/1//H/8v/x/+//7//y/+b/4f/n/+n/6v/V/9P/2//2/wAAAAAAAAAAAAAAAAEA/////wAAAQABAAEAAgAEAAQAAwABAP7//P/7//r/+v/6//X/9f/w/+3/5P/c/9T/0//X/9H/yf/M/8v/wf+8/7X/yP/P/9D/yf/E/7//xP++/8D/wv+//7f/uf+k/43/mP+W/5L/jP+h/6X/rf+n/67/sf+v/7L/uv+//8j/y//W//X//P/8//v//f/+//7/8//w//T/+f/8/wAAAAAAAAAAAAAAAAAAAAAAAAAA+//8//v//f8AAAAAAAAAAAAAAAAAAP7/+//6//r/+//7//r/+P/0//L/6//q/+X/3//c/9//5P/8//3/+P/w/+n/6P/d/8H/tP+v/7D/vP++/8n/3v/5//z/+v/1/+P/5f/v/+T/y//J/8P/wf/J/+r/9/////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//n/+v/0/+//7//y/+3/6f/t/+f/5//Y/9X/3P/3/wAAAAAAAAAAAAAAAAEAAAD//wAAAQABAAIAAwAEAAQAAQD///7//f/7//r/+v/6//j/+P/z/+3/4v/b/9b/1f/R/87/y//L/87/x/+9/7r/xP/P/8v/yP/E/7v/wv+8/7//wP+6/7f/tv+h/5X/m/+Y/5P/kf+l/6T/qv+p/7L/t/+x/7P/t/++/8T/yP/R/+n/+P/8//v//f/+//7//v/9//z/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/P/7//v//f8AAAAAAAAAAAAAAAAAAP7/+//6//r/+//9//v/+v/2//L/5//n/+X/3f/c/+L/4//0/+7/5//j/93/2f/O/87/tv+j/7P/u/+//8X/2//7//7/+//5/+f/5P/t/+T/zf/M/8H/xv/U/+b/7f/5//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/5//L/7//w/+//8P/v/+n/6v/e/9b/3f/3/wAAAAAAAAAAAAAAAAAA////////AAABAAEAAwADAAIA/////wAA///+//z/+v/6//r/+v/4/+7/3v/X/9L/1P/P/83/y//K/8v/0f+9/7P/w//R/8r/yv++/8D/wv+7/77/vf+x/7P/r/+m/5P/lf+S/5P/mv+o/6D/qv+v/7P/sf+z/7L/sv+5/8L/yP/S/+T/+P/9//v//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA/f/6//v//P8AAAAAAAAAAAAAAAAAAP7/+//6//r/+v/7//v/+v/3//D/5P/j/+P/4P/a/97/3v/o/+j/5P/j/9b/yv/H/8j/tf+l/7D/uP/E/8r/2//7/////P/4/+z/7//w/+T/1P/N/8n/zP/i/+3/8v/4//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//b/8P/v//D/8f/v//P/8P/j/+H/5v/3/wAAAAAAAAAAAAAAAP//////////AAAAAAEAAwADAAEAAgAFAAYABgAFAAIA/f/7//v/+v/8//H/3P/U/8//0P/T/9H/zP/N/9D/1f/C/6z/vP/L/9D/yv+9/77/wP/B/8P/vP+z/7b/sv+q/5X/j/+I/5X/ov+j/57/pf+w/7P/rv+t/7D/sf+8/8X/yv/S/+L/9//+//z//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA///7//v/+/8AAAAAAAAAAAAAAAAAAAAA/f/7//r/+v/6//v/+v/3//D/5P/h/9j/1//U/9f/4f/p/+f/5v/f/9P/zf/R/8L/tv+f/6z/wP/J/9X/3//5////+//4//H/+v/3/+n/3f/V/9r/2P/e/+//8v/4/////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//n/8f/v//H/8f/1//j/8v/k/+P/6f/7/wAAAAAAAAAAAAD///////////////8AAAAAAQADAAYACAAKAAoACwAKAAYAAAD9//3/+//7//P/3f/T/9D/0f/S/9T/zP/O/9H/1f/K/63/sv+6/8f/xf+9/8X/wP/A/8H/tf+u/7T/sv+o/5f/iP+H/5D/of+f/5z/pv+x/7P/rP+p/7H/tf+1/8P/xf/Q/97/8v/9//3//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD7//v/+/8AAAAAAAAAAAAAAAAAAAAA///8//r/+v/6//r/+v/6//H/7P/k/9j/zf/R/9f/4f/f/9//3P/a/9L/4//l/8f/sv+m/7P/xP/T/9z/6P/4//3/+//3//T/AAD7/+r/4P/U/97/3f/h/+//8v/5/////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//3/8//v/+//8//6//v/8v/r/+v/8f/8/wAAAAAAAAAA/////////////////////wAAAQAGAAoACwALAAsACwALAAcAAQD+//7/+//2//H/3//X/9L/0f/R/9f/zP/M/9D/1P/J/6//sf+t/8L/vf++/8L/v/+4/67/rf+o/6f/rP+n/5L/jP+N/5n/mv+e/53/p/+u/7L/q/+o/6//t/+z/77/xP/Q/9v/7v/9//3//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD9//v/+//+/wAAAAAAAAAAAAAAAAAAAAD+//z/+//6//r/+v/6//X/8f/m/9r/0P/S/9z/3//Y/9j/1f/d/9z/4v/X/73/rP+s/7X/zf/k/+X/9v/z//v//v/2//T/+v/3//T/5v/X/9z/3f/m/+7/8P/1//3//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/9v/w/+//8P/4//n/8f/v//H/8//8/wAAAAAAAAAA//////////8AAAAAAAAAAAAAAAAHAAoACwAKAAoACwAKAAUA///9//7/9//0/+3/4v/Z/9P/0P/R/9b/1//R/8f/w//J/8H/rf+m/7b/uf+5/7X/s/+s/6f/rP+p/57/pP+g/5D/j/+S/5r/nf+i/6D/qv+l/7L/qv+j/6r/tP+3/7r/xf/N/9j/6//8//7//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPv/+//8/wAAAAAAAAAAAAAAAAAAAAAAAP7//f/8//v/+v/3//T/7//k/9j/z//W/9v/3P/Y/9H/yv/R/9z/zv/H/7r/r/+2/8X/4P/s//L/+//0//z//P/1/+3/+f/7//L/5v/Y/97/2//l/+//7//z//r//v/+//7///8EAAQAAwAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+//y/+//8P/4//n/8f/w//H/9f///wAAAAAAAAAA//////////8AAAEAAQAAAAAAAQAHAAsACwALAAoACwAJAAIA+//5//j/8//w/+b/2f/X/9H/0P/O/9D/1v/W/8j/tv+//8f/s/+m/7L/tf+y/6f/rv+t/6v/rv+e/47/k/+Q/4n/jv+V/5T/nf+j/57/qf+j/7H/qv+j/6r/tP+5/7f/wv/L/9P/6//6/////v/+//7//v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+v/7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+//3/+//1//L/7v/i/9b/1f/c/93/3v/b/9H/xv/G/8j/wP+8/7T/rf/G/+L/8P/0//f/+//7//z//P/u/+z/+v8BAPX/7P/d/+P/5f/u//D/7//x//b//v/+//7/BQAHAAcABgAEAAIA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/1//H/8v/6//n/8f/v//L/+P8AAAAAAAAAAP///////////////wIAAQABAAEABAAJAAsADAALAAoACwAIAP7/+P/2//T/7v/r/+P/1v/P/8r/yv/J/8r/0//T/8T/u//B/8X/u/+x/6r/rf+t/6P/of+m/57/mP+M/4v/j/9//4z/k/+O/5P/o/+n/6H/p/+k/7D/sf+s/7D/uP+7/7r/v//K/9L/5v/4/////v/+//7//v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+//6////AAAAAAAAAAAAAAAAAAAAAAAAAAD+//z/9//z/+7/5f/c/93/3f/g/9//4P/a/9r/1f/D/7z/q/+y/7T/vv/f//X/8v/3//v/+v/6//z/+v/n/+z/BAADAPj/7v/i/+b/6v/w//D/8P/w//X//P/+/wEACQAIAAcABgAGAAQA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//n/+//+//v/8v/w//T//v8AAAAAAAAAAP///////////////wIAAQABAAIABwALAAwADAALAAoACgAFAPv/9v/0//L/6//k/9r/zv/N/8j/y//N/8b/x//C/73/v//B/8T/vv+6/7H/qf+m/5X/lP+Z/5n/kf+T/43/kP+K/5D/lP+U/6H/qf+q/6j/pP+c/6z/rf+v/7D/sf+8/7z/tP/A/83/4v/2/////v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+//7//3/AAAAAAAAAAAAAAAAAAAAAAAA/v/7//r/9f/x/+r/5f/g/+L/5v/j/+H/4P/f/+b/2//I/8T/tv+6/7b/1P/5//D/6//3//v/+v/5//z/9P/u//f/BQADAP//+f/s/+7/8v/w//H/8P/v//T/+f/+/wUACQAHAAYABwAIAAUAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+f/3//v/AAAAAAAAAAAAAP///////////////wAAAQABAAMACQAMAAwADAALAAkABwADAP//9//z//D/6//j/9T/yv/J/8v/0f/R/83/xf/D/77/vP/A/8D/vf+9/67/qv+V/43/n/+e/5T/iv+K/4r/j/+O/5X/jv+R/6X/qv+x/6j/lv+X/6f/rv+x/6//r/+y/8P/uf+//8z/2f/u//3//v/+//7/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+//8////AAAAAAAAAAAAAAAAAAAAAP///P/6//r/9//y/+v/5P/i/+X/6v/m/+T/4v/i/+X/4v/i/9v/0P/I/7//0P/f/9L/4//7//n/+f/z//j/7//t/wUABQACAAEAAQDy//D/9f/z//H/7//v//H/9/8CAAkACAAFAAQABgAHAAQAAgD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAA/////////////wAAAQACAAYACwANAA4ADgANAAoABwAHAAUA/f/0//H/7//n/9b/yv/H/8r/yP/J/8v/zv/U/8n/t/+8/7f/uv+8/7X/qf+Q/5T/mv+X/43/g/+F/5X/lf+V/5T/k/+Y/5j/m/+l/6L/lP+R/57/rf+w/7P/s/+2/8//0v/I/8r/1P/p//z////+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP3/+v8AAAAAAAAAAAAAAAAAAAAAAAAAAP7/+//6//r/+v/5//X/7v/q/+7/7f/q/+j/4//k/+f/7f/u/+L/1v/P/8D/w//D/8T/0//p//f/9f/y//b/9f/6/wUABAACAAEAAAD6/////f/5//P/7//v//H/9v8CAAIAAAAAAAIABAAEAAIAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAD/////////////AAACAAgADQAPABEAEQAPAAwACAAIAAcA///3//j/+P/v/9z/zP/I/8f/xf/K/87/0P/d/9T/v/+9/7r/sf+y/6r/oP+O/4z/kP+I/4f/h/+F/5P/l/+W/5b/mf+Y/5X/mf+f/5z/lP+S/6H/rv+w/7L/tf+1/8r/1f/N/8n/0//j//X//////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAAAAAAAAAP7/+//6//r/+v/6//r/9//2//P/8f/s/+z/5//j/+n/+f/2/+X/3//Q/8b/wP/B/7z/wf/X/+P/7v/6//3/8/8BAAMAAwADAAIAAgADAAEA/v/6//P/7//v//H/9/////7//v/+//7/AQABAAEA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP////////////8AAAgADQARABIAEwARAA0ACQAIAAcA///7//3//P/0/+T/1f/P/8n/xf/D/8v/1P/j/9f/uv+7/7H/qP+m/5P/jf+M/4P/hf+C/4j/h/+B/5D/kf+R/5r/j/+T/5n/mv+f/6D/nf+a/6n/q/+z/7H/u/+2/8j/0v/P/87/0f/d//H//P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/f/8//v/+v/6//r/+v/5//P/8f/t//D/8f/r/+b/7f/t//D/6f/i/9j/0f/H/7X/tv/L/87/5f/+/wEA+f8BAAEAAgADAAQABQAGAAMA/v/6//P/8P/v//H/9//+//7//v/+//7///8AAAEA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP////////////8CAAkADgASABUAFQASAA4ACgAKAAgA///9//3//P/3/+z/5P/b/8//y/++/7r/1//h/83/tf+u/6f/nP+d/4r/iv+O/4f/hf+F/47/g/+L/4z/l/+l/57/jv+L/5v/nP+p/6//rv+s/7P/tP+z/6//tf+0/8//1f/J/8j/yv/T/+z/+P8AAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//f/8//v/+v/3//P/8f/z//P/9v/1//H/7v/p/+r/8f/o/+D/1v/K/7v/r/+8/8L/0v/y/wIA+f///wAAAQACAAUACAAJAAIA/v/+//f/8//y//X/+v/+//7//v/+//7//v///////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP////////////8CAAoAEAAVABgAFwAWABQAEAAOAAwABAD///z/+//5//H/8v/q/+H/1P+7/7L/yv/J/6f/sv+k/6L/nf+d/5j/k/+R/4//jf+N/4//if+I/4L/of+0/5r/kP+Q/4//p/+3/7j/vf+2/7b/u/+z/63/r/+x/9v/3v/S/8X/w//L/9z/9/8AAP//////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///j/9P/0//L/8f/0//X/9//1//L/8v/u/+n/6v/u/+P/3f/U/8b/vf+2/7T/wv/v/wMAAAD+/wAAAAABAAUACQAHAP///v/+//3/+v/5//v//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAP////////////8CAAsAEQAXABsAGgAaABkAFQATABAACgABAP3//P/5//T/8f/o/+D/1//J/7f/w//E/6v/sf+h/6H/qP+g/5v/lP+R/5//n/+Q/4r/jP9+/4H/pP+2/6v/of+b/4//rf+3/7z/yf+//7b/tP+3/7H/ov+m/8H/2v/W/8r/xv/J/9f/7f///wAA///+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAPb/9//2//T/8f/0//X/9//3//P/8v/x/+z/6f/p/+f/3//V/8//xv+5/63/vP/t/wYA/f/9//7//v///wIABQADAP7//v/+//7//v8BAAEAAQABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////////////AAAAAAAAAAAAAAAAAAD///////////////8DAAwAEwAaAB0AHAAcABwAGAAVABQADwAKAAMA///7//j/8v/q/+L/3f/U/8n/w//Q/8//tP+q/6n/r/+m/47/if+Y/6b/oP+K/4b/hP9//4n/qv+6/7D/rP+c/6H/q/+y/7z/z//P/8D/uv+3/7T/q/+l/7L/xP/Q/8n/xv/C/9L/4v/8////AAD///7//v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQABAAEAAQAAAAAAAAAAAAAAAAAAAPz/+P/3//X/9P/0//T/9f/2//b/9P/x//D/6v/o/+r/5f/W/9D/yv+6/6v/t//k//z/+//+//7//v/+/wEAAwABAP///v/+/wEABQAHAAYABAABAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wEAAQAAAAAAAAAAAAAAAAAAAAAAAAD/////////////AAACAAwAEwAdACAAHgAeAB4AGwAXABUAFAATAA4ACAAFAAEA+f/w/+n/5v/h/9j/2f/c/9H/tf+w/6//sf+n/4v/hP+d/6v/o/+a/5D/iP+N/5b/nf+1/7z/wP+2/7L/r/+1/8H/0//T/8z/wf+//7f/tf+0/7D/t//L/8z/0f/N/87/1//1///////+//7//v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEAAQABAAEAAQABAAEAAgABAAEAAAAAAAEAAAAAAAAA+P/5//r/+v/5//f/9v/3//f/9P/w//H/7P/n/+f/7P/i/9T/y/+7/6r/sf/b//b//P////7//v/+/wAAAQAAAP7//v8AAAMABwAKAAcABAABAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQADAAUAAwACAAAAAAAAAAAAAAAAAAAAAAD//////////wAAAQAEAAoAFAAfACIAIAAfAB8AHQAYABcAGAAaABwAGQAWAA4ABgD7//L/7f/p/+P/5v/Z/6j/r/+v/63/qv+o/5H/g/+g/6r/rf+x/6//qf+n/5f/mv+p/8D/zP/L/8X/xf/H/8r/0P/L/87/yf/A/7n/t/+2/7r/uP/I/83/1f/Z/9n/3v/k//T/+v/+//7//v/+/////////wAAAAAAAAAAAAAAAAAAAQABAAEAAQABAAEAAQABAAEAAgACAAIAAgACAAEAAQABAAEAAQABAP7/+P/4//j/+P/4//f/+P/4//n/+f/y//P/8v/p/+n/7v/r/9v/zP++/67/tP/Z//X/AQAAAP7//v/+/wAAAQD+//7//v8AAAEABAAJAAYAAwABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAQAAAP7//v/+//7//v///wMABwALAAwACQAEAAEAAAAAAAAAAAAAAAAAAAD///////8BAAQABQAHAA0AGAAiACMAIQAhACIAHwAbABsAGgAdACAAJgAlACIAHAAOAAEA9f/u/+n/5f/G/5P/tf/C/7L/pf+m/5j/if+a/6L/o/+p/7P/sv+l/5r/mf+h/8H/0v/c/9r/2//f/9r/3v/b/9P/0//P/8v/xv+y/7n/wP/H/9f/4P/m/+T/4P/h/+7/9P/5//7//v/+//7//v/+////AAAAAAAAAAABAAEAAQABAAEAAQABAAIAAgACAAIAAgACAAMAAwADAAIAAQABAAEAAQD9//v/+f/9//7/AAACAAEA//8AAAAAAQAAAPv//P/z/+//7f/o/97/zf/F/7P/wv/j//X///8FAP7//v/+////AQD///7////+////AgAIAAYAAwD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAFAAgACgAIAAQAAQD+/wEAAwAGAAoADwASABMADwAIAAIAAAAAAAAAAAAAAAAA////////AgAHAAkACwAOABMAHAAlACYAIwAjACQAIQAdAB4AHgAeACQAMAAyAC8ALAAkABQAAgD2/+7/6//O/53/sv+//7b/o/+j/6P/kP+L/5f/m/+d/5f/mP+g/5r/nP+4/8j/2f/q/+//5//m//P/8//v/+3/6f/k/+L/4P/P/8H/zf/M/9j/7P/4////9P/s/+//8//3//7//v/+//7//v/+//////8AAAEAAQABAAEAAQABAAIAAgACAAIAAgACAAMAAwADAAMABAAEAAMAAgACAAIAAQAAAAAAAAABAAIABAAGAAMAAgAFAAcACgAKAAUAAwD///D/6v/k/+H/zf/C/7b/xf/k//T//P////3//v/+/wAAAQD///7//v/+////AgAHAAQAAgD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAABgAMABAAEgARAA0ACgAHAAsADgAQABIAFQAYABcAEgAKAAMAAAAAAAAAAAAAAAAA/////wIABwANABEAFAAWABoAIAAnACgAJQAkACUAIgAgACIAIwAjACsANAA3ADYANAAwACYAFgAEAPz/9//i/77/sP+9/7v/ov+d/6P/nP+X/5D/lf+k/5//oP+o/57/uP/J/9z/6v/z//X/7v/v//v/BAD6//b/+f/y/+r/4//e/9D/2v/m/+v///8HAAwABgD///v/9//7//7//v/+//7//v/+//7///8AAAEAAQACAAIAAgACAAIAAgACAAMAAwADAAMAAwAEAAQABAADAAQAAwACAAEAAAAAAAAAAQADAAQABwAIAAYABgAJAA0ADAAOAAkAAgD6//H/5P/S/8r/vv+6/7H/xP/k//D/9f/8//f//v/+/wAAAgABAAAA/////wEAAwAEAAIA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAEACwARABUAGQAYABcAFgAWABYAFwAXABkAGgAbABkAFAALAAIA/////wAAAAAAAAAA//8AAAQADAASABgAGwAeACAAJQAqACoAJwAmACcAJgAlACsALwAzADUANwA3ADgANQAxACsAIQARAAgAAADx/9n/xf+2/6//oP+l/6X/lv+g/7D/uv+8/7T/q/+v/6X/xv/e/+7/+f8AAPz/+f/8/////P/4//L/8P/y/+3/6P/j/9r/3v/4/xIAGwAaABcACgAHAAgACwAIAAUAAAD/////////////AAAAAAEAAgACAAIAAgADAAMAAwADAAMAAwAEAAQABAAEAAUABAAEAAQABAACAAAAAAABAAQABQAHAAsACwALAAoADgARABEADAAKAAAA9//w/+f/3f/S/8L/tv+9/6n/vf/j/+3/8f/5//T//f///wAAAAAAAP//AAAAAAEAAgABAP///v/+//7//v/+//7//v/+//7//v/+/////v/+//7/AAAEAAkACwAWABoAHQAfACAAIAAfAB0AHQAdAB0AHAAcABoAFgANAAEA/v/+////AAAAAAAA//8BAAcAEAAYAB0AIQAkACcAKQAtACwAKQAoACgAKwAuADMANQA5ADgANwA2ADgANQAwACoAIQARAAgA/P/v/9n/uf+g/6H/n/+m/6X/nv+k/7T/tf+y/7D/sP+z/8P/2f/z/wAABwARABYAEAAOAAoABAD9//r/9v/z/+//5//p/+L/6/8HACIAJAAfABsADwAMABcAGQAWAAsABgADAAIAAQAAAP//AAAAAAAAAQADAAMAAwADAAMAAwAEAAQABAAEAAUABQAFAAYABQAEAAQABAAEAAIABAAHAAkACwAPABEAEwAOAAkADgARAAkAAwAAAPX/7//u/+b/4P/Z/8j/wf+y/6f/vf/d/+n/7//9//b//v////7//v/+//7//////wAAAAD//////v/+//7//v/+//7//v/+//7/AAAEAAUABAABAAAABgALABAAFQAWAB4AIQAjACUAJgAlACIAIQAgAB8AHgAdABsAGAARAAYA/v/+//7/AAAAAP////8CAAoAEwAcACEAJQAoACwALgAvAC8ALAArAC8ANgA3ADoAOwA6ADoAOAA5ADoANgAwACoAIAAPAAUA9v/n/9H/sf+T/4v/lP+i/6b/ov+g/6L/sP+5/7j/t/+y/87/6v/+/wwAGgAgACUAKwArACcAGQAVAAkAAQD2//P/5v/t//X/BQAUACQAJQAiABoAFwAcAB8AIAAdABUACgAIAAcABQAEAAIAAQABAAEAAQADAAIAAwADAAMABAAEAAQABQAFAAUABgAGAAYABgAFAAUABQAEAAMACQAMAA8AEQASABQAFQANAAgADgALAAMA/f/7//L/6//u/+j/5f/a/83/xv/A/7L/wf/j/+n/7//6//n////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////BAAHAAgACAAGAAgADQARABYAGwAfAB8AJQAnACkAKgApACYAJAAjACEAIAAeAB0AGwAWAAwA///+//7/AAAAAP////8DAAwAFwAfACQAKAAsADAAMgAxADEAMwA3AD8AQABAAD8APQA8ADsAOQA7ADoANwA0ADAAJwAXAAsA+//p/9b/v/+e/3n/kv+f/6v/n/+e/6P/sv/B/7j/sf++/9b/9v8LABgAJQArADIAPQA8ADEANQAwACIAFgAGAP7/8//9/woAEgAcACUAJAAlACIAHQAiACQAJAAjAB8ADwANAAwACgAHAAQAAwACAAIAAgACAAIAAgACAAIAAgAEAAUABQAGAAYABQAGAAUABgAGAAcABgAGAAgADwATABQAFgAWABYAGAASABIAFAAIAP3/+P/4/+//6v/v//L/8//l/9z/1f/T/8r/3//y/+//7//9//v////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wIABgAJAAoACQANABIAFAAYABwAIAAjACcAJgAqACsALAArACgAJgAlACMAIgAgAB8AHQAZAA4AAQD+//7/AAD///7///8FABAAGgAiACcAKwAwADQANQA0ADUAOgBDAEYARABEAEIAQQBAAD8APwBAAD8APgA9ADsAMQAgAA4A+v/l/9v/0/+7/4v/lv+Y/6n/pv+o/6//u//J/7v/rP+5/9P/AQASACYANAA6AEAARAA8AEAAPwA8ADYAKwAZABEACAAMABAAGgAfACQAJwAnACcAIwAoACkAKAAoACQAGQASABAADwANAAgABQAEAAMAAgACAAIAAgACAAIAAgAEAAYABgAFAAYABQAFAAUABgAHAAcACAALAA4AFgAXABkAGQAaABoAHgAgAB0AHgATAAUA/f/0/+//6v/1/wQABQADAPn/7f/g/8f/yv/w//T/8v/6//r//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAUACAAJAAwAEQAQABkAGQAdACAAJQApACsALAArAC0ALgAtACoAKAAlACMAIwAhACAAHgAZAA4AAgD+//7/AAD+//7/AAAIABMAHgAlACoALwAyADUANQA4ADwAQABEAEcASABIAEgARgBHAEoATgBMAEsASABEAD0AMQAiABIAAgDk/93/2f/A/5H/lv+Y/6//rv+s/7L/w//N/8D/tv/P/+T/AwAbADEAPQBAAEMAQQBEAEMAQgBCAD8ANwAnAB4AFQAVABYAHQAdACQAJwApACkAKAArACwAKwApACYAHgAZABMAEwASAAwACAAGAAQAAgACAAIAAgACAAIAAgACAAYABwAFAAUABQAFAAYABgAIAAgADAARABMAGwAcAB0AHAAdAB0AJQAnACcAKQAfABIACgD3//L/+P8OABwAGwAVAAgA9f/y/9D/wf/d//v//P/7//D/+f/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8DAAcACwAPABMAGgAeABoAIwAmACYAKgAtAC4ALgAtAC0ALgAvACwAKQAlACIAIQAgAB8AHAAVAAoAAwD///7/AAD+//7/AQAMABgAIwApAC8AMgA2ADQANgA7AD4AQgBGAEkASgBLAEsATQBRAFYAWgBbAFcATgBEADsALwAjABgACQDm/9D/wf+u/5D/l/+e/7X/u/+z/7v/wv/F/77/w//b//D/DgApADsASABIAEcARQBEAEMAQwBCAEIAPgA0ADAAJQAfAB8AJAAiACUAKQArACsALAArAC0ALQApACUAIwAgABoAGgAVAA4ACgAIAAUAAwACAAIAAgACAAIAAgACAAMABgAFAAUABQAFAAYABQAIAAoAEQAWABgAIAAgACEAIAAhACAAJwAqACsALQAlABsAEwALAAQACgAYAB8AJAAcABMABgD7/+v/1v/R/+v////8/+z/9/////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAHAAwAEAAVABsAIgAlACcAJwAuADAALwAwADAALwAuAC0ALgAxAC4AKgAkACEAHwAdABwAGQATAAsABAAAAP7////+////AwARAB4AKQAuADIANQA4ADYAOgA9AEEARgBJAEoASwBMAFEAVwBcAGAAYwBnAGAAUgBFAD8AMQAWAAIA9//V/7f/qP+c/5D/mv+t/7X/u/+3/7n/wv/G/77/z//l//n/GQA3AEgATQBLAEkASQBJAEkASQBGAEQAPgAyADIALQArACsALwAtACwALgAwADAALwAvAC8ALwAtACsAKAAoACkAJAAYABIADwALAAgABQAEAAMAAgACAAIAAwACAAIAAwAGAAYABgAGAAUABAAIAA4AEwAYABsAJgAlACUAJgAkACMAJQAnACwAMgApACMAHwAcABUAEQAbACMAKAAlACUAGAAPAAEA7//d/9j/8f/7/+z/9f////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/BgAMABMAGAAcACMAKAAqAC4AMwAxADUAMwAxADEAMAAxADAAMAAyADIALwArACUAIQAeABwAGQAUAAwABAAAAP7//v/+/wEABwAXACUALQAxADQANwA5ADkAPgBCAEUASQBKAEsATQBRAFoAYgBnAGsAbwB0AGkAVwBIAEAALAAIAPP/6P/E/67/o/+Y/5f/rP+2/7j/tv+9/77/xf/H/8b/2f/y/wYALgBGAFIAUQBMAE0ATABMAEwATABMAEkASAA2ADQAMAAtADAANAA1ADUANQA1ADUANQA0ADQANAA0ADQANAAzADIALgAmAB4AFwASAA0ACQAIAAQAAwACAAQABAADAAIAAwAEAAQABAAEAAQABQALABEAFQAaAB0ALAAsAC0ALAApACcAJQAnADAANQAwACwAKQAmACAAFgAhACsAMgAwADIALgArAB0AFQDt/9r/2v/2//L//P8CAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+/wEACQATABsAIAAjACoALQAvADQAOAA6ADYAOAA2ADQANQA2ADYAMwAyADIAMgAwACwAJAAfABwAGgAVAA0ABAAAAP7//v///wMACQAbACkALgAxADUAOQA5ADsAQABDAEcASQBLAE4AUwBaAGAAaABtAHIAewB7AG4AXQBPADsAHwD7/+v/5//I/7T/rv+m/6f/vv+3/7j/tv/B/8P/y//L/83/4P/+/xYAQgBZAFwAVQBSAFEAUABQAFAAUABPAE4ATgA6ADcANgA1ADQANAA0ADQAMwA1ADUANQA1ADUANQA0ADQANAAzADUANQAzADAAKAAiAB0AFwAPAAgABQAEAAYABgAFAAUABQAFAAYABwAGAAYACQAOABIAFwAbAB4AMAAxADEAMAAtACsAKQAqADQAOAA2ADMAMAAxACsAIAAmADAAOwA9AEAAQgA5ADQAJwAaAPj/7v/4/wAA+f8DAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+/wYAEgAbACYAKgAqAC4AMQA0ADkAPgA+ADsAPAA+AEEAQAA/AD4AOwA1ADAALwAwAC4AKAAgAB0AGgAVAA0ABQAAAP7//v///wMACgAYACwALwAxADUAOAA5AD0AQQBGAEkASwBNAFEAWABdAGMAawB0AH8AigCEAHUAZgBUADIAFAD6//j/8//k/9D/1v/b/8r/yP/I/8b/wP/K/8X/z//U/9j/5v8EAB8ATABpAGUAXwBdAFoAVwBVAFUAUgBTAFIAUgBAAD0AOQA5ADkAOAA3ADcAOAA3ADcANwA2ADUANAA0ADQANAA0ADQANgA2ADUAMwAwACgAIAAWAA4ACAAFAAkACQAJAAgACQAJAAkACQAIAAkADQAQABQAFwAbAB8AMwAzADUANQA0ADEALgArADQAOgA6ADkANwA2ADQAKgAtADUAQQBKAEkARABBADoANwAsABQACgAKAP//+//5//3//v/+//7//v/+//7//v/+//7//v/+//7//v8DABEAHgAqADEAMwAzADMANQA5AD4AQAA/AEAAQgBJAEsASQBFAEMAQAA7ADMALQAtAC4AKAAgAB0AGwAWAA4ABQD///7//v/+/wIACgAZAC4ALwAxADUAOAA6AD8ARQBKAEsATQBQAFUAXgBlAGsAdAB/AI4AlwCMAH4AbgBRACkADAAAAAEAAwAKAAcAEgAbAAQA1P/T/9X/0//S/8z/yf/Y/+P//P8PAC8AVwBvAGgAYQBgAGAAWwBYAFcAVgBXAFcAVwBFAEEAPQA/AD4APQA9ADwAPAA7ADsAOwA6ADkAOAA3ADcANgA1ADQANgA4ADcANgA0AC0AIQAbABQADAAHAA0ADgAMAA0ADAALAAsACwAKAAsADwATABUAGQAbAB4ANQA4ADgAOQA5ADgANAAxADQAOQA8AEEAPgA+AEAAOwA3AD0ASABNAE8ASgBFAEQAQQA+ADAAJQAUAA0ABQD8/wIA/v/+//7//v/+//7//v/+//7//v/+//7/AwARAB4ALAA0ADgAOgA6ADkAOQA+AEIAQQBCAEMASQBOAFAATQBIAEcARAA+ADYALAArAC4AJwAfAB0AGwAXAA8ABAD///7//v/+/wEACgAbAC8ALwAyADYAOQA8AEMASgBNAE8AUwBYAF4AZwBvAHYAfwCJAJcAmQCRAIMAcABAABYAAQABAAYAFQAlAD8AQgBNADkACQDg/97/3v/W/9P/3P/m/+7/DQAoAE8AbQBwAGQAXgBeAGAAXABZAFgAWABYAFsAWQBHAEUARgBFAEQAQgBCAEAAQAA/AD8AQABAAD8APQA8ADsAOQA4ADcANgA3ADcAOQA3ADEAIgAcABcADwALABMAEgAQAA8AEAAPAA0ADQANAA4AEQAUABcAGAAZAB0ANQA6ADoAOgA5ADoAOQA3ADcAOwBAAEEAQABFAEMAQABEAEYATQBQAFIAUwBPAE8AUABNAEQANgAdAAoABQAKAAUAAAD+//7//v/+//7//v/+/wEACAD+/wYAEQAeACoANQA5ADsAPAA6ADoAPABDAEQAQwBEAEcATQBRAFEATgBLAEkARgBAADgALQAqAC0AJQAeAB0AHAAYAA8ABAD+//7//v/+////CgAcACwALwAyADcAOwBAAEgAUQBTAFYAXQBiAGoAcQB3AHsAhACQAJgAlQCSAIEAWAAlAA0ACAANAB4AMgBHAFYAYwBsAFgAOQAVAPL/7//o/+n/7//2/xUALABQAGcAcwBuAGUAYQBfAF4AYABcAFoAWgBcAGAAXQBLAEoASQBHAEYARgBFAEUARABDAEQARQBFAEQAQgBAAD4APQA8ADsAOQA7ADwAOwA5ADMAJAAcABgAEAANABYAFQAVABQAEwASABEAEQAQABAAEwAVABcAGwAfACMAMwA2ADcAOAA4ADsAPQA9ADwAQABEAEkASQA+AEMAQwBJAEoATwBQAFEAUgBRAFEAUABOAEcANwAjABAAAwABAAgABAD+/wMAAQAEAAUABgAHAA0AEwACABEAHQAnADIAOgA9AD0AOwA4ADkAQABFAEQARABGAEkATgBRAFAATABKAEkARgBBADkALgApAC0AJQAeAB0AHAAXAA0AAwD+//7//v/+////CQAdAC0AMAAyADcAPQBFAE8AWQBdAGIAagByAHgAegB9AIIAjACXAJIAkACPAHcARQAgABIAGQAuAEUAYQBtAHYAhQCIAG0ASwArABcA+v/5//T/+P8MACUASABjAHgAcwBuAGcAYgBfAGAAYgBkAGAAYQBkAGQAYQBRAE8ATQBLAEoASgBKAEkASQBJAEkASgBKAEkARwBFAEMAQQBAAD8AQgBBAD4AOQA1AC8AJAAdABYAEwASABsAHQAgAB8AGwAXABYAFgAVABYAGQAeACEAJAAnACoAMgA0ADcAOgA+AEIARABFAEUARQBNAE8AUgBQAEQASQBOAE4AUwBUAFMAUgBRAFAATwBOAEoAOAAmABkAAwADAAwACAAJAAsADQAKAA8AEAASABkAHgAKABwAJQAvADcAOwA+AD0AOwA5AD8ARgBFAEQARQBHAEsATwBRAFAASwBLAEkARgBAADwANQAvACwAIwAeAB0AGwAVAAoAAQD+//7//v/+////CgAdAC0AMAAyADkAQgBLAFQAXwBoAHAAegCCAIIAhACFAIkAlACVAIkAfgBxAFMAMQAfACAAKABBAGEAfgCTAKUAqQCiAI4AXgA3AB4A7//w//H/8/8aADYAXAB1AHkAdQBxAGsAaABkAGUAZwBoAGcAZwBmAGQAZABYAFQAUgBQAE8ATwBOAE0ATABMAEwATQBNAEwATABMAEsASgBIAEYARwBDAD0ANwAxACwAJwAiAB0AIAAgACgALAAxADAAKQAiAB4AIAAiACUAKAAqAC0AMQA0ADcANQA2ADsAQgBIAEwATwBPAE8AUQBTAFkAXABdAFgAUQBYAFsAWwBcAFoAVwBWAFYAVABRAE0AOgAjABAADAAVABIAEQATABcAGAAZABYAHAAeACQAJwARACIALgA2ADsAPQA8ADwAOwA+AEkATABFAEUARwBJAE8AUQBRAE4ATABMAEkARgBEAD8AOQAzADAAIwAeAB0AGgASAAYAAAD+//7//v/+/wAACgAdAC0ANQA0AD0ASgBRAFsAZwB1AH8AgwCDAIMAhgCKAJUAnwCWAIYAawBVAD8AJQAfACUAOgBiAJUArwDDAMwAwwCxAJ8AgABdADkAIgAVABUAIgA7AFoAdwCFAIMAgAB/AHgAcABqAGgAagBsAGoAaQBpAGkAZgBkAFsAWgBZAFgAVwBWAFMAUwBSAFIAUwBUAFMAUwBTAFIAUgBQAFAAUABNAEgAQwA+ADgAMwAxACoAMQAzADoAPgBGAEUAQAA3ADEALwAyADUAOQA+AEMARwBKAEoARQBDAEcASwBQAFUAVwBXAFoAXgBiAGIAYgBiAGIAXwBpAGoAaQBoAGUAYQBfAF4AWwBYAFQARAAoABgACwAeAB0AHgAhACUAJgAnACgAIwApAC4ALwAYACQANQA9AEAAQQA+ADwAPQBHAFAATQBGAEYARwBNAFEAUwBSAE0ATQBLAEkARwBFAEEAOwA2ADIAJAAeABwAFwANAAMA/v/+//7//v/+/wAACwAdAC0AOAA2AEAAUABZAGIAbgB8AIIAgwCEAIcAjQCZAKcAqACXAH4AXwBIAD4AIwAhADIATQB+ALMA0gDjAOAA1QC6AKYAkwB8AGUAUABDAEEATgBkAH8AlgCXAJEAiwCFAHwAdAByAHQAcwBwAGsAZwBnAGgAZwBmAF8AXwBdAF0AXABcAFcAWQBaAFoAWQBZAFkAWQBaAFsAWwBbAFwAXABZAFUAUQBOAEkARAA9AEIARQBKAFMAUgBdAFwAVwBOAEgARwBEAEwAUABYAGAAZgBmAGMAXgBaAFoAXABfAGUAZQBkAGcAbQBvAG8AbQBuAG4AbAB2AHgAeQB7AHgAcwBwAGsAZABfAFsAUAA7ACsAJAAsACwALQAwADMANAA0ADQALwA0ADcAOAAkADMAOQBBAEQARABCAD4ARgBRAFIATwBMAEkASwBQAFIAUgBPAE4ATQBLAEkASABGAEAAPAA3ADIAIwAeABoAEgAIAAEA/v/+//7//v/+/wEACwAcAC0AOgBEAEoAXABjAGoAdQB+AIIAhwCLAIwAlAClAK0ApACPAHIAUQA1ACMAIwA1AFQAfQChAMIA3QDdANUAxACxAKMAmQCOAIAAcwBtAHAAewCNAJkAngCfAJkAjwCEAH0AeQB6AH0AdwBwAGoAZgBmAGcAZwBnAGIAYQBhAGEAYQBgAGEAYABiAGIAYABhAGEAYQBkAGYAZABmAGcAaABnAGQAYgBfAF0AVgBaAFkAWgBcAGMAaQBqAG4AaQBhAF4AYABhAGgAcgB7AIQAiQCJAIEAegB1AHMAcwB3AHsAfgCCAIYAhgCFAIEAfQB5AHkAdgB/AIMAhACFAIQAggB+AHgAcgBsAGkAYwBQADcALgA9AD0APwBBAEIAQQBAAD8AOwBAAEEAQAAyAD0ARABFAEgASQBIAEoATQBVAFMAUQBQAE0ATwBSAFMAUgBPAE8ATQBLAEkARwBEAD8AOwA6ADAAJAAcABQACwAEAP///v/+//7//v///wMACwAbAC0APABHAFgAZwBuAHYAggCHAIkAkACQAI8AmAC0AKcAkQB+AGsATgAzACIAMQBTAIIAsgDLAOIA5QDaAM0AugCoAJcAkgCJAIEAgACDAIoAkgCZAJ0AoACfAJsAkwCLAIUAggB9AHwAeAByAG0AagBrAG4AbQBsAGoAaQBpAGkAagBpAGgAaABmAGYAaQBpAGYAZgBnAGgAaABrAHAAdAB1AHQAcwBxAHEAbQBzAHQAdABxAHEAcABzAHEAcgB0AHwAfwCFAI4AmgCmAKwArACpAKQAngCaAJYAkgCUAJUAlwCaAJwAnwCcAJcAkQCNAI0AjwCWAJkAmwCaAJYAkACMAIkAhgCDAHwAdgBqAFAAOgBSAE8ATgBNAE0ATABKAEgATABLAEwATABAAEoATwBRAE8AUwBUAFYAVwBUAFUAVQBTAFEAUQBUAFQAUQBRAFEATwBMAEoARwBDAD4AOwA4AC4AIgAZAA4ABQACAP7//v/+//7/AAAAAAMACwAZACsAOwBJAGAAbwB1AH0AiACPAJUAlACUAJYAogCyAKMAhABvAFUASQBGAEIAUgCDALIAzgDdAOQA5wDeAM8AvgCrAJwAlACLAIYAigCOAJUAowCwAK4AqQCnAKQAoACdAJcAlACUAJQAiwB/AHgAdQBxAHIAdAB0AHIAcABtAG0AbQBuAG8AcABvAG4AbwBtAGkAaQBrAGwAcwB6AIAAhQCHAIEAgwCCAIIAgQCEAIYAhgCAAHsAdwB8AIIAiwCQAJQAnwCpALUAxQDSANAAywDHAMUAwQC5ALUAtwC8AL0AuwC4ALcAuQC2AK8AqQClAKcArACyALMAtgC1ALEAqwCmAKEAnQCaAJQAjgCEAGIATQBdAFsAVwBTAFAASgBKAEsATQBPAFIAVABLAFEAVABVAFUAVABXAFcAVgBXAFcAVgBVAFMAVABVAFQAVQBXAFYAVABRAE0ARwBCAD0AOwA0ACgAHQASAAYAAQAAAP7//v/+//7/AAABAAQACQAWACgAOABHAFsAcgB5AH4AhACIAIoAjgCWAKMArgCmAJoAhABrAFYAWABlAHYAiwCqAMUA2gDpAPIA7wDnANkAxACyAKUAnwCkAKQApQCqALAAtAC5ALoAuAC4ALsAtQCyALAArwCuAKwAowCVAIUAfAB7AHwAeQB4AHsAfQB9AHwAegB5AHkAeAB3AHUAdAB4AHcAcwB5AH0AhQCEAIMAhQCHAIQAhwCOAJEAjgCLAIoAigCKAIoAigCTAJsAowCrALIAtwDIANcA3gDhAOIA3wDhAOMA5ADiAOAA3gDcANoA2QDXANUA1ADOAMUAvQC6ALsAwADFAMkAzADOAM0AygDHAMUAuwCzAK4AqwCoAJMAbwBvAHAAaQBiAF0AVgBRAE4ATgBQAFQAWwBZAFkAVwBVAFUAVgBWAFYAVgBXAFYAUwBVAFcAWgBZAFoAWQBaAFoAWABVAFAASQBAAD4AOQAuACAAFwAKAAIA///+//7//v/+//7/AAABAAMACAASACMANQBDAFQAbQCBAH8AfgCAAIMAiACYAKMAmACWAIsAcQBlAGgAdwCTAKMAtQDQAOcA9AAAAQcB/gDyAOUA2QDMAMAAuwC+AMEAwwDEAMQAyQDRAM8AywDJAMkAzADQANIA0gDKAMIAuQCsAJkAjQCHAIUAgQCAAIEAggCDAIMAgwCCAIAAgACAAIcAiQCIAIQAggCHAIkAiACIAIgAhwCIAIYAjACVAJoAlwCTAJIAkwCUAJYAngCrAK8AsgC6AL8AwADPANYA2QDfAOYA7ADyAPIA9gD7AP0A+ADyAPAA7QDrAOcA4QDbANMAzQDMAM4A0wDXANwA3wDhAOIA5ADjAN8A2gDYANMAzwDNAMAAlACLAJAAhgB5AG4AZwBiAF8AYABhAGYAawBwAG0AYQBYAFcAVgBXAFYAVgBWAFYAVABWAFwAXQBeAF4AXQBdAF0AWgBYAFIASgBAAD8AMgAkABgADgAEAP///v/+//7//v/+//7/AAABAAMABwAPACAAMwBAAE0AYgB6AH8AgQCFAIUAjACWAIwAhACFAHoAYABbAHIAmQDBANUA5gD7AA8BGAEdARsBFAEIAfkA7gDnAN4A2wDdAN4A2wDbAN4A5QDuAPEA8gDxAPAA8QDyAPMA7wDnANsAzgDAALAAowCWAI0AiACFAIEAgACAAIAAggCCAIMAiACKAJIAkgCRAI8AjgCNAI0AjwCPAJAAkACIAIkAkgCbAKIAogChAKEAowCjAKQArQC4ALkAuAC7ALoAuQDFAMsAzgDWAOMA6gDyAPUA+AD6AP4AAQH/APgA8wDuAOoA6QDoAOgA5gDkAOUA6wDrAOsA8QD5AP4AAgEEAQMB/wD9APsA/AD3AOYAtgCkALEApwCbAI4AhAB9AHoAfACCAIgAjQCMAIAAcgBmAFsAVwBXAFcAVwBYAFcAVABZAF0AXwBhAGEAXwBfAF4AWwBZAFQATABDAD4ALwAeAA8ABAAAAP7//v/+//7//v/+//7/AAABAAMABgAPAB8AMQA+AEgAWABuAHwAhACJAI4AkACLAIIAewB3AG0AYABoAIQArwDXAOYA9gAOASEBIAEbARsBFgEQAQ4BCQEFAf8A/QACAQQBBAECAQIBBQEJAQwBDgENAQwBDQEPARIBEQEGAfcA5ADQAMEAtACmAJwAlgCOAIcAgwCCAIMAhACHAIkAjgCNAJEAlQCaAJoAmACUAJMAlACUAJMAlACQAJMAlwCbAJ4AoACiAKUAqACoAKgAqgC1ALsAvAC/AL0AtgC+AMYAywDUAN0A5ADuAPMA+AD9AAMBCAEKAQoBBwEDAQEBAAH+APsA+AD0APMA+AD+AAcBEgEXARkBHQEfASEBJAElASQBHwERAQAB4wDMAMwAyQC+ALIApQCcAJwAnwCjAKUAogCVAIgAfQBuAGIAXwBeAFsAWwBZAFUAVgBZAFwAXwBhAGEAYABfAF0AWwBYAFMATABEADwALwAeAAwAAAD+//7//v/+//7//v/+////AAABAAIABgAOAB0ALwA+AEcAUABbAGYAbQB0AHsAgACBAH0AegB2AHIAcQB+AKEAxwDiAPQAAQEPARwBFwEVARoBIwEpAS4BNQEzAS4BMAE5AToBNwE3ATgBOQE3ATMBMQEtAS0BMQE4ATgBLwEkARUB/QDmANcAzQDBALcAqwCdAJQAiwCGAIsAjQCNAIkAjQCTAJYAnAChAKAAnACZAJcAmwCaAJUAmACXAJwAnACbAJoAmwCbAJ0AoQCjAKYAqQCvALsAwwDAAL0AwQDIAM4A0QDVANQA1wDfAOkA9QABAQoBEwEaASABIwEmASYBJAEeARYBDwEJAQYBCgEcATcBRgFAATYBNAE4AT8BRQFHAUMBPAEwASEBEwH3APAA8ADhANYA0ADMAMwAzQDHAMAAtACfAIsAfQBuAGUAYgBjAGQAYQBaAFcAWQBcAF0AYABgAGAAXwBfAF0AWwBYAFIASwBHADsALwAeAAsAAAD+//7//v/+//7//v/+/wAAAAAAAAIABQAMABsALQA8AEcATwBWAFcAWwBjAG4AegCEAIoAiQCGAIcAjQCZALUA1wDqAPkACwEaASIBJQEkAS4BQAFMAU8BWAFdAWIBawFyAXUBdwF3AXgBfQF9AXUBbgFjAV4BXQFfAVYBSAE8ASwBEwH7AOsA3wDSAMYAtQCoAJ0AkQCTAJIAkACPAJcAnwCjAKIAowCkAKUAoQCgAJ8AoACdAJwAmQCWAJYAlwCYAJsAmQCYAJkAnACgAKYArwC6AMQAzQDQANAA1ADbANsA2gDaANoA2wDgAOoA+wAQAR8BIwEqATQBPgFKAU4BTAFNAUwBQwEzASwBMAFBAVwBbgFvAWMBXQFfAWIBZgFnAWQBXQFUAUkBNwEgARcBDgEDAfkA8wDxAO4A7ADjANUAxQCwAJsAhgB2AGsAZQBkAGkAZQBhAF8AXwBfAF8AYABgAF8AXgBdAFwAWgBWAFAASwBFADgALQAdAA4AAwD+//7//v/+//7//v/+/wAAAAAAAAEABAAKABgAKQA6AEYATwBVAFgAVQBfAHAAfwCMAJcAmwCaAJ8ApgCuAL4A2QDrAP8AFgEsATQBMAEsAToBVAFsAXoBhQGNAZUBoQGpAawBsgGyAbEBtgG0AaoBogGcAZUBjAGKAX4BcAFlAVYBPQEfAQUB8ADkANkAygC8AKwAoAClAKgApACiAKwArwCsAKsAqgCsAK0ArACkAKAAoACfAJwAnQCeAJgAkQCPAJAAkACRAJUAmgCkALEAvQDJANQA3gDoAO0A9AD5APQA8ADsAOoA5gDoAPMABgEbAS4BQAFQAWABcQGDAYsBiAGDAYMBdwFnAV8BXQFjAXABfgGEAYYBjQGNAYkBiAGJAYoBhwGBAXcBZgFXAUcBPAE2ATABIwEbAREBBwH7AOsA1gDCAKoAkwB9AHIAbwBrAGoAagBmAGUAZQBjAGEAYQBhAF8AXgBcAFsAWABUAFEASwA/ADQAKAAYAA8ABAD+//7//v/+//7//v/+/wAAAAAAAAEABAAIABMAJQA4AEYAUABUAFgAVwBkAHUAhACSAJ8ApgCpAKsArwC5AMoA2gDuAAQBGwExATsBOwE6AVMBdgGQAZoBnAGnAboByAHOAc8BzgHNAc4B0gHTAc8B0QHSAcoBuQGtAZwBigF7AWoBVAE8AScBFQEGAfoA8QDlANAAwQC+AL4AuQC2ALoAuAC0AK8AqQCnAKkApwCgAJgAlgCVAJYAmQCZAJcAkwCOAI0AjACPAJYAoACsALwAywDZAOUA8AD9AAcBCgEMAQwBCAEBAfoA9wD5AAUBGAEpAT0BWwF5AYwBnAGrAbUBsgGjAZoBkwGNAYgBhgGIAY0BlQGaAZ8BqAGpAaYBowGiAagBsQG0AakBmAGJAYEBfAFwAWQBWQFQAT4BLwEcAQYB7ADOALIAmgCHAHwAeQB4AHUAbwBpAGgAZwBmAGQAYwBhAGAAXgBeAFsAWABVAE8ARQA4AC4AIgAYAA8ABAD+//7//v/+//7//v/+/wAAAAAAAAEAAwAHAA8AHwA0AEYAUgBXAFsAYABpAH4AkwCpALgAvwC/ALsAuwDCAM8A3gDyAAsBIwE5AUcBUAFZAXEBlAGqAbcBwAHJAdkB7AH6AfcB6wHnAeYB3wHcAdcB0wHOAckByAHIAb0BoQGEAW0BXQFOAUABMwEpASIBGwELAfUA4wDXAM0AxADEAMkAwAC7ALcArACmAKUAoQCWAI4AjgCSAJcAmgCYAJUAkQCQAJEAjwCTAJ0AqwC4AMgA2wDyAP8ACwEWAR4BIwEkASkBKgEhARoBGgEdASIBNgFQAWcBegGPAaQBtwHHAdEB2AHQAcQBvAG4AboBwgHBAcMBxgHJAccBxAHDAcMBvQG3AbgBugG8AbkBtAGzAaoBpAGeAZABhQF5AWsBWwFEASYBAwHfAL4ApQCMAIIAhQCHAIEAegBzAG8AawBmAGQAYQBeAFwAXABdAF0AWQBSAEkAOwAxACcAGwAXAA8AAwD+//7//v/+//7//v8AAAAAAAAAAAEAAwAFAAwAGQAuAEMAUABYAF8AagB5AI4ApgC9AMsA0gDRAMoAyADOANgA6wD/ABMBKgE9AVEBZAFwAYUBpQHCAdgB6wHuAe8B9wECAgQCAwIEAv8B+QH6AfIB6AHbAdABzgHOAcgBsgGaAYgBgAF3AWMBVwFPAUQBNQEkARUBCAH7APIA7ADoAOEA0wDJAMMAuQCuAKEAmACMAIoAjwCVAJkAnQCgAJ8AnQCeAKEAowCmAKsAuADJAN0A+AAQASYBOQFEAUcBTAFMAUQBPQE1ATMBMwE0AToBTQFrAYgBmwGqAb0B0AHnAfUB9gHsAegB6AHrAecB5QHrAfIB/AEDAgAC8QHoAeAB1gHaAdsB3gHdAdkB1AHRAdEB0QHHAboBsQGqAZ8BhgFmAUUBHgH3ANEAtQCgAJsAmwCYAJUAiwB/AHEAZABcAFkAVABXAFkAWQBbAF0AWABQAEMANAAqACMAGgAWAA0AAQD+//7//v/+//7//v8AAAAAAAAAAAAAAQADAAgAFAAnAD4ATgBZAGIAbwCBAJYAsADKANsA4QDiANoA2ADbAOIA8QAKASoBQQFTAWwBhAGWAaoBwwHaAfABBwIIAv8B/AH9AQcCGwIrAjkCQwJDAjACEgL3AeUB3QHXAc0BwgGsAZ8BmAGTAY4BhwF3AWQBSgE5AS0BIgEYARQBDgEFAfgA6QDaANMAyQC6AKEAkgCRAJMAmQChAKkAqQClAKYArAC0ALsAwADHAMgA0ADmAAIBHgE5AVIBaQF4AX0BeQF4AWkBVQFIAUYBSwFSAVUBZQGFAZ4BrQG8AdEB5gEEAhUCDwIRAhUCHAIeAhQCCQIJAhgCIgInAiwCKgIjAhgCAAL7AQYCHQIlAiACHgIfAhoCDgL/AfAB6AHlAdoBugGPAWQBPQEYAfUA2wDLAMAAuACxAKIAkAB+AG8AYwBZAFIATABPAFUAVQBXAFkAVQBMAD8AMQAlABsAFwARAAgA/v/+//7//v/+//7//v/+/wAAAAAAAP////8BAAUADgAeADQARwBWAGQAdQCIAJwAsADHANwA6gD1AP4ABQEIAQ8BFQEeAS4BRgFqAYkBowG+Ad8B+QEGAhICGQIdAiICKwIyAjoCSgJSAlsCYAJhAk8CMgIYAgoC+gHsAd0BygG7AbEBsAGwAbIBrQGZAYgBewFmAU4BPgE5ATABJgEeARIBAQHwANsAwwCxAKQAnQCcAJ8AqQCuALIAtQC2ALYAvgDDAMUAxgDJANUA6gAIASkBRwFnAYUBngGpAaoBoAGWAYcBdAFjAWEBYQFoAWsBewGWAa4BvQHTAeMB+QEGAhACHQIkAi4CNgIxAiYCIgIXAhgCJQIuAjACMAI3AkgCRgJOAlcCYQJnAl4CTwJEAj8CPgI1AiQCFgIKAvEBzgGnAYABWwE4ARkBBQHvANsAyQCyAJ4AigB3AGgAXQBUAEwARQBGAE0ATwBRAFUAUwBJADkALQAcABgAEgAKAAEA/v/+//7//v/+//7//v/+/wAAAAD///7//v/+/wIACQAWACoAQABSAGIAdwCNAKEAsgDDANgA7AACARkBLQE4AUEBRAFHAUsBYgF9AaABxgHqAQ0CKwJAAkMCQAI/AkcCWQJoAmYCZgJqAnECegKDAnYCXwJIAjYCHQILAvwB9AHoAdcBywHDAc8BzQHGAcQBugGhAYEBawFiAVUBRgE7ASMBCwH1AN0AyAC3AKgAogCmAKgAqACvALkAwADFAMgA1QDdAOAA3wDjAO0ADwEzAVgBdwGYAbkB0AHcAdsBzgG9AZ8BhAGDAYcBjAGPAYwBlQGqAcYB5wH3AQ4CHAIeAikCLwI2Aj4CSgJRAkMCMAIlAigCMAJCAkcCTAJbAnECiAKZAqkCsAKiAooCcQJkAl8CXwJXAkICKAISAgAC5AHBAZ4BeAFYAUEBKAEDAecAzgC0AJsAhQByAGQAWwBXAFEARABEAEsATABOAFAATwBEADMAKQAYABIACgACAP7//v/+//7//v/+//7//v/+/wAAAAD+//7//v/+////BQAPACAANwBOAGIAdACJAKIAuQDLAN8A8wAIAR0BMgFEAVMBXwFmAWsBgAGbAbgB1QH8ASYCRwJDAjUCPgJBAkwCbAKLAqICrwKwApoCgAJ5AnUCawJZAkUCLwIbAhMCFQILAv4B8QHtAfEB8QH5AfsB5gHAAZ0BiwF+AXEBYAFLATUBHQEHAfAA1wDDALIAqACnAKkAqgC1AMEAxwDNANQA7AAGARMBFwEhAS0BMwFHAZgByQHiAfMB/gEFAgwCAgLmAcIBqwGfAY8BjQGeAa4BwgHWAfYBCgIQAiICIwIwAj0CRwJKAl8CZgJYAj0CMAIuAi8CLQI1Aj8CTAJkAoICqgLEAssCxQK1Ap4CigJ6AnUCdgJcAjsCJAISAv4B6AHNAa4BkAFxAVEBKQEEAeoA1AC3AJwAhAByAGUAYQBdAFcASgBLAE0ATABMAEkAQwA/AC4AGQASAAoABAD+//7//v/+//7//v/+//7//v/+/wAA///+//7//v/+//7/AwAKABcALABGAFwAbwCDAJsAswDIANwA8gAIARsBNAFQAWUBbwF2AYQBmgGqAcIB2QH6ASUCPwI0Ah8CIAIwAk8CdAKVArgCzwLHAqcCjAJ9AngCdgJvAl8CTgI/AjgCNgIsAiACEQIIAgUCBQIFAgEC8AHVAb4BrwGdAYYBbAFSATgBHAEDAeoA0wDDALgArgCoAKkArgCzAMIA0QDjAPEABAEnATIBOgFGAVYBXwF6AeYBHgI5AkUCSAJAAi4CFwL1AdcBwQG3AbEBtgHKAeUB/wEQAiACJgImAicCHwIuAjsCRgJRAl4CZwJgAk8CSgJJAkcCSQJDAkwCVAJkAocCpwLAAssCxwK1AqECkAKEAnsCcAJXAjcCIAINAvUB3AHGAa8BjgFwAVEBJwEDAeoA1AC1AJoAhQB2AG4AaABkAF8AWABVAFAATABGAD8ANwAwACsAFAAKAAQAAAD+//7//v/+//7//v/+//7//v/+/wAA/v/+//7//v/+//7/AQAGAA8AIgA+AFwAcgCFAJkAqgC9ANAA5QD+ABwBOQFSAWYBbgF0AYIBmAGyAcYB1QHtARICKQIbAggCCgIaAjgCWAJ0ApoCxQLJArYCoQKTAo8ClgKTAoUCcgJnAlsCVQJMAjsCJgIgAhYCDAIEAgAC9wHrAdUByAG4AaABgwFjAT8BIwEHAe0A2gDKALwAtACuAK8AugDGANUA5wD1AAEBFAExAR0BIQFhAZEBvQENAkICYwJ4AnoCdwJwAl8CPAIZAv8B7AHZAe8BAgINAh0CMAI+AkQCPgI1AiICGwIhAiICKgI3AkkCVQJVAlYCYAJpAm0CawJhAmYCZAJoAnYChQKYAqICnwKVAogCegJtAl8CUAJDAi0CFgICAusB0AGqAYwBcgFaATgBEwH0AOIAzACwAJoAhwB9AHgAdQByAG0AZwBfAFcATABDADkALgAkABQADgAFAAEA///+//7//v/+//7//v/+//7//v/+/wAA/v/+//7//v/+//7/AAADAAoAGQA0AFUAcACFAJcApQCyAMMA2gD3ABkBMgFAAU4BXgFzAYoBoAG+AdgB6wHuAe0B9wH1AfYBAgITAi8CTQJqAoQCnQKiAqICoQKeApcCkwKOAoICbgJfAlICVgJVAkkCOQIxAigCIAIWAg4CBgICAvcB6AHMAa0BjgFuAUwBLwESAfMA2wDTANMAzQDNANAA3gDuAAEBCQEPAQsBFQEVAQ0BIwHLAR4CRAJxApECqwK8ArkCsQKmApYChgJpAkICKQIfAiwCOQI9AkICPAIvAiMCHgIeAhQCBAL7Af0B/QECAhQCHAIjAisCOAJFAk4CUwJTAk4CSQJOAlkCWgJfAmICXAJOAkICPgI/AjoCMQIoAhcCCwL9Ad4BrwGCAWMBSQEuARAB9wDhAM0AtQCjAJQAiQCEAIIAgQCBAHsAcwBqAGAAUwBCADIAJAASAA4ACAACAAAA///+//7//v/+//7//v/+//7//v///wAA/v/+//7//v/+//7/AAACAAYAEgAqAEkAaAB+AI8AnACoALYAxwDgAP0AFgErAUMBXgF7AZIBpAG+AdYB4AHgAeMB5QHnAfMBCwIbAjECTQJoAocCngKmAqkCowKZAowCfQJtAmcCZgJdAkkCRgI+AjICKAIeAhMCCQIAAvgB7gHnAeMB2AHMAbIBlAF0AVQBOwEmAQ8B9wDzAPMA8gDwAPcACQEcASABQgFBAVsBVAFCAUkBqAFkAn4CnQLFAtUC4QLkAuAC3wLRArYCqwKgAowCbAJmAmMCXQJWAlECPAIeAgIC6AHrAe4B2wHMAc0ByQHSAeUB9gECAgcCAgL5AewB7wH0Af4BBwIPAhMCFgIVAg4CBwIOAhgCEQIIAggCBgL3AecB3AHNAakBfQFSATUBIQEJAfcA5QDMALMAogCXAI4AigCLAI0AkACOAIYAfQBzAGUAVwBHADIAEAARAAwABQABAP/////+//7//v/+//7//v/+//7//v8AAAAA/v/+//7//v/+//7///8BAAQADgAjAEIAYgB6AIsAlwCiAKsAtADGAN0A+AATATEBUwF0AYwBnwG3AcoB1QHeAd0B3QHlAfkBFQIwAlECaAJ7Ao8CnQKrAsMCwQK6AqcCiQJtAmECWwJWAkgCQgIxAiACDAL/AfUB7AHlAdwB0wHPAcwBxgG6AaYBkQF3AVsBRAEvAR4BGgEbARoBFAEaASUBKQEvAS0BUgFiAUkBSQFYAa8BbQKeAqcCvQLwAv0CBAMBA/oC/QLyAtsC2ALEAqkCjAJ4AnICXQJWAkkCLAIAAt0BwAGyAagBnQGWAZgBoAGuAcABzQHaAdsBzwG/AawBqQG3AcMBzQHLAc0B0wHSAcgBxQHTAekB6AHkAd0B1QHHAbYBogGJAWABOQEeAQoB+QDvAOIAzgCxAJsAkACIAIUAiQCPAJUAlgCSAIsAggB0AGcAWgBNADIAEQAOAAgAAgAAAP/////+//7//v/+//7//v/+//7//v8AAAAA/v/+//7//v/+//7///8BAAQADQAhAEAAXwB2AIIAiQCRAJgAngCrAMEA2gD2ABQBMwFSAW0BgQGPAZsBqgG2Ab4BywHaAecB+QEWAkICZAJ3AoECgwKHAogChQKDApQCjgJ4AmICVAJCAjACKgIkAhkC+QHfAdQB2QHgAdwB1AHEAcEBvQGxAaABjQF3AV8BTAE9ATgBQgFGAUsBRAFFAUgBRQFDATkBMAE9ATwBUwGSATwCfAK3AtcC8QL+AgcDEQMVAxUDFwMUA/kC3wK8Ap0CcgJWAk0CPwIlAgUC5wHCAaMBjAF/AXYBagFoAXABgAGRAZ8BpwGnAagBrAGrAaMBnQGaAZgBmQGTAZcBpwGuAaIBmgGcAaQBqQGvAa0BqwGmAZQBdQFMASUBAgHpANQAygDDALsApwCRAIIAeAB1AHgAgQCKAJIAlgCWAI8AhgB5AGoAXQBLACMAEAAKAAMAAAD////////+//7//v/+//7//v/+//7///8AAAAA/v/+//7//v/+//7///8AAAQADgAjAD8AWQBrAHMAdgB5AHsAggCQAKcAvwDXAPUAFwE0AUoBVwFiAW0BgwGWAaEBuwHXAeYB9gEQAjMCVwJuAnkCfgJ0AmQCWwJYAmICbQJcAk0CNwIpAhYCAwL7AfIB1AG9Aa8BtAG1Aa0BsAGwAbABrAGkAZoBjgF8AWUBUgFIAUoBUAFeAWsBYQFYAVIBVAFWAVUBTQF2AZ8BpQHjAUkCewK/AvECDwMLA/oCAAMEA/wCBwMAA/cC3gKlAnUCSwI0AhUC9AHGAaMBjQGBAXQBXQFUAU4BRQE8AUABUAFjAW0BcgF6AYEBiAGRAZMBiwF/AXEBagFlAW0BfAGEAYEBfAF6AXcBbgFiAWABYwFqAWMBSQEjAf8A4gDJALQApwCgAJcAiAB6AG4AaABmAG4AegCFAIgAjwCSAI8AiAB9AG8AYAA7ABgACgAFAAEA///////////+//7//v/+//7//v/+////AAAAAAAA/v/+//7//v/+//7//v8AAAQADwAlAEEAVgBhAGYAaABmAGQAaAByAIYAnAC0ANQA9wAVASoBNAE7AUABUAFoAYMBowHLAewBBwIgAjwCWAJvAoYClwKSAoACbQJiAl0CYQJOAjkCKQIeAhAC9QHZAcQBqQGQAZABkQGKAYEBfQF9AYUBigGLAYgBiQGBAXgBbwFhAV8BWQFUAVoBYAFfAV0BbgF7AYEBqwHcAeEB7AExAk4CXQKdAtgC/QL7AuQC5gLeAtECzALRAtgCsAJ4Aj0CCgLiAb8BnAF7AWQBWgFTAUYBOgEsASQBHQEXAR0BMAFBAVEBWwFXAVcBXgFsAX0BggFxAWEBXwFYAVYBXAFeAVoBVgFOAUQBLgEcARQBFAEXARoBFQEBAecAzACzAJoAigCCAHwAdABoAGEAWwBdAGcAcwB3AHwAgQCGAIYAgwB8AHMAXAArAA8ACAAEAAAA///+/////v/+//7//v/+//7//v/+/wAAAAAAAAAA/v/+//7//v/+//7//v///wMAEAAmAEIAVQBdAF0AWwBYAFUAVwBfAGkAfgCaALsA2gD1AAYBDQEOARQBJAFAAWMBjQG7AeoBCwInAjwCTAJfAmUCZAJbAkgCMAIoAicCMgIyAh0CDwIEAvMB4gHVAcQBqgGUAZEBhAFtAV0BUQFOAVQBWwFgAV8BYgFjAWQBeAGAAXABagFmAW4BewF5AXABfQGRAcAB7wHvAfYBFQIwAj0CQAJqAqwCxQK9AqgCpwKlAqECngKuAq8CigJDAgICyAGaAX4BaAFUAUEBOwE2ATEBJwEcAREBDwESARUBHgEuAT0BRgFKAUkBTAFQAUcBQAE/ATsBPQE6ATMBMQEtASMBGgEKAfcA6gDeANUAzgDNANQA3wDXAMQArQCVAH4AcgBqAGUAYQBeAFoAVwBaAGcAagBqAHAAdQB7AH0AewB2AG4ASwAcAA4ACAADAAAA/v/+/////v/+//7//v/+//7//v8AAAAAAAAAAAAA/v/+//7//v/+//7//v/+/wIADgAlAD4ATwBVAFMASgBDAEAAQgBKAFgAZwCAAJ8AvgDZAOoA7ADqAOwA9QAMAS4BWAGSAc0B+gETAh4CIgIhAiICIgIZAgwCAgIJAhECJAInAiECCwL+AfIB5wHgAdIBuAGZAYoBcgFXAUUBNAEyATYBNwE8ATsBPQE9AVABewGGAXoBcgFuAXEBfwGEAYEBjgGeAd8B7QH2AfgB+gHoAf8BKQJOApACrQKkApACjAKLAoACeQJ7AmoCOAL7AcIBigFvAVsBSgE9AS8BJQEiARwBFgEOAQgBCgEQARQBFwEeAScBOAFFAUoBRAE1AR8BFAESARABEgEHAf0A9wDtAN0AzQC7AKoApQCnAKEAmQCYAKEArwCtAKAAjQB8AGoAXgBYAFYAWQBaAFkAWgBgAGUAYwBnAGkAawBwAHQAdABvAFsAMAAUAA4ACQAEAAAA/v/+/////v/+//7//v/+//7///////7//v/+/////v/+/wAA/v/+//7//v/+/wEACwAeADQARABIAEUAPAA2ADMANQA9AEcATABjAIIAoAC+ANMA1gDSANEA1wDnAAEBJwFdAZ0B1wH5AQoCEgIRAhACFQIVAhICFwIqAjECLgIlAhUCBwL/AfIB4QHQAb4BpwGMAXQBVwFAAS8BGQENARMBFwETARIBFAEYARkBPgFNAUkBPAFKAVMBYQFwAXcBgQGRAasBxAHIAbsBtgHVAf4BLwJWApcCqQKiApkChQJ5AmYCXQJHAisC1gGWAXUBUwFFATsBOQE3ASwBHAEOAQMB+AD6AP4AAQH/AAgBDwEYAR8BIwEnASkBMAEuAR8BFwELAfsA7QDeANEAuQCpAJkAjgB6AGsAZgBmAGcAbAB3AIYAjgCKAH4AcwBrAF8AVwBUAFUAVwBXAFoAYQBnAGIAYgBmAGgAaABqAGsAZwBVADIAGQATAA8ACwAGAAEA/////////v/+//7//v/+////AAD+//7//v/+//7/AAAAAAAA/v/+//7//v/+/wAABwAVACYAMgA4ADcAMwAxADAAMgA2ADIAMQA9AF4AhACiALYAuwC6ALgAvADKAOcACQE5AXYBtgHdAfkBBwIKAv0B9wH9AQoCGgIiAisCKwIcAggC+QHtAd4B0QHEAbYBpAGKAWgBRgEuARgB/wDrAOEA3gDfAOcA7QDyAPkAAQEIAQ4BGwErATMBRwFOAVQBWgGCAYMBfgGAAYwBoAHEAf8BGgJDAmUCbwJpAlUCRQI5AiQCFAIAAq4BhAFpAVMBSwE9AS0BHQEWAQsB/wD4APUA8AD4AAIBCAEKAQkBCgENARYBFAEOAQ8BGgEiASYBIAEFAeEAwQCsAJsAiQB9AG8AZQBdAFsAUwBVAFcAXgBsAHsAfAB7AHQAbgBqAGEAWABYAFcAVwBZAF8AaABkAF4AXQBdAF4AXwBhAF8ATQAyABoAFQAUABIADgAIAAIAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA/v/+//7//v/+////BAAMABcAIgAoACwALgAwADAALwArACYAIAAfADEAUQByAIgAjwCOAI4AlAClAMUA8wAqAWIBlQG/AdsB6wHtAeAB1gHbAeoB9gEBAggCEQICAu4B2QHJAbYBqQGhAZYBhQFtAU8BLwEOAfQA3QDJAL4AswCzALwAwwDKANYA3wDjAOAA3ADlAOsABQEZARgBMgFLAVMBTwFZAWQBggG5Ab4BtwG3AcUBywHPAcYBvQGtAaABigFyAWUBTgE+ATMBJgEUAQYB/QD2APEA8ADrAOQA3wDmAO4A9gD+AAABAQECAQYBBwECAQAB/gD9AAcBBQHgAL8AogCMAIIAdgBuAGMAXwBRAE0ATwBPAFUAXgBkAGkAbgBwAHAAbQBqAGAAXQBcAFwAXQBgAGgAaABfAFwAWwBZAFUAUwBSAD8ALAAdABcAFwAXABUAEQAKAAQAAQAAAAAAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAAAA/v/+//7//v/+////AgAGAAwAFAAdACUAKwAvAC4AKwAlAB8AGAAVABkAKgBGAGEAawBqAGoAcwCFAKMA0QAMAUcBewGeAa4BuAG/AcEBxAHKAdUB3AHgAdkB0AHFAbMBngGLAXsBbwFiAVYBSQE6AScBEgH6AOIAzQDDALUAqgCnAKUApgCpAKwAsQC2ALcAtAC5AMwA3ADrAPwAIwFBAUYBSAFCAT0BTAFVAVYBXAFmAXABeQF/AXUBaQFdAU8BTwFSAT4BIAEEAfgA8gDqAOEA4QDgAN8A3wDaAM4AygDSANwA5QDoAOYA6ADtAPoA/AD4APUA7QDeANUAyQCwAJ8AjgCEAH0AeAB0AGwAZABdAFsAUgBSAFQAWQBgAGYAagBuAHEAcQBtAGcAZQBjAGUAZgBuAG0AYABcAFsAWQBWAE8ARgAxACUAHAAWABcAGQAZABcAEwAMAAUAAQAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7/AAAAAP///v/+//7///8AAAAAAQADAAcADAAUAB4AJwArACoAJQAfABsAFAATABcAHgAvAEcAUwBTAFIAVwBoAIgAtgDuACkBWgF2AYEBhgGLAY0BjwGTAZcBmgGcAZwBmQGTAYABagFXAUgBOQEsASEBFwEQAQkB/gD0AOYA1gDHALYAqgCfAJkAnACdAJgAmgCdAJ0AngCrAMcA2QDqAPUACQEdASEBHwEUAQwBDwEVAR4BMwFAAUkBUAFTAU0BRgFBAUEBQQE5ARUB1wDXAN0A1wDUAM0AywDJAMkAwQC3AL0AxADPANgA3gDiAN8A4ADhAOgA5gDlAOUA4ADOAMEAuwCnAJkAjwCLAIoAjgCSAIcAfwBzAGYAXQBcAFsAYABnAGwAcQBzAHUAegB4AHIAbwBxAHEAdQB3AG0AYgBcAFoAVwBQAEUAKgAeABgAFQAWABgAGgAaABgAFAAMAAYAAgAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7/AAAAAP///v/+//7///8AAAAAAQACAAQACAAOABYAHQAhACAAHQAaABgAFgAWABoAIQAsADkASABPAEgATABXAHQAogDUAAMBKAFEAVEBVQFXAVoBXgFbAVkBXAFfAWIBZgFiAVEBQgE3ASYBEQEAAfYA8ADsAOsA6wDrAOMA1ADIALoArACdAJUAlACWAJIAjgCKAIsAjACbALgAzgDaAOIA7AD5AAIBAAH3AO8A7QD1AP4ADwEbASYBLAEuASkBKAEmASMBJgETAcwAvQDMAM0AxgDDAL8AuwC7ALYArQCoALUAvQDDAMwA0wDSANEAzwDPAM8AzADQANYA2wDQAMUAwQC3AKgAoQCeAKMAqAClAJsAjQCAAHQAbQBrAG0AdQB+AIEAggCAAIIAiACCAH4AfAB8AH0AgAB4AG4AZgBeAFgAUwBIAC4AHgAYABUAFAAWABkAGgAZABcAEwAMAAYAAgAAAAAAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAP///v/+//7/AAAAAAEAAQABAAMABgALABEAFgAZABkAFwAWABUAFAAYAB8AJAApADAAOQBAAEQASQBPAGcAkgC9AOEA/wAVASQBLQEyATMBNAEuAScBJQEjASQBKAEjARIBAwH0AOsA5ADdANkA0wDNAMoAzADQAM4AwwC0AKcAngCWAJAAjgCNAIgAfwB6AHsAfgCJAJcAqgC2AL8AyQDVAOQA4gDbANMA1ADeAOQA5QDzAPgA+gD+AP8AAQH+APkA7ADLALUApwC4ALcArgC2ALoAtgCwAKwApQCfAKQArQC0ALgAvQC9ALYArQCwALMAtgC2ALcAuAC5ALYAuQC+ALsAtgC5AMAAxAC8ALEAnACHAHkAdAB2AHsAhgCPAJMAkgCRAI8AjQCJAIUAgwCBAIQAfwB3AHEAawBjAFoATQA1ACIAHAAXABQAFAAWABgAGAAYABYAEgAMAAUAAgAAAAAAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAP///v/+//7/AAABAAEAAQABAAMABQAJAA4AEwAVABYAFgAWABUAFAAYACAAIwAnACsALwAyADQAOgBQAGQAhACrAMoA4wDyAPsABQEQARkBGwEWAQ0BCAECAf0A+gDtAN8AzQDCALoAtwC5ALwAuwC1AK8AqQCwAK8ApwCaAJAAiQCGAIUAhQCCAHwAcwBvAHIAeQCAAIUAjACUAKQArwDCANIA0gDRAM8AzQDNANIA0QDLAMsAzgDSANQA0wDQAMcAuwCnAJgAjgClAKEAoQCpAK0AqwCmAJ0AlwCWAJcAmACaAJwAmQCYAJIAjQCPAJQAmQCaAJ0AngCjAKoAsgC8AL4AvQC/AMgA0QDQAMIAqgCUAIUAgQCFAIgAjgCSAJMAkgCRAI8AjQCOAI8AjgCJAIYAgQB7AHYAbwBnAFgAPQAqACAAGwAWABQAFAAUABUAFQAVABMAEAAKAAQAAQAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7/AAAAAP7//v/+//7/AQABAAEAAQABAAIABQAJAA8AEwAVABYAFgAYABgAFwAbAB8AIQAjACUAJwAoACsALgA9AFkAcwCXALMAyQDYAOQA7wD8AAQBBgECAfkA7QDjANoAzgC5AKoAogCfAJwAmwCbAJcAhgB+AIIAjQCMAI8AjgCJAIIAfwCAAIMAgQCBAHsAdgBxAGgAaABrAG8AdAB8AI0AmACsALgAvgDBAL8AuACzAK4AqgClALIAuwC/AMQAvwC3ALEAngCSAIYAfwCTAJAAjgCTAJUAlACQAIsAiwCIAIUAgQB8AHMAaQBlAGYAcAB2AHsAggCIAI8AlgCbAKAApgCtALMAvQDEAMYAxgDHAL8AsQCmAJ4AmwCcAJoAlgCPAIwAjQCPAJAAkACSAJQAlQCTAI4AiACBAHoAcQBhAEQALAAfABoAFwAWABUAEwASABIAEgARABAADQAJAAMAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAP7//v/+////AQACAAIAAQABAAIABQAJAA8AFAAWABYAFgAXABgAGQAbAB0AHwAgACEAIgAkACYAKQAvAEMAZQCIAJ4AsQDBAM8A2QDjAOsA7wDsAOQA1gDEALIAnwCPAIQAfAB7AHsAegB3AGUAXQBbAF8AZgB3AHsAfQB+AHsAegB7AHsAfQB/AHoAdQBvAGMAVwBYAF0AYABhAHAAewCEAI8AkQCSAJIAkwCSAIwAhwCGAIYAnACoAKYAnQCXAJIAgwB4AG4AZwCBAH0AfAB9AHoAeAB3AHUAdQBxAGwAZQBcAE8ASABEAE0AXQBkAG4AdwB/AIQAiwCRAJoAnQCfAKEApgCuALQAuAC8ALgAsgCtAKoApwChAJgAjwCKAIoAiQCKAIsAjQCOAJAAkQCPAIwAhgCAAHcAZwBJAC0AGgAWABUAFAAUABMAEgAQAA8ADwAOAA0ACwAHAAMAAQAAAAEAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAP7//v/+////AQACAAIAAQABAAIABAAIAA4AFAAXABcAFgAWABYAFgAZABsAHQAeACAAIgAkACkALAAvADUAUQB1AIgAmACoALcAwQDKANEA1QDVAM8AwACsAJYAgQByAGsAZABhAGAAYQBaAE0ARgBFAEoAUgBWAFsAaABxAHMAcwB1AHcAdwB3AHYAcwBtAF8AUQBIAE0ATgBPAFMAWwBiAGgAawBsAHMAdwB5AHYAcQB0AHkAeQB7AH8AggCDAH0AcQBkAF8AXQBxAGoAZABjAF8AXABaAFkAVgBQAEoASABFAEEAOwA6AD0AUgBXAF0AZQBqAHEAeACCAIgAjQCSAJQAlQCXAJwAowCpAKUAoACgAKAAngCcAJYAkACMAIkAhwCGAIcAhwCGAIYAhACEAIIAfwB5AGsASgArABoAFQAUABMAEwATABIAEAAOAAwACwALAAoACAAFAAIAAQACAAIAAgAAAP7//v/+//7//v/+//7//v/+//7/AAAAAP7//v///wAAAQACAAIAAQABAAIAAwAGAAsAEwAXABgAFwAWABUAFAAWABkAHAAeACEAJAAoAC0AMAAxADEAOQBSAG8AgwCSAKAArgC6AMQAyQDHAL8AsACdAIYAcQBkAFsAVgBSAFIAUgBOAEUAPQA7ADsAPgA/AEYAUgBiAGUAZABkAGQAZABnAGcAZQBiAFgASwBAADkAQQBBAEAAQgBJAFQAWgBcAFwAZABlAGUAYABlAGsAawBpAGsAcABtAGYAYABVAEwARwBXAFMATQBKAEkARABEAEUARgBFAEMAQwBAADoANwA0ADQASgBOAFIAWABaAF4AZABtAHcAgACGAIYAhACEAIYAiQCLAIsAjACOAJAAjACJAIgAhgCDAIAAfgB9AHwAewB5AHcAdgB2AHMAbwBiAEYAKAAZABMAFQAWABYAFQATABAADgAMAAoACQAHAAcABQADAAIAAQADAAQABAABAP7//v/+//7//v/+//7//v/+//7/AAAAAP7//////wAAAQACAAEAAQABAAEAAgAEAAkAEAAXABkAGQAYABUAEgAVABgAGwAeACIAJQApAC0AMQAyADEAMAA3AEkAYwCBAJUAowCuALcAuQC0AKoAnQCOAHkAYwBXAFIATgBMAEsASgBGADwAOAA4ADkAOAA5ADQAPABGAEwASwBMAEsASwBOAE8ATwBOAEgAPgAxACoAKQAwADQANQA5AD8AQwBHAEoATABNAE4AUgBVAFcAVgBXAFcAWgBWAFEARgA9ADQAMQBGAEAAOwA4ADoAPgBAAEIAQQBBAD4AOwA4ADQAMgAuAC0AQwBGAEsAUABUAFgAXQBhAGkAbwBxAHIAcgBzAHUAdQB1AHUAdgB2AHUAcABqAGYAZgBnAGoAagBrAGsAaQBmAGQAYQBhAFkARQAzABwAEwARABUAFwAYABcAFQATABAADQAKAAgABgAFAAQAAwACAAEAAQACAAQABAABAP7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAABAAEAAAABAAEAAgADAAcADwAWABoAHAAbABgAFQAWABcAFwAaAB4AIAAiACUAKgAvADEAMAAwADEAPABYAH0AkwCiAKYApgCiAJoAjQB/AG4AWABLAEgARwBIAEYARgBAADkANwA3ADgANgAuACMAJAAnACoALAAsAC4ALwAvADQAOgA5ADUALAAhABsAIgAnACoAMAAyADQANgA2ADcAOgA7ADsAPABBAEIAQwBHAEUAQQA7ADgAMQAnACMAHwA2ADgANgA2ADgAOwA7ADoANwA1ADQANAAxAC4AKQAoACkAQABFAEcATABRAFYAWABaAF8AYgBlAGUAZQBkAGMAYABdAFcAVABRAE4ARwBBAD8AQgBFAEsATwBRAFAATABGAEMAQgBAACkAGwAQAAgADQASABUAGAAYABcAFQASAA8ADAAJAAYABQADAAIAAQABAAAAAAABAAIAAgD///7//v/+//7//v/+//7//v/+//7/AAAAAAEAAQAAAAAA//8AAAAAAAAAAAEAAQADAAcADwAYAB0AHgAeABsAGQAYABYAFAAWABgAGQAaABwAIQApAC0ALgAsACoAJwAwAE8AcwCEAI8AkQCPAIoAgQB1AGYATQA9ADgAOQA8AEAAPwA8ADQAMQAxADAAMAAsABsAFgAWABUAFQAWABYAGQAaABwAIQAiAB4AFwATABAAFwAbACAAJgArAC4ALwAuAC4ALQAtACsAKQArACsAKgAsAC8ALwAtACoAIwAfABsAGgAvAC4ALgAvADIAMgAwAC0ALAArACoALAArACoAKAAnACcAPwBEAEYASwBQAFQAVwBZAF0AXgBgAGAAXgBaAFcAUwBOAD8AOgA2ADIALQAoACYAKAArADAANQA2ADMAKwAlACAAIQAXABIACwAFAAcADQASABUAFwAXABYAFAARAA4ACwAIAAUAAwACAAEAAQAAAP////8AAAAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAEAAQAAAAAA//8AAAAAAAAAAAAAAQADAAcAEAAaAB8AIQAgAB0AGgAYABUAFAAUABQAFAAUABYAGwAgACMAJAAjACEAHQAcACcAPgBZAG8AewB5AHYAcABpAFsAQAAyACsAKwAvADcAOQA1AC8ALAAsACsAKgAnABYAEQASABEAEgASABEAEQARABEAEAAPAA4ADQAOAAsADQAPABUAHQAjACcAKQArACoAKQAoACYAJQAjACMAJQAnACUAIwAhAB8AHAAZABcAEwAgACMAJAAmACYAJQAjACMAIwAjACUAKAApACgAJwAnACQAPABCAEYASgBOAFIAVQBWAFgAWABYAFkAVwBSAEoARwBBAC8AKgAmACIAHgAbABgAFgAXABkAGQAZABQADwASAAwADgANAAkAAQAAAAYACwARABQAFgAWABUAEgAQAA0ACgAHAAUAAwABAAAAAAAAAP///////wAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAQAAAAAAAAD//wAAAAAAAAAAAAACAAgAEgAdACEAIgAgAB0AGQAXABUAFAATABMAEgASABIAFQAXABkAGQAZABgAFgAUABcAHwAtAEQAXABpAGoAaABhAFMANwApACMAIwApADEANAAxACsAKAAoACcAJQAiABUADwAPAA8AEAAPAA8ADwAPAA4ADgANAAwACwAMAAwACQAMAA0AEwAXABsAHwAgAB8AHgAeABwAHQAbACEAJQAlACMAIAAcABgAFgASAA8ACgATABgAGwAaAB0AHgAfACAAIAAgACEAJQAkACQAIwAjAB8ANgA9AEEARQBJAEsATQBPAFEAUQBQAE4ASwBGAEEAOwA3ACQAIAAcABkAFgATABAADwAOAA0ADAAKAAgABwD+////AQAAAP7//v8AAAUACQANABAAEQASABEADwANAAoACAAGAAQAAQAAAP//AAD///////8AAAAA///+//7//v/+//7//v/+//7//v/+//7//////////////wAAAAD/////AAD/////AAACAAgAEwAfACMAIgAfABoAFQAUABMAEgARABEAEAAOAA4ADwAQABEAEAARABIAEQARABEAEwAYAB8ANQBOAFkAXwBcAE4AMwAkACEAIwApAC4ALwAsACgAJQAkACMAIgAgABoADgANAA0ADQANAA0ADQANAAwADAALAAsACgAKAAoACQAHAAkACwAQABQAFQAXABYAFgAWABYAFAAXABwAIAAiAB8AGgAWABMAEQANAAkABgALABQAFgAYABkAGwAcABwAHQAdAB4AHgAdAB0AHAAaABcALQA0ADYAOgA+AEAAQABAAEEAQgBBAD8APQA5ADUAMQAtABsAFwAWABQAEgAQAA8ADgANAAwADAALAAgA/v/+//7//v/+//7//v8BAAQABgAIAAgACQAIAAcABgAFAAQAAwABAAAA///+//7//v/+//////8AAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v//////AAD/////AAACAAcAEgAfACMAIgAcABUAEAAPAA8ADgAOAA0ADAAKAAoACwALAAwADAAMAA4ADgANAAwADAAOAA4AEwAfAC8ARABMAEYALwAkACQAJwArACwALAArACUAIwAiACAAHwAeABsADQALAAwADAAMAAwACwALAAoACgAJAAkACQAIAAgABAAIAAgACQAJAAoADQANAA4ADQAOAAsADwAPABIAFwAZABcAFgASAA4ADAAJAAQAAwASABIAFAAVABcAGAAaABoAGwAaABkAGAAYABUAFQATABEAJAAqAC4AMQAzADMANAA1ADUANQA2ADMAMgAuACsAKQAmABQAEgARABEAEQAQABAADwAOAA4ADQD+//7//v/+//7//v/+////AQADAAQABQAFAAUABAADAAEAAAAAAAAAAQABAAAA///+//7/////////AAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v//////AAACAAYADQAXABwAGwAVAA4ACgAJAAkACAAHAAYABQAFAAUABgAHAAgACQAIAAkACAAHAAYACAAJAAoACQAKAA0AFQAiAC4AJwAmACcAKAApACoAKQAoACQAIAAfAB4AHQAcABgADAAJAAsACwAMAAsACwAKAAkACQAIAAgACAAHAAcAAgAGAAYABwAGAAUABwAJAAgACQAFAAkACgALAAsADQAQABEADwANAAoACQAIAAUABAARABMAEwAUABMAFQAXABcAFwAWABUAFAASABEADwANAAwAHgAkACcAKgAsACwALgAuAC4ALgAuACwAKgAnACQAIgAgAA8ADgAOAA8ADwAPABAAEAAPAP///v/////////+//////8BAAIABAAEAAQABAADAAIAAQD///7//v/+//7/AQADAAEAAAD///////8AAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AQADAAUACAANABAAEAANAAkABgAGAAUABQADAAIAAQABAAAAAQACAAUABQAEAAMAAQABAAIABQAHAAgABwAGAAMAAgAEAAwAGwAgACIAJAAlACUAJQAkACAAHQAbABsAGgAYABYACgAIAAgACAAJAAkACAAIAAgACAAGAAUABAADAAMAAwD//wIAAQAAAAEAAQACAAIAAgAEAAUABwAHAAgACQAJAAoACgAKAAgABwAGAAUAAwAPABAAEQARABAAEgASABMAEgASABEAEAAPAAwACwAJAAkAGgAgACIAIwAlACcAKAApACgAKAAnACUAIwAhACAAHgAbAAsACwALAAwADgAOAA8ADwAAAAEAAQACAAIAAQABAAEAAgADAAQABQAFAAMAAQAAAP7//v/+//7//v/+//7/AQAEAAIAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQADAAUABgAIAAoACgAIAAYABQAEAAQAAwABAAAA///+//7//v/+/wAAAAAAAP/////+////AwAGAAYABQACAAAAAAAAAAAAAwAHABYAGwAeAB4AHgAeABsAGAAWABYAFQATABEABwAGAAYABQAFAAYABQAFAAUABAABAAAA//8AAP7////+//7//v/+////AAAAAAAAAgACAAMAAwADAAQABQAGAAYABgAGAAUABAAEAAEABAANAA8ADwAPAA0ADAANAA0ADAAMAAwACwAMAAgABwAGAAgAGQAcAB8AHwAgACEAIgAjACIAIQAfAB4AHAAcABoAGQAXAAkACAAJAAwADQAOAAEAAgACAAIAAgADAAMAAgABAAIAAwAEAAQABAADAAEA/v/+//7//v/+//7//v/+////AwADAAEAAAAAAAEAAAD///////////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAACAAQABgAIAAkACQAHAAYABQADAAMAAgABAAAA//////7//v///wAAAQABAAAA///+//7//v///wEA///////////+//7//v/+/wAABQAVABkAGgAaABgAFQAUABMAEgARAA8ABQAEAAMABAAEAAMAAwADAAIAAQD+//7//v/+//7//v/+//7//v/+//7//v/+/wEAAQACAAIAAgACAAIAAgADAAMAAwACAAEAAgD//wIAAwAMAA0ADQALAAoACQAHAAgABwAHAAcABwAHAAYABAAFAAYAFgAaABsAHAAcAB0AHgAeAB4AHQAbABoAGQAYABYAFgAUAAYABQAJAAkAAQABAAEAAQABAAIAAgACAAMAAwADAAQABQAEAAMAAQAAAP7//v/+//7//v/+//7//v///wIABAABAP///////////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAD+//7//v/+//7//v/+//7//v8AAAMABgAIAAkACAAHAAYABAADAAMAAgACAAEAAQABAAEAAgACAAMABQAFAAQAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wMAEQATABQAEwARABEAEAAPAA4ABQAEAAMAAwADAAMAAwADAAMAAgAAAP7//v/+//7//v/+//7//v/+//7///8BAAIAAwADAAIAAgACAAMAAwAEAAIAAQABAP/////+////AAAHAAcABwAIAAcABgAGAAQABQAFAAYABgAGAAUABAADAAQAEwAWABcAGQAZABoAGgAaABoAGgAZABkAFwAXABYAFAATAAYABgABAAIAAgACAAIAAgACAAMAAwADAAQABAAEAAMAAgABAAAA/v/+//7//v/+//7//v/+//7/AAACAAIAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA///+//7//v/+//7//v/+//7//v/+/wAABAAHAAcABwAGAAYABQAFAAQABAAEAAQABAAFAAUABgAGAAcACAAIAAcAAwAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///w0ADQAOAA4ADgANAAsABAADAAEAAAADAAMAAwADAAMAAgAAAP7//v/+//7//v/+//7//v/+////AAABAAMABAAEAAMABAAEAAQABAAFAAMAAgABAP/////+//7//v8CAAIAAgACAAEAAgACAAMAAwADAAQABAAEAAQABAAEAAMAEgASABQAFQAVABUAFwAXABcAFwAXABYAFgAWABYAEwAQAAAAAAADAAQABAAEAAQABAAEAAQABAAEAAMAAgABAAAAAAD///7//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAP7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA///+//7//v/+//7//v/+//7//v/+//7/AAADAAQABAAEAAUABQAFAAUABQAFAAYABgAHAAgACQAJAAoACgAJAAcABAABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8LAAwACwAKAAoACQACAAAA/v8AAAEAAgADAAMAAQD///7//v/+//7//v/+/wAAAAABAAEAAgADAAQABAAEAAQABAAEAAQABAAEAAMAAwABAAAA///+//7//v///////v/+////////////AAAAAAAAAAAAAAEAAQABAAAADwAPAA8AEAAQABEAEQATABMAEwATABMAEgARABAAAwACAAAAAAACAAMABAAEAAQAAwADAAMAAwABAP/////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA/v/+//7//v/+//7////+//7//v/+//7//v///wAAAAABAAIAAwAEAAUABQAGAAcABwAIAAgACAAIAAgACAAHAAQAAQAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8HAAcABgD///7//v/+////AAABAAEAAAD+//7//v/+//7//v/+/wAAAAAAAAEAAQACAAIAAwADAAMAAwADAAMAAgACAAIAAgACAAEAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/CgAKAAsACgALAAsADAANAA4ADgAOAA0AAgAAAAEAAAABAAEAAQAAAAEAAQABAAEAAQAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAP///v/+//7//v/+//7/AAAAAP7//v/+//7//v/+//7//v/+////AAACAAMABAAEAAQABAAEAAQABAAEAAQAAwACAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/BAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAAAAQABAAEAAQABAAIAAgABAAEAAQABAAEAAQABAAEAAQAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/BgAHAAcABwAIAAgACAAIAAgACAD//////v/+//7///8AAAIAAQABAAAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAP///v/+//7//v/+////AAAAAAAA///+//7//v/+//7//v/+//7/AAABAAIAAgACAAIAAgACAAEAAQABAAAAAAAAAAAAAAAAAAAA///+//7//v//////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAQABAAAAAAABAAEAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AwAEAAQABQAFAAUABgD+//7//v/+//7//v/+//7//v///wEAAQABAAAA///////////////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAA/v/+//7//v/+/wAAAAAAAAAAAAD///7//v/+//7//v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7/AwADAAQAAwD+//7//v/+//7//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAD+//7///8AAAAAAAAAAAAAAAAAAAAA///+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+////AAD+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///v/+////AAAAAAAAAAAAAAAAAAD+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v8AAAAAAAAAAAAA";
-// kantaoj/mut6q-havop2/geles/tsasa.ts
-const SKULPTA_AKVA_NIVELO = -288 / 64;
-const SKULPTA_AKVA_MASKO = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/DwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/fwAAAAAAAAAAAAAAAAD4fwAAAAAAAID//wEAAAAAAAAAAAAAAID//wcAAAAAAID//wcAAAAAAAAAAAAAAOD//w8AAAAAAMD//w8AAAAAAAAAAAAAAPD//38AAAAAAMD//38AAAAAAAAAAAAAAP7///8BAAAAAMD///8D/B8AAAAAAAAAgP////8BAAAAAMD///////8fAAAAAAAAgP////8DAAAAAMD/////////AQAAAAAA+P//////AAAAAMD/////////fwAAAAAA/P//////AAAAAMD///////////8AAAAA////////AAAAAMD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////AMD///////////////8/AAAAAMD///8DAAD4//////////8//P8/AAAAAMD///8BAAAA//////////8DAP8/AAAAAOD///8BAAAAwP////////8AAPwfAAAAAOD///8BAAAAAMD//////wcAAAAAAAAAAOD///8BAAAAAAAAAP///wMAAAAAAAAAAOD///8BAAAAAAAAAMD/HwAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8AAAAAAAAAAAAAAAAAAAAAAAAAAOD///8AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAMD//z8AAAAAAAAAAAAAAAAAAAAAAAAAAMD//z8AAAAAAAAAAAAAAAAAAAAAAAAAAMD//x8AAAAAAAAAAAAAAAAAAAAAAAAAAMD//w8AAAAAAAAAAAAAAAAAAAAAAAAAAID//wcAAAAAAAAAAAAAAAAAAAAAAAAAAID//wMAAAAAAAAAAAAAAAAAAAAAAAAAAID//wMAAAAAAAAAAAAAAAAAAAAAAAAAAID//wEAAAAAAAAAAAAAAAAAAAAAAAAAAID//wEAAAAAAAAAAAAAAAAAAAAAAAAAAID//wAAAAAAAAAAAAAAAAAAAAAAAAAAAID/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/HwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/HwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/DwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-// kantaoj/mut6q-havop2/geles/tsasahatsiq.ts
-const SKULPTA_HAXAIQ = [
+// ../../kanta/mut6q-havop2/geles/qox2n2k.ts
+const SKULPTAORIGINO = [-384, -384];
+const SKULPTADELTAJ = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////v/+//7//v/+//7//v/+//7//v//////AAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAD///////////////8AAAAAAAAAAAAAAAAAAP/////+//7//v///wAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v//////////////AAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//////8AAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+///////+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAEAAgACAAAA/v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7////////////////////////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//////wAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAQABQAFAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAAAAAQACAAEAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wEABAACAAIABQAGAAUAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAMABQAGAAUAAgD///3//P/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAEAAgADAAMAAgADAAIAAgABAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AwAGAAgACQAIAAgACAAGAAUAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAABAAUABgACAAYAAgD5//X/8//0//n//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAMABgAIAAcACAAIAAgABwAHAAUABAABAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wEACAAKAAsACwALAAsACgAIAAgAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA///+//7//v/+//7//v/+////AAAAAAAAAAABAAYAx//I/8n/AAD2/+7/7P/s//H/+f/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAUACAAIAAkACQAKAAoACwAKAAkACAAGAAQAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/////////AAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+/wAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAUACgAMAA0ADQAMAAwACwAKAAsACAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAD///7//v/+//7//v/+//7///8AAAAAAAADAAcAzP/O/9L/1f/z/+v/6P/p/+3/8//+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAUABwAIAAgACQAKAAsACwALAAoACgAJAAgABgADAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAA///+//7//v/+//7//v/+//////////////8AAAAAAAABAAEAAwACAAQABAAEAAMABAAEAAQABAACAP///v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wEAAwAEAAgACwAMAAwADQANAA0ADgANAAwADAAMAAwACQAHAAIAAQABAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAP///v/+//7//v/+//7//v///wAAAAAFAA0Az//T/93/4P/v/+v/6P/o/+n/7v/1//j/+f/6//3//v/+//7//v/+//7//v/+//7//v///wMABgAHAAcABwAJAAsADAAMAAwACwAKAAoACQAHAAYABgADAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAA///+//7//v/+////AgADAAQABQAGAAUABgAGAAYABwAHAAgACAAIAAgACQAIAAgACAAJAAgACAAGAAQAAgAAAAAAAAD//////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//AAAAAP///v8AAAMABwAJAAwADgAQABIAEwAUABQAEQAPAA4ADQANAA0ADQAMAAwACgAIAAYABQADAAIAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAEAAQAAAAAA///+//7//v/+//7//v/+////AAAFAA0A1v/f/+L/4v/g/+r/6f/o/+n/6//x//P/9f/4//r//v/+//7//v/+//7//v/+//7//v/+/wIABAAFAAYACAAKAAsADAAMAA0ADQALAAsACwAJAAkACQAHAAUAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7///////////////7//v8AAAQABwAIAAkACgAKAAoACwALAAsACwALAAsACwALAAsACwALAAsACwALAAsACgAJAAgABgADAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAFAAcABwAJAA0AEAASABMAFQAWABYAFwAXABcAFgATAA8ADgAOAA8ADgAMAAwACgAJAAkACQAIAAYAAwAAAAAAAAD+//7//v/+//7//v///////v/+//7//v/+//7//v///wEAAQABAAEAAQABAAEAAgACAAIAAgACAAEAAQAAAP7//v/+//7//v/+//7//v///wIA3f/j/+P/4v/g/9//6P/n/+j/6f/s//H/8//3//n//P/+//7//v/+//7//v/+//7//v/+////BgAHAAgACQALAAwADQAPAA8ADwAOAA0ADAAMAAwACwAKAAgAAwD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v//////AAACAAcACgALAAwADAANAA0ADgAPAA8ADgAOAA0ADQANAA0ADQANAAwADAAMAAwADAALAAoACQAFAAEA/////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABQAJAAsADAAOABIAFAAVABYAFwAXABgAGAAYABgAGAAXABUAEQAPAA8ADQANAAwACwAKAAsACwALAAoABgABAAAAAAD+//7//v/+//7///8AAAAA///+//7//v/+//7///8DAAUABgAGAAYABQAFAAUABQAFAAUABQAEAAQABAADAAEA///+//7//v/+//7/+v/0//P/7//k/+P/4P/g/9//5v/m/+f/6P/r//D/8//3//j//P/+//7//v/+//7//v/+//7//v/+/wAABgAIAAwADQAPAA8AEAARABIAEQARABEAEAAQAA8ADgANAAsABwADAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAEAAgADAAOAA8AEAAQABEAEQARABIAEQARABAAEAAQABAADwAPAA8ADgAOAA0ADQANAAwACgAGAAEA///+//7//v/+//7//v/+//7/////////////////////////AAABAAMABwALAAwADQAPABMAFQAWABYAFwAXABgAGAAZABkAGgAbABkAFgASAA8ADgANAAwACgAKAAsACwAMAAoABgABAAAA///+//7//v/+//7/AAAAAAAAAAD///7//v/+//7/AAAGAAkACQAJAAgABwAHAAYABgAGAAYABgAGAAYABgAGAAYABQAEAAEA/v/+//7/9//v/+7/8P/n/+f/5v/j/+D/3v/m/+b/5v/q/+//8v/3//n//P/+//7//v/+//7//v/+//7//v/+////AgAIAAsADgAPABAAEgATABMAFAAVABUAFQAUABMAEQAPAAwACQAFAAEA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAIABAAHAAoADgAQABEAEgASABIAEgASABIAEQAQABAAEAAQABAAEAAPAA8ADwAPAA8ADwAOAA4ADAAIAAQAAgACAAEAAAD//////v/+//7//v/+//7//v//////AAAAAAEAAgACAAQACAALAAwADAAOABIAFAAVABUAFQAWABgAGQAZABoAHAAdABwAGgAWABEADgANAAwACwALAAsADAALAAkABQABAAAA/v/+//7//v/+//7/AAAAAAAAAAD//////v/+//7/AQAGAAkACQAIAAcABgAFAAUABQAGAAcABwAIAAkACgALAAsACwAKAAgABQABAPr/8f/s/+7/8f/q/+v/6v/n/+P/4f/o/+j/5//q/+7/7//y//n//v/+//7//v/+//7//v/+//7//v/+//7///8FAAkADAAOABAAEQATABQAFgAXABoAHAAbABkAFgASAA4ACwAHAAQAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7///8DAAYACAAKAA0AEAASABMAEwATABMAEgARABAADwAOAA4ADgAOAA4ADgAPABAAEAAQABEAEQARABAADwAMAAkABwAFAAQAAgABAAAA/v/+//7//v/+//7//v/+//7///8AAAEAAgADAAQABgAJAAoACwALAA0ADwAPABAAEQAUABcAGQAbABwAHQAeAB4AHAAYABMAEAAOAA0ACwALAAsADAAKAAcAAgAAAAAA/v/+//7//v/+////AAAAAAAAAAAAAP///v/+//7/AQAGAAkACAAHAAUABAADAAMABAAFAAcACQALAA0ADgAQABEAEQAQAA4ACgACAPP/7v/q/+z/8f/s/+3/7f/q/+X/5P/o/+n/6P/p/+3/7f/w//b//f/+//7//v/+/wAAAAAAAAAAAAD+/wEAAgACAAQABwAKAA4AEgAVABcAGgAdAB8AIAAgAB4AGgAVABEADAAIAAUAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAFAAkADAAOABAAEwAVABYAFQAUABMAEAAOAAwACgAKAAoACgAKAAoADAANAA8AEQATABUAFgAWABUAEwARAA4ACgAIAAYABAACAAAA/v/+//7//v/+//7//v/+//7///8BAAIAAgADAAQABQAGAAgACAAHAAYABgAIAAoADQASABcAGgAcAB0AHwAgAB8AHQAaABQAEQAPAA0ADAAMAAwACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAAAAAAAAAAAAP/////+//7/AQAGAAcABgAFAAMAAgABAAEAAwAFAAkADAAOABEAFAAVABYAFgAUABIADgD+//H/6//p/+r/7//x/+3/7//t/+n/5f/k/+n/6f/o/+z/7f/w//b//P/+//7//v8AAAIABAAEAAMAAwABAAEAAwAEAAYACQAMABAAFAAYABwAHgAhACIAIgAhACAAHAAYABMADgAJAAUAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAGAAoADQAQABQAFwAXABgAFwAVABIAEAAMAAoACgAKAAoACgAKAAoACgANABEAFAAXABkAGwAcABsAGQAXABMADQAJAAcABwAEAAIAAAD//////v/+//////8AAAEAAgADAAQABAAGAAYABgAHAAcABwAHAAYABgAHAAkADAARABYAGQAcAB4AIAAhACAAHQAZABQAEQAPAA4ADAAMAAwACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAAAAAAA///////////+////AQAGAAcABQADAAEAAAAAAAEAAwAGAAoADwASABYAGQAbABsAGAAUABEADAD5//D/6v/o/+n/7P/v/+//8P/v/+3/6P/k/+r/6f/p/+v/7f/w//f/+//+//7///8CAAQABgAGAAcABgAFAAUAAwAFAAgACgAOABIAFQAaAB0AIAAiACMAIwAiACAAHQAYABMAEAAKAAYAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAGAAwAEAATABYAGAAZABkAFwAVABIADwALAAoACgAKAAoACgAKAAoACgAOABIAFgAaAB0AHwAgACAAHwAdABkAEwAOAAsACgAIAAYABAAEAAMAAgACAAIAAgADAAQABQAGAAcACAAJAAkACQAIAAgACAAIAAgACAAIAAoACwAPABMAFwAbAB8AIQAiACAAHQAYABMAEAAOAA0ADAAMAAwACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAAAAP///v/+//7//v///wAAAgAGAAcABQACAAAA//8AAAEAAwAHAA0AEQAWABoAHgAhAB8AGQAWABQABwD3/+//6v/p/+n/6//u/+//8P/w/+7/6v/l/+P/6f/p/+r/7v/y//j//P/+//7/AQACAAUABgAIAAkACAAIAAYACAAJAAoADQAQABMAFwAcAB8AIQAjACMAIwAiAB8AGwAWABMADwALAAYAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAIAA4AEQATABYAFwAZABkAFwAVABEADQAKAAoACgAKAAoACgAKAAoADAAQABQAGQAcACAAIwAkACMAIgAhAB0AFgARAA0ACwAJAAgABgAFAAMAAgACAAIAAgACAAQABQAGAAcACAAKAAsACwAJAAgACQAKAAoACgAKAAoADAAOABIAFQAaAB8AIgAiAB8AGwAWABMAEAAOAAwACwALAAsACwAJAAUAAQAAAAAA/v/+//7//v/+/wAAAAD///7//v/+//7//v///wAAAwAHAAcABQADAAEAAQABAAMABgAKAA8AFAAYABwAIAAjAB8AGgAXABYABgD3/+//5v/j/+T/6//u//L/8f/w/+7/6//m/+T/6f/p/+v/8P/2//n//v/+////AQADAAUABwAJAAoACwALAAkACwANAA0AEAATABYAGQAdAB8AIQAjACMAIgAgAB0AFwATABAADQAKAAYAAgD+//7//v/+//7//v/+//7//v/+//7//v/+////AwAKAA8AEgATABUAFwAYABcAFgATABAADAAKAAoACgAKAAoACgAKAAoADQARABYAGgAeACIAJAAkACQAIwAhAB4AGQAUAA4ADAAKAAgABgAFAAMAAgACAAIAAgACAAIABAAFAAcABwAKAAwADAAKAAgACgALAAsACwAMAAwADQAPABIAFgAbACAAIgAhAB0AGQAVABIAEAAOAAwACwAKAAoACgAHAAMAAAAAAAAA/v/+//7//v///wAAAAD///7//v/+//7//v/+/wAAAwAHAAgABwAFAAQABAAEAAYACgANABEAFgAaAB4AIgAkAB4AGgAXABUABwD4/+z/4//g/+H/6P/t//H/8P/w/+7/6v/n/+b/6f/p/+z/8v/5//7//v/+////AgAFAAYACgALAAwADQAMAA4AEAARABIAFAAWABkAHAAeAB8AIQAiACIAIQAeABkAFAARAA4ADAAKAAYAAwAAAP7//v/+//7//v/+//7//v/+//7//v/+/wEABQALAA8AEQASABMAFQAVABUAEwARAA4ACwAKAAoACgAKAAoACgAKAAsADwATABgAHAAgACMAJAAkACQAIwAhAB4AGgAVABAADgALAAgABgAEAAMAAgACAAIAAgACAAIAAwAFAAYABwAIAAoACgAIAAgACQALAAwADQAOAA8ADwASABUAGAAdACAAIQAfABsAFwAUABEAEAAOAAwACwAKAAoACAAFAAEAAAAAAAAA/v/+//7//v///wAA///+//7//v/+//7//v/+/wAAAwAHAAgACAAHAAcABwAIAAkADAAQABQAFwAbAB8AIgAkAB4AGgAWABQADQD7/+r/4v/g/+H/5v/s/+3/7f/t/+v/6P/n/+f/6f/p/+3/9P/6//7//v/+//7/AQAEAAYACgANAA8ADwAQABEAFAAVABcAFwAaABsAHgAfACAAIQAhACAAHwAaABUAEgARAA0ACwAJAAYAAwABAP7//v/+//7//v/+//7//v/+//7//v/+/wAABQAKAA0ADgAPAA8AEQARABEAEQAPAA0ACgAKAAoACgAKAAoACgALAA4AEgAWABkAHQAfACMAJAAkACMAIgAfABwAGAAVABIADgALAAgABQAEAAMAAgACAAIAAgACAAIAAwAEAAYABgAGAAcABgAFAAcACAAKAAwADQAPABEAEgAVABgAGwAfACEAIQAdABkAFQATABEADwAOAAwACwAKAAoABwADAAAAAAAAAAAA/v/+//7//v///wAA///+//7//v/+//7//v/+////AwAHAAkACQAJAAkACgAMAA0ADwATABYAGQAcAB4AIQAiAB0AGAAVABIACwD7/+f/4v/g/+L/5v/s/+r/6v/p/+j/6P/o/+b/6v/r/+//9//9//7//v/+//7//v8BAAUACQANABAAEQATABYAGAAZABsAHAAdAB4AHwAfACAAHwAfAB0AGwAWABIADwANAAsACQAGAAMAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7/AgAHAAkACgAKAAsADAANAA4ADQAMAAsACgAKAAoACgAKAAsADAAOABEAFAAXABoAGwAcAB8AIwAjACEAHwAcABgAFQASABAADgALAAgABgAEAAMAAgACAAIAAgACAAIAAgACAAMABQAHAAcABgAEAAUABwAJAAsADQAPABEAFAAXABoAHgAhACMAIQAcABgAFQASABAADgANAAsACwAKAAoACAACAAAAAAAAAAAA/v/+//7//v8AAP///v/+//7//v/+//7//v/+////AgAGAAkACgALAA0ADgAQABEAEwAWABgAGgAcAB4AHwAfABsAFgASABAACAD2/+b/3v/f/+L/5//s/+n/6f/o/+j/6P/n/+X/6v/s//L/+//+//7//v/+//7//v///wMABwANABEAEwAWABkAGwAcAB4AIAAhACAAIQAgAB8AHQAbABgAFQARAA4ACwAJAAYABAACAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAACAAQABQAHAAkACQAKAAsACwAKAAkACgAKAAsADAANAA8AEAARABUAFwAZABgAGAAYABgAGgAaABkAFwAVABQAEwAQAA4ADAALAAcABQAEAAQABAAEAAMAAgACAAIAAwAEAAUABgAIAAgABwAGAAcACAAJAAoADAAOABEAFAAXABwAIAAkACUAIgAdABgAFQASABAADQALAAsACgAKAAkABgAAAAAAAAAAAAAA/v/+//7//v8AAP///v/+//7//v/+//7//v/+//7/AAAFAAgADAAOABAAEgAUABYAFwAZABsAGwAcAB0AHAAcABgAEwAPAAsA/f/q/9//2f/b/+H/6P/q/+r/6f/o/+j/5//l/+j/6v/u//T//f/+//7//v/+//7//v/+////BAALABAAFAAYABwAHgAhACMAIgAjACMAIQAgAB0AGQAVAA8ACwAHAAQAAQD////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAEAAgAEAAUABgAHAAkACQAJAAcACgALAA0ADwARABMAFAAWABgAGgAZABcAFQAVABUAFQAUABMAEQAOAA8AEAAPAAwADAALAAkACAAGAAYABQAGAAQABAAFAAQABQAGAAYABwAIAAkACQAHAAgACQAJAAoADAAPABEAFAAYAB0AIwAnACcAJAAfABoAFQASAA4ACwAJAAgACAAHAAYAAgAAAAAAAAAAAAAA/v/+//7//v8AAP7//v/+//7//v/+//7//v/+//7///8DAAgADQARABMAFgAZABsAGwAcAB0AHQAcABoAGQAYABQADwALAAMA8f/j/9r/1v/Z/9//6P/s/+//7//s/+j/5f/j/+j/6v/u//X//f/+//7//v/+//7//v/+//7/AwAKAAoACwATAB8AIgAiACIAIgAkACQAIgAfABsAEwAMAAYAAgD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//////8AAAEAAgAEAAYABwAHAAYACQAMABAAEgAVABgAGgAbABwAHAAbABcAFAATABMAEgAQAA4ADAAKAAoACwAMAAwADAALAAsACgAIAAcABgAGAAUAAwAEAAMABQAGAAYACAAJAAoACQAIAAgACgAJAAkACwAPABIAFgAaACAAJgApACkAJgAhABwAFwASAA4ACQAGAAQAAwABAP7/AAAAAAAAAAAAAAAA/v/+//7//v8AAP7//v/+//7//v/+//7//v/+//7//v8CAAgADgATABcAGgAcAB4AHwAfAB4AHQAaABYAEwASAA8ACwAGAPz/6f/Z/8z/yv/Q/97/6P/v//H/8f/u/+r/4//g/+f/6//w//b//P/+//7//v/+//7/+v/1//b//v8HAAMABQAKABUAHwAbABEAEgAcACMAIgAdABYADQAEAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v8BAAMABAAEAAUACQAOABIAFQAYABsAHQAeAB4AHwAdABkAFQASABEADwAMAAoACQAHAAUABgAIAAkACQAJAAkACAAHAAUABAADAAIAAQAAAAEAAwAFAAYACAAIAAgABwAHAAgACQAJAAkACwAPABMAFwAdACMAKQArACoAJwAjAB8AGgAUAA4ACQAFAAIAAAAAAP//AAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAkADwAVABkAHQAgACEAIQAhAB8AGQATABAADgAMAAoABgD///H/3//M/8T/wv/I/9f/5//w//L/8f/v/+v/4//k/+n/7f/1//b/+//+//7//v/+//7/9P/v/+//+v8FAAQAAQD9/wYADwAUAAoACgAVAB8AIQAaAA8ABgD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAIAAgABAP///v/+//7//v/+//7//v/+/wAAAgACAAMACgAQABMAFgAZAB0AHgAdAB0AIAAfABsAFwASAA8ADAAJAAcABQADAAEAAgACAAIABAAEAAMAAwACAAAA//////////8AAAEAAgADAAMABQAFAAUABQAGAAcACAAHAAgACwAOABQAGgAgACYAKgArACoAJwAlACEAHQAXABAACQADAAAA/v/+//7//v///wAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAkAEAAWABsAHgAeACAAIQAiAB0AFQAQAA0ACgAIAAUAAQD5/+3/2//I/8L/wf/E/8//5v/u//H/8f/u/+r/4v/m/+v/8v/2//b/+//+//7//v/+//7/9P/v//D/9v///wIAAAD5/wEABQAMAAwACAAOABsAIAAYAAoAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAFAAYABgAEAAEA/v/+//7//v/+//7//v/+//7///8AAAUADAAQABQAGAAaABwAGwAZABoAHAAdABsAFgAQAAwACAAFAAMAAQAAAAAA////////AAAAAAAA/////////////wIABQAEAAQABAADAAQABAADAAMAAwADAAQABAAFAAcACgAPABYAHAAiACcAKQAqACkAJwAlACMAHwAZABIACQACAP7//v/+//7//v/+////AAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAoAEQAWABoAGQAXABYAGQAdABoAEwAPAAsACAAEAAEA/v/7/+3/2f/I/8H/v//A/9H/5v/r/+7/7v/r/+b/5P/o/+z/9P/2//b/+//+//7//v/+//7/+//z//L/9P/5/wEA/f/5//b/+f8BAAkABwAIABMAGwAUAAYA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAQADAAQABwAJAAkACAAGAAMA///+//7//v/+//7//v/+//7//v8BAAcADAAQABQAFwAYABkAGQAYABgAGgAcABgAEgANAAgABQACAAAA////////////////////////AAABAAAAAAADAAcACAAGAAYABgAFAAMAAwADAAMAAwADAAMABAAFAAcACgAOABQAGQAhACYAKAApACgAJwAlACMAHwAZABEACAAAAP7//v/+//7//v/+//7/AAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAoAEAAVABYAEwAPAA4AEAAVABgAEQANAAoABQACAP7//v/9/+7/2P/H/73/tv+9/9L/5P/p/+j/6P/l/+H/5P/n/+3/9//2//b//P/+//7//v/+//7//v/9//X/9v/3//3/AwD4//X/9P/3//3/BQD//wAAEQAMAAIA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8BAAMABQAIAAkACwALAAsACQAIAAUAAQD+//7//v/+//7//v/+//7//v8BAAcACwAPABIAFAAVABcAGAAYABgAGQAZABQADgAKAAYAAwAAAP///////////////////////wEAAgADAAMAAwAGAAkACQAIAAcABgAFAAQAAwADAAMAAwADAAMABgAHAAgACgANABAAFAAfACQAJgAnACYAJgAkACIAHgAXAA8ABQD+//7//v/+//7//v/+//7/AAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAkADwATABIADgALAAoADAAPABQADwALAAcABAD///7//f/5//L/2//F/7n/tP++/87/2P/l/+L/4v/h/9//4//p//H/9//3//b//P/+//7//v/+//7//v/+//7/+f/4//r/AQD9//T/8P/t//L/+f/s/+f/9/8AAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAEAAYACgAMAA0ADgAOAAwACwAJAAYAAwAAAP7//v/+//7//v/+//7//v8BAAUACgANAA8AEQATABYAFwAXABcAFwAVABAACwAIAAUAAQD///////////////////////8AAAEAAwAFAAUAAQADAAcACQAIAAcABgAFAAQABAAEAAQABQAGAAYACAAKAAsADAANAA4AEQAcACEAIwAkACQAJAAiACAAGwAUAAsAAgD+//7//v/+//7//v/+////AAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAUADAAPAA4ACgAIAAgACgAMAA8ADQAIAAQAAAD+//7/+//1//X/4v/K/7j/tf+2/8H/zf/a/97/3f/c/9j/5P/t//X/+f/7//j/+//+//7//v/+//7//v/+//7//v/6//v//f/+//L/3f/U/9f/3//c/9z/6v/5//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAABAAGAAkADQAPABEAEgARAA4ADAAJAAcABAABAAAA/v/+//7//v/+//7//v8BAAMACAALAA0ADwARABMAFAAUABUAEwAQAA0ACQAGAAMA//////////////////////////8AAAIABAAFAAEAAgAEAAYACQAKAAcABQAFAAQABQAFAAUABQAHAAcACQAKAAsADAAOABAAEQAXABsAHgAfACAAIAAfABwAFwAQAAgA///+//7//v/+//7//v/+////AAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+/wAAAAD+/wIABwALAAkABgAFAAQABAAHAAoACAAGAAIA/v/+//3/+P/1//P/7v/c/8b/uv+z/7X/u//G/9b/1v/U/93/6P/z//n//f/+//z/+//+//7//v/+//7//v/+//7//v8DAP3//P/3/+r/0v/G/8n/zf/R/9T/5f/4//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wIABAAIAAwAEAATABUAFQASAA8ADQAKAAcABQADAAIA///+//7//v/+//7//v8AAAUACAAKAAsADQAQABEAEQARABEADwAMAAoABwAEAAEA//////////////////////////8BAAMABQAGAAYABAAGAAgACgAOAAcABgAEAAQABAAEAAQABQAGAAcACQAKAAsADAANAA8ADwAQABMAFgAXABoAHAAcABkAEwAMAAQA/v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v8AAAAA///+/wAAAwAGAAQAAgABAAAAAAACAAUABQADAAAA/v/+//z/9f/1//H/8P/s/9v/xv+y/6//sf+6/8T/0f/Q/+H/7//5////AgADAAEA///+//7//v/+//7//v/+//7/AAACAAAA+P/0/+f/1//E/8X/xf/F/8//3P/0//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wIABgAKAA8AFAAVABYAFQATABAADAAIAAYABgAEAAMAAgABAAEAAQAAAAAAAAABAAUABwAIAAkACwANAA0ADgAOAA4ADAAJAAcABQACAAAA//////////////////////////8BAAMABQAKAAkABwAHAAgACwARAAwACAAIAAcABQAFAAUABAAEAAYACAAJAAoACwAMAA0ADgAOAA4ADwAQABQAFwAXABQADwAIAAEA/v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7///8AAAAA///+////AAAAAP7//v/+//7//v/+//7/AAAAAP7//v/+//r/9f/1//P/8f/s/+D/0v+9/7P/sf+1/77/yv/b/+X/9f8BAAsADQAIAAcABAAEAAIA//8CAAEAAQABAAAAAQACAAIA+f/1//D/4//K/8b/wf/A/9D/3P/1//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAQACAAOABQAFgAWABYAFAASAA8ADAAHAAUABQAFAAUABAAFAAUABAAFAAQAAwADAAUABgAGAAcACAAKAAsACgAJAAgABgAFAAMAAgAAAP////////////////////////////8AAAMABQALAAgABwAGAAMABQAIAA4ADQALAAoACAAIAAcABgAGAAUABgAGAAYACAAJAAoACwALAAsACgALAA0AEAARAA4ACgAEAP7//v/+//7//v/+//7//v/+////AAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/9//f/9v/2//f/9P/q/97/1v/O/7v/tv+3/7n/xP/Z/+f/+P8MABQAFAARAAwACgAIAAgABQAHAAgABwAFAAQAAwACAAAA/v/+//j/5//S/8f/wv+//9L/4v/7//7//v/+//7//v/+//7//v/+//7//v/+/wAAAQAEAAgADQATABcAFgAVABQAEgAQAA4ACwAHAAUABQAGAAYABgAHAAcABgAGAAcABgAFAAUABQAFAAYABwAIAAgABwAFAAIAAAAAAP////////////////////////////////////8AAAIAAQAHAAYABQD///z//v8CAAgAEAANAA0ADQAMAAsACgAJAAgABgAGAAYABgAGAAYABwAHAAcABwAGAAcACAAIAAcABQABAP7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//X/9v/3//b/7v/l/97/2P/T/8P/vf+6/7n/vP/S/+b/9v8MABcAGAAXABIADwAOAAwADgAPAA8ADQAKAAcABAAAAP7//v/+//j/7P/c/8z/w//G/9v/7P/8//7//v/+//7//v/+//7//v/+//7/AAACAAQABwAIAA0AEQAUABQAEwASABEAEAAOAAwACgAIAAcABwAIAAgACAAIAAgACAAIAAgACAAHAAcABQAFAAUABgAGAAUABAACAAAA/////////////////////////////////////////////wEA/v8FAAYABQD8//b/9f/5/wEACwAQABEAEQARABEADwAOAAsACAAHAAcABgAGAAUABAAEAAQAAgACAAEAAgACAAIAAQD///7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/4//X/9f/1/+//6f/i/93/2P/P/8f/v/+4/7T/s//I/9//7/8PABgAGwAaABcAFAATABMAEwAWABcAEwAOAAoABQD+//7//v/+//j/7//j/9b/v//D/9j/6v/6//7//v/+//7//v/+//7//v///wEAAwAGAAgACwARABEAEgAQABAADwAPAA4ADAALAAoACQAJAAkACgALAAoACgAKAAoACgAKAAoACQAIAAcABQAFAAUABAAEAAQAAwABAP///////wAA//////////////////////////////////8AAAEA/f8BAAUABAD5//P/8//0//v/AgAIABEAFQAUABQAEwASABEADwANAAsACAAGAAQAAwACAP///v/+//7//v/+/wAAAAD///7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//P/2//X/9f/y/+3/5v/g/9z/1f/M/8X/u/+x/6n/qP++/9j/7f8JABcAHAAcABwAGgAYABoAHAAeAB0AGAATAA0ABgAAAP7//v/+//j/7//g/9D/u/+//8//4f/z//z//v/+//7//v/+////AgAEAAcACAALAA8AEgATABIADgALAAkACAAHAAgACgAKAAkACQAKAAsACwAMAAwADAALAAsACwALAAoACgAJAAcABgAGAAUABAAEAAIAAgABAP///////wAAAAD//////////////////wAAAAD//wAAAQABAAIA///9/wMABAD8//X/8//1//n///8HAA4AGAAaABkAGAAWABQAEgAPAAwACQAFAAMAAAD///7//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+//1//X/9f/y/+3/5P/c/9f/zv/O/8T/vv+y/6v/q/++/9b/6v///xAAGgAfACEAIgAiACMAJAAkACEAGwAWAA8ABwD///7//v/+//j/7//d/8j/uf+9/8n/3v/w//j//v/+//7//v8AAAQABgAJAAwADQAQABYAGAAUABAACwAGAAUABQAGAAcACAAKAAoACgALAA0ADQANAA8ADwAOAA0ADAALAAoACgAIAAcABgAHAAYABQAEAAMAAgD///////8AAAAAAAD//////////wEAAgAEAAQABAADAAMAAwADAAMAAwD//wQABAAAAPn/+P/4//v///8HABEAGwAgAB0AHAAZABYAEwAPAAsACAAFAAEA/v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/0/+//5f/c/9X/z//O/8v/xf+//7r/tv++/9T/4//w/wAAGQAhACQAJgAoACgAKAAnACUAHwAYABAABwD+//7//v/+//n/8f/b/8L/tv+9/8z/4//w//j//v/+//7//v8DAAcACwANAA8AEgAUABUAFAASAAwABwAFAAUABQAFAAUABgAIAAoACwAOAA8AEAAQABEAEgAQAA8ADQAMAAoACQAHAAYABwAHAAYABQAFAAUAAwAAAP////8AAAAAAAD///////8AAAQABgAIAAgACAAHAAUABQAEAAUAAgD//wMABgACAAAA/P/7//3/AgAKABMAHQAhACEAIQAbABgAFAAPAAoABgAEAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/1//P/6f/d/9X/0P/P/87/yP/C/7v/vP+7/87/3v/q//f/EAAiACYAJwAoACkAKAAnACUAHwAYAA8ABwD+//7//v/+//7/+f/f/8b/tv++/87/5//x//n//v/+//7/AAAFAAkADAAQABQAFgAWABQAEwAPAAgABQAFAAUABgAFAAUABQAGAAgADQARABMAEwAUABUAFQATAA8ADgAMAAsACAAEAAQABgAGAAUABAAFAAUABQADAAEA////////////////AAACAAUACAAJAAoACQAJAAgABwAHAAcAAQD+/wEACAAEAAIA/P///wEABQAMABcAGgAfACQAIwAbABYAEwARAAwABQACAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/1//b/7P/d/9X/0P/R/9P/yv/C/7n/uf+8/8f/1v/l//T/DwAiACYAKAAoACgAKAAnACQAHgAXAA8ABQD+//7//v/+//7/9//a/7v/sv++/87/6v/x//r//v/+//7//v8EAAkADgAUABcAGAAXABQAEAAMAAcABQAFAAYABwAGAAUABQAFAAkADgATABUAFgAWABgAFwAUABAADgANAAwACQAEAAEAAgAEAAQABAAEAAUABQAFAAMAAgD/////////////AAACAAUACAAJAAoACgAKAAoACgAKAAoABAACAAAACgAIAAUA/v///wMACwAOABQAFwAcAB8AIQAbABYAEgAQAAsABAD///7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/2//n/7f/g/9f/0P/W/9P/0P/L/7//tf+0/7f/z//g//X/DwAfACUAJwAoACgAJwAmACIAHAAUAAwAAgD+//7//v/+//7/8//T/7f/sv+9/9P/7f/x//r//v/+//7//v8CAAgADgAVABYAFwAWABQADwALAAYABQAGAAcABgAGAAUABQAFAAkADwAWABgAGAAZABoAGAAUABEADwANAAwACAAEAAAAAAABAAIAAgACAAQABQAFAAQAAgD//////////wAAAQACAAMABgAIAAoACgALAAwADQANAA0ADQAKAAoACwAOAAsABwAFAAgACQAMABIAFgAYABwAHQAZABMADwALAAcAAwABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+//1//X/9f/1//j/7v/p/93/1//V/9X/1f/Q/8f/vv+4/7D/sf/V/+3/CAAeACQAJwAnACcAJgAkAB8AGQASAAkAAQD+//7//v/+//7/8f/O/7P/tf+9/9T/7v/x//r//v/+//7//v8CAAkADgATABUAFQATABAADQAKAAUABQAFAAQAAwADAAUABQAGAAoAEAAWABoAGgAYABkAFgATABEADwANAAsACAAEAAEAAAAAAP///////wIABAAEAAMAAQD//////////wAAAAAAAAIABQAIAAkACwAMAA0ADgAOABEAEwASAAoACwAOAAwACgAHAAgACwAMABAAFAAVABkAGwAXABEADAAIAAIA//8AAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/1//b/7v/s/+b/1f/U/9n/2//U/8b/vf+4/63/rv+y/93//P8WACEAJAAlACUAIwAfABoAFAAOAAYA/v/+//7//v/+//7/7P/J/7P/sv+4/9H/7v/w//j//v/+//7//v8DAAsADQAPABEAEgAPAAwACgAGAAUABQADAAAA/v///wIABAAFAAkADwAWABoAGgAXABYAFAASABAADwAMAAsACAAEAAIAAAD/////////////AQACAAEAAAD//////////////////wEABQAHAAgACgAMAA4ADwAQABQAEwARAAwACwARAA8ADQAJAAgACgAKAA0AEgASABYAGAATAA8ACQD//////f/7//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+v/1//X/9f/0//L/6//r/+f/1v/a/+T/4P/M/63/rP+v/67/t/+5/8P/5P/7/xEAHgAgACEAHgAZABUAEAAJAAMA/P/9//7//v/+//7/6//L/7b/tf/B/9P/7P/w//j//v/+//7//v8EAAcACAAKAAsADAALAAoACAAGAAcABQAAAPr/+P/5//3//P8AAAYACgARABcAFwAWABQAEwAQAA4ADgAMAAsACQAFAAIA/////////////wEAAQAAAP///////////////////////wEABAAGAAgACgAMAA8AEQASABEAEwAVABMADAANABEADwAOAAsACgAJAAwAEAAPABEAFAASAAwABQD8//z/+v/4//z//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//3/+v/1//X/9f/w/+3/5f/m/97/2P/k/+L/xv+h/4v/m/+l/7b/wP/D/8f/zv/P//T/DQAaABkAFwATAA4ACQAEAP//+f/5//3//v/+//z/6P/N/7f/uP/H/9z/7P/3//7//v/+//7//v8BAAMABAAFAAYABwAHAAgACQAGAAcABAD+//n/9f/z//P/8//1/wQABwAMABMAFQAVABQAEgAQAA4ADQAMAAsACgAIAAQAAAD//////////wAAAAAAAP////////////////////8AAAEAAgAEAAcACQAMAA4AEgAVABMAFAAVABQAEwAOABAAFQASAA4ACwAHAAkADgANAA0ADQALAAQAAQD8//v/+f/6//r//v/+//r/+f/+/wAAAAAAAAAAAAD///7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//3/+P/1//X/8v/u/+n/4v/i/9n/1v/g/9v/s/+H/5L/qv+o/7n/x//O/9H/1//V/9P/8v8JABIADwAMAAcAAgD8//f/9f/z//j/+//9//j/6//R/7j/tP/G/9D/4//6//7//v/+//7//v///wAAAAAAAAEAAgADAAMABAAEAAcABQAAAPv/7v/n/9z/1//r/wEABQAJAA8AEwAUABQAEgAOAA4ADQAMAAwACwAJAAYAAgD///////////////////////////////////////8AAAEAAQADAAYABwAKAAwAEQAVABYAGgAcABoAGQAXABEADgATAA4ABwD+/wEACQAJAAgABwAFAAQACAAJAAQA/P/3//z/AQADAPz//P/7//v/AAABAAEAAgABAP7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//v/9f/1//X/8f/t/+j/4f/d/9f/1v/f/83/pf+a/6r/t/+z/8D/yv/T/8r/zf/R/9T/0P/t//7/BAADAAAA+v/1//H/8P/w//L/9v/4//X/7v/d/8H/tP+3/8H/z//l//D/+P/9//7//v/+//z/+//7//z//v///wAAAAADAAMAAQD///f/6f/i/8z/x//u/wEABgAIAAsAEQAUABQAEQAPAA4ADQAMAAsACwAJAAYAAwAAAP///////////////////////////////////////wAAAQADAAMABAAGAAoADwAUABsAHAAdAB4AGQAZAA8ABQASAA0AAgD4//z/BAAHAAgABwAHAAoACQAQAAgAAAACAAYABAAEAPz//P/8//3//f8AAAMABAABAP3///////7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/9//n/9f/1//T/7//s/+f/3//Z/9L/0f/X/8P/p/+s/8P/uv+0/7T/u/+//8X/wv/D/8T/zP/O/+b/8P/3//j/8v/v/+z/7f/u//D/8f/x//L/7//m/8z/tP+o/67/uf/O/9//5//z///////+//v/+v/5//n/+f/7//3//v8BAAAA/v/7//H/5v/U/7n/yf/2/wYACQAJAAoADgASABMAEAAPAA0ADAALAAoACQAIAAYAAwACAAAA/////wAAAAD/////////////////////////////AAACAAAAAQAEAAgADgAVABsAIwAmACEAGQAYABQABwAKAAsA/P/4/wUADQANAAkADQANAAwACwAOAAQAAgD6////9//2//j/9//6//X/9//7//j/9P/x//X/+/////7//v/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/9//j/9f/1//P/7//s/+b/3f/W/9T/1P/l/9j/vf+6/8H/vv+y/5//nP+n/7f/uP+0/7r/wP/K/9j/3//n/+//7f/p/+f/6f/s/+z/7v/w//b/AADv/8v/q/+U/5X/mf+u/8b/0f/e/+7/7//s//D/9f/5//n/+f/5//v//f////3/+//0/+n/4v/J/7b/1/8DAA4ADQAMAAwADAANAA0ADAALAAoACQAIAAcABwAGAAQAAwACAAIAAQAAAAAAAAAAAP////////////////////////////////7///8DAAgADgAWAB0AJAAnACMAGQAYABcADgAKAAQAAAAGABEAEwASAA0ADAALAAgAAwD2/+v/6//d/+T/4v/h/+f/5//h/9X/2v/l/+X/4v/l/+r/7//2//f/+f/+//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/8//f/9f/1//T/7//t/+X/3P/U/9P/1P/d/9P/wP+9/77/u/+r/5j/jv+b/7L/u/+y/67/wf/I/8X/1//c/+H/5P/k/+P/5f/n/+j/6v/o/+7/9v/k/8L/oP+P/4//jv+f/7H/vv/Q/9D/0f/Y/9//6f/y//f/9//4//n/+//7//j/7v/o/+b/2v+7/7H/4P8KABEADwALAAgACAAIAAUACAAJAAgABwAHAAUABAADAAMAAwACAAIAAgACAAIAAQAAAAAAAAD///////////////////////////z//f8CAAcADgAWAB4AJAAmACIAGQAXABYADgALAAcADgAQABIAEQANAAYA9//1//T/7v/q/+H/3f/U/9L/3v/Z/+D/5v/l/9j/0f/P/9f/1//X/93/5//q/+v/7v/6//7/AAAAAAAAAAAAAAAAAAAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//b/9f/1//X/8f/s/+L/1P/P/9T/2f/W/87/vP+//7z/sP+m/5z/k/+m/7z/zP/B/7L/t//B/8z/zf/M/93/4P/h/+r/8v/u/+7/6v/i/97/3f/D/7P/pP+c/5r/l/+d/6b/q/+6/7T/tP+2/8D/zf/X/9//5//s//P/9v/1//H/5//i/+D/w/+u/63/3v8MABEADgAKAAYABQAEAAIABgAHAAYABgAFAAMAAQABAAIAAwADAAIAAgACAAMAAgABAAAAAAD///////8AAAAA//////////////z/+////wUADQAVAB0AIwAmACEAHQAYABUADAAPAAgABgAKAA8ACAD2//L/7P/n/+X/3v/d/9X/y/+7/8X/zP/L/9X/3v/k/9r/z//J/9L/2P/X/9j/3P/g/+L/4//x//7///8AAAAAAAAAAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//X/9f/1//T/8f/r/97/0f/M/9P/2f/Q/7r/uf/I/8D/t/+t/6X/ov+8/8v/zv/S/8T/sv+u/7j/xv/M/9T/4f/j/+3/8v/x//T/6v/c/9P/xP+q/6L/qv+w/63/qP+h/6L/pv+q/6j/r/+q/6b/tf+6/8H/yf/b/9r/2//e/97/4v/c/8j/uP+p/6r/2v8DAA8ADQAJAAYABAABAAEAAgADAAMAAwABAP////8AAAEAAgACAAEAAQACAAMAAwABAAAAAAAAAAAAAQABAAEAAAAAAP///f/5//b/9//4//z/BQAPABkAIQAkACAAHQAXABcAEAAUABIAAgD8/wsA9f/x/+v/4//f/9z/0P/N/8z/y//B/8f/yf/T/+H/5//j/9r/x//A/73/1P/X/9j/2f/Y/9j/2P/i//b//P/+//7//v/+//3/AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/7//b/9f/1//T/8f/r/9//0//L/87/zP+//6//vP/O/8P/tP+w/7X/uv/G/8//z//S/9D/uv+w/7b/vv/K/8r/0P/f/+X/7P/l/9P/yP/D/77/tP+r/6L/qP+s/63/sf+o/6j/qv+s/6n/r/+w/6n/qv+y/7b/u//L/8j/0P/U/8//zP/H/67/qP+i/5v/wv/p//f/CAAHAAQAAQD9//3//v8AAP///v/+//7//v///wEAAQAAAP//AQACAAMAAwACAAIAAgACAAEAAAABAAEAAQABAAAA+v/0//H/8v/z//f//v8IABQAGgAeAB4AHAAYABoAEgAcABgA5P/e//P/6//u/+j/3//c/9//2P/O/8L/wv/B/7//vP/E/9H/3//i/93/yv/E/77/yv/d/9f/2P/M/8z/y//L/+3/9P/4//n/8//x//P/AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/6//b/9f/1//X/9P/u/+L/1f/L/8z/y//B/7b/w//U/8b/tf+v/77/xP/L/87/0f/T/9X/yf+6/7n/vv/C/8f/y//X/+T/4f/Q/73/sv+u/7D/qP+x/6j/ov+l/57/nP+f/6D/of+j/6X/pP+j/6P/pP+x/6v/rP+1/77/yf/N/8z/xP+3/6T/ov+i/5H/p/+4/87/6f/1//3//v/6//n//P/9//7//v/+//7//v/+/////v/+//7///8BAAMABQAFAAUABAAEAAMAAgABAAIAAQABAP//+//2//L/8v/y//X//f8EAA4AFQAYAB0AHwAZABsAFgABAPv/4v/V/+P/5f/m/+X/2//V/9P/zf/G/8H/vv+9/7n/wf+8/8P/yv/M/9X/0/+9/8H/1P/d/9X/0P/Q/8//zf/O/+j/6//k/9v/3P/f/+L/AAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/5//f/9f/1//X/9P/u/+P/1P/M/87/zf/H/7//y//Y/83/uP+t/7n/yP/N/8v/zP/P/9L/yv+9/7r/vv+8/8H/xv/L/9T/0P/F/7n/r/+n/63/sP+u/6v/qP+k/5z/lf+X/5j/nf+b/6T/pf+q/6j/qv+n/6H/nv+c/5//pP+h/57/sP+t/67/pv+j/5f/nv+s/7P/w//O/97/6P/y//j/+v/7//n/+f/6//v/+//8//3//v/+//7/AAAEAAcACQAIAAYABgAFAAQAAwACAAIAAgACAAAA/f/7//r/+f/5//r//v8EAAwAEgAbAB0AGAATABYABwAAAP7/4//L/8f/4P/g/9z/1P/O/83/x/+3/7L/rf+y/6//q/+u/63/uv/C/8b/xP++/7n/xP/T/9P/zv/O/8//z//P/9D/4P/T/8z/y//N/8//AAAAAAAA/v/+//7//v/+//7//v/+///////+//7//v/+//7//v/+//7//v/+//7//v/+//7//f/8//n/9//1//b/8//r/+D/0v/M/8r/zf/Q/8z/2P/f/9P/uv+m/7j/zf/U/8//xv/L/87/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3f/X/8//0v/J/6P/m/+n/7L/w//H/9n/9P/3//z//v/+//7//v/8//3//v/+//7//v/+//7//v/+//7//v8DAAgADAAOAAsA/f/1//P/8f/w/+//5v/h/+T/6//u/+n/3f/O/9L/2f/v//z/AAAAAAAAAAAAAP7//v/+////AQABAAEAAQABAAMAAwAFAAQAAwADAAAA+P/0/+//5P/b/9n/3P/a/9f/0//O/8n/yv/K/9H/0P/M/8//z//S/9L/0P/P/8X/xf++/8r/x//E/7//uv+x/6D/l/+a/5v/mf+Y/53/p/+r/6j/qf+t/7L/uP+8/8P/zP/j//f/BgADAPz/9f/y//H/5//k/+L/5P/s//P//f8AAAAAAAAAAAAAAAAAAAAA+//7////AAAAAAAAAAAAAAAAAAD9//v/+v/6//n/9f/2//f/9f/v/+r/6f/h/9//1v/S/9f/5//8//v/9P/w/+j/4//R/8b/uf+u/6P/rf/C/93/9P/0/+3/4v/V/+P/3//M/8P/rf+v/6r/s//F/9n/9P/2//z//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wQABwAIAAgA/f/1//H/8v/v//D/6v/i/+H/5//u/+7/5f/S/9P/2f/w//7/AAAAAAAAAAAAAP///v/+/wAAAQABAAEAAQABAAIABAADAAIAAQD///3/+f/1//P/6v/f/9r/2//c/9L/0f/M/8r/yf/I/8z/zv/L/8n/zv/V/9P/zv/N/8P/wf++/8b/xv/C/7r/tf+y/5z/l/+X/5z/mf+b/6D/pf+l/6L/o/+o/7L/uf+8/8H/yf/e//T/AwAAAP7/+f/3//P/5//m/+j/5f/p//T/+/8AAAAAAAAAAAAAAAAAAAAA+//7//z/AAAAAAAAAAAAAAAAAAD///3/+//6//r/+P/0//X/9//0/+3/7P/r/+X/2P/V/9f/8/8CAAAA/f/z/+L/3v/X/8f/vP+1/6f/rP++/9f/8v/0//D/6f/j/93/2v/a/9T/xf/B/7f/s//J/97/9v/6//3//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAgADAAMA/P/0//H/8v/v/+//8v/n/+D/4v/p/+3/6v/T/9L/2//z////AAAAAAAAAAAAAAAA/v/+/wAAAQACAAEAAQACAAMABAAEAAAA/v/8//r/+f/1//T/7v/n/+D/3f/b/9H/zv/N/83/yv/G/77/xf/I/8b/zf/U/9X/z//S/8v/xv/C/8P/xP++/7j/tP+z/5X/kv+O/5X/i/+W/57/qP+j/6f/qP+q/7D/t/+9/8b/yv/d//j/AQD+//3//P/7//T/6v/l/+n/6v/q//X/+v8AAAAAAAAAAAAAAAAAAAAA+//7//v/AAAAAAAAAAAAAAAAAAAAAP///P/6//r/+v/3//T/8//0//P/7f/q/+r/4v/Y/+H/8v8BAAIABQD5/+v/4v/a/8D/tv+8/7L/sP+7/9L/7P/1//L/7f/s/9//4f/l/9//zf/D/8H/vv/M//P/+//+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///////v/0//D/8P/v/+//8P/r/+H/4P/m/+v/6v/T/9L/2//1/wAAAAAAAAAAAAAAAAAA/////wAAAQABAAEAAgACAAMAAwADAP///f/7//r/+v/3//T/8v/t/+n/4P/b/9H/zv/S/87/yf/N/8P/vf+6/7r/yv/R/9L/zP/K/8r/yv/A/7//wv+9/7f/uf+t/4//lf+U/5H/iv+d/6L/rf+o/63/r/+w/7D/t/+8/8j/zP/Z//j////8//v//f/+//f/7f/n/+v/8v/w//X/+/8AAAAAAAAAAAAAAAAAAAAA+//8//v///8AAAAAAAAAAAAAAAAAAP7/+//6//r/+v/7//j/9P/z//L/7P/r/+v/4//d/9z/5P/+/wEAAgD3/+3/6//g/8P/tf+7/7X/uv+9/83/5v/5//f/9f/t/+r/6v/u/+f/0v/E/7//wv/Q//X//v8AAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/1//H/8v/x/+//7//y/+b/4f/n/+n/6v/V/9P/2//2/wAAAAAAAAAAAAAAAAEA/////wAAAQABAAEAAgAEAAQAAwABAP7//P/7//r/+v/6//X/9f/w/+3/5P/c/9T/0//X/9H/yf/M/8v/wf+8/7X/yP/P/9D/yf/E/7//xP++/8D/wv+//7f/uf+k/43/mP+W/5L/jP+h/6X/rf+n/67/sf+v/7L/uv+//8j/y//W//X//P/8//v//f/+//7/8//w//T/+f/8/wAAAAAAAAAAAAAAAAAAAAAAAAAA+//8//v//f8AAAAAAAAAAAAAAAAAAP7/+//6//r/+//7//r/+P/0//L/6//q/+X/3//c/9//5P/8//3/+P/w/+n/6P/d/8H/tP+v/7D/vP++/8n/3v/5//z/+v/1/+P/5f/v/+T/y//J/8P/wf/J/+r/9/////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//n/+v/0/+//7//y/+3/6f/t/+f/5//Y/9X/3P/3/wAAAAAAAAAAAAAAAAEAAAD//wAAAQABAAIAAwAEAAQAAQD///7//f/7//r/+v/6//j/+P/z/+3/4v/b/9b/1f/R/87/y//L/87/x/+9/7r/xP/P/8v/yP/E/7v/wv+8/7//wP+6/7f/tv+h/5X/m/+Y/5P/kf+l/6T/qv+p/7L/t/+x/7P/t/++/8T/yP/R/+n/+P/8//v//f/+//7//v/9//z/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/P/7//v//f8AAAAAAAAAAAAAAAAAAP7/+//6//r/+//9//v/+v/2//L/5//n/+X/3f/c/+L/4//0/+7/5//j/93/2f/O/87/tv+j/7P/u/+//8X/2//7//7/+//5/+f/5P/t/+T/zf/M/8H/xv/U/+b/7f/5//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/5//L/7//w/+//8P/v/+n/6v/e/9b/3f/3/wAAAAAAAAAAAAAAAAAA////////AAABAAEAAwADAAIA/////wAA///+//z/+v/6//r/+v/4/+7/3v/X/9L/1P/P/83/y//K/8v/0f+9/7P/w//R/8r/yv++/8D/wv+7/77/vf+x/7P/r/+m/5P/lf+S/5P/mv+o/6D/qv+v/7P/sf+z/7L/sv+5/8L/yP/S/+T/+P/9//v//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA/f/6//v//P8AAAAAAAAAAAAAAAAAAP7/+//6//r/+v/7//v/+v/3//D/5P/j/+P/4P/a/97/3v/o/+j/5P/j/9b/yv/H/8j/tf+l/7D/uP/E/8r/2//7/////P/4/+z/7//w/+T/1P/N/8n/zP/i/+3/8v/4//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//b/8P/v//D/8f/v//P/8P/j/+H/5v/3/wAAAAAAAAAAAAAAAP//////////AAAAAAEAAwADAAEAAgAFAAYABgAFAAIA/f/7//v/+v/8//H/3P/U/8//0P/T/9H/zP/N/9D/1f/C/6z/vP/L/9D/yv+9/77/wP/B/8P/vP+z/7b/sv+q/5X/j/+I/5X/ov+j/57/pf+w/7P/rv+t/7D/sf+8/8X/yv/S/+L/9//+//z//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA///7//v/+/8AAAAAAAAAAAAAAAAAAAAA/f/7//r/+v/6//v/+v/3//D/5P/h/9j/1//U/9f/4f/p/+f/5v/f/9P/zf/R/8L/tv+f/6z/wP/J/9X/3//5////+//4//H/+v/3/+n/3f/V/9r/2P/e/+//8v/4/////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//n/8f/v//H/8f/1//j/8v/k/+P/6f/7/wAAAAAAAAAAAAD///////////////8AAAAAAQADAAYACAAKAAoACwAKAAYAAAD9//3/+//7//P/3f/T/9D/0f/S/9T/zP/O/9H/1f/K/63/sv+6/8f/xf+9/8X/wP/A/8H/tf+u/7T/sv+o/5f/iP+H/5D/of+f/5z/pv+x/7P/rP+p/7H/tf+1/8P/xf/Q/97/8v/9//3//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD7//v/+/8AAAAAAAAAAAAAAAAAAAAA///8//r/+v/6//r/+v/6//H/7P/k/9j/zf/R/9f/4f/f/9//3P/a/9L/4//l/8f/sv+m/7P/xP/T/9z/6P/4//3/+//3//T/AAD7/+r/4P/U/97/3f/h/+//8v/5/////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//3/8//v/+//8//6//v/8v/r/+v/8f/8/wAAAAAAAAAA/////////////////////wAAAQAGAAoACwALAAsACwALAAcAAQD+//7/+//2//H/3//X/9L/0f/R/9f/zP/M/9D/1P/J/6//sf+t/8L/vf++/8L/v/+4/67/rf+o/6f/rP+n/5L/jP+N/5n/mv+e/53/p/+u/7L/q/+o/6//t/+z/77/xP/Q/9v/7v/9//3//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD9//v/+//+/wAAAAAAAAAAAAAAAAAAAAD+//z/+//6//r/+v/6//X/8f/m/9r/0P/S/9z/3//Y/9j/1f/d/9z/4v/X/73/rP+s/7X/zf/k/+X/9v/z//v//v/2//T/+v/3//T/5v/X/9z/3f/m/+7/8P/1//3//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/9v/w/+//8P/4//n/8f/v//H/8//8/wAAAAAAAAAA//////////8AAAAAAAAAAAAAAAAHAAoACwAKAAoACwAKAAUA///9//7/9//0/+3/4v/Z/9P/0P/R/9b/1//R/8f/w//J/8H/rf+m/7b/uf+5/7X/s/+s/6f/rP+p/57/pP+g/5D/j/+S/5r/nf+i/6D/qv+l/7L/qv+j/6r/tP+3/7r/xf/N/9j/6//8//7//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPv/+//8/wAAAAAAAAAAAAAAAAAAAAAAAP7//f/8//v/+v/3//T/7//k/9j/z//W/9v/3P/Y/9H/yv/R/9z/zv/H/7r/r/+2/8X/4P/s//L/+//0//z//P/1/+3/+f/7//L/5v/Y/97/2//l/+//7//z//r//v/+//7///8EAAQAAwAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+//y/+//8P/4//n/8f/w//H/9f///wAAAAAAAAAA//////////8AAAEAAQAAAAAAAQAHAAsACwALAAoACwAJAAIA+//5//j/8//w/+b/2f/X/9H/0P/O/9D/1v/W/8j/tv+//8f/s/+m/7L/tf+y/6f/rv+t/6v/rv+e/47/k/+Q/4n/jv+V/5T/nf+j/57/qf+j/7H/qv+j/6r/tP+5/7f/wv/L/9P/6//6/////v/+//7//v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+v/7/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+//3/+//1//L/7v/i/9b/1f/c/93/3v/b/9H/xv/G/8j/wP+8/7T/rf/G/+L/8P/0//f/+//7//z//P/u/+z/+v8BAPX/7P/d/+P/5f/u//D/7//x//b//v/+//7/BQAHAAcABgAEAAIA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/1//H/8v/6//n/8f/v//L/+P8AAAAAAAAAAP///////////////wIAAQABAAEABAAJAAsADAALAAoACwAIAP7/+P/2//T/7v/r/+P/1v/P/8r/yv/J/8r/0//T/8T/u//B/8X/u/+x/6r/rf+t/6P/of+m/57/mP+M/4v/j/9//4z/k/+O/5P/o/+n/6H/p/+k/7D/sf+s/7D/uP+7/7r/v//K/9L/5v/4/////v/+//7//v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+//6////AAAAAAAAAAAAAAAAAAAAAAAAAAD+//z/9//z/+7/5f/c/93/3f/g/9//4P/a/9r/1f/D/7z/q/+y/7T/vv/f//X/8v/3//v/+v/6//z/+v/n/+z/BAADAPj/7v/i/+b/6v/w//D/8P/w//X//P/+/wEACQAIAAcABgAGAAQA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//n/+//+//v/8v/w//T//v8AAAAAAAAAAP///////////////wIAAQABAAIABwALAAwADAALAAoACgAFAPv/9v/0//L/6//k/9r/zv/N/8j/y//N/8b/x//C/73/v//B/8T/vv+6/7H/qf+m/5X/lP+Z/5n/kf+T/43/kP+K/5D/lP+U/6H/qf+q/6j/pP+c/6z/rf+v/7D/sf+8/7z/tP/A/83/4v/2/////v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+//7//3/AAAAAAAAAAAAAAAAAAAAAAAA/v/7//r/9f/x/+r/5f/g/+L/5v/j/+H/4P/f/+b/2//I/8T/tv+6/7b/1P/5//D/6//3//v/+v/5//z/9P/u//f/BQADAP//+f/s/+7/8v/w//H/8P/v//T/+f/+/wUACQAHAAYABwAIAAUAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/+f/3//v/AAAAAAAAAAAAAP///////////////wAAAQABAAMACQAMAAwADAALAAkABwADAP//9//z//D/6//j/9T/yv/J/8v/0f/R/83/xf/D/77/vP/A/8D/vf+9/67/qv+V/43/n/+e/5T/iv+K/4r/j/+O/5X/jv+R/6X/qv+x/6j/lv+X/6f/rv+x/6//r/+y/8P/uf+//8z/2f/u//3//v/+//7/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/+//8////AAAAAAAAAAAAAAAAAAAAAP///P/6//r/9//y/+v/5P/i/+X/6v/m/+T/4v/i/+X/4v/i/9v/0P/I/7//0P/f/9L/4//7//n/+f/z//j/7//t/wUABQACAAEAAQDy//D/9f/z//H/7//v//H/9/8CAAkACAAFAAQABgAHAAQAAgD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAA/////////////wAAAQACAAYACwANAA4ADgANAAoABwAHAAUA/f/0//H/7//n/9b/yv/H/8r/yP/J/8v/zv/U/8n/t/+8/7f/uv+8/7X/qf+Q/5T/mv+X/43/g/+F/5X/lf+V/5T/k/+Y/5j/m/+l/6L/lP+R/57/rf+w/7P/s/+2/8//0v/I/8r/1P/p//z////+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP3/+v8AAAAAAAAAAAAAAAAAAAAAAAAAAP7/+//6//r/+v/5//X/7v/q/+7/7f/q/+j/4//k/+f/7f/u/+L/1v/P/8D/w//D/8T/0//p//f/9f/y//b/9f/6/wUABAACAAEAAAD6/////f/5//P/7//v//H/9v8CAAIAAAAAAAIABAAEAAIAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAD/////////////AAACAAgADQAPABEAEQAPAAwACAAIAAcA///3//j/+P/v/9z/zP/I/8f/xf/K/87/0P/d/9T/v/+9/7r/sf+y/6r/oP+O/4z/kP+I/4f/h/+F/5P/l/+W/5b/mf+Y/5X/mf+f/5z/lP+S/6H/rv+w/7L/tf+1/8r/1f/N/8n/0//j//X//////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAAAAAAAAAP7/+//6//r/+v/6//r/9//2//P/8f/s/+z/5//j/+n/+f/2/+X/3//Q/8b/wP/B/7z/wf/X/+P/7v/6//3/8/8BAAMAAwADAAIAAgADAAEA/v/6//P/7//v//H/9/////7//v/+//7/AQABAAEA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP////////////8AAAgADQARABIAEwARAA0ACQAIAAcA///7//3//P/0/+T/1f/P/8n/xf/D/8v/1P/j/9f/uv+7/7H/qP+m/5P/jf+M/4P/hf+C/4j/h/+B/5D/kf+R/5r/j/+T/5n/mv+f/6D/nf+a/6n/q/+z/7H/u/+2/8j/0v/P/87/0f/d//H//P///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/f/8//v/+v/6//r/+v/5//P/8f/t//D/8f/r/+b/7f/t//D/6f/i/9j/0f/H/7X/tv/L/87/5f/+/wEA+f8BAAEAAgADAAQABQAGAAMA/v/6//P/8P/v//H/9//+//7//v/+//7///8AAAEA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAAAAP////////////8CAAkADgASABUAFQASAA4ACgAKAAgA///9//3//P/3/+z/5P/b/8//y/++/7r/1//h/83/tf+u/6f/nP+d/4r/iv+O/4f/hf+F/47/g/+L/4z/l/+l/57/jv+L/5v/nP+p/6//rv+s/7P/tP+z/6//tf+0/8//1f/J/8j/yv/T/+z/+P8AAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//f/8//v/+v/3//P/8f/z//P/9v/1//H/7v/p/+r/8f/o/+D/1v/K/7v/r/+8/8L/0v/y/wIA+f///wAAAQACAAUACAAJAAIA/v/+//f/8//y//X/+v/+//7//v/+//7//v///////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAP////////////8CAAoAEAAVABgAFwAWABQAEAAOAAwABAD///z/+//5//H/8v/q/+H/1P+7/7L/yv/J/6f/sv+k/6L/nf+d/5j/k/+R/4//jf+N/4//if+I/4L/of+0/5r/kP+Q/4//p/+3/7j/vf+2/7b/u/+z/63/r/+x/9v/3v/S/8X/w//L/9z/9/8AAP//////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///j/9P/0//L/8f/0//X/9//1//L/8v/u/+n/6v/u/+P/3f/U/8b/vf+2/7T/wv/v/wMAAAD+/wAAAAABAAUACQAHAP///v/+//3/+v/5//v//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAP////////////8CAAsAEQAXABsAGgAaABkAFQATABAACgABAP3//P/5//T/8f/o/+D/1//J/7f/w//E/6v/sf+h/6H/qP+g/5v/lP+R/5//n/+Q/4r/jP9+/4H/pP+2/6v/of+b/4//rf+3/7z/yf+//7b/tP+3/7H/ov+m/8H/2v/W/8r/xv/J/9f/7f///wAA///+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAPb/9//2//T/8f/0//X/9//3//P/8v/x/+z/6f/p/+f/3//V/8//xv+5/63/vP/t/wYA/f/9//7//v///wIABQADAP7//v/+//7//v8BAAEAAQABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////////////AAAAAAAAAAAAAAAAAAD///////////////8DAAwAEwAaAB0AHAAcABwAGAAVABQADwAKAAMA///7//j/8v/q/+L/3f/U/8n/w//Q/8//tP+q/6n/r/+m/47/if+Y/6b/oP+K/4b/hP9//4n/qv+6/7D/rP+c/6H/q/+y/7z/z//P/8D/uv+3/7T/q/+l/7L/xP/Q/8n/xv/C/9L/4v/8////AAD///7//v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQABAAEAAQAAAAAAAAAAAAAAAAAAAPz/+P/3//X/9P/0//T/9f/2//b/9P/x//D/6v/o/+r/5f/W/9D/yv+6/6v/t//k//z/+//+//7//v/+/wEAAwABAP///v/+/wEABQAHAAYABAABAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wEAAQAAAAAAAAAAAAAAAAAAAAAAAAD/////////////AAACAAwAEwAdACAAHgAeAB4AGwAXABUAFAATAA4ACAAFAAEA+f/w/+n/5v/h/9j/2f/c/9H/tf+w/6//sf+n/4v/hP+d/6v/o/+a/5D/iP+N/5b/nf+1/7z/wP+2/7L/r/+1/8H/0//T/8z/wf+//7f/tf+0/7D/t//L/8z/0f/N/87/1//1///////+//7//v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEAAQABAAEAAQABAAEAAgABAAEAAAAAAAEAAAAAAAAA+P/5//r/+v/5//f/9v/3//f/9P/w//H/7P/n/+f/7P/i/9T/y/+7/6r/sf/b//b//P////7//v/+/wAAAQAAAP7//v8AAAMABwAKAAcABAABAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQADAAUAAwACAAAAAAAAAAAAAAAAAAAAAAD//////////wAAAQAEAAoAFAAfACIAIAAfAB8AHQAYABcAGAAaABwAGQAWAA4ABgD7//L/7f/p/+P/5v/Z/6j/r/+v/63/qv+o/5H/g/+g/6r/rf+x/6//qf+n/5f/mv+p/8D/zP/L/8X/xf/H/8r/0P/L/87/yf/A/7n/t/+2/7r/uP/I/83/1f/Z/9n/3v/k//T/+v/+//7//v/+/////////wAAAAAAAAAAAAAAAAAAAQABAAEAAQABAAEAAQABAAEAAgACAAIAAgACAAEAAQABAAEAAQABAP7/+P/4//j/+P/4//f/+P/4//n/+f/y//P/8v/p/+n/7v/r/9v/zP++/67/tP/Z//X/AQAAAP7//v/+/wAAAQD+//7//v8AAAEABAAJAAYAAwABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAQAAAP7//v/+//7//v///wMABwALAAwACQAEAAEAAAAAAAAAAAAAAAAAAAD///////8BAAQABQAHAA0AGAAiACMAIQAhACIAHwAbABsAGgAdACAAJgAlACIAHAAOAAEA9f/u/+n/5f/G/5P/tf/C/7L/pf+m/5j/if+a/6L/o/+p/7P/sv+l/5r/mf+h/8H/0v/c/9r/2//f/9r/3v/b/9P/0//P/8v/xv+y/7n/wP/H/9f/4P/m/+T/4P/h/+7/9P/5//7//v/+//7//v/+////AAAAAAAAAAABAAEAAQABAAEAAQABAAIAAgACAAIAAgACAAMAAwADAAIAAQABAAEAAQD9//v/+f/9//7/AAACAAEA//8AAAAAAQAAAPv//P/z/+//7f/o/97/zf/F/7P/wv/j//X///8FAP7//v/+////AQD///7////+////AgAIAAYAAwD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAFAAgACgAIAAQAAQD+/wEAAwAGAAoADwASABMADwAIAAIAAAAAAAAAAAAAAAAA////////AgAHAAkACwAOABMAHAAlACYAIwAjACQAIQAdAB4AHgAeACQAMAAyAC8ALAAkABQAAgD2/+7/6//O/53/sv+//7b/o/+j/6P/kP+L/5f/m/+d/5f/mP+g/5r/nP+4/8j/2f/q/+//5//m//P/8//v/+3/6f/k/+L/4P/P/8H/zf/M/9j/7P/4////9P/s/+//8//3//7//v/+//7//v/+//////8AAAEAAQABAAEAAQABAAIAAgACAAIAAgACAAMAAwADAAMABAAEAAMAAgACAAIAAQAAAAAAAAABAAIABAAGAAMAAgAFAAcACgAKAAUAAwD///D/6v/k/+H/zf/C/7b/xf/k//T//P////3//v/+/wAAAQD///7//v/+////AgAHAAQAAgD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAABgAMABAAEgARAA0ACgAHAAsADgAQABIAFQAYABcAEgAKAAMAAAAAAAAAAAAAAAAA/////wIABwANABEAFAAWABoAIAAnACgAJQAkACUAIgAgACIAIwAjACsANAA3ADYANAAwACYAFgAEAPz/9//i/77/sP+9/7v/ov+d/6P/nP+X/5D/lf+k/5//oP+o/57/uP/J/9z/6v/z//X/7v/v//v/BAD6//b/+f/y/+r/4//e/9D/2v/m/+v///8HAAwABgD///v/9//7//7//v/+//7//v/+//7///8AAAEAAQACAAIAAgACAAIAAgACAAMAAwADAAMAAwAEAAQABAADAAQAAwACAAEAAAAAAAAAAQADAAQABwAIAAYABgAJAA0ADAAOAAkAAgD6//H/5P/S/8r/vv+6/7H/xP/k//D/9f/8//f//v/+/wAAAgABAAAA/////wEAAwAEAAIA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAAEACwARABUAGQAYABcAFgAWABYAFwAXABkAGgAbABkAFAALAAIA/////wAAAAAAAAAA//8AAAQADAASABgAGwAeACAAJQAqACoAJwAmACcAJgAlACsALwAzADUANwA3ADgANQAxACsAIQARAAgAAADx/9n/xf+2/6//oP+l/6X/lv+g/7D/uv+8/7T/q/+v/6X/xv/e/+7/+f8AAPz/+f/8/////P/4//L/8P/y/+3/6P/j/9r/3v/4/xIAGwAaABcACgAHAAgACwAIAAUAAAD/////////////AAAAAAEAAgACAAIAAgADAAMAAwADAAMAAwAEAAQABAAEAAUABAAEAAQABAACAAAAAAABAAQABQAHAAsACwALAAoADgARABEADAAKAAAA9//w/+f/3f/S/8L/tv+9/6n/vf/j/+3/8f/5//T//f///wAAAAAAAP//AAAAAAEAAgABAP///v/+//7//v/+//7//v/+//7//v/+/////v/+//7/AAAEAAkACwAWABoAHQAfACAAIAAfAB0AHQAdAB0AHAAcABoAFgANAAEA/v/+////AAAAAAAA//8BAAcAEAAYAB0AIQAkACcAKQAtACwAKQAoACgAKwAuADMANQA5ADgANwA2ADgANQAwACoAIQARAAgA/P/v/9n/uf+g/6H/n/+m/6X/nv+k/7T/tf+y/7D/sP+z/8P/2f/z/wAABwARABYAEAAOAAoABAD9//r/9v/z/+//5//p/+L/6/8HACIAJAAfABsADwAMABcAGQAWAAsABgADAAIAAQAAAP//AAAAAAAAAQADAAMAAwADAAMAAwAEAAQABAAEAAUABQAFAAYABQAEAAQABAAEAAIABAAHAAkACwAPABEAEwAOAAkADgARAAkAAwAAAPX/7//u/+b/4P/Z/8j/wf+y/6f/vf/d/+n/7//9//b//v////7//v/+//7//////wAAAAD//////v/+//7//v/+//7//v/+//7/AAAEAAUABAABAAAABgALABAAFQAWAB4AIQAjACUAJgAlACIAIQAgAB8AHgAdABsAGAARAAYA/v/+//7/AAAAAP////8CAAoAEwAcACEAJQAoACwALgAvAC8ALAArAC8ANgA3ADoAOwA6ADoAOAA5ADoANgAwACoAIAAPAAUA9v/n/9H/sf+T/4v/lP+i/6b/ov+g/6L/sP+5/7j/t/+y/87/6v/+/wwAGgAgACUAKwArACcAGQAVAAkAAQD2//P/5v/t//X/BQAUACQAJQAiABoAFwAcAB8AIAAdABUACgAIAAcABQAEAAIAAQABAAEAAQADAAIAAwADAAMABAAEAAQABQAFAAUABgAGAAYABgAFAAUABQAEAAMACQAMAA8AEQASABQAFQANAAgADgALAAMA/f/7//L/6//u/+j/5f/a/83/xv/A/7L/wf/j/+n/7//6//n////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////BAAHAAgACAAGAAgADQARABYAGwAfAB8AJQAnACkAKgApACYAJAAjACEAIAAeAB0AGwAWAAwA///+//7/AAAAAP////8DAAwAFwAfACQAKAAsADAAMgAxADEAMwA3AD8AQABAAD8APQA8ADsAOQA7ADoANwA0ADAAJwAXAAsA+//p/9b/v/+e/3n/kv+f/6v/n/+e/6P/sv/B/7j/sf++/9b/9v8LABgAJQArADIAPQA8ADEANQAwACIAFgAGAP7/8//9/woAEgAcACUAJAAlACIAHQAiACQAJAAjAB8ADwANAAwACgAHAAQAAwACAAIAAgACAAIAAgACAAIAAgAEAAUABQAGAAYABQAGAAUABgAGAAcABgAGAAgADwATABQAFgAWABYAGAASABIAFAAIAP3/+P/4/+//6v/v//L/8//l/9z/1f/T/8r/3//y/+//7//9//v////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wIABgAJAAoACQANABIAFAAYABwAIAAjACcAJgAqACsALAArACgAJgAlACMAIgAgAB8AHQAZAA4AAQD+//7/AAD///7///8FABAAGgAiACcAKwAwADQANQA0ADUAOgBDAEYARABEAEIAQQBAAD8APwBAAD8APgA9ADsAMQAgAA4A+v/l/9v/0/+7/4v/lv+Y/6n/pv+o/6//u//J/7v/rP+5/9P/AQASACYANAA6AEAARAA8AEAAPwA8ADYAKwAZABEACAAMABAAGgAfACQAJwAnACcAIwAoACkAKAAoACQAGQASABAADwANAAgABQAEAAMAAgACAAIAAgACAAIAAgAEAAYABgAFAAYABQAFAAUABgAHAAcACAALAA4AFgAXABkAGQAaABoAHgAgAB0AHgATAAUA/f/0/+//6v/1/wQABQADAPn/7f/g/8f/yv/w//T/8v/6//r//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8BAAUACAAJAAwAEQAQABkAGQAdACAAJQApACsALAArAC0ALgAtACoAKAAlACMAIwAhACAAHgAZAA4AAgD+//7/AAD+//7/AAAIABMAHgAlACoALwAyADUANQA4ADwAQABEAEcASABIAEgARgBHAEoATgBMAEsASABEAD0AMQAiABIAAgDk/93/2f/A/5H/lv+Y/6//rv+s/7L/w//N/8D/tv/P/+T/AwAbADEAPQBAAEMAQQBEAEMAQgBCAD8ANwAnAB4AFQAVABYAHQAdACQAJwApACkAKAArACwAKwApACYAHgAZABMAEwASAAwACAAGAAQAAgACAAIAAgACAAIAAgACAAYABwAFAAUABQAFAAYABgAIAAgADAARABMAGwAcAB0AHAAdAB0AJQAnACcAKQAfABIACgD3//L/+P8OABwAGwAVAAgA9f/y/9D/wf/d//v//P/7//D/+f/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8DAAcACwAPABMAGgAeABoAIwAmACYAKgAtAC4ALgAtAC0ALgAvACwAKQAlACIAIQAgAB8AHAAVAAoAAwD///7/AAD+//7/AQAMABgAIwApAC8AMgA2ADQANgA7AD4AQgBGAEkASgBLAEsATQBRAFYAWgBbAFcATgBEADsALwAjABgACQDm/9D/wf+u/5D/l/+e/7X/u/+z/7v/wv/F/77/w//b//D/DgApADsASABIAEcARQBEAEMAQwBCAEIAPgA0ADAAJQAfAB8AJAAiACUAKQArACsALAArAC0ALQApACUAIwAgABoAGgAVAA4ACgAIAAUAAwACAAIAAgACAAIAAgACAAMABgAFAAUABQAFAAYABQAIAAoAEQAWABgAIAAgACEAIAAhACAAJwAqACsALQAlABsAEwALAAQACgAYAB8AJAAcABMABgD7/+v/1v/R/+v////8/+z/9/////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQAHAAwAEAAVABsAIgAlACcAJwAuADAALwAwADAALwAuAC0ALgAxAC4AKgAkACEAHwAdABwAGQATAAsABAAAAP7////+////AwARAB4AKQAuADIANQA4ADYAOgA9AEEARgBJAEoASwBMAFEAVwBcAGAAYwBnAGAAUgBFAD8AMQAWAAIA9//V/7f/qP+c/5D/mv+t/7X/u/+3/7n/wv/G/77/z//l//n/GQA3AEgATQBLAEkASQBJAEkASQBGAEQAPgAyADIALQArACsALwAtACwALgAwADAALwAvAC8ALwAtACsAKAAoACkAJAAYABIADwALAAgABQAEAAMAAgACAAIAAwACAAIAAwAGAAYABgAGAAUABAAIAA4AEwAYABsAJgAlACUAJgAkACMAJQAnACwAMgApACMAHwAcABUAEQAbACMAKAAlACUAGAAPAAEA7//d/9j/8f/7/+z/9f////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/BgAMABMAGAAcACMAKAAqAC4AMwAxADUAMwAxADEAMAAxADAAMAAyADIALwArACUAIQAeABwAGQAUAAwABAAAAP7//v/+/wEABwAXACUALQAxADQANwA5ADkAPgBCAEUASQBKAEsATQBRAFoAYgBnAGsAbwB0AGkAVwBIAEAALAAIAPP/6P/E/67/o/+Y/5f/rP+2/7j/tv+9/77/xf/H/8b/2f/y/wYALgBGAFIAUQBMAE0ATABMAEwATABMAEkASAA2ADQAMAAtADAANAA1ADUANQA1ADUANQA0ADQANAA0ADQANAAzADIALgAmAB4AFwASAA0ACQAIAAQAAwACAAQABAADAAIAAwAEAAQABAAEAAQABQALABEAFQAaAB0ALAAsAC0ALAApACcAJQAnADAANQAwACwAKQAmACAAFgAhACsAMgAwADIALgArAB0AFQDt/9r/2v/2//L//P8CAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+/wEACQATABsAIAAjACoALQAvADQAOAA6ADYAOAA2ADQANQA2ADYAMwAyADIAMgAwACwAJAAfABwAGgAVAA0ABAAAAP7//v///wMACQAbACkALgAxADUAOQA5ADsAQABDAEcASQBLAE4AUwBaAGAAaABtAHIAewB7AG4AXQBPADsAHwD7/+v/5//I/7T/rv+m/6f/vv+3/7j/tv/B/8P/y//L/83/4P/+/xYAQgBZAFwAVQBSAFEAUABQAFAAUABPAE4ATgA6ADcANgA1ADQANAA0ADQAMwA1ADUANQA1ADUANQA0ADQANAAzADUANQAzADAAKAAiAB0AFwAPAAgABQAEAAYABgAFAAUABQAFAAYABwAGAAYACQAOABIAFwAbAB4AMAAxADEAMAAtACsAKQAqADQAOAA2ADMAMAAxACsAIAAmADAAOwA9AEAAQgA5ADQAJwAaAPj/7v/4/wAA+f8DAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+/wYAEgAbACYAKgAqAC4AMQA0ADkAPgA+ADsAPAA+AEEAQAA/AD4AOwA1ADAALwAwAC4AKAAgAB0AGgAVAA0ABQAAAP7//v///wMACgAYACwALwAxADUAOAA5AD0AQQBGAEkASwBNAFEAWABdAGMAawB0AH8AigCEAHUAZgBUADIAFAD6//j/8//k/9D/1v/b/8r/yP/I/8b/wP/K/8X/z//U/9j/5v8EAB8ATABpAGUAXwBdAFoAVwBVAFUAUgBTAFIAUgBAAD0AOQA5ADkAOAA3ADcAOAA3ADcANwA2ADUANAA0ADQANAA0ADQANgA2ADUAMwAwACgAIAAWAA4ACAAFAAkACQAJAAgACQAJAAkACQAIAAkADQAQABQAFwAbAB8AMwAzADUANQA0ADEALgArADQAOgA6ADkANwA2ADQAKgAtADUAQQBKAEkARABBADoANwAsABQACgAKAP//+//5//3//v/+//7//v/+//7//v/+//7//v/+//7//v8DABEAHgAqADEAMwAzADMANQA5AD4AQAA/AEAAQgBJAEsASQBFAEMAQAA7ADMALQAtAC4AKAAgAB0AGwAWAA4ABQD///7//v/+/wIACgAZAC4ALwAxADUAOAA6AD8ARQBKAEsATQBQAFUAXgBlAGsAdAB/AI4AlwCMAH4AbgBRACkADAAAAAEAAwAKAAcAEgAbAAQA1P/T/9X/0//S/8z/yf/Y/+P//P8PAC8AVwBvAGgAYQBgAGAAWwBYAFcAVgBXAFcAVwBFAEEAPQA/AD4APQA9ADwAPAA7ADsAOwA6ADkAOAA3ADcANgA1ADQANgA4ADcANgA0AC0AIQAbABQADAAHAA0ADgAMAA0ADAALAAsACwAKAAsADwATABUAGQAbAB4ANQA4ADgAOQA5ADgANAAxADQAOQA8AEEAPgA+AEAAOwA3AD0ASABNAE8ASgBFAEQAQQA+ADAAJQAUAA0ABQD8/wIA/v/+//7//v/+//7//v/+//7//v/+//7/AwARAB4ALAA0ADgAOgA6ADkAOQA+AEIAQQBCAEMASQBOAFAATQBIAEcARAA+ADYALAArAC4AJwAfAB0AGwAXAA8ABAD///7//v/+/wEACgAbAC8ALwAyADYAOQA8AEMASgBNAE8AUwBYAF4AZwBvAHYAfwCJAJcAmQCRAIMAcABAABYAAQABAAYAFQAlAD8AQgBNADkACQDg/97/3v/W/9P/3P/m/+7/DQAoAE8AbQBwAGQAXgBeAGAAXABZAFgAWABYAFsAWQBHAEUARgBFAEQAQgBCAEAAQAA/AD8AQABAAD8APQA8ADsAOQA4ADcANgA3ADcAOQA3ADEAIgAcABcADwALABMAEgAQAA8AEAAPAA0ADQANAA4AEQAUABcAGAAZAB0ANQA6ADoAOgA5ADoAOQA3ADcAOwBAAEEAQABFAEMAQABEAEYATQBQAFIAUwBPAE8AUABNAEQANgAdAAoABQAKAAUAAAD+//7//v/+//7//v/+/wEACAD+/wYAEQAeACoANQA5ADsAPAA6ADoAPABDAEQAQwBEAEcATQBRAFEATgBLAEkARgBAADgALQAqAC0AJQAeAB0AHAAYAA8ABAD+//7//v/+////CgAcACwALwAyADcAOwBAAEgAUQBTAFYAXQBiAGoAcQB3AHsAhACQAJgAlQCSAIEAWAAlAA0ACAANAB4AMgBHAFYAYwBsAFgAOQAVAPL/7//o/+n/7//2/xUALABQAGcAcwBuAGUAYQBfAF4AYABcAFoAWgBcAGAAXQBLAEoASQBHAEYARgBFAEUARABDAEQARQBFAEQAQgBAAD4APQA8ADsAOQA7ADwAOwA5ADMAJAAcABgAEAANABYAFQAVABQAEwASABEAEQAQABAAEwAVABcAGwAfACMAMwA2ADcAOAA4ADsAPQA9ADwAQABEAEkASQA+AEMAQwBJAEoATwBQAFEAUgBRAFEAUABOAEcANwAjABAAAwABAAgABAD+/wMAAQAEAAUABgAHAA0AEwACABEAHQAnADIAOgA9AD0AOwA4ADkAQABFAEQARABGAEkATgBRAFAATABKAEkARgBBADkALgApAC0AJQAeAB0AHAAXAA0AAwD+//7//v/+////CQAdAC0AMAAyADcAPQBFAE8AWQBdAGIAagByAHgAegB9AIIAjACXAJIAkACPAHcARQAgABIAGQAuAEUAYQBtAHYAhQCIAG0ASwArABcA+v/5//T/+P8MACUASABjAHgAcwBuAGcAYgBfAGAAYgBkAGAAYQBkAGQAYQBRAE8ATQBLAEoASgBKAEkASQBJAEkASgBKAEkARwBFAEMAQQBAAD8AQgBBAD4AOQA1AC8AJAAdABYAEwASABsAHQAgAB8AGwAXABYAFgAVABYAGQAeACEAJAAnACoAMgA0ADcAOgA+AEIARABFAEUARQBNAE8AUgBQAEQASQBOAE4AUwBUAFMAUgBRAFAATwBOAEoAOAAmABkAAwADAAwACAAJAAsADQAKAA8AEAASABkAHgAKABwAJQAvADcAOwA+AD0AOwA5AD8ARgBFAEQARQBHAEsATwBRAFAASwBLAEkARgBAADwANQAvACwAIwAeAB0AGwAVAAoAAQD+//7//v/+////CgAdAC0AMAAyADkAQgBLAFQAXwBoAHAAegCCAIIAhACFAIkAlACVAIkAfgBxAFMAMQAfACAAKABBAGEAfgCTAKUAqQCiAI4AXgA3AB4A7//w//H/8/8aADYAXAB1AHkAdQBxAGsAaABkAGUAZwBoAGcAZwBmAGQAZABYAFQAUgBQAE8ATwBOAE0ATABMAEwATQBNAEwATABMAEsASgBIAEYARwBDAD0ANwAxACwAJwAiAB0AIAAgACgALAAxADAAKQAiAB4AIAAiACUAKAAqAC0AMQA0ADcANQA2ADsAQgBIAEwATwBPAE8AUQBTAFkAXABdAFgAUQBYAFsAWwBcAFoAVwBWAFYAVABRAE0AOgAjABAADAAVABIAEQATABcAGAAZABYAHAAeACQAJwARACIALgA2ADsAPQA8ADwAOwA+AEkATABFAEUARwBJAE8AUQBRAE4ATABMAEkARgBEAD8AOQAzADAAIwAeAB0AGgASAAYAAAD+//7//v/+/wAACgAdAC0ANQA0AD0ASgBRAFsAZwB1AH8AgwCDAIMAhgCKAJUAnwCWAIYAawBVAD8AJQAfACUAOgBiAJUArwDDAMwAwwCxAJ8AgABdADkAIgAVABUAIgA7AFoAdwCFAIMAgAB/AHgAcABqAGgAagBsAGoAaQBpAGkAZgBkAFsAWgBZAFgAVwBWAFMAUwBSAFIAUwBUAFMAUwBTAFIAUgBQAFAAUABNAEgAQwA+ADgAMwAxACoAMQAzADoAPgBGAEUAQAA3ADEALwAyADUAOQA+AEMARwBKAEoARQBDAEcASwBQAFUAVwBXAFoAXgBiAGIAYgBiAGIAXwBpAGoAaQBoAGUAYQBfAF4AWwBYAFQARAAoABgACwAeAB0AHgAhACUAJgAnACgAIwApAC4ALwAYACQANQA9AEAAQQA+ADwAPQBHAFAATQBGAEYARwBNAFEAUwBSAE0ATQBLAEkARwBFAEEAOwA2ADIAJAAeABwAFwANAAMA/v/+//7//v/+/wAACwAdAC0AOAA2AEAAUABZAGIAbgB8AIIAgwCEAIcAjQCZAKcAqACXAH4AXwBIAD4AIwAhADIATQB+ALMA0gDjAOAA1QC6AKYAkwB8AGUAUABDAEEATgBkAH8AlgCXAJEAiwCFAHwAdAByAHQAcwBwAGsAZwBnAGgAZwBmAF8AXwBdAF0AXABcAFcAWQBaAFoAWQBZAFkAWQBaAFsAWwBbAFwAXABZAFUAUQBOAEkARAA9AEIARQBKAFMAUgBdAFwAVwBOAEgARwBEAEwAUABYAGAAZgBmAGMAXgBaAFoAXABfAGUAZQBkAGcAbQBvAG8AbQBuAG4AbAB2AHgAeQB7AHgAcwBwAGsAZABfAFsAUAA7ACsAJAAsACwALQAwADMANAA0ADQALwA0ADcAOAAkADMAOQBBAEQARABCAD4ARgBRAFIATwBMAEkASwBQAFIAUgBPAE4ATQBLAEkASABGAEAAPAA3ADIAIwAeABoAEgAIAAEA/v/+//7//v/+/wEACwAcAC0AOgBEAEoAXABjAGoAdQB+AIIAhwCLAIwAlAClAK0ApACPAHIAUQA1ACMAIwA1AFQAfQChAMIA3QDdANUAxACxAKMAmQCOAIAAcwBtAHAAewCNAJkAngCfAJkAjwCEAH0AeQB6AH0AdwBwAGoAZgBmAGcAZwBnAGIAYQBhAGEAYQBgAGEAYABiAGIAYABhAGEAYQBkAGYAZABmAGcAaABnAGQAYgBfAF0AVgBaAFkAWgBcAGMAaQBqAG4AaQBhAF4AYABhAGgAcgB7AIQAiQCJAIEAegB1AHMAcwB3AHsAfgCCAIYAhgCFAIEAfQB5AHkAdgB/AIMAhACFAIQAggB+AHgAcgBsAGkAYwBQADcALgA9AD0APwBBAEIAQQBAAD8AOwBAAEEAQAAyAD0ARABFAEgASQBIAEoATQBVAFMAUQBQAE0ATwBSAFMAUgBPAE8ATQBLAEkARwBEAD8AOwA6ADAAJAAcABQACwAEAP///v/+//7//v///wMACwAbAC0APABHAFgAZwBuAHYAggCHAIkAkACQAI8AmAC0AKcAkQB+AGsATgAzACIAMQBTAIIAsgDLAOIA5QDaAM0AugCoAJcAkgCJAIEAgACDAIoAkgCZAJ0AoACfAJsAkwCLAIUAggB9AHwAeAByAG0AagBrAG4AbQBsAGoAaQBpAGkAagBpAGgAaABmAGYAaQBpAGYAZgBnAGgAaABrAHAAdAB1AHQAcwBxAHEAbQBzAHQAdABxAHEAcABzAHEAcgB0AHwAfwCFAI4AmgCmAKwArACpAKQAngCaAJYAkgCUAJUAlwCaAJwAnwCcAJcAkQCNAI0AjwCWAJkAmwCaAJYAkACMAIkAhgCDAHwAdgBqAFAAOgBSAE8ATgBNAE0ATABKAEgATABLAEwATABAAEoATwBRAE8AUwBUAFYAVwBUAFUAVQBTAFEAUQBUAFQAUQBRAFEATwBMAEoARwBDAD4AOwA4AC4AIgAZAA4ABQACAP7//v/+//7/AAAAAAMACwAZACsAOwBJAGAAbwB1AH0AiACPAJUAlACUAJYAogCyAKMAhABvAFUASQBGAEIAUgCDALIAzgDdAOQA5wDeAM8AvgCrAJwAlACLAIYAigCOAJUAowCwAK4AqQCnAKQAoACdAJcAlACUAJQAiwB/AHgAdQBxAHIAdAB0AHIAcABtAG0AbQBuAG8AcABvAG4AbwBtAGkAaQBrAGwAcwB6AIAAhQCHAIEAgwCCAIIAgQCEAIYAhgCAAHsAdwB8AIIAiwCQAJQAnwCpALUAxQDSANAAywDHAMUAwQC5ALUAtwC8AL0AuwC4ALcAuQC2AK8AqQClAKcArACyALMAtgC1ALEAqwCmAKEAnQCaAJQAjgCEAGIATQBdAFsAVwBTAFAASgBKAEsATQBPAFIAVABLAFEAVABVAFUAVABXAFcAVgBXAFcAVgBVAFMAVABVAFQAVQBXAFYAVABRAE0ARwBCAD0AOwA0ACgAHQASAAYAAQAAAP7//v/+//7/AAABAAQACQAWACgAOABHAFsAcgB5AH4AhACIAIoAjgCWAKMArgCmAJoAhABrAFYAWABlAHYAiwCqAMUA2gDpAPIA7wDnANkAxACyAKUAnwCkAKQApQCqALAAtAC5ALoAuAC4ALsAtQCyALAArwCuAKwAowCVAIUAfAB7AHwAeQB4AHsAfQB9AHwAegB5AHkAeAB3AHUAdAB4AHcAcwB5AH0AhQCEAIMAhQCHAIQAhwCOAJEAjgCLAIoAigCKAIoAigCTAJsAowCrALIAtwDIANcA3gDhAOIA3wDhAOMA5ADiAOAA3gDcANoA2QDXANUA1ADOAMUAvQC6ALsAwADFAMkAzADOAM0AygDHAMUAuwCzAK4AqwCoAJMAbwBvAHAAaQBiAF0AVgBRAE4ATgBQAFQAWwBZAFkAVwBVAFUAVgBWAFYAVgBXAFYAUwBVAFcAWgBZAFoAWQBaAFoAWABVAFAASQBAAD4AOQAuACAAFwAKAAIA///+//7//v/+//7/AAABAAMACAASACMANQBDAFQAbQCBAH8AfgCAAIMAiACYAKMAmACWAIsAcQBlAGgAdwCTAKMAtQDQAOcA9AAAAQcB/gDyAOUA2QDMAMAAuwC+AMEAwwDEAMQAyQDRAM8AywDJAMkAzADQANIA0gDKAMIAuQCsAJkAjQCHAIUAgQCAAIEAggCDAIMAgwCCAIAAgACAAIcAiQCIAIQAggCHAIkAiACIAIgAhwCIAIYAjACVAJoAlwCTAJIAkwCUAJYAngCrAK8AsgC6AL8AwADPANYA2QDfAOYA7ADyAPIA9gD7AP0A+ADyAPAA7QDrAOcA4QDbANMAzQDMAM4A0wDXANwA3wDhAOIA5ADjAN8A2gDYANMAzwDNAMAAlACLAJAAhgB5AG4AZwBiAF8AYABhAGYAawBwAG0AYQBYAFcAVgBXAFYAVgBWAFYAVABWAFwAXQBeAF4AXQBdAF0AWgBYAFIASgBAAD8AMgAkABgADgAEAP///v/+//7//v/+//7/AAABAAMABwAPACAAMwBAAE0AYgB6AH8AgQCFAIUAjACWAIwAhACFAHoAYABbAHIAmQDBANUA5gD7AA8BGAEdARsBFAEIAfkA7gDnAN4A2wDdAN4A2wDbAN4A5QDuAPEA8gDxAPAA8QDyAPMA7wDnANsAzgDAALAAowCWAI0AiACFAIEAgACAAIAAggCCAIMAiACKAJIAkgCRAI8AjgCNAI0AjwCPAJAAkACIAIkAkgCbAKIAogChAKEAowCjAKQArQC4ALkAuAC7ALoAuQDFAMsAzgDWAOMA6gDyAPUA+AD6AP4AAQH/APgA8wDuAOoA6QDoAOgA5gDkAOUA6wDrAOsA8QD5AP4AAgEEAQMB/wD9APsA/AD3AOYAtgCkALEApwCbAI4AhAB9AHoAfACCAIgAjQCMAIAAcgBmAFsAVwBXAFcAVwBYAFcAVABZAF0AXwBhAGEAXwBfAF4AWwBZAFQATABDAD4ALwAeAA8ABAAAAP7//v/+//7//v/+//7/AAABAAMABgAPAB8AMQA+AEgAWABuAHwAhACJAI4AkACLAIIAewB3AG0AYABoAIQArwDXAOYA9gAOASEBIAEbARsBFgEQAQ4BCQEFAf8A/QACAQQBBAECAQIBBQEJAQwBDgENAQwBDQEPARIBEQEGAfcA5ADQAMEAtACmAJwAlgCOAIcAgwCCAIMAhACHAIkAjgCNAJEAlQCaAJoAmACUAJMAlACUAJMAlACQAJMAlwCbAJ4AoACiAKUAqACoAKgAqgC1ALsAvAC/AL0AtgC+AMYAywDUAN0A5ADuAPMA+AD9AAMBCAEKAQoBBwEDAQEBAAH+APsA+AD0APMA+AD+AAcBEgEXARkBHQEfASEBJAElASQBHwERAQAB4wDMAMwAyQC+ALIApQCcAJwAnwCjAKUAogCVAIgAfQBuAGIAXwBeAFsAWwBZAFUAVgBZAFwAXwBhAGEAYABfAF0AWwBYAFMATABEADwALwAeAAwAAAD+//7//v/+//7//v/+////AAABAAIABgAOAB0ALwA+AEcAUABbAGYAbQB0AHsAgACBAH0AegB2AHIAcQB+AKEAxwDiAPQAAQEPARwBFwEVARoBIwEpAS4BNQEzAS4BMAE5AToBNwE3ATgBOQE3ATMBMQEtAS0BMQE4ATgBLwEkARUB/QDmANcAzQDBALcAqwCdAJQAiwCGAIsAjQCNAIkAjQCTAJYAnAChAKAAnACZAJcAmwCaAJUAmACXAJwAnACbAJoAmwCbAJ0AoQCjAKYAqQCvALsAwwDAAL0AwQDIAM4A0QDVANQA1wDfAOkA9QABAQoBEwEaASABIwEmASYBJAEeARYBDwEJAQYBCgEcATcBRgFAATYBNAE4AT8BRQFHAUMBPAEwASEBEwH3APAA8ADhANYA0ADMAMwAzQDHAMAAtACfAIsAfQBuAGUAYgBjAGQAYQBaAFcAWQBcAF0AYABgAGAAXwBfAF0AWwBYAFIASwBHADsALwAeAAsAAAD+//7//v/+//7//v/+/wAAAAAAAAIABQAMABsALQA8AEcATwBWAFcAWwBjAG4AegCEAIoAiQCGAIcAjQCZALUA1wDqAPkACwEaASIBJQEkAS4BQAFMAU8BWAFdAWIBawFyAXUBdwF3AXgBfQF9AXUBbgFjAV4BXQFfAVYBSAE8ASwBEwH7AOsA3wDSAMYAtQCoAJ0AkQCTAJIAkACPAJcAnwCjAKIAowCkAKUAoQCgAJ8AoACdAJwAmQCWAJYAlwCYAJsAmQCYAJkAnACgAKYArwC6AMQAzQDQANAA1ADbANsA2gDaANoA2wDgAOoA+wAQAR8BIwEqATQBPgFKAU4BTAFNAUwBQwEzASwBMAFBAVwBbgFvAWMBXQFfAWIBZgFnAWQBXQFUAUkBNwEgARcBDgEDAfkA8wDxAO4A7ADjANUAxQCwAJsAhgB2AGsAZQBkAGkAZQBhAF8AXwBfAF8AYABgAF8AXgBdAFwAWgBWAFAASwBFADgALQAdAA4AAwD+//7//v/+//7//v/+/wAAAAAAAAEABAAKABgAKQA6AEYATwBVAFgAVQBfAHAAfwCMAJcAmwCaAJ8ApgCuAL4A2QDrAP8AFgEsATQBMAEsAToBVAFsAXoBhQGNAZUBoQGpAawBsgGyAbEBtgG0AaoBogGcAZUBjAGKAX4BcAFlAVYBPQEfAQUB8ADkANkAygC8AKwAoAClAKgApACiAKwArwCsAKsAqgCsAK0ArACkAKAAoACfAJwAnQCeAJgAkQCPAJAAkACRAJUAmgCkALEAvQDJANQA3gDoAO0A9AD5APQA8ADsAOoA5gDoAPMABgEbAS4BQAFQAWABcQGDAYsBiAGDAYMBdwFnAV8BXQFjAXABfgGEAYYBjQGNAYkBiAGJAYoBhwGBAXcBZgFXAUcBPAE2ATABIwEbAREBBwH7AOsA1gDCAKoAkwB9AHIAbwBrAGoAagBmAGUAZQBjAGEAYQBhAF8AXgBcAFsAWABUAFEASwA/ADQAKAAYAA8ABAD+//7//v/+//7//v/+/wAAAAAAAAEABAAIABMAJQA4AEYAUABUAFgAVwBkAHUAhACSAJ8ApgCpAKsArwC5AMoA2gDuAAQBGwExATsBOwE6AVMBdgGQAZoBnAGnAboByAHOAc8BzgHNAc4B0gHTAc8B0QHSAcoBuQGtAZwBigF7AWoBVAE8AScBFQEGAfoA8QDlANAAwQC+AL4AuQC2ALoAuAC0AK8AqQCnAKkApwCgAJgAlgCVAJYAmQCZAJcAkwCOAI0AjACPAJYAoACsALwAywDZAOUA8AD9AAcBCgEMAQwBCAEBAfoA9wD5AAUBGAEpAT0BWwF5AYwBnAGrAbUBsgGjAZoBkwGNAYgBhgGIAY0BlQGaAZ8BqAGpAaYBowGiAagBsQG0AakBmAGJAYEBfAFwAWQBWQFQAT4BLwEcAQYB7ADOALIAmgCHAHwAeQB4AHUAbwBpAGgAZwBmAGQAYwBhAGAAXgBeAFsAWABVAE8ARQA4AC4AIgAYAA8ABAD+//7//v/+//7//v/+/wAAAAAAAAEAAwAHAA8AHwA0AEYAUgBXAFsAYABpAH4AkwCpALgAvwC/ALsAuwDCAM8A3gDyAAsBIwE5AUcBUAFZAXEBlAGqAbcBwAHJAdkB7AH6AfcB6wHnAeYB3wHcAdcB0wHOAckByAHIAb0BoQGEAW0BXQFOAUABMwEpASIBGwELAfUA4wDXAM0AxADEAMkAwAC7ALcArACmAKUAoQCWAI4AjgCSAJcAmgCYAJUAkQCQAJEAjwCTAJ0AqwC4AMgA2wDyAP8ACwEWAR4BIwEkASkBKgEhARoBGgEdASIBNgFQAWcBegGPAaQBtwHHAdEB2AHQAcQBvAG4AboBwgHBAcMBxgHJAccBxAHDAcMBvQG3AbgBugG8AbkBtAGzAaoBpAGeAZABhQF5AWsBWwFEASYBAwHfAL4ApQCMAIIAhQCHAIEAegBzAG8AawBmAGQAYQBeAFwAXABdAF0AWQBSAEkAOwAxACcAGwAXAA8AAwD+//7//v/+//7//v8AAAAAAAAAAAEAAwAFAAwAGQAuAEMAUABYAF8AagB5AI4ApgC9AMsA0gDRAMoAyADOANgA6wD/ABMBKgE9AVEBZAFwAYUBpQHCAdgB6wHuAe8B9wECAgQCAwIEAv8B+QH6AfIB6AHbAdABzgHOAcgBsgGaAYgBgAF3AWMBVwFPAUQBNQEkARUBCAH7APIA7ADoAOEA0wDJAMMAuQCuAKEAmACMAIoAjwCVAJkAnQCgAJ8AnQCeAKEAowCmAKsAuADJAN0A+AAQASYBOQFEAUcBTAFMAUQBPQE1ATMBMwE0AToBTQFrAYgBmwGqAb0B0AHnAfUB9gHsAegB6AHrAecB5QHrAfIB/AEDAgAC8QHoAeAB1gHaAdsB3gHdAdkB1AHRAdEB0QHHAboBsQGqAZ8BhgFmAUUBHgH3ANEAtQCgAJsAmwCYAJUAiwB/AHEAZABcAFkAVABXAFkAWQBbAF0AWABQAEMANAAqACMAGgAWAA0AAQD+//7//v/+//7//v8AAAAAAAAAAAAAAQADAAgAFAAnAD4ATgBZAGIAbwCBAJYAsADKANsA4QDiANoA2ADbAOIA8QAKASoBQQFTAWwBhAGWAaoBwwHaAfABBwIIAv8B/AH9AQcCGwIrAjkCQwJDAjACEgL3AeUB3QHXAc0BwgGsAZ8BmAGTAY4BhwF3AWQBSgE5AS0BIgEYARQBDgEFAfgA6QDaANMAyQC6AKEAkgCRAJMAmQChAKkAqQClAKYArAC0ALsAwADHAMgA0ADmAAIBHgE5AVIBaQF4AX0BeQF4AWkBVQFIAUYBSwFSAVUBZQGFAZ4BrQG8AdEB5gEEAhUCDwIRAhUCHAIeAhQCCQIJAhgCIgInAiwCKgIjAhgCAAL7AQYCHQIlAiACHgIfAhoCDgL/AfAB6AHlAdoBugGPAWQBPQEYAfUA2wDLAMAAuACxAKIAkAB+AG8AYwBZAFIATABPAFUAVQBXAFkAVQBMAD8AMQAlABsAFwARAAgA/v/+//7//v/+//7//v/+/wAAAAAAAP////8BAAUADgAeADQARwBWAGQAdQCIAJwAsADHANwA6gD1AP4ABQEIAQ8BFQEeAS4BRgFqAYkBowG+Ad8B+QEGAhICGQIdAiICKwIyAjoCSgJSAlsCYAJhAk8CMgIYAgoC+gHsAd0BygG7AbEBsAGwAbIBrQGZAYgBewFmAU4BPgE5ATABJgEeARIBAQHwANsAwwCxAKQAnQCcAJ8AqQCuALIAtQC2ALYAvgDDAMUAxgDJANUA6gAIASkBRwFnAYUBngGpAaoBoAGWAYcBdAFjAWEBYQFoAWsBewGWAa4BvQHTAeMB+QEGAhACHQIkAi4CNgIxAiYCIgIXAhgCJQIuAjACMAI3AkgCRgJOAlcCYQJnAl4CTwJEAj8CPgI1AiQCFgIKAvEBzgGnAYABWwE4ARkBBQHvANsAyQCyAJ4AigB3AGgAXQBUAEwARQBGAE0ATwBRAFUAUwBJADkALQAcABgAEgAKAAEA/v/+//7//v/+//7//v/+/wAAAAD///7//v/+/wIACQAWACoAQABSAGIAdwCNAKEAsgDDANgA7AACARkBLQE4AUEBRAFHAUsBYgF9AaABxgHqAQ0CKwJAAkMCQAI/AkcCWQJoAmYCZgJqAnECegKDAnYCXwJIAjYCHQILAvwB9AHoAdcBywHDAc8BzQHGAcQBugGhAYEBawFiAVUBRgE7ASMBCwH1AN0AyAC3AKgAogCmAKgAqACvALkAwADFAMgA1QDdAOAA3wDjAO0ADwEzAVgBdwGYAbkB0AHcAdsBzgG9AZ8BhAGDAYcBjAGPAYwBlQGqAcYB5wH3AQ4CHAIeAikCLwI2Aj4CSgJRAkMC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jACUAKQArwDCANIA0gDRAM8AzQDNANIA0QDLAMsAzgDSANQA0wDQAMcAuwCnAJgAjgClAKEAoQCpAK0AqwCmAJ0AlwCWAJcAmACaAJwAmQCYAJIAjQCPAJQAmQCaAJ0AngCjAKoAsgC8AL4AvQC/AMgA0QDQAMIAqgCUAIUAgQCFAIgAjgCSAJMAkgCRAI8AjQCOAI8AjgCJAIYAgQB7AHYAbwBnAFgAPQAqACAAGwAWABQAFAAUABUAFQAVABMAEAAKAAQAAQAAAAAAAAD+//7//v/+//7//v/+//7//v/+//7/AAAAAP7//v/+//7/AQABAAEAAQABAAIABQAJAA8AEwAVABYAFgAYABgAFwAbAB8AIQAjACUAJwAoACsALgA9AFkAcwCXALMAyQDYAOQA7wD8AAQBBgECAfkA7QDjANoAzgC5AKoAogCfAJwAmwCbAJcAhgB+AIIAjQCMAI8AjgCJAIIAfwCAAIMAgQCBAHsAdgBxAGgAaABrAG8AdAB8AI0AmACsALgAvgDBAL8AuACzAK4AqgClALIAuwC/AMQAvwC3ALEAngCSAIYAfwCTAJAAjgCTAJUAlACQAIsAiwCIAIUAgQB8AHMAaQBlAGYAcAB2AHsAggCIAI8AlgCbAKAApgCtALMAvQDEAMYAxgDHAL8AsQCmAJ4AmwCcAJoAlgCPAIwAjQCPAJAAkACSAJQAlQCTAI4AiACBAHoAcQBhAEQALAAfABoAFwAWABUAEwASABIAEgARABAADQAJAAMAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAP7//v/+////AQACAAIAAQABAAIABQAJAA8AFAAWABYAFgAXABgAGQAbAB0AHwAgACEAIgAkACYAKQAvAEMAZQCIAJ4AsQDBAM8A2QDjAOsA7wDsAOQA1gDEALIAnwCPAIQAfAB7AHsAegB3AGUAXQBbAF8AZgB3AHsAfQB+AHsAegB7AHsAfQB/AHoAdQBvAGMAVwBYAF0AYABhAHAAewCEAI8AkQCSAJIAkwCSAIwAhwCGAIYAnACoAKYAnQCXAJIAgwB4AG4AZwCBAH0AfAB9AHoAeAB3AHUAdQBxAGwAZQBcAE8ASABEAE0AXQBkAG4AdwB/AIQAiwCRAJoAnQCfAKEApgCuALQAuAC8ALgAsgCtAKoApwChAJgAjwCKAIoAiQCKAIsAjQCOAJAAkQCPAIwAhgCAAHcAZwBJAC0AGgAWABUAFAAUABMAEgAQAA8ADwAOAA0ACwAHAAMAAQAAAAEAAAD///7//v/+//7//v/+//7//v/+//7/AAAAAP7//v/+////AQACAAIAAQABAAIABAAIAA4AFAAXABcAFgAWABYAFgAZABsAHQAeACAAIgAkACkALAAvADUAUQB1AIgAmACoALcAwQDKANEA1QDVAM8AwACsAJYAgQByAGsAZABhAGAAYQBaAE0ARgBFAEoAUgBWAFsAaABxAHMAcwB1AHcAdwB3AHYAcwBtAF8AUQBIAE0ATgBPAFMAWwBiAGgAawBsAHMAdwB5AHYAcQB0AHkAeQB7AH8AggCDAH0AcQBkAF8AXQBxAGoAZABjAF8AXABaAFkAVgBQAEoASABFAEEAOwA6AD0AUgBXAF0AZQBqAHEAeACCAIgAjQCSAJQAlQCXAJwAowCpAKUAoACgAKAAngCcAJYAkACMAIkAhwCGAIcAhwCGAIYAhACEAIIAfwB5AGsASgArABoAFQAUABMAEwATABIAEAAOAAwACwALAAoACAAFAAIAAQACAAIAAgAAAP7//v/+//7//v/+//7//v/+//7/AAAAAP7//v///wAAAQACAAIAAQABAAIAAwAGAAsAEwAXABgAFwAWABUAFAAWABkAHAAeACEAJAAoAC0AMAAxADEAOQBSAG8AgwCSAKAArgC6AMQAyQDHAL8AsACdAIYAcQBkAFsAVgBSAFIAUgBOAEUAPQA7ADsAPgA/AEYAUgBiAGUAZABkAGQAZABnAGcAZQBiAFgASwBAADkAQQBBAEAAQgBJAFQAWgBcAFwAZABlAGUAYABlAGsAawBpAGsAcABtAGYAYABVAEwARwBXAFMATQBKAEkARABEAEUARgBFAEMAQwBAADoANwA0ADQASgBOAFIAWABaAF4AZABtAHcAgACGAIYAhACEAIYAiQCLAIsAjACOAJAAjACJAIgAhgCDAIAAfgB9AHwAewB5AHcAdgB2AHMAbwBiAEYAKAAZABMAFQAWABYAFQATABAADgAMAAoACQAHAAcABQADAAIAAQADAAQABAABAP7//v/+//7//v/+//7//v/+//7/AAAAAP7//////wAAAQACAAEAAQABAAEAAgAEAAkAEAAXABkAGQAYABUAEgAVABgAGwAeACIAJQApAC0AMQAyADEAMAA3AEkAYwCBAJUAowCuALcAuQC0AKoAnQCOAHkAYwBXAFIATgBMAEsASgBGADwAOAA4ADkAOAA5ADQAPABGAEwASwBMAEsASwBOAE8ATwBOAEgAPgAxACoAKQAwADQANQA5AD8AQwBHAEoATABNAE4AUgBVAFcAVgBXAFcAWgBWAFEARgA9ADQAMQBGAEAAOwA4ADoAPgBAAEIAQQBBAD4AOwA4ADQAMgAuAC0AQwBGAEsAUABUAFgAXQBhAGkAbwBxAHIAcgBzAHUAdQB1AHUAdgB2AHUAcABqAGYAZgBnAGoAagBrAGsAaQBmAGQAYQBhAFkARQAzABwAEwARABUAFwAYABcAFQATABAADQAKAAgABgAFAAQAAwACAAEAAQACAAQABAABAP7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAABAAEAAAABAAEAAgADAAcADwAWABoAHAAbABgAFQAWABcAFwAaAB4AIAAiACUAKgAvADEAMAAwADEAPABYAH0AkwCiAKYApgCiAJoAjQB/AG4AWABLAEgARwBIAEYARgBAADkANwA3ADgANgAuACMAJAAnACoALAAsAC4ALwAvADQAOgA5ADUALAAhABsAIgAnACoAMAAyADQANgA2ADcAOgA7ADsAPABBAEIAQwBHAEUAQQA7ADgAMQAnACMAHwA2ADgANgA2ADgAOwA7ADoANwA1ADQANAAxAC4AKQAoACkAQABFAEcATABRAFYAWABaAF8AYgBlAGUAZQBkAGMAYABdAFcAVABRAE4ARwBBAD8AQgBFAEsATwBRAFAATABGAEMAQgBAACkAGwAQAAgADQASABUAGAAYABcAFQASAA8ADAAJAAYABQADAAIAAQABAAAAAAABAAIAAgD///7//v/+//7//v/+//7//v/+//7/AAAAAAEAAQAAAAAA//8AAAAAAAAAAAEAAQADAAcADwAYAB0AHgAeABsAGQAYABYAFAAWABgAGQAaABwAIQApAC0ALgAsACoAJwAwAE8AcwCEAI8AkQCPAIoAgQB1AGYATQA9ADgAOQA8AEAAPwA8ADQAMQAxADAAMAAsABsAFgAWABUAFQAWABYAGQAaABwAIQAiAB4AFwATABAAFwAbACAAJgArAC4ALwAuAC4ALQAtACsAKQArACsAKgAsAC8ALwAtACoAIwAfABsAGgAvAC4ALgAvADIAMgAwAC0ALAArACoALAArACoAKAAnACcAPwBEAEYASwBQAFQAVwBZAF0AXgBgAGAAXgBaAFcAUwBOAD8AOgA2ADIALQAoACYAKAArADAANQA2ADMAKwAlACAAIQAXABIACwAFAAcADQASABUAFwAXABYAFAARAA4ACwAIAAUAAwACAAEAAQAAAP////8AAAAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAEAAQAAAAAA//8AAAAAAAAAAAAAAQADAAcAEAAaAB8AIQAgAB0AGgAYABUAFAAUABQAFAAUABYAGwAgACMAJAAjACEAHQAcACcAPgBZAG8AewB5AHYAcABpAFsAQAAyACsAKwAvADcAOQA1AC8ALAAsACsAKgAnABYAEQASABEAEgASABEAEQARABEAEAAPAA4ADQAOAAsADQAPABUAHQAjACcAKQArACoAKQAoACYAJQAjACMAJQAnACUAIwAhAB8AHAAZABcAEwAgACMAJAAmACYAJQAjACMAIwAjACUAKAApACgAJwAnACQAPABCAEYASgBOAFIAVQBWAFgAWABYAFkAVwBSAEoARwBBAC8AKgAmACIAHgAbABgAFgAXABkAGQAZABQADwASAAwADgANAAkAAQAAAAYACwARABQAFgAWABUAEgAQAA0ACgAHAAUAAwABAAAAAAAAAP///////wAA///+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAQAAAAAAAAD//wAAAAAAAAAAAAACAAgAEgAdACEAIgAgAB0AGQAXABUAFAATABMAEgASABIAFQAXABkAGQAZABgAFgAUABcAHwAtAEQAXABpAGoAaABhAFMANwApACMAIwApADEANAAxACsAKAAoACcAJQAiABUADwAPAA8AEAAPAA8ADwAPAA4ADgANAAwACwAMAAwACQAMAA0AEwAXABsAHwAgAB8AHgAeABwAHQAbACEAJQAlACMAIAAcABgAFgASAA8ACgATABgAGwAaAB0AHgAfACAAIAAgACEAJQAkACQAIwAjAB8ANgA9AEEARQBJAEsATQBPAFEAUQBQAE4ASwBGAEEAOwA3ACQAIAAcABkAFgATABAADwAOAA0ADAAKAAgABwD+////AQAAAP7//v8AAAUACQANABAAEQASABEADwANAAoACAAGAAQAAQAAAP//AAD///////8AAAAA///+//7//v/+//7//v/+//7//v/+//7//////////////wAAAAD/////AAD/////AAACAAgAEwAfACMAIgAfABoAFQAUABMAEgARABEAEAAOAA4ADwAQABEAEAARABIAEQARABEAEwAYAB8ANQBOAFkAXwBcAE4AMwAkACEAIwApAC4ALwAsACgAJQAkACMAIgAgABoADgANAA0ADQANAA0ADQANAAwADAALAAsACgAKAAoACQAHAAkACwAQABQAFQAXABYAFgAWABYAFAAXABwAIAAiAB8AGgAWABMAEQANAAkABgALABQAFgAYABkAGwAcABwAHQAdAB4AHgAdAB0AHAAaABcALQA0ADYAOgA+AEAAQABAAEEAQgBBAD8APQA5ADUAMQAtABsAFwAWABQAEgAQAA8ADgANAAwADAALAAgA/v/+//7//v/+//7//v8BAAQABgAIAAgACQAIAAcABgAFAAQAAwABAAAA///+//7//v/+//////8AAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v//////AAD/////AAACAAcAEgAfACMAIgAcABUAEAAPAA8ADgAOAA0ADAAKAAoACwALAAwADAAMAA4ADgANAAwADAAOAA4AEwAfAC8ARABMAEYALwAkACQAJwArACwALAArACUAIwAiACAAHwAeABsADQALAAwADAAMAAwACwALAAoACgAJAAkACQAIAAgABAAIAAgACQAJAAoADQANAA4ADQAOAAsADwAPABIAFwAZABcAFgASAA4ADAAJAAQAAwASABIAFAAVABcAGAAaABoAGwAaABkAGAAYABUAFQATABEAJAAqAC4AMQAzADMANAA1ADUANQA2ADMAMgAuACsAKQAmABQAEgARABEAEQAQABAADwAOAA4ADQD+//7//v/+//7//v/+////AQADAAQABQAFAAUABAADAAEAAAAAAAAAAQABAAAA///+//7/////////AAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v//////AAACAAYADQAXABwAGwAVAA4ACgAJAAkACAAHAAYABQAFAAUABgAHAAgACQAIAAkACAAHAAYACAAJAAoACQAKAA0AFQAiAC4AJwAmACcAKAApACoAKQAoACQAIAAfAB4AHQAcABgADAAJAAsACwAMAAsACwAKAAkACQAIAAgACAAHAAcAAgAGAAYABwAGAAUABwAJAAgACQAFAAkACgALAAsADQAQABEADwANAAoACQAIAAUABAARABMAEwAUABMAFQAXABcAFwAWABUAFAASABEADwANAAwAHgAkACcAKgAsACwALgAuAC4ALgAuACwAKgAnACQAIgAgAA8ADgAOAA8ADwAPABAAEAAPAP///v/////////+//////8BAAIABAAEAAQABAADAAIAAQD///7//v/+//7/AQADAAEAAAD///////8AAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AQADAAUACAANABAAEAANAAkABgAGAAUABQADAAIAAQABAAAAAQACAAUABQAEAAMAAQABAAIABQAHAAgABwAGAAMAAgAEAAwAGwAgACIAJAAlACUAJQAkACAAHQAbABsAGgAYABYACgAIAAgACAAJAAkACAAIAAgACAAGAAUABAADAAMAAwD//wIAAQAAAAEAAQACAAIAAgAEAAUABwAHAAgACQAJAAoACgAKAAgABwAGAAUAAwAPABAAEQARABAAEgASABMAEgASABEAEAAPAAwACwAJAAkAGgAgACIAIwAlACcAKAApACgAKAAnACUAIwAhACAAHgAbAAsACwALAAwADgAOAA8ADwAAAAEAAQACAAIAAQABAAEAAgADAAQABQAFAAMAAQAAAP7//v/+//7//v/+//7/AQAEAAIAAAAAAAAAAAAAAAAAAAAAAAAA/v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AQADAAUABgAIAAoACgAIAAYABQAEAAQAAwABAAAA///+//7//v/+/wAAAAAAAP/////+////AwAGAAYABQACAAAAAAAAAAAAAwAHABYAGwAeAB4AHgAeABsAGAAWABYAFQATABEABwAGAAYABQAFAAYABQAFAAUABAABAAAA//8AAP7////+//7//v/+////AAAAAAAAAgACAAMAAwADAAQABQAGAAYABgAGAAUABAAEAAEABAANAA8ADwAPAA0ADAANAA0ADAAMAAwACwAMAAgABwAGAAgAGQAcAB8AHwAgACEAIgAjACIAIQAfAB4AHAAcABoAGQAXAAkACAAJAAwADQAOAAEAAgACAAIAAgADAAMAAgABAAIAAwAEAAQABAADAAEA/v/+//7//v/+//7//v/+////AwADAAEAAAAAAAEAAAD///////////7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAACAAQABgAIAAkACQAHAAYABQADAAMAAgABAAAA//////7//v///wAAAQABAAAA///+//7//v///wEA///////////+//7//v/+/wAABQAVABkAGgAaABgAFQAUABMAEgARAA8ABQAEAAMABAAEAAMAAwADAAIAAQD+//7//v/+//7//v/+//7//v/+//7//v/+/wEAAQACAAIAAgACAAIAAgADAAMAAwACAAEAAgD//wIAAwAMAA0ADQALAAoACQAHAAgABwAHAAcABwAHAAYABAAFAAYAFgAaABsAHAAcAB0AHgAeAB4AHQAbABoAGQAYABYAFgAUAAYABQAJAAkAAQABAAEAAQABAAIAAgACAAMAAwADAAQABQAEAAMAAQAAAP7//v/+//7//v/+//7//v///wIABAABAP///////////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAAAAD+//7//v/+//7//v/+//7//v8AAAMABgAIAAkACAAHAAYABAADAAMAAgACAAEAAQABAAEAAgACAAMABQAFAAQAAAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///wMAEQATABQAEwARABEAEAAPAA4ABQAEAAMAAwADAAMAAwADAAMAAgAAAP7//v/+//7//v/+//7//v/+//7///8BAAIAAwADAAIAAgACAAMAAwAEAAIAAQABAP/////+////AAAHAAcABwAIAAcABgAGAAQABQAFAAYABgAGAAUABAADAAQAEwAWABcAGQAZABoAGgAaABoAGgAZABkAFwAXABYAFAATAAYABgABAAIAAgACAAIAAgACAAMAAwADAAQABAAEAAMAAgABAAAA/v/+//7//v/+//7//v/+//7/AAACAAIAAQD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA///+//7//v/+//7//v/+//7//v/+/wAABAAHAAcABwAGAAYABQAFAAQABAAEAAQABAAFAAUABgAGAAcACAAIAAcAAwAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v///w0ADQAOAA4ADgANAAsABAADAAEAAAADAAMAAwADAAMAAgAAAP7//v/+//7//v/+//7//v/+////AAABAAMABAAEAAMABAAEAAQABAAFAAMAAgABAP/////+//7//v8CAAIAAgACAAEAAgACAAMAAwADAAQABAAEAAQABAAEAAMAEgASABQAFQAVABUAFwAXABcAFwAXABYAFgAWABYAEwAQAAAAAAADAAQABAAEAAQABAAEAAQABAAEAAMAAgABAAAAAAD///7//v/+//7//v/+//7///////7//v/+//7//v/+//7//v/+//7//v/+//7//v8AAP7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA///+//7//v/+//7//v/+//7//v/+//7/AAADAAQABAAEAAUABQAFAAUABQAFAAYABgAHAAgACQAJAAoACgAJAAcABAABAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8LAAwACwAKAAoACQACAAAA/v8AAAEAAgADAAMAAQD///7//v/+//7//v/+/wAAAAABAAEAAgADAAQABAAEAAQABAAEAAQABAAEAAMAAwABAAAA///+//7//v///////v/+////////////AAAAAAAAAAAAAAEAAQABAAAADwAPAA8AEAAQABEAEQATABMAEwATABMAEgARABAAAwACAAAAAAACAAMABAAEAAQAAwADAAMAAwABAP/////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAAAA/v/+//7//v/+//7////+//7//v/+//7//v///wAAAAABAAIAAwAEAAUABQAGAAcABwAIAAgACAAIAAgACAAHAAQAAQAAAP7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v8HAAcABgD///7//v/+////AAABAAEAAAD+//7//v/+//7//v/+/wAAAAAAAAEAAQACAAIAAwADAAMAAwADAAMAAgACAAIAAgACAAEAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/CgAKAAsACgALAAsADAANAA4ADgAOAA0AAgAAAAEAAAABAAEAAQAAAAEAAQABAAEAAQAAAAAA///+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AAAAAP///v/+//7//v/+//7/AAAAAP7//v/+//7//v/+//7//v/+////AAACAAMABAAEAAQABAAEAAQABAAEAAQAAwACAAAAAAAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/BAD+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAAAAAQABAAEAAQABAAIAAgABAAEAAQABAAEAAQABAAEAAQAAAP///v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/BgAHAAcABwAIAAgACAAIAAgACAD//////v/+//7///8AAAIAAQABAAAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+////AAAAAP///v/+//7//v/+////AAAAAAAA///+//7//v/+//7//v/+//7/AAABAAIAAgACAAIAAgACAAEAAQABAAAAAAAAAAAAAAAAAAAA///+//7//v//////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAQABAAAAAAABAAEAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7/AwAEAAQABQAFAAUABgD+//7//v/+//7//v/+//7//v///wEAAQABAAAA///////////////////+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+//7//v/+/wAAAAAAAAAA/v/+//7//v/+/wAAAAAAAAAAAAD///7//v/+//7//v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7/AwADAAQAAwD+//7//v/+//7//v/+//7//v/+//////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///v/+////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/////+//7//v/+//7//v/+//7//v/+//7////+//7//v/+//7//v/+//7//v///wAAAAAAAAAAAAD+//7///8AAAAAAAAAAAAAAAAAAAAA///+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///+//7//v/+//7//v/+//7//v/+//7///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////////////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v/+//7//v/+////AAD+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//////7//v/+//7//v/+//7/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///v/+////AAAAAAAAAAAAAAAAAAD+//7//v/+//7//v8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///7//v/+//7//v8AAAAAAAAAAAAA";
+// ../../kanta/mut6q-havop2/geles/tsasa.ts
+const SKULPTAAKVANIVELO = -288 / 64;
+const SKULPTAAKVAMASKO = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AQAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADgBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwBwAAAAAAAAAAAAAAAAAAAAAAAAAAAADwBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAIB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/DwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/fwAAAAAAAAAAAAAAAAD4fwAAAAAAAID//wEAAAAAAAAAAAAAAID//wcAAAAAAID//wcAAAAAAAAAAAAAAOD//w8AAAAAAMD//w8AAAAAAAAAAAAAAPD//38AAAAAAMD//38AAAAAAAAAAAAAAP7///8BAAAAAMD///8D/B8AAAAAAAAAgP////8BAAAAAMD///////8fAAAAAAAAgP////8DAAAAAMD/////////AQAAAAAA+P//////AAAAAMD/////////fwAAAAAA/P//////AAAAAMD///////////8AAAAA////////AAAAAMD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////////////////////////AAAAAOD/////AMD///////////////8/AAAAAMD///8DAAD4//////////8//P8/AAAAAMD///8BAAAA//////////8DAP8/AAAAAOD///8BAAAAwP////////8AAPwfAAAAAOD///8BAAAAAMD//////wcAAAAAAAAAAOD///8BAAAAAAAAAP///wMAAAAAAAAAAOD///8BAAAAAAAAAMD/HwAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8DAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8BAAAAAAAAAAAAAAAAAAAAAAAAAOD///8AAAAAAAAAAAAAAAAAAAAAAAAAAOD///8AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAOD//38AAAAAAAAAAAAAAAAAAAAAAAAAAMD//z8AAAAAAAAAAAAAAAAAAAAAAAAAAMD//z8AAAAAAAAAAAAAAAAAAAAAAAAAAMD//x8AAAAAAAAAAAAAAAAAAAAAAAAAAMD//w8AAAAAAAAAAAAAAAAAAAAAAAAAAID//wcAAAAAAAAAAAAAAAAAAAAAAAAAAID//wMAAAAAAAAAAAAAAAAAAAAAAAAAAID//wMAAAAAAAAAAAAAAAAAAAAAAAAAAID//wEAAAAAAAAAAAAAAAAAAAAAAAAAAID//wEAAAAAAAAAAAAAAAAAAAAAAAAAAID//wAAAAAAAAAAAAAAAAAAAAAAAAAAAID/PwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/HwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/HwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/DwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/BwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAMD/AQAAAAAAAAAAAAAAAAAAAAAAAAAAAID/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+// ../../kanta/mut6q-havop2/geles/tsasahatsiq.ts
+const SKULPTAHAXAIQ = [
 	{
 		"x": -228,
 		"z": 64,
-		"fluo": 20
+		"las": 20
 	},
 	{
 		"x": -220,
 		"z": 24,
-		"fluo": 16
+		"las": 16
 	},
 	{
 		"x": -192,
 		"z": -172,
-		"fluo": 16
+		"las": 16
 	},
 	{
 		"x": -262,
 		"z": 196,
-		"fluo": 20
+		"las": 20
 	},
 	{
 		"x": -108,
 		"z": 152,
-		"fluo": 20
+		"las": 20
 	},
 	{
 		"x": 152,
 		"z": 182,
-		"fluo": 20
+		"las": 20
 	},
 	{
 		"x": 60,
 		"z": 172,
-		"fluo": 18
+		"las": 18
 	}
 ];
-// kantaoj/mut6q-havop2/geles/habs2.ts
-const SKULPTA_BIOMOJ = "27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZtkyRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG8lt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0lu27Zt27Zt27Zt27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0lu27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0ly27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0mS27Zt27Ztk7Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS27Zt27Ztk7Rt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS3LZt27Ztm7Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS3LZt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS3LZt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20aS5LZt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20aS5LZt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20aSJLdt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zaSJLdt27Zt27Zt2yRJkiRJkiRJkiRJkqRt2zZJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zaSJLdt27Zt27Zt2yZJkiRJkiRJkiRJ0rZt27ZJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zaSJLdt27Zt27Zt2zZJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Ztk6Rt20aSJLdt27Zt27Zt27ZtkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRt20aSJLdt27Zt27Zt27Zt2zZJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRt20iS5LZt27Zt27Zt27Zt27ZJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRp20iS5LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJ20iS5LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJEkmS3LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJIkmS3LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJIkmS27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJIkmS27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJIkmS27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJJEmS2rZtmyRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJJElS0rZtkiRJkqRt27Zt27Zt27Zt27Zt27Ztm7Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJJElSkrZJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJJElKkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElSkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElSkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJEmSkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJEmSlCRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiSJJEmSpCRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiSJJEmSJCRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiSJJEmSJAFJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiSJJEmSJAFIkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiSJJEmSJAlAkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiSJJEmSJEkCmyRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiSJJEmSJEkS2yRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27ZJ2iZJkiRJkiRJ27Zt20iSJElyAwAA27Zt27Zt27Zt27ZtmyRJkiSJJEmSJEmS3CZJkiRp27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJ2raNJEmSJEmSJAEA27Zt27Zt27Zt27ZtkyRJkiSJJEmSJEmSJLdJkiRt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiRJkiRJ0jaSJEmSJEmSJAkA2LZt27Zt27Zt27ZtkyRJkiSRJEmSJEmSJLltm6Rt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJ0kaSJEmSJEmSJEkS2LZt27Zt27Zt27ZtkiRJkiSRJEmSJEmSJEly2wQAwLZt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJIkmSJEmSJEmSJEmS3DYA27Zt27Zt27ZNkiRJkiSRJEmSJEmSJEmSJAAAAEmSJMlp27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiSJJEmSJEmSJEmSJEmSxAAA27Zt27Zt27ZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJMlt27Zt27Zt2yZJkiRJkiRJkiRJkiSJJEmSJEmSJEmSJEmSJAAA27Zt27Zt27ZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmS3LZt27Zt2zZJkiRJkiRJkiRJkkiSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2zZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEly27Zt27ZJkiRJkiRJkiRJAkmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27ZNkiRJkiRJkiRJJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yRJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yRJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27ZtmyRJkiRJkiSSJEmSJEmSJEmSJEmSkrRtkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJElu27Zt27ZtkyRJkiRJkqSRJEmSJEmSJEmSpCRJkqRNkiRJkkiSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEkCAEmSJEmSJElu27Zt27ZtkiRJkiRJkqSRJEmSJEmSJEmSnCRJkiRJkiRJkiRJJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJAAAGwAAJEmSJElu27Zt27ZNkiRJkiRJkiSSJEmSJEmSJEmSnCRJkiRJkiRJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27ZtG0mSJEls27Zt27ZNkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJ2ySRJEmSJEmSJEmSJEmSJEmSJCVp27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJJEmSJEmSJEmSpCRp27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiSRJEmSJElJkiRt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt2iZJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Ztk7Zt27ZtkiRJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27ZtkiRJ27ZtkyRJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2zZJkiRJ27ZtmyRJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt26Rt27Zt2yZJkiRJ27ZtmyRJkiRJkiRJkjSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt2yRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkyRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkiRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt2yZJkiRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt2yRJkiRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27ZtmyRJkiRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkyRJkiRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27ZtkiRJkiRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27ZNkiRJkiRJkiRJ27Zt2yRJkiRJkiRJkjaSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2zZJkiRJkiRJkiRJ27Zt2yRJkiRJkiRJkjaSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2yZJkiRJkiRJkiRJ27Zt2yRJkiRJkiRJkjaSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2yRJkiRJkiRJkiRJ27Zt2yZJkiRJkiRJkgSSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt2yRJkiRJkiRJkiRJ27Zt2zZJkiRJkiRJkgSQJEmSJEmSJElKkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt2yRJkiRJkiRJkiRJ27Zt2zZJkiRJkiRJkgSQJEmSJEmSJElKkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtmyRJkiRJkiRJkiRJ27Zt27ZJkiRJkiRJkgSQJEmSJEmSJElJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtmyRJkiRJkiRJkiRJ27Zt2zZJkiRJkiRJkgSQJEmSJEmSJClJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkyRJkiRJkiRJkiRJ27Zt2yZJkiRJkiRJkjSAJEmSJEmSJCVJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkiRJkiRJkiRJkiRJ27ZtmyRJkiRJkiRJkgaAJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZNkiRJkiRJkiRJkiRJ27ZtkiRJkiRJkiRJkgSAJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZNkiRJkiRJkiRJkiRJ27ZNkiRJkiRJkiRJkgCAJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkiRJkiRJkiRJkiRJ27ZNkiRJkiRJkiRJkgCAJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27ZtkiRJkiRJkqRt27ZJ27ZJkiRJkiRJkiRJkgSAJEmSJEmSkiRJkiRp2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27ZNkiRJkiRJkrRt27Zt2yRJkiRJkiRJkqQkSQSAJEmSJElKkiRJkiRt2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27ZNkiRJkiRp27Zt27ZtkyRJkiRJkiRJkpQkSQCAJEmSJElJkiRJkiRt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27ZNkiRJkiRp27Zt27ZtkyRJkiRJkiRJkpIkSQCAJEmSJElJkiRJkiRp27ZJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27ZJkiRJkiRp27Zt27ZtkiRJkiRJkiRJUpIkSQCAJEmSJClJkiRJkiRp27ZtkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27ZtmyRJkiRJkiRJ27Zt27ZtkiRJkiRJkiRJSpIkSQKMJEmSJCVJkiRJkiRp27Zt2yRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtkyRJkiRJkiRJ2rZt27ZtkiRJkiRJkiRJSZIkSZKMJEmSJCVJkiRJkiRp27Zt2yZJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtkiRJkiRJkiRJ2rZt27ZtkiRJkiRJkiQpSZIkSZKEJEmSpCRJkiRJkiRp27Zt2zZJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZNkiRJkiRJkiRJ0rZt27ZtkiRJkiRJkiQpSZIkSZKEJEmSpCRJkiRJkiRp27Zt27ZtkiRJkiRJkiRJkiRJkiRJkrZt27Zt27ZNkiRJkiRJkiRJ0rZt27ZtkyRJkiRJkiQpSZIkSZKQJEmSlCRJkiRJkiRp27Zt27Zt2yZJkiRJkiRJkiRJkiRJkrZt27Zt27ZNkiRJkiRJkiRJ0rZt27ZtmyRJkiRJkiQlSZIkSZKQJEmSlCRJkiRJkiRp27Zt27Zt2zZJkiRJkiRJkiRJkiRJkrZt27Zt27ZJkiRJkiRJkiRJ0rZt27Zt2yRJkiQpkaQkSZIkSZKQJEmSjCRJkiRJkiRp27Zt27Zt27ZJkiRJkiRJkiRJkiRJkrZt27Zt2zZJkiRJkiRJkiRJ0rZt27Zt2yZJkiQlSZIkSZIkSZKQJEmSTCJJkiRJkiRp27Zt27Zt27ZJkiRJkiRJkiRJkiRJkrRt27Zt2yZJkiRJkiRJkiRJ0rZt27Zt2yZJkqQkSZIkSZIkSZKQJEmSTJJEkiRJkiRt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkqRt27ZtmyRJkiRJkiRJkiRJ0rZt27Zt2zZJkpQkSZIkSZIkSZKQJEmSTJIkSRJJkiRt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRp27ZNkiRJkiRJkiRJkiRJ0rZt27Zt27ZJkpQkSZIkSZIkSZKQJEmSTJIkSZIkkSRJ2rZt27Zt2yRJkiRJkiRJkiRJkiRJkiRJ27ZJkiRJkiRJkiRJkiRJ2rZt27Zt27ZNkpQkSZIkSZIkSZKQJEmSTJIkSZIkkSRJ0rZt27ZtmyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZNkpQkSZIkSZIkSZKEJEmSSZIkSZIkkRJJkrZt27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQpSbZt27Zt27ZtkpQkSZIkSZIkSZIkJEmSSZIkSZIkUhJJUpJs27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQlSbJt27Zt27Ztk5QkSZIkSZIkSZIkIUkySZIkSZIkSiJJSZJk27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqQkSbJt27Zt27Ztm5QkSZIkSZIkSZIkCUkmSZIkSZIkSSQpSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkpQkSbJt27Zt27Zt25YkSZIkSZIkSZIkCUkmSZIkSZIkiSQlSZIk2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkpQkSbJt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkkaQkSZIk2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkpIkSbJt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkkpQkSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZtW5IkSbZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZJEkpIkSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZtS5IkSbZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZJIUpIkSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZtS5IkybZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZJISpIkSZIk2SZJkiRJkiRJkiRJkiRJkiRJ2yZJkiRJkiRJkiRJ2rZtSZIkybZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSSJJkiRJkiRJkiRJkiRJkiRJ2zZJkiRJkiRJkiRJ2rYtSZIk2bZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSRJJUiJJkiRJkiRJkiRJkiRJ2jZJkpQkSSJJkiRJ27YtSZIk2bZt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSRJJkiRJkiRJkiRJkiRJ0rZJSZIkSZIkSSRJ27YlSZIk27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZJEkiRJkiRJkiRJkiRJUpIkSZIkSZIkSZIk2bYkSZJk27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiRJkiRJkiRJkiRJSZIkSZIkSZIkSZIkyZYkSZJs27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZJEkiRJkiRJkiQpSZIkSZIkSZIkSZIkSZIkSZJt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiRJSSJJkqQkSZIkSZIkSZIkSZIkSZIkybZt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiQpSSJJUpIkSZIkSZIkSZIkSZIkSZIk27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkZIkSSJJSZIkSZIkSZIkSZIkSZIkSZJk27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSSQpSZIkSZIkSZIkSZIkSZIkSZJk27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkSQlSZIkSZIkSZIkSZIkSZIkSZJk27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkpQkSZIkSZIkSZIkSZIkSZIkSZJs27Zt07Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkpIkSZIkSZIkSZIkSZIkSZIkSZJt27Zt07Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbJt27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbZt27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbZt27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbZt27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkybZt27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkybZt27Zt27Zt27Zt27Zt27YlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIk2bZt27Zt27Zt27Zt27Zt27YlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZJISpIkSZIkSZIkSZIkSZIkSZIk2bZt27Zt27Zt27Zt27Zt27YlSbIlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSRJJUpIkSZIkSZIkSZIkSZIkSZIk2rZt27Zt27Zt27Zt27Zt27Zt27YlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSTJJkpIkSZIkSZIkSZIkSZIkSZIk2rZt27Zt27Zt27Zt27Zt27Zt27YtSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSTZJkpIkSZIkSZIkSZIkSZIkSZIk0rZt27Zt27Zt27Zt27Zt27Zt27ZtSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkiSRJ0rYkSZIkSZIkSZIkSZIkSZJE0rZt27Zt27Zt27Zt27Zt27Zt27ZtS5IkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiRJ2rZtSZIkSZIkSZIkSZIkSZJI0rZt27Zt27Zt27Zt27Zt27Zt27ZtW5IkSZIkSZIkSZIkSZIkkpIkSZIkSZIkSZIkSZJIkiRJ0rZtS5IkSZIkSZIkSZIkSRJJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt25QkSZIkSZIkSZIkSZJk27YtSZIkSZIkSZIkkSRJkiRJkrRtW5IkSZIkSZIkSZIkSSJJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt26YkSZIkSZIkSZIkSaRt27ZtW5IkSZIkSZJIkiRJkiRJkqRtkyQlSZIkSZIkSZIkSSRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt2zYpSZIkSZIkSSJJ0rZt27Zt27ZtSZIkSSRJkiRJkiRJkiRNkrZtS5IkSZIkiSRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27ZJSZJESpIkiSRJ0rZt27Zt27ZtkyRJkiRJkiRJkiRJkiRJ0rZt25JsmyRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJ0rZt27Zt27ZtkyRJkiRJkiRJkiRJkiRJ0rZt27ZtmyRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJ0rZt27Ztk7ZtkiRJkiRJkiRJkiRJkiRJkrZt27ZtkyRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRpkiRJ0rZt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkrZt2yRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRtkyRJkrZt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkrRtkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkyRJkrRt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRpmyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiRJkiRJkiRJkiRJkqRt2yRt27Ztm7Rt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkrRt2zZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt";
-// kantaoj/mut6q-havop2/geles/hapaga.ts
-const SKULPTA_BESTOJ = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEgSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2zYAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27YBAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27ZtAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27ZtAwAAAAAAAAAAAAAAAAAAAAAAAACAJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27ZtGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALBt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwLZt27Zt2wAAALBtGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBtAAAAAAAAAAAAAAAAAAAA2LZt27Zt2wAA27Zt27YNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZtAAAAAAAAAAAAAAAAAAAA2LZt27Zt2wBg27Zt27ZtGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27ZtAAAAAAAAAAAAAAAAAAAA2LZt27Zt24Zt27Zt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2LZt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAA2LZt27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAAAAAAAAAMwLZt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAA27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wYAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAABg27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wAAAAAAAAAA2LZt27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAABs27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wAAALZt27Zt27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAABg27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wYAAAAAALBt27ZtAAAAAAAAAAAAAAAAAABs27Zt27Zt27YBAAAAAAAAAABg27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wYAAAAAAAAAAAAAALBtAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAAAAAAAAAIBt27Zt27Zt27Zt27Zt27Zt27Zt27YBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAAAAAAAAAAAAALZt27Zt27Zt27Zt27Zt27ZtAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAA27Zt27Zt27Zt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAAAABg27Zt27Zt2wYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAAAAIEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAACAJEmSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27Zt27Zt27YBAAAAAACQJEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27YBAAAAAACSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27YBAAAAAACSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27YBAAAAAECSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt2zYAAAAAAECSJEmSJEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt2wYAAAAAAECSJEmSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt2wAAAAAAAEiSJEmSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27ZtGwAAAAAAAEiSJEmSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27ZtGwAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27Zt27ZtGwAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27Zt27ZtAwAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27Zt27ZtAwAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt24Zt27ZtAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt24Bt27YNAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wBs2wYAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs2wAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg2wAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGwAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsAwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsAwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAABsAyQAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkgBsAyQAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkgBsAyQAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkoBtACQAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCRJkoBtgCQAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJkgAAgCQAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkiRJkgQAkCQBAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQBAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQBAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQJAAAAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAgBJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkgQAAAAAAAAAAAAAAAAAIEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAEkCIEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCRJkgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJkgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJEgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkiRJEgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAkiRJAgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgQAgAQAAAAAAAAAAAAAAAAAAAAAACBJkgQAAAAAAABAkiRJAgAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAAAAAkiRJkiRJkgBIAABIkiRJAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAACRJkiRJkiRJkiRJAgBJkiQJAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQBAAAAAAAAAAAAkiRJkiRJkiRJkiRJEiBJkiQBAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAgCRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgQAAABAkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAABIkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQBACBJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJACRJkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJkCRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRBkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAgCRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAABIkgRIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAABJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgQAAABIkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAABIkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAABAkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCRJkiRJkiRJkiRJkiRJkgRIkiRJkiRJkiRJkiRJAAAAAAAAkCRJkiRJkiRJkiRJkiQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkiRJkiRJkiRJkiRJAABAkiRJkiRJkiRJAgAAAAAAAAAAACRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkgAAAAAAgCRJkiRJkiQBAAAAAAAAAAAAAABJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQJAAAAAAAAAAAAkCQJkgAAAAAAAAAAAAAAAAAAkCRJkiRJkgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCQJkCRJAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-// kantaoj/mut6q-havop2/geles/hakaxte.ts
-const SKULPTA_HAKAXTE = [{
+// ../../kanta/mut6q-havop2/geles/habs2.ts
+const SKULPTABIOMOJ = "27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZtkyRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG8lt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0lu27Zt27Zt27Zt27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0lu27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0ly27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtG0mS27Zt27Ztk7Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS27Zt27Ztk7Rt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS3LZt27Ztm7Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS3LZt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20iS3LZt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20aS5LZt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20aS5LZt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt20aSJLdt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zaSJLdt27Zt27Zt2yRJkiRJkiRJkiRJkqRt2zZJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zaSJLdt27Zt27Zt2yZJkiRJkiRJkiRJ0rZt27ZJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zaSJLdt27Zt27Zt2zZJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Ztk6Rt20aSJLdt27Zt27Zt27ZtkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRt20aSJLdt27Zt27Zt27Zt2zZJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRt20iS5LZt27Zt27Zt27Zt27ZJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRp20iS5LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJ20iS5LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJEkmS3LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJIkmS3LZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJIkmS27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJIkmS27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJIkmS27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJJEmS2rZtmyRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJJElS0rZtkiRJkqRt27Zt27Zt27Zt27Zt27Ztm7Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJJElSkrZJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJJElKkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElKkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElSkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiSJJElSkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJEmSkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiSJJEmSlCRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiSJJEmSpCRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiSJJEmSJCRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiSJJEmSJAFJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiSJJEmSJAFIkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiSJJEmSJAlAkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiSJJEmSJEkCmyRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiSJJEmSJEkS2yRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27ZJ2iZJkiRJkiRJ27Zt20iSJElyAwAA27Zt27Zt27Zt27ZtmyRJkiSJJEmSJEmS3CZJkiRp27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJ2raNJEmSJEmSJAEA27Zt27Zt27Zt27ZtkyRJkiSJJEmSJEmSJLdJkiRt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiRJkiRJ0jaSJEmSJEmSJAkA2LZt27Zt27Zt27ZtkyRJkiSRJEmSJEmSJLltm6Rt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJ0kaSJEmSJEmSJEkS2LZt27Zt27Zt27ZtkiRJkiSRJEmSJEmSJEly2wQAwLZt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJIkmSJEmSJEmSJEmS3DYA27Zt27Zt27ZNkiRJkiSRJEmSJEmSJEmSJAAAAEmSJMlp27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiSJJEmSJEmSJEmSJEmSxAAA27Zt27Zt27ZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJMlt27Zt27Zt2yZJkiRJkiRJkiRJkiSJJEmSJEmSJEmSJEmSJAAA27Zt27Zt27ZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmS3LZt27Zt2zZJkiRJkiRJkiRJkkiSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2zZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEly27Zt27ZJkiRJkiRJkiRJAkmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27ZNkiRJkiRJkiRJJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yZJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yRJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27Zt2yRJkiRJkiSSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27ZtmyRJkiRJkiSSJEmSJEmSJEmSJEmSkrRtkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJElu27Zt27ZtkyRJkiRJkqSRJEmSJEmSJEmSpCRJkqRNkiRJkkiSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEkCAEmSJEmSJElu27Zt27ZtkiRJkiRJkqSRJEmSJEmSJEmSnCRJkiRJkiRJkiRJJEmSJEmSJEmSJEmSJEmSJEmSJEmSJEmSJAAAGwAAJEmSJElu27Zt27ZNkiRJkiRJkiSSJEmSJEmSJEmSnCRJkiRJkiRJkiRJkiSRJEmSJEmSJEmSJEmSJEmSJEmSJEmS27Zt27ZtG0mSJEls27Zt27ZNkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJ2ySRJEmSJEmSJEmSJEmSJEmSJCVp27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJJEmSJEmSJEmSpCRp27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiSRJEmSJElJkiRt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiSSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt2iZJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Ztk7Zt27ZtkiRJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27ZtkiRJ27ZtkyRJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2zZJkiRJ27ZtmyRJkiRJkiRJkiSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt26Rt27Zt2yZJkiRJ27ZtmyRJkiRJkiRJkjSSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt2yRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkyRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkiRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt2yZJkiRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt2yRJkiRJkiRJ27ZtmyRJkiRJkiRJkgaSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27ZtmyRJkiRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkyRJkiRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27ZtkiRJkiRJkiRJ27ZtmyRJkiRJkiRJkjaSJEmSJEmSJEmSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27ZNkiRJkiRJkiRJ27Zt2yRJkiRJkiRJkjaSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2zZJkiRJkiRJkiRJ27Zt2yRJkiRJkiRJkjaSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2yZJkiRJkiRJkiRJ27Zt2yRJkiRJkiRJkjaSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt2yRJkiRJkiRJkiRJ27Zt2yZJkiRJkiRJkgSSJEmSJEmSJElSkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt2yRJkiRJkiRJkiRJ27Zt2zZJkiRJkiRJkgSQJEmSJEmSJElKkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt2yRJkiRJkiRJkiRJ27Zt2zZJkiRJkiRJkgSQJEmSJEmSJElKkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtmyRJkiRJkiRJkiRJ27Zt27ZJkiRJkiRJkgSQJEmSJEmSJElJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtmyRJkiRJkiRJkiRJ27Zt2zZJkiRJkiRJkgSQJEmSJEmSJClJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkyRJkiRJkiRJkiRJ27Zt2yZJkiRJkiRJkjSAJEmSJEmSJCVJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkiRJkiRJkiRJkiRJ27ZtmyRJkiRJkiRJkgaAJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZNkiRJkiRJkiRJkiRJ27ZtkiRJkiRJkiRJkgSAJEmSJEmSpCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZNkiRJkiRJkiRJkiRJ27ZNkiRJkiRJkiRJkgCAJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZtkiRJkiRJkiRJkiRJ27ZNkiRJkiRJkiRJkgCAJEmSJEmSlCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27ZtkiRJkiRJkqRt27ZJ27ZJkiRJkiRJkiRJkgSAJEmSJEmSkiRJkiRp2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27ZNkiRJkiRJkrRt27Zt2yRJkiRJkiRJkqQkSQSAJEmSJElKkiRJkiRt2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27ZNkiRJkiRp27Zt27ZtkyRJkiRJkiRJkpQkSQCAJEmSJElJkiRJkiRt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27ZNkiRJkiRp27Zt27ZtkyRJkiRJkiRJkpIkSQCAJEmSJElJkiRJkiRp27ZJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27ZJkiRJkiRp27Zt27ZtkiRJkiRJkiRJUpIkSQCAJEmSJClJkiRJkiRp27ZtkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27ZtmyRJkiRJkiRJ27Zt27ZtkiRJkiRJkiRJSpIkSQKMJEmSJCVJkiRJkiRp27Zt2yRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtkyRJkiRJkiRJ2rZt27ZtkiRJkiRJkiRJSZIkSZKMJEmSJCVJkiRJkiRp27Zt2yZJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZtkiRJkiRJkiRJ2rZt27ZtkiRJkiRJkiQpSZIkSZKEJEmSpCRJkiRJkiRp27Zt2zZJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27ZNkiRJkiRJkiRJ0rZt27ZtkiRJkiRJkiQpSZIkSZKEJEmSpCRJkiRJkiRp27Zt27ZtkiRJkiRJkiRJkiRJkiRJkrZt27Zt27ZNkiRJkiRJkiRJ0rZt27ZtkyRJkiRJkiQpSZIkSZKQJEmSlCRJkiRJkiRp27Zt27Zt2yZJkiRJkiRJkiRJkiRJkrZt27Zt27ZNkiRJkiRJkiRJ0rZt27ZtmyRJkiRJkiQlSZIkSZKQJEmSlCRJkiRJkiRp27Zt27Zt2zZJkiRJkiRJkiRJkiRJkrZt27Zt27ZJkiRJkiRJkiRJ0rZt27Zt2yRJkiQpkaQkSZIkSZKQJEmSjCRJkiRJkiRp27Zt27Zt27ZJkiRJkiRJkiRJkiRJkrZt27Zt2zZJkiRJkiRJkiRJ0rZt27Zt2yZJkiQlSZIkSZIkSZKQJEmSTCJJkiRJkiRp27Zt27Zt27ZJkiRJkiRJkiRJkiRJkrRt27Zt2yZJkiRJkiRJkiRJ0rZt27Zt2yZJkqQkSZIkSZIkSZKQJEmSTJJEkiRJkiRt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkqRt27ZtmyRJkiRJkiRJkiRJ0rZt27Zt2zZJkpQkSZIkSZIkSZKQJEmSTJIkSRJJkiRt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRp27ZNkiRJkiRJkiRJkiRJ0rZt27Zt27ZJkpQkSZIkSZIkSZKQJEmSTJIkSZIkkSRJ2rZt27Zt2yRJkiRJkiRJkiRJkiRJkiRJ27ZJkiRJkiRJkiRJkiRJ2rZt27Zt27ZNkpQkSZIkSZIkSZKQJEmSTJIkSZIkkSRJ0rZt27ZtmyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27ZNkpQkSZIkSZIkSZKEJEmSSZIkSZIkkRJJkrZt27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQpSbZt27Zt27ZtkpQkSZIkSZIkSZIkJEmSSZIkSZIkUhJJUpJs27ZtkyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQlSbJt27Zt27Ztk5QkSZIkSZIkSZIkIUkySZIkSZIkSiJJSZJk27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqQkSbJt27Zt27Ztm5QkSZIkSZIkSZIkCUkmSZIkSZIkSSQpSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkpQkSbJt27Zt27Zt25YkSZIkSZIkSZIkCUkmSZIkSZIkiSQlSZIk2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkpQkSbJt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkkaQkSZIk2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkpIkSbJt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkkpQkSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZtW5IkSbZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZJEkpIkSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZtS5IkSbZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZJIUpIkSZIk2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZtS5IkybZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZJISpIkSZIk2SZJkiRJkiRJkiRJkiRJkiRJ2yZJkiRJkiRJkiRJ2rZtSZIkybZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSSJJkiRJkiRJkiRJkiRJkiRJ2zZJkiRJkiRJkiRJ2rYtSZIk2bZt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSRJJUiJJkiRJkiRJkiRJkiRJ2jZJkpQkSSJJkiRJ27YtSZIk2bZt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSRJJkiRJkiRJkiRJkiRJ0rZJSZIkSZIkSSRJ27YlSZIk27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZJEkiRJkiRJkiRJkiRJUpIkSZIkSZIkSZIk2bYkSZJk27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiRJkiRJkiRJkiRJSZIkSZIkSZIkSZIkyZYkSZJs27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZJEkiRJkiRJkiQpSZIkSZIkSZIkSZIkSZIkSZJt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiRJSSJJkqQkSZIkSZIkSZIkSZIkSZIkybZt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiQpSSJJUpIkSZIkSZIkSZIkSZIkSZIk27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkZIkSSJJSZIkSZIkSZIkSZIkSZIkSZJk27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSSQpSZIkSZIkSZIkSZIkSZIkSZJk27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkSQlSZIkSZIkSZIkSZIkSZIkSZJk27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkpQkSZIkSZIkSZIkSZIkSZIkSZJs27Zt07Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkpIkSZIkSZIkSZIkSZIkSZIkSZJt27Zt07Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbJt27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbZt27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbZt27Zt27Zt27Zt27Zt25YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSbZt27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkybZt27Zt27Zt27Zt27Zt27YkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkybZt27Zt27Zt27Zt27Zt27YlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIk2bZt27Zt27Zt27Zt27Zt27YlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZJISpIkSZIkSZIkSZIkSZIkSZIk2bZt27Zt27Zt27Zt27Zt27YlSbIlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSRJJUpIkSZIkSZIkSZIkSZIkSZIk2rZt27Zt27Zt27Zt27Zt27Zt27YlSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSTJJkpIkSZIkSZIkSZIkSZIkSZIk2rZt27Zt27Zt27Zt27Zt27Zt27YtSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSTZJkpIkSZIkSZIkSZIkSZIkSZIk0rZt27Zt27Zt27Zt27Zt27Zt27ZtSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkiSRJ0rYkSZIkSZIkSZIkSZIkSZJE0rZt27Zt27Zt27Zt27Zt27Zt27ZtS5IkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkkiRJ2rZtSZIkSZIkSZIkSZIkSZJI0rZt27Zt27Zt27Zt27Zt27Zt27ZtW5IkSZIkSZIkSZIkSZIkkpIkSZIkSZIkSZIkSZJIkiRJ0rZtS5IkSZIkSZIkSZIkSRJJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt25QkSZIkSZIkSZIkSZJk27YtSZIkSZIkSZIkkSRJkiRJkrRtW5IkSZIkSZIkSZIkSSJJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt26YkSZIkSZIkSZIkSaRt27ZtW5IkSZIkSZJIkiRJkiRJkqRtkyQlSZIkSZIkSZIkSSRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt2zYpSZIkSZIkSSJJ0rZt27Zt27ZtSZIkSSRJkiRJkiRJkiRNkrZtS5IkSZIkiSRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27ZJSZJESpIkiSRJ0rZt27Zt27ZtkyRJkiRJkiRJkiRJkiRJ0rZt25JsmyRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJ0rZt27Zt27ZtkyRJkiRJkiRJkiRJkiRJ0rZt27ZtmyRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJ0rZt27Ztk7ZtkiRJkiRJkiRJkiRJkiRJkrZt27ZtkyRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRpkiRJ0rZt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkrZt2yRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRtkyRJkrZt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkrRtkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkyRJkrRt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRpmyRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZNkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ2rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRp27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkqRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ0rZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2yZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2zZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkiRJkiRJkiRJkiRJkrZJkiRJkiRJkiRJ27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtmyRJkiRJkiRJkiRJkiRJkqRt2yRt27Ztm7Rt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27ZtkiRJkiRJkiRJkrRt2zZt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt";
+// ../../kanta/mut6q-havop2/geles/hapaga.ts
+const SKULPTABESTOJ = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAJEmSJEmSJEmSJEgSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEiSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2zYAAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27YBAAAAAAAAAAAAAAAAAAAAAAAAAECSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27ZtAAAAAAAAAAAAAAAAAAAAAAAAAACQJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27ZtAwAAAAAAAAAAAAAAAAAAAAAAAACAJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27ZtGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALBt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwLZt27Zt2wAAALBtGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBtAAAAAAAAAAAAAAAAAAAA2LZt27Zt2wAA27Zt27YNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZtAAAAAAAAAAAAAAAAAAAA2LZt27Zt2wBg27Zt27ZtGwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27ZtAAAAAAAAAAAAAAAAAAAA2LZt27Zt24Zt27Zt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2LZt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAA2LZt27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAAAAAAAAAMwLZt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAA27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wYAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAABg27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wAAAAAAAAAA2LZt27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAABs27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wAAALZt27Zt27Zt27Zt27Zt27Zt27Zt27ZtAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAABg27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wYAAAAAALBt27ZtAAAAAAAAAAAAAAAAAABs27Zt27Zt27YBAAAAAAAAAABg27Zt27Zt27Zt27Zt27Zt27Zt27Zt27Zt2wYAAAAAAAAAAAAAALBtAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAAAAAAAAAIBt27Zt27Zt27Zt27Zt27Zt27Zt27YBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAAAAAAAAAAAAALZt27Zt27Zt27Zt27Zt27ZtAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAA27Zt27Zt27Zt27Zt2wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27ZtAAAAAAAAAAAAAAAAAAAAAABg27Zt27Zt2wYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAAAAIEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs27Zt27Zt27YNAAAAAACAJEmSJEmSJEmSJEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27Zt27Zt27YBAAAAAACQJEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27YBAAAAAACSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27YBAAAAAACSJEmSJEmSJEmSJEmSJEkCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt27YBAAAAAECSJEmSJEmSJEmSJEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt2zYAAAAAAECSJEmSJEmSJEmSJEmSJEmSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt2wYAAAAAAECSJEmSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27Zt2wAAAAAAAEiSJEmSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27ZtGwAAAAAAAEiSJEmSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA27Zt27ZtGwAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg27Zt27ZtGwAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27Zt27ZtAwAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt27Zt27ZtAwAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt24Zt27ZtAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt24Bt27YNAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wBs2wYAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIBt2wAAAAAAAAAAAAAAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABs2wAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABg2wAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGwAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAACAJEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgGwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsAwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABsAwAAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAABsAyQAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkgBsAyQAAAAAAAAAAAAAIEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkgBsAyQAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkoBtACQAAAAAAAAAAAAAAEiSJEmSJEmSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCRJkoBtgCQAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJkgAAgCQAAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkiRJkgQAkCQBAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQBAAAAAAAAAAAAAACSJEmSJEmSJEmSJEmSJEmSJAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQBAAAAAAAAAAAAAAAAAEmSJEmSJEmSJEmSJEmSJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQJAAAAAAAAAAAAAAAAAECSJEmSJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJAAAAAAAAAAAAAAAAAACSJEmSJEmSJEmSJAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAgBJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAJEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkgQAAAAAAAAAAAAAAAAAIEmSJEmSJEmSBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAEkCIEmSJEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAEkSAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACBJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkgQAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCRJkgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJkgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJEgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkiRJEgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAkiRJAgAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgQAgAQAAAAAAAAAAAAAAAAAAAAAACBJkgQAAAAAAABAkiRJAgAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAAAAAkiRJkiRJkgBIAABIkiRJAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAACRJkiRJkiRJkiRJAgBJkiQJAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQBAAAAAAAAAAAAkiRJkiRJkiRJkiRJEiBJkiQBAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAgCRJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgQAAABAkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAABIkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQBACBJkiRJkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJACRJkiRJkiRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQJkCRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAACBJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRBkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAABIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAgCRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAAAAAAAAAAAAAAABIkgRIkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiQAAABJkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgQAAABIkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkgAAAABIkiRJkiRJkiRJkiRJkiRJAAAAAAAAAAAAAAAAAAAAAAAAAAAAkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJEgAAAABAkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJkiRJAgAAAAAAkiRJkiRJkiRJkiRJkiQJAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCRJkiRJkiRJkiRJkiRJkgRIkiRJkiRJkiRJkiRJAAAAAAAAkCRJkiRJkiRJkiRJkiQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAACRJkiRJkiRJkiRJkiRJAABAkiRJkiRJkiRJAgAAAAAAAAAAACRJkiRJkiRJkiRJkiQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABJkiRJkiRJkiRJkgAAAAAAgCRJkiRJkiQBAAAAAAAAAAAAAABJkiRJkiRJkiRJkgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAkiRJkiRJkiQJAAAAAAAAAAAAkCQJkgAAAAAAAAAAAAAAAAAAkCRJkiRJkgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkCQJkCRJAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+// ../../kanta/mut6q-havop2/geles/hakaxte.ts
+const SKULPTAHAKAXTE = [{
 	"ksaka": "Geles",
-	"arangxaGrando": 3,
-	"blokaGrando": "unu",
+	"ptaluPal6": 3,
+	"k6liqPal6": "vakox2qita",
 	"ofsX": 0,
 	"ofsZ": 0,
-	"keuxfhxeso": true,
-	"aldonajHak6liq": [{
+	"kekufxeso": true,
+	"tlunakHak6liq": [{
 		"x": 0,
 		"z": 96,
-		"hunaq": "sanktejo",
+		"hunaq": "qaman2",
 		"rot": Math.PI,
-		"sub": "centro",
-		"stacia": true,
-		"konektita": true
+		"c2w2q": "sost2",
+		"kuk": true,
+		"c2k": true
 	}]
 }, {
 	"ksaka": "Testa",
-	"arangxaGrando": 2,
-	"blokaGrando": "kvar",
+	"ptaluPal6": 2,
+	"k6liqPal6": "kvar",
 	"ofsX": 96,
 	"ofsZ": -256,
-	"keuxfhxeso": false,
-	"aldonajHak6liq": []
+	"kekufxeso": false,
+	"tlunakHak6liq": []
 }];
-// kantaoj/mut6q-havop2/geles/hak6h6.ts
-const SKULPTA_HAK6H6 = [
+// ../../kanta/mut6q-havop2/geles/hak6h6.ts
+const SKULPTAHAKAS2KANTA = [
 	{
 		"ksaka": "Suda cutfa",
 		"sefini": 224 / 64,
@@ -20545,54 +20545,54 @@ const SKULPTA_HAK6H6 = [
 		"n2k": [[12, -100], [12, -147]]
 	}
 ];
-const SKULPTA_HAQAKAJ2 = [
+const SKULPTAHAQAKAJ2 = [
 	{
 		"x": -54.155417527999326,
 		"z": -118.07770876399967,
-		"profundo": 16,
-		"rotacio": 1.1071487177940904
+		"jufu": 16,
+		"s2sabo": 1.1071487177940904
 	},
 	{
 		"x": -8.486441818246364,
 		"z": -115.25253515110634,
-		"profundo": 864 / 64,
-		"rotacio": -.15660187698201536
+		"jufu": 864 / 64,
+		"s2sabo": -.15660187698201536
 	},
 	{
 		"x": 100.56821521909367,
 		"z": -75.40348424296077,
-		"profundo": 928 / 64,
-		"rotacio": -.4182243295792291
+		"jufu": 928 / 64,
+		"s2sabo": -.4182243295792291
 	}
 ];
-// kantaoj/tom6nu/interpolo.ts
-function glata(t) {
+// ../../kanta/k2fe/fkabe.ts
+function xaha$1(t) {
 	return t * t * (3 - 2 * t);
 }
-function glataPaso(lo, hi, v) {
-	return glata(Math.max(0, Math.min(1, (v - lo) / (hi - lo))));
+function glataTona(lo, hi, v) {
+	return xaha$1(Math.max(0, Math.min(1, (v - lo) / (hi - lo))));
 }
 function katmullRom(p0, p1, p2, p3, t) {
 	const t2 = t * t, t3 = t2 * t;
 	return 1 / 2 * (2 * p1 + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
 }
-function fiksuKradon(v, n) {
+function fiksuQox2n2k(v, n) {
 	const n1 = n - 1;
 	return v < 0 ? 0 : v > n1 ? n1 : v;
 }
-function bikubaPx01o(krado, n, fx, fz) {
+function bikubaPx01o(qox2n2k, n, fx, fz) {
 	const i0 = Math.floor(fx), j0 = Math.floor(fz);
 	const u = fx - i0, v = fz - j0;
-	const c0 = fiksuKradon(i0 - 1, n), c1 = fiksuKradon(i0, n);
-	const c2 = fiksuKradon(i0 + 1, n), c3 = fiksuKradon(i0 + 2, n);
-	const r0 = fiksuKradon(j0 - 1, n) * n, r1 = fiksuKradon(j0, n) * n;
-	const r2 = fiksuKradon(j0 + 1, n) * n, r3 = fiksuKradon(j0 + 2, n) * n;
-	return katmullRom(katmullRom(krado[r0 + c0], krado[r0 + c1], krado[r0 + c2], krado[r0 + c3], u), katmullRom(krado[r1 + c0], krado[r1 + c1], krado[r1 + c2], krado[r1 + c3], u), katmullRom(krado[r2 + c0], krado[r2 + c1], krado[r2 + c2], krado[r2 + c3], u), katmullRom(krado[r3 + c0], krado[r3 + c1], krado[r3 + c2], krado[r3 + c3], u), v);
+	const c0 = fiksuQox2n2k(i0 - 1, n), c1 = fiksuQox2n2k(i0, n);
+	const c2 = fiksuQox2n2k(i0 + 1, n), c3 = fiksuQox2n2k(i0 + 2, n);
+	const r0 = fiksuQox2n2k(j0 - 1, n) * n, r1 = fiksuQox2n2k(j0, n) * n;
+	const r2 = fiksuQox2n2k(j0 + 1, n) * n, r3 = fiksuQox2n2k(j0 + 2, n) * n;
+	return katmullRom(katmullRom(qox2n2k[r0 + c0], qox2n2k[r0 + c1], qox2n2k[r0 + c2], qox2n2k[r0 + c3], u), katmullRom(qox2n2k[r1 + c0], qox2n2k[r1 + c1], qox2n2k[r1 + c2], qox2n2k[r1 + c3], u), katmullRom(qox2n2k[r2 + c0], qox2n2k[r2 + c1], qox2n2k[r2 + c2], qox2n2k[r2 + c3], u), katmullRom(qox2n2k[r3 + c0], qox2n2k[r3 + c1], qox2n2k[r3 + c2], qox2n2k[r3 + c3], u), v);
 }
-// eskekoj/tom6nu/mapqoxa.ts
-const TAFKAQ_PAL6 = 3 / 8;
+// ../../skek2/p6kpu/mapqoxa.ts
+const TAFKAQPAL6 = 3 / 8;
 function qoxaPal6(qoxa, pal6) {
-	return qoxa === "c2q" ? pal6 : pal6 * TAFKAQ_PAL6;
+	return qoxa === "c2q" ? pal6 : pal6 * TAFKAQPAL6;
 }
 function qoxaTltani(qoxa, pal6) {
 	if (qoxa === "c2q") return [];
@@ -20617,24 +20617,24 @@ function qoxaBsej2kuq(qoxa, pal6) {
 		return [p[0] * (1 - santaKozuni / d), p[1] * (1 - santaKozuni / d)];
 	});
 }
-function pukazX2x2qKa5ik(tltani) {
+function pukazXiix2qKa5ik(tltani) {
 	const n = tltani.length;
-	const p6kpu = [];
+	const xiix2q = [];
 	const haka5ik = [];
 	for (let i = 0; i < n; i++) {
 		const a = tltani[i], b = tltani[(i + 1) % n];
 		const mx = (a[0] + b[0]) / 2, mz = (a[1] + b[1]) / 2;
 		const d = Math.hypot(mx, mz) || 1;
-		p6kpu.push([mx / d, mz / d]);
+		xiix2q.push([mx / d, mz / d]);
 		haka5ik.push(d);
 	}
 	return {
-		p6kpu,
+		xiix2q,
 		haka5ik
 	};
 }
-function pukazBsej2kuq(p6kpu, haka5ik, x, z) {
-	for (let i = 0; i < p6kpu.length; i++) if (p6kpu[i][0] * x + p6kpu[i][1] * z > haka5ik[i] + 1 / 512) return false;
+function pukazBsej2kuq(xiix2q, haka5ik, x, z) {
+	for (let i = 0; i < xiix2q.length; i++) if (xiix2q[i][0] * x + xiix2q[i][1] * z > haka5ik[i] + 1 / 512) return false;
 	return true;
 }
 function ka5ikH6kuni(qoxa, pal6, tafkaq) {
@@ -20642,25 +20642,25 @@ function ka5ikH6kuni(qoxa, pal6, tafkaq) {
 	const ux = Math.cos(tafkaq), uz = Math.sin(tafkaq);
 	const rc = qoxaPal6(qoxa, pal6);
 	const tltani = qoxaTltani(qoxa, pal6);
-	const { p6kpu, haka5ik } = pukazX2x2qKa5ik(tltani);
-	const bsej2kuq = qoxaBsej2kuq(qoxa, pal6);
-	let kma = 0;
+	const { xiix2q, haka5ik } = pukazXiix2qKa5ik(tltani);
+	const c2h2 = qoxaBsej2kuq(qoxa, pal6);
+	let plosteq = 0;
 	for (let i = 0; i < tltani.length; i++) {
 		const a = tltani[i], b = tltani[(i + 1) % tltani.length];
 		const dx = b[0] - a[0], dz = b[1] - a[1];
 		const determinanto = ux * dz - uz * dx;
 		if (Math.abs(determinanto) < 8 ** -10) continue;
 		const t = (a[0] * dz - a[1] * dx) / determinanto;
-		if (t > kma && pukazBsej2kuq(p6kpu, haka5ik, ux * t, uz * t)) kma = t;
+		if (t > plosteq && pukazBsej2kuq(xiix2q, haka5ik, ux * t, uz * t)) plosteq = t;
 	}
-	for (const p of bsej2kuq) {
-		const projekcio = ux * p[0] + uz * p[1];
-		const sub = projekcio * projekcio - (p[0] * p[0] + p[1] * p[1]) + rc * rc;
-		if (sub < 0) continue;
-		const t = projekcio + Math.sqrt(sub);
-		if (t > kma && pukazBsej2kuq(p6kpu, haka5ik, ux * t, uz * t)) kma = t;
+	for (const p of c2h2) {
+		const phaka = ux * p[0] + uz * p[1];
+		const c2w2q = phaka * phaka - (p[0] * p[0] + p[1] * p[1]) + rc * rc;
+		if (c2w2q < 0) continue;
+		const t = phaka + Math.sqrt(c2w2q);
+		if (t > plosteq && pukazBsej2kuq(xiix2q, haka5ik, ux * t, uz * t)) plosteq = t;
 	}
-	return kma;
+	return plosteq;
 }
 function h6kuniQoxa(qoxa, pal6, x, z) {
 	const r = Math.hypot(x, z);
@@ -20670,20 +20670,20 @@ function h6kuniQoxa(qoxa, pal6, x, z) {
 function bsej2kuqQoxa(qoxa, pal6, x, z) {
 	return h6kuniQoxa(qoxa, pal6, x, z) <= 0;
 }
-// kantaoj/mut6q-havop2/bal2.ts
-const MAPOJ = [{
-	kodo: "cxefa",
-	ksaka: "Geles mapo",
-	aktiva: true,
+// ../../kanta/mut6q-havop2/bal2.ts
+const Habal2 = [{
+	s2kanta: "geles",
+	ksaka: "Geles bal2",
+	kxe: true,
 	qoxa: "c2q",
-	grandeco: 384
+	pal6: 384
 }];
-// kantaoj/mut6q-havop2/bal2S2kanta.ts
-function aktivaMapo() {
-	return MAPOJ.find((m) => m.aktiva) ?? MAPOJ[0];
+// ../../kanta/mut6q-havop2/bal2S2kanta.ts
+function kxeBal2() {
+	return Habal2.find((m) => m.kxe) ?? Habal2[0];
 }
-// kantaoj/lingvo/sonaj-reguloj.ts
-const SAXEAĴ = [
+// ../../kanta/gawe/boleS2kanta.ts
+const GAWEKIIFBAL2 = [
 	[
 		"ᶅſ",
 		"w",
@@ -20865,7 +20865,7 @@ const SAXEAĴ = [
 		"pɪ̈sɛ"
 	]
 ];
-const INTERNAĴ = [
+const C2H2BAL2 = [
 	[
 		"п́",
 		"w",
@@ -21092,7 +21092,7 @@ const INTERNAĴ = [
 		"ə"
 	]
 ];
-const NUMERA = {
+const KNAK2FE = {
 	ts: "1",
 	ii: "2",
 	tl: "3",
@@ -21102,29 +21102,29 @@ const NUMERA = {
 	ou: "7",
 	eu: "0"
 };
-const NUMERA_REV = {};
-for (const [v, k] of Object.entries(NUMERA)) NUMERA_REV[k] = v;
-const ĈIUJ_IPA = Array.from(new Set([...SAXEAĴ, ...INTERNAĴ].map(([, , ipa]) => ipa).filter(Boolean))).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
-const ĈIUJ_GK = Array.from(new Set([...SAXEAĴ, ...INTERNAĴ].map(([gk]) => gk).filter(Boolean))).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
-function avideKongruigi(s2banani, tokenaListo) {
-	const esxaq = [];
-	let i = 0;
-	while (i < s2banani.length) {
-		let trovita = false;
-		for (const t of tokenaListo) if (s2banani.startsWith(t, i)) {
-			esxaq.push(t);
-			i += t.length;
-			trovita = true;
+const NEKALAKNAK2FE = {};
+for (const [s2bana, k2fe] of Object.entries(KNAK2FE)) NEKALAKNAK2FE[k2fe] = s2bana;
+const KAK2IPA = Array.from(new Set([...GAWEKIIFBAL2, ...C2H2BAL2].map(([, , ipa]) => ipa).filter(Boolean))).sort((kekXaqa, kekP2sa) => kekP2sa.length - kekXaqa.length || (kekXaqa < kekP2sa ? -1 : 1));
+const KAK2GK = Array.from(new Set([...GAWEKIIFBAL2, ...C2H2BAL2].map(([gk]) => gk).filter(Boolean))).sort((kekXaqa, kekP2sa) => kekP2sa.length - kekXaqa.length || (kekXaqa < kekP2sa ? -1 : 1));
+function kaltokS2bana(s2banani, kekS2kanta) {
+	const kekCatsara = [];
+	let kek = 0;
+	while (kek < s2banani.length) {
+		let b6kewe = false;
+		for (const s2banaKek of kekS2kanta) if (s2banani.startsWith(s2banaKek, kek)) {
+			kekCatsara.push(s2banaKek);
+			kek += s2banaKek.length;
+			b6kewe = true;
 			break;
 		}
-		if (!trovita) {
-			esxaq.push(s2banani[i]);
-			i++;
+		if (!b6kewe) {
+			kekCatsara.push(s2banani[kek]);
+			kek++;
 		}
 	}
-	return esxaq;
+	return kekCatsara;
 }
-const MAPO_EO = {
+const BAL2EO = {
 	"ⱱ̥": "v",
 	"p": "p",
 	"ɸ": "f",
@@ -21171,7 +21171,7 @@ const MAPO_EO = {
 	"ɑ̃": "an",
 	"pɪ̈sɛ": "puse"
 };
-const MAPO_EN = {
+const BAL2EN = {
 	"ⱱ̥": "w",
 	"p": "p",
 	"ɸ": "h",
@@ -21218,9 +21218,9 @@ const MAPO_EN = {
 	"ɑ̃": "an",
 	"pɪ̈sɛ": "pisseh"
 };
-const LINGVAJ_MAPOJ = {
-	eo: MAPO_EO,
-	en: MAPO_EN,
+const GAWEBAL2OJ = {
+	eo: BAL2EO,
+	en: BAL2EN,
 	ja: {
 		"ⱱ̥": "ワ",
 		"p": "プ",
@@ -21316,7 +21316,7 @@ const LINGVAJ_MAPOJ = {
 		"pɪ̈sɛ": "ពឺសេ"
 	}
 };
-const JA_GOJŪON = {
+const JAGOJŪON = {
 	k: {
 		a: "カ",
 		i: "キ",
@@ -21378,7 +21378,7 @@ const JA_GOJŪON = {
 		ɤ: "ポ"
 	}
 };
-const JA_KONSONANTAJ_RULEROJ = {
+const JAKETUX2PA = {
 	k: ["gojūon", "k"],
 	c: ["yōon", "チ"],
 	t: ["gojūon", "t"],
@@ -21402,10 +21402,10 @@ const JA_KONSONANTAJ_RULEROJ = {
 	ɲ̥: ["yōon", "ニ"],
 	tɬ: ["tɬ", "ト"]
 };
-function katakanaX2pa(rulo) {
-	const [pudal, kozuni] = rulo;
+function katakanaX2pa(roll) {
+	const [pudal, kozuni] = roll;
 	let x2pa;
-	if (pudal === "gojūon") x2pa = { ...JA_GOJŪON[kozuni] };
+	if (pudal === "gojūon") x2pa = { ...JAGOJŪON[kozuni] };
 	else if (pudal === "yōon") x2pa = {
 		a: kozuni + "ャ",
 		i: kozuni,
@@ -21434,10 +21434,10 @@ function katakanaX2pa(rulo) {
 	x2pa["ɑ"] = x2pa["a"] + "ー";
 	return x2pa;
 }
-const JA_KV_KOMBOJ = {};
-for (const [kon, rulo] of Object.entries(JA_KONSONANTAJ_RULEROJ)) for (const [vokalo, kana] of Object.entries(katakanaX2pa(rulo))) JA_KV_KOMBOJ[kon + vokalo] = kana;
-const _JA_IPA = Array.from(/* @__PURE__ */ new Set([...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ)])).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
-const ANGLAJ_VOKALOJ = /* @__PURE__ */ new Set([
+const JAKKANABAL2 = {};
+for (const [ketu, roll] of Object.entries(JAKETUX2PA)) for (const [waja, kana] of Object.entries(katakanaX2pa(roll))) JAKKANABAL2[ketu + waja] = kana;
+const JAKIPA = Array.from(/* @__PURE__ */ new Set([...KAK2IPA, ...Object.keys(JAKKANABAL2)])).sort((kekXaqa, kekP2sa) => kekP2sa.length - kekXaqa.length || (kekXaqa < kekP2sa ? -1 : 1));
+const ENWAJAOJ = /* @__PURE__ */ new Set([
 	"i",
 	"ɛ",
 	"a",
@@ -21449,7 +21449,7 @@ const ANGLAJ_VOKALOJ = /* @__PURE__ */ new Set([
 	"ɤ̃",
 	"ɑ̃"
 ]);
-const ANGLAJ_MALFAVORAJ = /* @__PURE__ */ new Set([
+const ENMALWAJAOJ = /* @__PURE__ */ new Set([
 	"ɪ̈",
 	"ɛ",
 	"ə",
@@ -21457,174 +21457,168 @@ const ANGLAJ_MALFAVORAJ = /* @__PURE__ */ new Set([
 	"ɤ̃",
 	"ɑ̃"
 ]);
-const ANGLAJ_GHACAMUTSA = /* @__PURE__ */ new Set(["ɟ̥̆", "ⱱ̥"]);
-function duobligi(konsono) {
-	return konsono[0] + konsono;
+const ENMALP2SANI = /* @__PURE__ */ new Set(["ɟ̥̆", "ⱱ̥"]);
+function p2sani(ketu) {
+	return ketu[0] + ketu;
 }
-/** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ⟅ ſɭɹ ꞇɔʊ , ſɭэ ſɭᴜ , 📃 ⟩ */
-function anglaKonverti(ipaaS2bana) {
-	const esxaq = avideKongruigi(ipaaS2bana, ĈIUJ_IPA);
-	const n = esxaq.length;
-	const eligo = esxaq.map((t) => MAPO_EN[t] ?? t);
-	for (let i = 0; i < n - 2; i++) if (ANGLAJ_MALFAVORAJ.has(esxaq[i]) && !ANGLAJ_VOKALOJ.has(esxaq[i + 1]) && ANGLAJ_VOKALOJ.has(esxaq[i + 2])) {
-		if (!ANGLAJ_GHACAMUTSA.has(esxaq[i + 1])) eligo[i + 1] = duobligi(eligo[i + 1]);
+function ipaAlEn(ipaaS2bana) {
+	const kekCatsara = kaltokS2bana(ipaaS2bana, KAK2IPA);
+	const vem2 = kekCatsara.length;
+	const s2banaKekCatsara = kekCatsara.map((s2banaKek) => BAL2EN[s2banaKek] ?? s2banaKek);
+	for (let kek = 0; kek < vem2 - 2; kek++) if (ENMALWAJAOJ.has(kekCatsara[kek]) && !ENWAJAOJ.has(kekCatsara[kek + 1]) && ENWAJAOJ.has(kekCatsara[kek + 2])) {
+		if (!ENMALP2SANI.has(kekCatsara[kek + 1])) s2banaKekCatsara[kek + 1] = p2sani(s2banaKekCatsara[kek + 1]);
 	}
-	for (let i = 0; i < n; i++) {
-		const t = esxaq[i];
-		const lakso = t === "ɪ̈" || t === "ə" || t === "ɛ";
-		if (!lakso && t !== "i") continue;
-		let j = i + 1;
-		while (j < n && !ANGLAJ_VOKALOJ.has(esxaq[j])) j++;
-		const runLargho = j - i - 1;
-		const finaKon = j >= n && runLargho > 0;
-		const unuaKon = runLargho > 0 ? esxaq[i + 1] : null;
-		const unuaSpel = runLargho > 0 ? eligo[i + 1] : "";
+	for (let kek = 0; kek < vem2; kek++) {
+		const s2banaKek = kekCatsara[kek];
+		const lakso = s2banaKek === "ɪ̈" || s2banaKek === "ə" || s2banaKek === "ɛ";
+		if (!lakso && s2banaKek !== "i") continue;
+		let kek2 = kek + 1;
+		while (kek2 < vem2 && !ENWAJAOJ.has(kekCatsara[kek2])) kek2++;
+		const runSefini = kek2 - kek - 1;
+		const tlakakKon = kek2 >= vem2 && runSefini > 0;
+		const xaqadiKon = runSefini > 0 ? kekCatsara[kek + 1] : null;
+		const xaqadiBole = runSefini > 0 ? s2banaKekCatsara[kek + 1] : "";
 		if (lakso) {
-			const mark = t === "ɪ̈" ? "ih" : t === "ə" ? "uh" : "eh";
-			const c2na = t === "ɪ̈" ? "i" : t === "ə" ? "u" : "e";
-			if (finaKon && unuaKon === "k") {
-				eligo[i] = c2na;
-				eligo[i + 1] = "ck";
-			} else if (finaKon && unuaKon === "ŋ̥") eligo[i] = mark;
-			else if (finaKon) eligo[i] = c2na;
-			else if (unuaSpel.length >= 2) eligo[i] = c2na;
-			else eligo[i] = mark;
-		} else if (finaKon && unuaKon === "k") eligo[i] = "ee";
-		else if (finaKon && unuaKon === "ŋ̥") eligo[i] = "i";
-		else if (finaKon) eligo[i] = "ee";
-		else if (runLargho === 1) eligo[i] = "e";
-		else eligo[i] = "i";
+			const p2zuka = s2banaKek === "ɪ̈" ? "ih" : s2banaKek === "ə" ? "uh" : "eh";
+			const c2na = s2banaKek === "ɪ̈" ? "i" : s2banaKek === "ə" ? "u" : "e";
+			if (tlakakKon && xaqadiKon === "k") {
+				s2banaKekCatsara[kek] = c2na;
+				s2banaKekCatsara[kek + 1] = "ck";
+			} else if (tlakakKon && xaqadiKon === "ŋ̥") s2banaKekCatsara[kek] = p2zuka;
+			else if (tlakakKon) s2banaKekCatsara[kek] = c2na;
+			else if (xaqadiBole.length >= 2) s2banaKekCatsara[kek] = c2na;
+			else s2banaKekCatsara[kek] = p2zuka;
+		} else if (tlakakKon && xaqadiKon === "k") s2banaKekCatsara[kek] = "ee";
+		else if (tlakakKon && xaqadiKon === "ŋ̥") s2banaKekCatsara[kek] = "i";
+		else if (tlakakKon) s2banaKekCatsara[kek] = "ee";
+		else if (runSefini === 1) s2banaKekCatsara[kek] = "e";
+		else s2banaKekCatsara[kek] = "i";
 	}
-	return eligo.join("");
+	return s2banaKekCatsara.join("");
 }
-/** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ꞙɭɿ , */
-function ipaAlLingvo(ipaaS2bana, lingvaKodo) {
-	if (lingvaKodo === "en") return anglaKonverti(ipaaS2bana);
-	const lingvaMapo = { ...LINGVAJ_MAPOJ[lingvaKodo] ?? {} };
-	let tokenaListo = ĈIUJ_IPA;
-	if (lingvaKodo === "ja") {
-		Object.assign(lingvaMapo, JA_KV_KOMBOJ);
-		tokenaListo = _JA_IPA;
+function ipaAlGawe(ipaaS2bana, lingvaS2kanta) {
+	if (lingvaS2kanta === "en") return ipaAlEn(ipaaS2bana);
+	const lingvaBal2 = { ...GAWEBAL2OJ[lingvaS2kanta] ?? {} };
+	let kekS2kanta = KAK2IPA;
+	if (lingvaS2kanta === "ja") {
+		Object.assign(lingvaBal2, JAKKANABAL2);
+		kekS2kanta = JAKIPA;
 	}
-	const esxaq = avideKongruigi(ipaaS2bana, tokenaListo);
-	const eligo = esxaq.map((t) => lingvaMapo[t] ?? t);
-	if (lingvaKodo === "km" && esxaq.length && ANGLAJ_VOKALOJ.has(esxaq[0])) eligo.unshift("អ");
-	return eligo.join("");
+	const kekCatsara = kaltokS2bana(ipaaS2bana, kekS2kanta);
+	const s2banaKekCatsara = kekCatsara.map((s2banaKek) => lingvaBal2[s2banaKek] ?? s2banaKek);
+	if (lingvaS2kanta === "km" && kekCatsara.length && ENWAJAOJ.has(kekCatsara[0])) s2banaKekCatsara.unshift("អ");
+	return s2banaKekCatsara.join("");
 }
-/**
-* ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſɭɹ ꞇɔʊ , ⟅ ſɭэ ſɭᴜ , ſɭɹ ꞇɔʊ , 📃 ⟩
-* ſɭэ ſɭw , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſɭэ ſɭw , ſɭэ ſᶘɹ , ꞙɭɔ , 📃 ⟩
-*/
 function gkAlIpa(gkaS2bana) {
-	const densigita = gkaS2bana.replace(/\s+/g, "");
-	const ludo = {};
-	for (const [gk, , ipa] of [...SAXEAĴ, ...INTERNAĴ]) ludo[gk] = ipa;
-	return avideKongruigi(densigita, ĈIUJ_GK).map((gk) => ludo[gk] ?? gk).join("");
+	const qun2S2bana = gkaS2bana.replace(/\s+/g, "");
+	const gkIpaBal2 = {};
+	for (const [gk, , ipa] of [...GAWEKIIFBAL2, ...C2H2BAL2]) gkIpaBal2[gk] = ipa;
+	return kaltokS2bana(qun2S2bana, KAK2GK).map((gk) => gkIpaBal2[gk] ?? gk).join("");
 }
-// kantaoj/fasado/vula.ts
-const statoj = /* @__PURE__ */ new Map();
-const h6w6oj = /* @__PURE__ */ new Map();
-let nunId = null;
-let antauaId = null;
-function kf2Staton(id, onH6w6i, jeVasaka) {
-	const jam = statoj.get(id);
-	if (jam) {
-		if (onH6w6i) h6w6oj.get(id).push(onH6w6i);
-		return jam;
+// ../../kanta/s2cel2f/vula.ts
+const s2k61oBal2 = /* @__PURE__ */ new Map();
+const h6w6iCa1ara = /* @__PURE__ */ new Map();
+let stih2Id = null;
+let tlakakaiId = null;
+function kf2S2k61o(id, onH6w6i, jeVasaka) {
+	const kxe = s2k61oBal2.get(id);
+	if (kxe) {
+		if (onH6w6i) h6w6iCa1ara.get(id).push(onH6w6i);
+		return kxe;
 	}
-	const elemento = document.getElementById(id);
-	if (!elemento) throw new Error("mankas menuo : " + id);
-	h6w6oj.set(id, onH6w6i ? [onH6w6i] : []);
-	function kobei() {
-		if (!elemento.classList.contains("laqazi")) return;
-		elemento.classList.remove("laqazi");
-		if (nunId === id) nunId = null;
+	const kfe = document.getElementById(id);
+	if (!kfe) throw new Error("j͑ʃɹ ɭʃɜ }ʃᴜ ʌ }ʃɹ ɭʃᴜ }ʃw ｡ " + id);
+	h6w6iCa1ara.set(id, onH6w6i ? [onH6w6i] : []);
+	function kobe() {
+		if (!kfe.classList.contains("laqazi")) return;
+		kfe.classList.remove("laqazi");
+		if (stih2Id === id) stih2Id = null;
 		jeVasaka?.();
 	}
-	const stato = {
+	const s2k61o = {
 		h6w6i() {
-			if (elemento.classList.contains("laqazi")) return;
-			const antaua = nunId;
-			if (antaua && antaua !== id) {
-				antauaId = antaua;
-				statoj.get(antaua)?.kobei();
-			} else antauaId = null;
-			nunId = id;
-			elemento.classList.add("laqazi");
+			if (kfe.classList.contains("laqazi")) return;
+			const z2hakai = stih2Id;
+			if (z2hakai && z2hakai !== id) {
+				tlakakaiId = z2hakai;
+				s2k61oBal2.get(z2hakai)?.kobe();
+			} else tlakakaiId = null;
+			stih2Id = id;
+			kfe.classList.add("laqazi");
 			jeVasaka?.();
-			for (const f of h6w6oj.get(id)) f();
+			for (const f of h6w6iCa1ara.get(id)) f();
 		},
 		pukxei() {
-			if (!elemento.classList.contains("laqazi")) return;
-			const celo = antauaId && antauaId !== id ? antauaId : null;
-			elemento.classList.remove("laqazi");
-			if (nunId === id) nunId = null;
-			antauaId = null;
+			if (!kfe.classList.contains("laqazi")) return;
+			const ca12na = tlakakaiId && tlakakaiId !== id ? tlakakaiId : null;
+			kfe.classList.remove("laqazi");
+			if (stih2Id === id) stih2Id = null;
+			tlakakaiId = null;
 			jeVasaka?.();
-			if (celo) statoj.get(celo)?.h6w6i();
+			if (ca12na) s2k61oBal2.get(ca12na)?.h6w6i();
 		},
-		kobei,
-		tsekeH6w6ita: () => elemento.classList.contains("laqazi")
+		kobe,
+		tsekeH6w6ita: () => kfe.classList.contains("laqazi")
 	};
-	statoj.set(id, stato);
-	document.getElementById(id + "Reeniri")?.addEventListener("click", () => stato.pukxei());
-	elemento.addEventListener("click", (e) => {
-		if (e.target === elemento) stato.pukxei();
+	s2k61oBal2.set(id, s2k61o);
+	document.getElementById(id + "Reeniri")?.addEventListener("click", () => s2k61o.pukxei());
+	kfe.addEventListener("click", (e) => {
+		if (e.target === kfe) s2k61o.pukxei();
 	});
-	return stato;
+	return s2k61o;
 }
-// eskekoj/hapaq/satalaj/hahunaq.ts
+// ../../skek2/hapaq/satalaj/hahunaq.ts
 const TIPARO = {
 	kap2: {
 		labelKey: "vepaqHunaqKap2",
 		wall: 1591352,
-		frame: 14200936,
+		catu5ek: 14200936,
 		chip: "#78a88880",
 		flavorKey: "vepaqPriskriboKap2"
 	},
 	geqqa: {
 		labelKey: "vepaqHunaqGeqqa",
 		wall: 5783592,
-		frame: 14207128,
+		catu5ek: 14207128,
 		chip: "#c8a86880",
 		flavorKey: "vepaqPriskriboGeqqa"
 	},
 	kasafeo: {
 		labelKey: "vepaqHunaqKasafeo",
 		wall: 14207128,
-		frame: 14200936,
+		catu5ek: 14200936,
 		chip: "#e0d0a880",
 		flavorKey: "vepaqPriskriboKasafeo"
 	},
-	stacioxipo: {
+	ka5asexazxipo: {
 		labelKey: "vepaqHunaqStacioxipo",
 		wall: 13158600,
-		frame: 14200936,
+		catu5ek: 14200936,
 		chip: "#c8c8c880",
 		flavorKey: "vepaqPriskriboStacioxipo"
 	},
 	turo: {
 		labelKey: "vepaqHunaqTuro",
 		wall: 2117696,
-		frame: 14200936,
+		catu5ek: 14200936,
 		chip: "#88b8a080",
 		flavorKey: "vepaqPriskriboTuro"
 	},
-	sanktejo: {
+	qaman2: {
 		labelKey: "vepaqHunaqSanktejo",
 		wall: 1589304,
-		frame: 14729336,
+		catu5ek: 14729336,
 		chip: "#e0c07880",
 		flavorKey: "vepaqPriskriboSanktejo"
 	}
 };
-const TIPAJ_NIVELOJ = {
+const TIPAJNIVELOJ = {
 	kap2: 4,
 	geqqa: 4,
 	kasafeo: 4,
-	stacioxipo: 4,
+	ka5asexazxipo: 4,
 	turo: 8,
-	sanktejo: 7
+	qaman2: 7
 };
 const paqMaterialaStoko = /* @__PURE__ */ new Map();
 function paqPukek(ca3aq, kf2) {
@@ -21635,47 +21629,47 @@ function paqPukek(ca3aq, kf2) {
 	}
 	return m;
 }
-// kantaoj/lingvo/baskakefani.ts
+// ../../kanta/gawe/baskakefani.ts
 const skakefani = {
 	aih: {
-		"titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
-		"titoloKaxte": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
-		"subtitoloKaxte": "j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞ ⟅ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ſɭᴜ ı],ƨɔ",
+		"hate2Aranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
+		"hate2Kaxte": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
+		"ksakat2xaKaxte": "j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞ ⟅ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ſɭᴜ ı],ƨɔ",
 		"eniri": "ſɭw ſ̀ȷᴜ",
-		"butonoPromeni": "ſɭᴜ ɭʃᴜ",
-		"butonoOrbiti": "֭ſɭɹ j͑ʃɔ",
-		"butonoHasoqte": "ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ",
-		"butonoHelpo": "ſȷɔ ſɭ,ꞇ",
-		"titoloTeksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
-		"subtitoloTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
-		"titoloSxargxo": "}ʃᴜ j͐ʃᴜ",
-		"sxargxoSubskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ ⟅",
-		"sxargxoSatalo": "j͑ʃ'ɔ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ ⟅",
-		"sxargxoNebulo": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
+		"catsiinaPromeni": "ſɭᴜ ɭʃᴜ",
+		"catsiinaOrbiti": "֭ſɭɹ j͑ʃɔ",
+		"catsiinaHasoqte": "ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ",
+		"catsiinaHelpo": "ſȷɔ ſɭ,ꞇ",
+		"hate2Teksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
+		"ksakat2xaTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
+		"hate2Sxargxo": "}ʃᴜ j͐ʃᴜ",
+		"b6tem2Subskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ ⟅",
+		"b6tem2Satalo": "j͑ʃ'ɔ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ ⟅",
+		"b6tem2Nebulo": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
 		"kompasoNordo": "j͐ʃᴜȝ",
 		"kamaOrbito": "֭ſɭɹ j͑ʃɔ",
-		"klavoTreni": "ʃэ ɭʃɔȝ",
+		"catlaqTreni": "ʃэ ɭʃɔȝ",
 		"kamaPromeno": "ſɭᴜ ɭʃᴜ",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "j͑ʃᴜ ֭ſɭᴜᶗ‹",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "ſןw",
-		"klavoSl6da": "ſɭɘэ v ſ͕ɭw }ʃɹ j͑ʃᴜꞇ",
+		"catlaqSl6da": "ſɭɘэ v ſ͕ɭw }ʃɹ j͑ʃᴜꞇ",
 		"kamaEniri": "ſɭw ſ̀ȷᴜ ʌ ſןᴜȝ",
-		"klavoEniri": "E",
-		"kamaMapo": "ʃᴜ j͐ʃɹ",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "ʃᴜ j͐ʃɹ",
+		"catlaqBal2": "M",
 		"kamaEliri": "j͑ʃwc̗ ɭʃᴜ",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſᶘᴜ j͐ʃɹ",
-		"klavoKlako": "ſןɔ",
+		"catlaqKlako": "ſןɔ",
 		"kamaKanuo": "j͑ʃ'ɔ ſɭᴜ ɭl̀ɹ",
 		"agoGusti": "ſ͔ɭɔȝ",
 		"agoKuxi": "ſȷɔ˞ᴜ ɭʃᴜ",
 		"agoLevi": "j͑ʃᴜ ʃɜƽ",
-		"titoloMapo": "ʃᴜ j͐ʃɹ",
-		"titoloHak6h6": "ſɭэ ֭ſɭэ",
-		"subtitoloHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
+		"hate2Bal2": "ʃᴜ j͐ʃɹ",
+		"hate2Hak6h6": "ſɭэ ֭ſɭэ",
+		"ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
 		"caxlefkakaiP2d2": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 		"caxlefkakaiSunta": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 		"manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ",
@@ -21704,12 +21698,12 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "j͑ʃᴜ ı],ᴜ ɽ͑ʃ'ᴜȝ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ⟅",
 		"vepaqPriskriboTuro": "ᶅſw ſɭɹ ʌ ſןᴜȝ ⟅",
 		"vepaqPriskriboSanktejo": "j͑ʃɜ j͑ʃƨɹ ⟅",
-		"kartoHavem2": "ɭʃᴜ }ʃɔƽ",
-		"kartoDiamanto": "ɭʃэᴜ̩ ſɭɹ",
-		"kartoJes": "ſɭɹ ֭ſɭɹ",
-		"kartoNe": "ſɟɔ ֭ſɭɹ",
-		"kartoVepaqHunaq": "֭ſɭᴜ ı],ɔ",
-		"kartoXekuxa": "ɽ͑ʃ'ᴜ ſ͕ɭᴜ",
+		"thalaHavem2": "ɭʃᴜ }ʃɔƽ",
+		"thalaDiamanto": "ɭʃэᴜ̩ ſɭɹ",
+		"thalaJes": "ſɭɹ ֭ſɭɹ",
+		"thalaNe": "ſɟɔ ֭ſɭɹ",
+		"thalaVepaqHunaq": "֭ſɭᴜ ı],ɔ",
+		"thalaXekuxa": "ɽ͑ʃ'ᴜ ſ͕ɭᴜ",
 		"vepaqNomo0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
 		"vepaqNomo1": "ſɭᴜ ſןɹ",
 		"vepaqNomo2": "ſɭᴜ ᶅſw ſɭɹ",
@@ -21744,18 +21738,18 @@ const skakefani = {
 		"vepaqNomo31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
 		"vepaqNomo32": "ſɭᴜ ɭ(ᴜͷ̗",
 		"vepaqNomo33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
-		"titoloInqoxa": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
-		"subtitoloInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
-		"ariaInqoxaButono": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
-		"ariaPukxeiButono": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
-		"taboPaqj": "ſןᴜȝ",
-		"taboMangxajxoj": "ŋᷠɜⅎᶗ‹",
-		"taboHapudal": "ɭ(ᴜͷ̗",
-		"grupoPaga": "ſןᴜ ſ͔ɭᴜ",
-		"pudalL2xkupukai": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
-		"pudalPriskriboL2xkupukai": "j͐ʃᴜ ֭ſɭᴜƽ ʌ j͐ʃɹᶗ‹",
-		"pudalL2xcaxlefai": "j͐ʃɹᶗ‹ ſɟᴜ ı],ͷ̗ɔʞ ꞁȷ̀ᴜꞇ",
-		"pudalPriskriboL2xcaxlefai": "ı],ɔ ſɭw ı],ᴜ ʌ j͐ʃɹᶗ‹",
+		"hate2Inqoxa": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
+		"ksakat2xaInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
+		"ariaInqoxaCatsiina": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
+		"ariaPukxeiCatsiina": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
+		"cax2lPaqj": "ſןᴜȝ",
+		"cax2lMangxajxoj": "ŋᷠɜⅎᶗ‹",
+		"cax2lHapudal": "ɭ(ᴜͷ̗",
+		"hatePaga": "ſןᴜ ſ͔ɭᴜ",
+		"pudalLiixkupukai": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
+		"pudalPriskriboLiixkupukai": "j͐ʃᴜ ֭ſɭᴜƽ ʌ j͐ʃɹᶗ‹",
+		"pudalLiixcaxlefai": "j͐ʃɹᶗ‹ ſɟᴜ ı],ͷ̗ɔʞ ꞁȷ̀ᴜꞇ",
+		"pudalPriskriboLiixcaxlefai": "ı],ɔ ſɭw ı],ᴜ ʌ j͐ʃɹᶗ‹",
 		"pudalPleŭrobrakia": "j͐ʃɹᶗ‹ j͐ʃᴜ ſןw ֭ſɭᴜ j͑ʃᴜꞇ",
 		"pudalPriskriboPleŭrobrakia": "j͑ʃɹ j͐ʃɹᶗ‹",
 		"pudalTq2wa": "ſ͕ɭᴜ ɭʃɹ ᶅſᴜ",
@@ -21764,7 +21758,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "j͑ʃɹ ɭʃɜͷ̗ ı],w",
 		"pudalNeĝotemek": "ɭʃɔ ŋᷠɔƽ",
 		"pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
-		"grupoPlanto": "ı],ᴜ ſ̀ȷɔ",
+		"hatePlanto": "ı],ᴜ ſ̀ȷɔ",
 		"pudalBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
 		"pudalPriskriboBetulo": "j͑ʃ'ɔ ſ͔ɭэ ʌ ſɭɔ ֭ſɭw ʌ ſɟɔ ⟅",
 		"pudalLariko": "ɭʃᴜ ſɭɔ˞ᴜͷ̗",
@@ -21787,22 +21781,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "ſȷɹʞ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
 		"pudalCakeo": "ſᶘᴜ ſɭɔ",
 		"pudalPriskriboCakeo": "ı],ɔ ſɭᴜȝ ꞁȷ̀ᴜͷ̗ ʌ ſ̀ȷᴜ ſןɹ j͑ʃᴜꞇ ʌ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
-		"taboVestoj": "j͑ʃɜȝ ɭʃɔ",
-		"vestoWeh2Lhant": "j͐ʃᴜ̩ᴜ",
-		"vestoWeh2Hearth": "ſ̀ȷwɔ˞",
-		"vestoWeh2Mist": "ſ͔ɭэ",
-		"vestoWeh2Ember": "ᶅſɔ j͐ʃᴜ",
-		"vestoWeh2Azure": "ſɟɹ j͑ʃɹƽ",
-		"vestoWeh2Violet": "ſᶘꞇ }ʃɔ",
-		"vestoWeh2Gilt": "ſɟꞇ",
-		"vestoWeh2Rose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
-		"vestoWeh2Obsidian": "֭ſɭw }ʃᴜ",
-		"vestoWeh2Cyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
-		"taboHararo": "ſᶘᴜȝ",
-		"tsaqSekcio": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
+		"cax2lHasoqte": "j͑ʃɜȝ ɭʃɔ",
+		"soqteWeh2Lhant": "j͐ʃᴜ̩ᴜ",
+		"soqteWeh2Hearth": "ſ̀ȷwɔ˞",
+		"soqteWeh2Mist": "ſ͔ɭэ",
+		"soqteWeh2Ember": "ᶅſɔ j͐ʃᴜ",
+		"soqteWeh2Azure": "ſɟɹ j͑ʃɹƽ",
+		"soqteWeh2Violet": "ſᶘꞇ }ʃɔ",
+		"soqteWeh2Gilt": "ſɟꞇ",
+		"soqteWeh2Rose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
+		"soqteWeh2Obsidian": "֭ſɭw }ʃᴜ",
+		"soqteWeh2Cyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
+		"cax2lHararo": "ſᶘᴜȝ",
+		"tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
 		"tsaqPsazai": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
-		"tsaqSahak": "j͑ʃᴜʞ",
-		"harWeh2Sekcio": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
+		"tsaqSahakani": "j͑ʃᴜʞ",
+		"harWeh2Qaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
 		"harWeh2Bruna": "ſ̀ȷwɔ˞",
 		"harWeh2Hunasai": "֭ſɭw }ʃᴜ j͑ʃᴜꞇ",
 		"harWeh2Ruĝeta": "ᶅſɔ j͐ʃᴜ ſ̀ȷwɔ˞",
@@ -21810,17 +21804,17 @@ const skakefani = {
 		"harWeh2Blonda": "ſɟꞇ",
 		"harWeh2Griza": "֭ſɭwƽ",
 		"muziko": "j͑ʃп́ꞇ ſɭɔƴ",
-		"muzikTrako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
-		"muzikTrako1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
-		"muzikTrako2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
-		"muzikTrako3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
-		"muzikTrako4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-		"muzikTrako5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-		"muzikTrako6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
-		"muzikTrako7": "ſɭɘᴜ ֭ſɭᴜ",
-		"ariaKrepuskoButono": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
+		"muzikT2bakobesai0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
+		"muzikT2bakobesai1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
+		"muzikT2bakobesai2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
+		"muzikT2bakobesai3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
+		"muzikT2bakobesai4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+		"muzikT2bakobesai5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+		"muzikT2bakobesai6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
+		"muzikT2bakobesai7": "ſɭɘᴜ ֭ſɭᴜ",
+		"ariaKrepuskoCatsiina": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
 		"ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
-		"ariaVet6limaButono": "ſ͕ɭɹ ſᶘɜ",
+		"ariaVet6limaCatsiina": "ſ͕ɭɹ ſᶘɜ",
 		"vet6limaNebula": "ŋᷠᴜ ֭ſɭᴜ",
 		"vet6limaPluva": "֭ſɭᴜ ɭʃᴜ",
 		"vet6limaHajla": "ſɭᴜ ɭʃᴜƽ",
@@ -21828,64 +21822,63 @@ const skakefani = {
 		"webglNeSubtenata": "ſ͕ȷɜ ſɭɹ ɽ͑ʃ'ɔ ʌ WebGL ⟅",
 		"webglDetalo": "ɭʃɔ ſ͕ɭᴜƴ ʌ WebGL ⟅ j͑ʃɹ j͐ʃɹ ŋᷠꞇ ʌ ſɟᴜ ֭ſɭᴜ ſȷᴜ v ſɭɹ ſןɹ ⟅",
 		"webglReprovi": "ɭʃɜ ŋᷠэ",
-		"ariaEniriMondon": "ſɭw ſ̀ȷᴜ ʌ ſ͕ɭᴜ ſᶘɔ j͐ʃɹ ⟅",
-		"saxeiMondo": "ſᶘɔ ſɭɔ ʌ ſɭʞɹ ʌ ſɭᴜͷ̗ ʌ ſ͕ɭɹȝ ʌ }ʃᴜ j͐ʃᴜ",
-		"mondTitolo": "}ʃᴜ j͐ʃᴜ",
-		"mondNomo": "}ʃᴜ j͐ʃᴜ",
+		"ariaEniriNala": "ſɭw ſ̀ȷᴜ ʌ ſ͕ɭᴜ ſᶘɔ j͐ʃɹ ⟅",
+		"saxeiNala": "ſᶘɔ ſɭɔ ʌ ſɭʞɹ ʌ ſɭᴜͷ̗ ʌ ſ͕ɭɹȝ ʌ }ʃᴜ j͐ʃᴜ",
+		"mondKsaka": "}ʃᴜ j͐ʃᴜ",
 		"mondSxono": "ɽ͑ʃ'w j͑ʃ'ᴜ",
-		"butonoKf2Mondon": "ſɭʞɹ",
-		"mondSavitaListo": "j͐ʃэ j͑ʃ'ɔ ſ̀ȷᴜȝ ꞁȷ̀ᴜꞇ ʌ }ʃᴜ j͐ʃᴜ",
+		"catsiinaKf2Nala": "ſɭʞɹ",
+		"mondSavitaCatsara": "j͐ʃэ j͑ʃ'ɔ ſ̀ȷᴜȝ ꞁȷ̀ᴜꞇ ʌ }ʃᴜ j͐ʃᴜ",
 		"mondQun2": "ſ͕ɭw }ʃɹ ʌ }ʃᴜ j͐ʃᴜ",
-		"ariaMondoRestauri": "ſɭᴜ j͐ʃᴜ",
-		"ariaMondoH2li": "֭ſɭɹͷ̗",
-		"ariaMondoDuobligi": "ſןw ſɟw ɭʃᴜ",
-		"butonoVetlaqiEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
-		"titoloHaku1o": "ſɭw ſᶘɜ",
-		"subtitoloHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
-		"butonoSono": "ʃɔ",
-		"butonoBruo": "ſȷᴜ ŋᷠᴜʞ",
-		"ariaLingvoButono": "ſ͔ɭᴜ ᶅſɔ",
-		"titoloLingvo": "ſ͔ɭᴜ ᶅſɔ"
+		"ariaNalaRestauri": "ſɭᴜ j͐ʃᴜ",
+		"ariaNalaH2li": "֭ſɭɹͷ̗",
+		"ariaNalaDuobligi": "ſןw ſɟw ɭʃᴜ",
+		"catsiinaVetlaqiEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
+		"hate2Haku1o": "ſɭw ſᶘɜ",
+		"ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
+		"catsiinaSono": "ʃɔ",
+		"catsiinaBruo": "ſȷᴜ ŋᷠᴜʞ",
+		"ariaGaweCatsiina": "ſ͔ɭᴜ ᶅſɔ",
+		"hate2Gawe": "ſ͔ɭᴜ ᶅſɔ"
 	},
 	eo: {
-		"titoloAranis": "Araniso",
-		"titoloKaxte": "Kajteo",
-		"subtitoloKaxte": "Ĥusa Lotao, Lamuza Kajteo",
+		"hate2Aranis": "Araniso",
+		"hate2Kaxte": "Kajteo",
+		"ksakat2xaKaxte": "Ĥusa Lotao, Lamuza Kajteo",
 		"eniri": "Eniri",
-		"butonoPromeni": "PROMENI",
-		"butonoOrbiti": "ORBITI",
-		"butonoHasoqte": "VESTARO",
-		"butonoHelpo": "Helpo",
-		"titoloTeksilo": "Teksilo",
-		"subtitoloTeksilo": "Sahakj ĉemizoj, c2naj manikoj, geles kaj akcenta.",
-		"titoloSxargxo": "Mondo",
-		"sxargxoSubskribo": "Ŝargado.",
-		"sxargxoSatalo": "Vepaqdo de satalaĵoj.",
-		"sxargxoNebulo": "Nebulo fluas tra la lota.",
+		"catsiinaPromeni": "PROMENI",
+		"catsiinaOrbiti": "ORBITI",
+		"catsiinaHasoqte": "VESTARO",
+		"catsiinaHelpo": "Helpo",
+		"hate2Teksilo": "Teksilo",
+		"ksakat2xaTeksilo": "Sahakj ĉemizoj, c2naj manikoj, main kaj akcenta.",
+		"hate2Sxargxo": "Nala",
+		"b6tem2Subskribo": "Ŝargado.",
+		"b6tem2Satalo": "Vepaqdo de satalaĵoj.",
+		"b6tem2Nebulo": "Nebulo fluas tra la valo.",
 		"kompasoNordo": "N",
 		"kamaOrbito": "Orbito",
-		"klavoTreni": "Treni",
+		"catlaqTreni": "Treni",
 		"kamaPromeno": "Promeni",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "Kuri",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "Salti",
-		"klavoSl6da": "Spaco",
+		"catlaqSl6da": "Spaco",
 		"kamaEniri": "Eniri paqn",
-		"klavoEniri": "E",
-		"kamaMapo": "Mapo",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "Bal2",
+		"catlaqBal2": "M",
 		"kamaEliri": "Eliri",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "Vefal notojn",
-		"klavoKlako": "Alklaki",
+		"catlaqKlako": "Alklaki",
 		"kamaKanuo": "Direkti",
 		"agoGusti": "Gusti",
 		"agoKuxi": "Kuŝi",
 		"agoLevi": "Leviĝi",
-		"titoloMapo": "Mapo",
-		"titoloHak6h6": "Hak6h6",
-		"subtitoloHelpo": "Urbaj notoj",
+		"hate2Bal2": "Bal2",
+		"hate2Hak6h6": "Hak6h6",
+		"ksakat2xaHelpo": "Urbaj hatsalii",
 		"caxlefkakaiP2d2": "Iu aliĝis.",
 		"caxlefkakaiSunta": "Iu foriris.",
 		"manĝPuss0": "Pusŝlefo-bero",
@@ -21895,78 +21888,78 @@ const skakefani = {
 		"manĝTla0Gusto": "Vinagro, lakto, mento kaj ŝaŭmtsasa.",
 		"manĝTla1Gusto": "Vinagro, kapsiko, juzuo, mento kaj ŝaŭmtsasa.",
 		"manĝTla2Gusto": "Vinagro, lam2v suko, mento kaj bergamota teo.",
-		"manĝPuss0Gusto": "Malvarmeta, akva krispo kun sukereta postgusto.",
+		"manĝPuss0Gusto": "Malvarmeta, tsasa krispo kun sukereta postgusto.",
 		"vepaqPriskriboKap2": "Kap2.",
 		"vepaqPriskriboGeqqa": "Restoracio.",
 		"vepaqPriskriboKasafeo": "Kunvenejo.",
-		"vepaqPriskriboStacioxipo": "Stacio.",
+		"vepaqPriskriboStacioxipo": "Ka5asexaz.",
 		"vepaqPriskriboTuro": "Nubskrapulo.",
-		"vepaqPriskriboSanktejo": "Centro.",
-		"kartoHavem2": "Tavoloj",
-		"kartoDiamanto": "Diamanto",
-		"kartoJes": "Jes",
-		"kartoNe": "Ne",
-		"kartoVepaqHunaq": "Hunaq",
-		"kartoXekuxa": "Xekuxa",
-		"titoloInqoxa": "Arazopuo",
-		"subtitoloInqoxa": "Vepaqĵoj, m7x, hapudal",
-		"ariaInqoxaButono": "Inhaqoxa",
-		"ariaPukxeiButono": "Pukxei",
-		"taboPaqj": "Vepaqĵoj",
-		"taboMangxajxoj": "Manĝaĵoj",
-		"taboHapudal": "Hapudal",
-		"grupoPaga": "Paga",
-		"pudalL2xkupukai": "Beroo",
-		"pudalPriskriboL2xkupukai": "Longforma kombomeduzo kun ok kombohax2pa.",
-		"pudalL2xcaxlefai": "L2xcaxlefaio",
-		"pudalPriskriboL2xcaxlefai": "C2q kombomeduzo kun kvar w6qaj loboj.",
+		"vepaqPriskriboSanktejo": "Sost2.",
+		"thalaHavem2": "Tavoloj",
+		"thalaDiamanto": "Diamanto",
+		"thalaJes": "Jes",
+		"thalaNe": "Ne",
+		"thalaVepaqHunaq": "Hunaq",
+		"thalaXekuxa": "Xekuxa",
+		"hate2Inqoxa": "Arazopuo",
+		"ksakat2xaInqoxa": "Vepaqĵoj, m7x, hapudal",
+		"ariaInqoxaCatsiina": "Inhaqoxa",
+		"ariaPukxeiCatsiina": "Pukxei",
+		"cax2lPaqj": "Vepaqĵoj",
+		"cax2lMangxajxoj": "Manĝaĵoj",
+		"cax2lHapudal": "Hapudal",
+		"hatePaga": "Paga",
+		"pudalLiixkupukai": "Beroo",
+		"pudalPriskriboLiixkupukai": "Longforma kombomeduzo kun ok kombohax2pa.",
+		"pudalLiixcaxlefai": "Liixcaxlefaio",
+		"pudalPriskriboLiixcaxlefai": "C2q kombomeduzo kun kvar w6qaj hal6ksabosai.",
 		"pudalPleŭrobrakia": "Pleŭrobrakio",
-		"pudalPriskriboPleŭrobrakia": "M2m2 c2q kombomeduzo kun du sahakj palpoj.",
+		"pudalPriskriboPleŭrobrakia": "Malgpukaz c2q kombomeduzo kun du sahakj palpoj.",
 		"pudalTq2wa": "Tq2wa",
 		"pudalPriskriboTq2wa": "Preskaŭ travidebla fiŝo sen hemoglobino.",
 		"pudalTolxu": "Tolxu",
 		"pudalPriskriboTolxu": "Eta mararaneo kun ok longegaj kruroj.",
 		"pudalNeĝotemek": "Neĝotemek",
-		"pudalPriskriboNeĝotemek": "Pura g2j6 marbirdo glitanta super la lago kaj la rivero.",
-		"grupoPlanto": "Planto",
+		"pudalPriskriboNeĝotemek": "Pura g2j6 marbirdo glitanta super la s2xuru kaj la k6si.",
+		"hatePlanto": "Planto",
 		"pudalBetulo": "Betulo",
 		"pudalPriskriboBetulo": "Cel2 kun g2j6 ligno.",
 		"pudalLariko": "Alpa taksal",
-		"pudalPriskriboLariko": "La alpa taksal ( Larix lyallii ), m2m2 alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
+		"pudalPriskriboLariko": "La alpa taksal ( Larix lyallii ), malgpukaz alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
 		"pudalTlexlefhxakai": "Ĥŝakŝlefo",
 		"pudalPriskriboTlexlefhxakai": "Asfa laktukcel2 kun kkaxtej slafj. Uzata por fari vinagron.",
 		"pudalTlexlefp2sai": "Pusŝlefo",
-		"pudalPriskriboTlexlefp2sai": "Fern-puf2 asfa laktukplanto kun travideblaj manĝeblaj beroj.",
+		"pudalPriskriboTlexlefp2sai": "Fern-pal6 asfa laktukplanto kun travideblaj manĝeblaj beroj.",
 		"pudalXabe": "Xabe",
-		"pudalPriskriboXabe": "Lha planto sur la arbara grundo.",
+		"pudalPriskriboXabe": "Lha xa3e sur la arbara mut6q.",
 		"pudalAsfaXabe": "Ŝafiŝlefo",
 		"pudalPriskriboAsfaXabe": "Alta asfa xabe de la ekstera qacel2.",
 		"pudalF2ma": "F2ma",
 		"pudalPriskriboF2ma": "Algoj kaj fungo. Umaseo.",
 		"pudalFe1af": "Fe1af",
-		"pudalPriskriboFe1af": "Fe1af simila al ciankolora planto.",
+		"pudalPriskriboFe1af": "Fe1af simila al ciankolora xa3e.",
 		"pudalC6x": "C6x",
-		"pudalPriskriboC6x": "Monteto, kiu fakte estas planto.",
+		"pudalPriskriboC6x": "Monteto, kiu fakte estas xa3e.",
 		"pudalCetkuo": "Cetkuo",
 		"pudalPriskriboCetkuo": "Lanuga equiseto praelta.",
 		"pudalCakeo": "Cakeo",
 		"pudalPriskriboCakeo": "Equisetum telmateia kiel osta nar2sa.",
-		"taboVestoj": "Vestoj",
-		"vestoWeh2Lhant": "Lha",
-		"vestoWeh2Hearth": "Bruna",
-		"vestoWeh2Mist": "G2j6",
-		"vestoWeh2Ember": "Ruĝa",
-		"vestoWeh2Azure": "Blua",
-		"vestoWeh2Violet": "Asfa",
-		"vestoWeh2Gilt": "Flava",
-		"vestoWeh2Rose": "Roza",
-		"vestoWeh2Obsidian": "Hunasai",
-		"vestoWeh2Cyan": "Cejana",
-		"taboHararo": "Hararo",
-		"tsaqSekcio": "Harhahaxe",
+		"cax2lHasoqte": "Hasoqte",
+		"soqteWeh2Lhant": "Lha",
+		"soqteWeh2Hearth": "Bruna",
+		"soqteWeh2Mist": "G2j6",
+		"soqteWeh2Ember": "Ruĝa",
+		"soqteWeh2Azure": "Blua",
+		"soqteWeh2Violet": "Asfa",
+		"soqteWeh2Gilt": "Flava",
+		"soqteWeh2Rose": "Roza",
+		"soqteWeh2Obsidian": "Hunasai",
+		"soqteWeh2Cyan": "Cejana",
+		"cax2lHararo": "Hararo",
+		"tsaqQaroxema": "Harstiloj",
 		"tsaqPsazai": "C2na",
-		"tsaqSahak": "Sahak",
-		"harWeh2Sekcio": "Har-haweh2",
+		"tsaqSahakani": "Sahakani",
+		"harWeh2Qaroxema": "Har-haweh2",
 		"harWeh2Bruna": "Bruna",
 		"harWeh2Hunasai": "Hunasai",
 		"harWeh2Ruĝeta": "Ruĝeta",
@@ -21974,74 +21967,73 @@ const skakefani = {
 		"harWeh2Blonda": "Blonda",
 		"harWeh2Griza": "Griza",
 		"muziko": "Muziko",
-		"ariaKrepuskoButono": "Krepusko",
+		"ariaKrepuskoCatsiina": "Krepusko",
 		"ariaKrepuskoKama": "Krepuska vem2",
-		"ariaVet6limaButono": "Vet6lima",
+		"ariaVet6limaCatsiina": "Vetero",
 		"vet6limaNebula": "Nebula",
 		"vet6limaPluva": "Pluva",
 		"vet6limaHajla": "Hajla",
 		"vet6limaNega": "Neĝa",
 		"webglNeSubtenata": "Via retumilo ne subtenas WebGL. Ĝisdatigu vian retumilon por sperti la l2han sperton.",
-		"webglDetalo": "Kajteo postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kamau viajn GPU-haku1o.",
+		"webglDetalo": "Kajteo postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kamau viajn GPU-hacatsaran.",
 		"webglReprovi": "Reprovi",
-		"ariaEniriMondon": "Eniri la mondon.",
-		"saxeiMondo": "Kf2 aŭ ŝargi mondon",
-		"mondTitolo": "Hanala",
-		"mondNomo": "Mondo",
-		"mondSxono": "Semo",
-		"butonoKf2Mondon": "Kf2",
-		"mondSavitaListo": "Vetlaqitaj hanala",
+		"ariaEniriNala": "Eniri la nala.",
+		"saxeiNala": "Kf2 aŭ ŝargi nala",
+		"mondKsaka": "Hanala",
+		"mondSxono": "Ruva",
+		"catsiinaKf2Nala": "Kf2",
+		"mondSavitaCatsara": "Vetlaqitaj hanala",
 		"mondQun2": "Ankoraŭ neniuj vetlaqitaj hanala",
-		"ariaMondoRestauri": "Daŭrigi",
-		"ariaMondoH2li": "H2li",
-		"ariaMondoDuobligi": "Duobligi",
-		"butonoVetlaqiEliri": "Vetlaqi kaj eliri el la mondo.",
-		"titoloHaku1o": "Haku1o",
-		"subtitoloHaku1o": "Lingvo, sono, muziko, hasoqte.",
-		"butonoSono": "Sono",
-		"butonoBruo": "Fona famaf",
-		"ariaLingvoButono": "Lingvo",
-		"titoloLingvo": "Lingvo"
+		"ariaNalaRestauri": "Daŭrigi",
+		"ariaNalaH2li": "H2li",
+		"ariaNalaDuobligi": "Duobligi",
+		"catsiinaVetlaqiEliri": "Vetlaqi kaj eliri el la nala.",
+		"hate2Haku1o": "Hacatsara",
+		"ksakat2xaHaku1o": "Gawe, bole, muziko, vestaro.",
+		"catsiinaSono": "Bole",
+		"catsiinaBruo": "Fona famaf",
+		"ariaGaweCatsiina": "Gawe",
+		"hate2Gawe": "Gawe"
 	},
 	en: {
-		"titoloAranis": "Aranis",
-		"titoloKaxte": "Kajiite",
-		"subtitoloKaxte": "Khiss Lhota, Lhammithai Kayitteh",
+		"hate2Aranis": "Aranis",
+		"hate2Kaxte": "Kajiite",
+		"ksakat2xaKaxte": "Khiss Lhota, Lhammithai Kayitteh",
 		"eniri": "Enter",
-		"butonoPromeni": "Walk",
-		"butonoOrbiti": "Orbit",
-		"butonoHasoqte": "Wardrobe",
-		"butonoHelpo": "Help",
-		"titoloTeksilo": "Loom",
-		"subtitoloTeksilo": "Long shirts, Short sleeves, Main and accent.",
-		"titoloSxargxo": "World",
-		"sxargxoSubskribo": "Loading.",
-		"sxargxoSatalo": "Constructing satals.",
-		"sxargxoNebulo": "Mist flows through the valley.",
+		"catsiinaPromeni": "Walk",
+		"catsiinaOrbiti": "Orbit",
+		"catsiinaHasoqte": "Wardrobe",
+		"catsiinaHelpo": "Help",
+		"hate2Teksilo": "Loom",
+		"ksakat2xaTeksilo": "Long shirts, Short sleeves, Geles and accent.",
+		"hate2Sxargxo": "World",
+		"b6tem2Subskribo": "Loading.",
+		"b6tem2Satalo": "Constructing satals.",
+		"b6tem2Nebulo": "Mist flows through the valley.",
 		"kompasoNordo": "N",
 		"kamaOrbito": "Orbit",
-		"klavoTreni": "Drag",
+		"catlaqTreni": "Drag",
 		"kamaPromeno": "Walk",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "Run",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "Jump",
-		"klavoSl6da": "Space",
+		"catlaqSl6da": "Space",
 		"kamaEniri": "Enter building",
-		"klavoEniri": "E",
-		"kamaMapo": "Map",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "Map",
+		"catlaqBal2": "M",
 		"kamaEliri": "Exit",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "Read notes",
-		"klavoKlako": "Click",
+		"catlaqKlako": "Click",
 		"kamaKanuo": "Steer",
 		"agoGusti": "Eat",
 		"agoKuxi": "Lie down",
 		"agoLevi": "Get up",
-		"titoloMapo": "Map",
-		"titoloHak6h6": "Paths",
-		"subtitoloHelpo": "City notes",
+		"hate2Bal2": "Map",
+		"hate2Hak6h6": "Paths",
+		"ksakat2xaHelpo": "City notes",
 		"caxlefkakaiP2d2": "Someone joined.",
 		"caxlefkakaiSunta": "Someone left.",
 		"manĝPuss0": "Shlef Piisu berry",
@@ -22058,24 +22050,24 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "Station.",
 		"vepaqPriskriboTuro": "Skyscraper.",
 		"vepaqPriskriboSanktejo": "Center building.",
-		"kartoHavem2": "Layers",
-		"kartoDiamanto": "Diamond",
-		"kartoJes": "Yes",
-		"kartoNe": "No",
-		"kartoVepaqHunaq": "Type",
-		"kartoXekuxa": "Position",
-		"titoloInqoxa": "Aravopii",
-		"subtitoloInqoxa": "Buildings, Food, Species",
-		"ariaInqoxaButono": "Information",
-		"ariaPukxeiButono": "Close",
-		"taboPaqj": "Buildings",
-		"taboMangxajxoj": "Food",
-		"taboHapudal": "Species",
-		"grupoPaga": "Animal",
-		"pudalL2xkupukai": "L2xkupukai",
-		"pudalPriskriboL2xkupukai": "An esahakte comb jelly with eight comb rows.",
-		"pudalL2xcaxlefai": "L2xcaxlefai",
-		"pudalPriskriboL2xcaxlefai": "A round comb jelly with four oral lobes.",
+		"thalaHavem2": "Layers",
+		"thalaDiamanto": "Diamond",
+		"thalaJes": "Yes",
+		"thalaNe": "No",
+		"thalaVepaqHunaq": "Type",
+		"thalaXekuxa": "Position",
+		"hate2Inqoxa": "Aravopii",
+		"ksakat2xaInqoxa": "Buildings, Food, Species",
+		"ariaInqoxaCatsiina": "Information",
+		"ariaPukxeiCatsiina": "Close",
+		"cax2lPaqj": "Buildings",
+		"cax2lMangxajxoj": "Food",
+		"cax2lHapudal": "Species",
+		"hatePaga": "Animal",
+		"pudalLiixkupukai": "Liixkupukai",
+		"pudalPriskriboLiixkupukai": "An esahakte comb jelly with eight comb rows.",
+		"pudalLiixcaxlefai": "Liixcaxlefai",
+		"pudalPriskriboLiixcaxlefai": "A round comb jelly with four oral lobes.",
 		"pudalPleŭrobrakia": "Pleurobrachia",
 		"pudalPriskriboPleŭrobrakia": "A small round comb jelly with two long palps.",
 		"pudalTq2wa": "Icefish",
@@ -22084,7 +22076,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "A tiny sea spider with eight long legs.",
 		"pudalNeĝotemek": "Snow petrel",
 		"pudalPriskriboNeĝotemek": "A pure white seabird gliding over the lake and the river.",
-		"grupoPlanto": "Plant",
+		"hatePlanto": "Plant",
 		"pudalBetulo": "Birch",
 		"pudalPriskriboBetulo": "A tree with white wood.",
 		"pudalLariko": "Alpine larch",
@@ -22107,22 +22099,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "Fluffy equisetum praeltum.",
 		"pudalCakeo": "Tsakeh",
 		"pudalPriskriboCakeo": "Equisetum telmateia like a boney tail.",
-		"taboVestoj": "Clothing",
-		"vestoWeh2Lhant": "Green",
-		"vestoWeh2Hearth": "Brown",
-		"vestoWeh2Mist": "White",
-		"vestoWeh2Ember": "Red",
-		"vestoWeh2Azure": "Blue",
-		"vestoWeh2Violet": "Purple",
-		"vestoWeh2Gilt": "Yellow",
-		"vestoWeh2Rose": "Pink",
-		"vestoWeh2Obsidian": "Black",
-		"vestoWeh2Cyan": "Cyan",
-		"taboHararo": "Hair",
-		"tsaqSekcio": "Hair styles",
+		"cax2lHasoqte": "Clothing",
+		"soqteWeh2Lhant": "Green",
+		"soqteWeh2Hearth": "Brown",
+		"soqteWeh2Mist": "White",
+		"soqteWeh2Ember": "Red",
+		"soqteWeh2Azure": "Blue",
+		"soqteWeh2Violet": "Purple",
+		"soqteWeh2Gilt": "Yellow",
+		"soqteWeh2Rose": "Pink",
+		"soqteWeh2Obsidian": "Black",
+		"soqteWeh2Cyan": "Cyan",
+		"cax2lHararo": "Hair",
+		"tsaqQaroxema": "Hair styles",
 		"tsaqPsazai": "Short",
-		"tsaqSahak": "Long",
-		"harWeh2Sekcio": "Hair colors",
+		"tsaqSahakani": "Long",
+		"harWeh2Qaroxema": "Hair colors",
 		"harWeh2Bruna": "Brown",
 		"harWeh2Hunasai": "Black",
 		"harWeh2Ruĝeta": "Auburn",
@@ -22130,9 +22122,9 @@ const skakefani = {
 		"harWeh2Blonda": "Blonde",
 		"harWeh2Griza": "Gray",
 		"muziko": "Music",
-		"ariaKrepuskoButono": "Dusk",
+		"ariaKrepuskoCatsiina": "Dusk",
 		"ariaKrepuskoKama": "Dusk level",
-		"ariaVet6limaButono": "Weather",
+		"ariaVet6limaCatsiina": "Weather",
 		"vet6limaNebula": "Foggy",
 		"vet6limaPluva": "Rainy",
 		"vet6limaHajla": "Hail",
@@ -22140,64 +22132,63 @@ const skakefani = {
 		"webglNeSubtenata": "Your browser does not support WebGL. Update your browser for the full experience.",
 		"webglDetalo": "Kajiite requires WebGL to run. Please update your browser or check your GPU settings.",
 		"webglReprovi": "Retry",
-		"ariaEniriMondon": "Enter the main world.",
-		"saxeiMondo": "Generate or load a world",
-		"mondTitolo": "Worlds",
-		"mondNomo": "World",
+		"ariaEniriNala": "Enter the main world.",
+		"saxeiNala": "Generate or load a world",
+		"mondKsaka": "Worlds",
 		"mondSxono": "Seed",
-		"butonoKf2Mondon": "Generate",
-		"mondSavitaListo": "Saved worlds",
+		"catsiinaKf2Nala": "Generate",
+		"mondSavitaCatsara": "Saved worlds",
 		"mondQun2": "No saved worlds yet",
-		"ariaMondoRestauri": "Resume",
-		"ariaMondoH2li": "Delete",
-		"ariaMondoDuobligi": "Duplicate",
-		"butonoVetlaqiEliri": "Save and exit world.",
-		"titoloHaku1o": "Settings",
-		"subtitoloHaku1o": "Language, sound, music, wardrobe.",
-		"butonoSono": "Sound",
-		"butonoBruo": "Background noise",
-		"ariaLingvoButono": "Language",
-		"titoloLingvo": "Language"
+		"ariaNalaRestauri": "Resume",
+		"ariaNalaH2li": "Delete",
+		"ariaNalaDuobligi": "Duplicate",
+		"catsiinaVetlaqiEliri": "Save and exit world.",
+		"hate2Haku1o": "Settings",
+		"ksakat2xaHaku1o": "Language, sound, music, wardrobe.",
+		"catsiinaSono": "Sound",
+		"catsiinaBruo": "Background noise",
+		"ariaGaweCatsiina": "Language",
+		"hate2Gawe": "Language"
 	},
 	ja: {
-		"titoloAranis": "アラニス",
-		"titoloKaxte": "カユウテ",
-		"subtitoloKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
+		"hate2Aranis": "アラニス",
+		"hate2Kaxte": "カユウテ",
+		"ksakat2xaKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
 		"eniri": "入る",
-		"butonoPromeni": "歩く",
-		"butonoOrbiti": "周回",
-		"butonoHasoqte": "ワードローブ",
-		"butonoHelpo": "ヘルプ",
-		"titoloTeksilo": "ザ・ルーム",
-		"subtitoloTeksilo": "長いシャツ、短い袖、メインとアクセント。",
-		"titoloSxargxo": "ワールド",
-		"sxargxoSubskribo": "建設中。",
-		"sxargxoSatalo": "サタルを建設中。",
-		"sxargxoNebulo": "霧が谷を流れる。",
+		"catsiinaPromeni": "歩く",
+		"catsiinaOrbiti": "周回",
+		"catsiinaHasoqte": "ワードローブ",
+		"catsiinaHelpo": "ヘルプ",
+		"hate2Teksilo": "ザ・ルーム",
+		"ksakat2xaTeksilo": "長いシャツ、短い袖、メインとアクセント。",
+		"hate2Sxargxo": "ワールド",
+		"b6tem2Subskribo": "建設中。",
+		"b6tem2Satalo": "サタルを建設中。",
+		"b6tem2Nebulo": "霧が谷を流れる。",
 		"kompasoNordo": "北",
 		"kamaOrbito": "周回",
-		"klavoTreni": "ドラッグ",
+		"catlaqTreni": "ドラッグ",
 		"kamaPromeno": "歩く",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "走る",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "ジャンプ",
-		"klavoSl6da": "Space",
+		"catlaqSl6da": "Space",
 		"kamaEniri": "建物に入る",
-		"klavoEniri": "E",
-		"kamaMapo": "地図",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "地図",
+		"catlaqBal2": "M",
 		"kamaEliri": "出る",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "尖塔のノートを読む",
-		"klavoKlako": "クリック",
+		"catlaqKlako": "クリック",
 		"kamaKanuo": "操縦",
 		"agoGusti": "味見",
 		"agoKuxi": "横になる",
 		"agoLevi": "起きる",
-		"titoloMapo": "地図",
-		"titoloHak6h6": "道",
-		"subtitoloHelpo": "街のノート",
+		"hate2Bal2": "地図",
+		"hate2Hak6h6": "道",
+		"ksakat2xaHelpo": "街のノート",
 		"caxlefkakaiP2d2": "誰かが加わりました。",
 		"caxlefkakaiSunta": "誰かが去りました。",
 		"manĝPuss0": "ピクセトレシレフプウスア",
@@ -22220,24 +22211,24 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "駅。",
 		"vepaqPriskriboTuro": "超高層建築。",
 		"vepaqPriskriboSanktejo": "中心。",
-		"kartoHavem2": "階層",
-		"kartoDiamanto": "ダイヤ",
-		"kartoJes": "有",
-		"kartoNe": "無",
-		"kartoVepaqHunaq": "種類",
-		"kartoXekuxa": "位置",
-		"titoloInqoxa": "情報",
-		"subtitoloInqoxa": "建物、食べ物、種族",
-		"ariaInqoxaButono": "情報を開く",
-		"ariaPukxeiButono": "閉じる",
-		"taboPaqj": "建物",
-		"taboMangxajxoj": "食べ物",
-		"taboHapudal": "種族",
-		"grupoPaga": "動物",
-		"pudalL2xkupukai": "ベロー",
-		"pudalPriskriboL2xkupukai": "細長い有櫛動物。八列の櫛を持つ。",
-		"pudalL2xcaxlefai": "ネミオプシス",
-		"pudalPriskriboL2xcaxlefai": "四つの口葉を持つ丸い有櫛動物。",
+		"thalaHavem2": "階層",
+		"thalaDiamanto": "ダイヤ",
+		"thalaJes": "有",
+		"thalaNe": "無",
+		"thalaVepaqHunaq": "種類",
+		"thalaXekuxa": "位置",
+		"hate2Inqoxa": "情報",
+		"ksakat2xaInqoxa": "建物、食べ物、種族",
+		"ariaInqoxaCatsiina": "情報を開く",
+		"ariaPukxeiCatsiina": "閉じる",
+		"cax2lPaqj": "建物",
+		"cax2lMangxajxoj": "食べ物",
+		"cax2lHapudal": "種族",
+		"hatePaga": "動物",
+		"pudalLiixkupukai": "ベロー",
+		"pudalPriskriboLiixkupukai": "細長い有櫛動物。八列の櫛を持つ。",
+		"pudalLiixcaxlefai": "ネミオプシス",
+		"pudalPriskriboLiixcaxlefai": "四つの口葉を持つ丸い有櫛動物。",
 		"pudalPleŭrobrakia": "プレウロブラキア",
 		"pudalPriskriboPleŭrobrakia": "二本の長い触手を持つ小さな丸い有櫛動物。",
 		"pudalTq2wa": "氷魚",
@@ -22246,7 +22237,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "八本の長い脚を持つ小さなウミグモ。",
 		"pudalNeĝotemek": "ユキドリ",
 		"pudalPriskriboNeĝotemek": "湖と川の上を滑空する真っ白な海鳥。",
-		"grupoPlanto": "植物",
+		"hatePlanto": "植物",
 		"pudalBetulo": "カバノキ",
 		"pudalPriskriboBetulo": "白い木材を持つ木。",
 		"pudalLariko": "アルプスカラマツ",
@@ -22269,22 +22260,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "ふわふわしたトクサ（Equisetum praeltum）。",
 		"pudalCakeo": "ツァケ",
 		"pudalPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
-		"taboVestoj": "服",
-		"vestoWeh2Lhant": "緑",
-		"vestoWeh2Hearth": "茶色",
-		"vestoWeh2Mist": "白",
-		"vestoWeh2Ember": "赤",
-		"vestoWeh2Azure": "青",
-		"vestoWeh2Violet": "紫",
-		"vestoWeh2Gilt": "黄",
-		"vestoWeh2Rose": "桃色",
-		"vestoWeh2Obsidian": "黒",
-		"vestoWeh2Cyan": "シアン",
-		"taboHararo": "髪",
-		"tsaqSekcio": "髪型",
+		"cax2lHasoqte": "服",
+		"soqteWeh2Lhant": "緑",
+		"soqteWeh2Hearth": "茶色",
+		"soqteWeh2Mist": "白",
+		"soqteWeh2Ember": "赤",
+		"soqteWeh2Azure": "青",
+		"soqteWeh2Violet": "紫",
+		"soqteWeh2Gilt": "黄",
+		"soqteWeh2Rose": "桃色",
+		"soqteWeh2Obsidian": "黒",
+		"soqteWeh2Cyan": "シアン",
+		"cax2lHararo": "髪",
+		"tsaqQaroxema": "髪型",
 		"tsaqPsazai": "ショート",
-		"tsaqSahak": "ロング",
-		"harWeh2Sekcio": "髪の色",
+		"tsaqSahakani": "ロング",
+		"harWeh2Qaroxema": "髪の色",
 		"harWeh2Bruna": "茶色",
 		"harWeh2Hunasai": "黒",
 		"harWeh2Ruĝeta": "赤茶",
@@ -22292,9 +22283,9 @@ const skakefani = {
 		"harWeh2Blonda": "金髪",
 		"harWeh2Griza": "グレー",
 		"muziko": "音楽",
-		"ariaKrepuskoButono": "夕暮れモードを切り替え",
+		"ariaKrepuskoCatsiina": "夕暮れモードを切り替え",
 		"ariaKrepuskoKama": "夕暮れのレベル",
-		"ariaVet6limaButono": "天気",
+		"ariaVet6limaCatsiina": "天気",
 		"vet6limaNebula": "霧",
 		"vet6limaPluva": "雨",
 		"vet6limaHajla": "雹",
@@ -22302,64 +22293,63 @@ const skakefani = {
 		"webglNeSubtenata": "お使いのブラウザはWebGLをサポートしていません。ブラウザを更新してください。",
 		"webglDetalo": "カジーテはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
 		"webglReprovi": "再試行",
-		"ariaEniriMondon": "メインワールドに入る。",
-		"saxeiMondo": "ワールドを作成または読み込む",
-		"mondTitolo": "ワールド",
-		"mondNomo": "ワールド",
+		"ariaEniriNala": "メインワールドに入る。",
+		"saxeiNala": "ワールドを作成または読み込む",
+		"mondKsaka": "ワールド",
 		"mondSxono": "シード",
-		"butonoKf2Mondon": "作成",
-		"mondSavitaListo": "保存済みワールド",
+		"catsiinaKf2Nala": "作成",
+		"mondSavitaCatsara": "保存済みワールド",
 		"mondQun2": "保存されたワールドはまだありません",
-		"ariaMondoRestauri": "再開",
-		"ariaMondoH2li": "削除",
-		"ariaMondoDuobligi": "複製",
-		"butonoVetlaqiEliri": "保存してワールドから出る。",
-		"titoloHaku1o": "設定",
-		"subtitoloHaku1o": "言語、音、音楽、ワードローブ。",
-		"butonoSono": "音",
-		"butonoBruo": "背景ノイズ",
-		"ariaLingvoButono": "言語",
-		"titoloLingvo": "言語"
+		"ariaNalaRestauri": "再開",
+		"ariaNalaH2li": "削除",
+		"ariaNalaDuobligi": "複製",
+		"catsiinaVetlaqiEliri": "保存してワールドから出る。",
+		"hate2Haku1o": "設定",
+		"ksakat2xaHaku1o": "言語、音、音楽、ワードローブ。",
+		"catsiinaSono": "音",
+		"catsiinaBruo": "背景ノイズ",
+		"ariaGaweCatsiina": "言語",
+		"hate2Gawe": "言語"
 	},
 	km: {
-		"titoloAranis": "អារានីស",
-		"titoloKaxte": "កាយិតេ",
-		"subtitoloKaxte": "លុតា-អិហិស, លាមិថឺ-កាឆតេ",
+		"hate2Aranis": "អារានីស",
+		"hate2Kaxte": "កាយិតេ",
+		"ksakat2xaKaxte": "លុតា-អិហិស, លាមិថឺ-កាឆតេ",
 		"eniri": "ចូល",
-		"butonoPromeni": "ដើរ",
-		"butonoOrbiti": "ទស្សនា",
-		"butonoHasoqte": "សម្លៀកបំពាក់",
-		"butonoHelpo": "ជំនួយ",
-		"titoloTeksilo": "តម្បាញ",
-		"subtitoloTeksilo": "អាវវែង, ដៃខ្លី, ពណ៌ចម្បង និង ពណ៌បន្ទាប់។",
-		"titoloSxargxo": "ពិភពលោក",
-		"sxargxoSubskribo": "កំពុងសាងសង់។",
-		"sxargxoSatalo": "ហ្សីហ្គូរ៉ាត់កំពុងឡើង។",
-		"sxargxoNebulo": "អ័ព្ទហូរកាត់ជ្រលង។",
+		"catsiinaPromeni": "ដើរ",
+		"catsiinaOrbiti": "ទស្សនា",
+		"catsiinaHasoqte": "សម្លៀកបំពាក់",
+		"catsiinaHelpo": "ជំនួយ",
+		"hate2Teksilo": "តម្បាញ",
+		"ksakat2xaTeksilo": "អាវវែង, ដៃខ្លី, ពណ៌ចម្បង និង ពណ៌បន្ទាប់។",
+		"hate2Sxargxo": "ពិភពលោក",
+		"b6tem2Subskribo": "កំពុងសាងសង់។",
+		"b6tem2Satalo": "ហ្សីហ្គូរ៉ាត់កំពុងឡើង។",
+		"b6tem2Nebulo": "អ័ព្ទហូរកាត់ជ្រលង។",
 		"kompasoNordo": "ជ",
 		"kamaOrbito": "ទស្សនា",
-		"klavoTreni": "អូស",
+		"catlaqTreni": "អូស",
 		"kamaPromeno": "ដើរ",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "រត់",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "លោត",
-		"klavoSl6da": "Space",
+		"catlaqSl6da": "Space",
 		"kamaEniri": "ចូលអាគារ",
-		"klavoEniri": "E",
-		"kamaMapo": "ផែនទី",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "ផែនទី",
+		"catlaqBal2": "M",
 		"kamaEliri": "ចេញ",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "អានកំណត់ត្រានៅប៉ម",
-		"klavoKlako": "ចុច",
+		"catlaqKlako": "ចុច",
 		"kamaKanuo": "បញ្ជា",
 		"agoGusti": "ភ្លក់",
 		"agoKuxi": "ដេក",
 		"agoLevi": "ក្រោក",
-		"titoloMapo": "ផែនទី",
-		"titoloHak6h6": "ផ្លូវ",
-		"subtitoloHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
+		"hate2Bal2": "ផែនទី",
+		"hate2Hak6h6": "ផ្លូវ",
+		"ksakat2xaHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
 		"caxlefkakaiP2d2": "នរណាម្នាក់បានចូលរួម។",
 		"caxlefkakaiSunta": "នរណាម្នាក់បានចាកចេញ។",
 		"manĝPuss0": "ពីកសេត្លេឆលេផពិសឺ",
@@ -22382,24 +22372,24 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "ស្ថានីយ។",
 		"vepaqPriskriboTuro": "អគារខ្ពស់។",
 		"vepaqPriskriboSanktejo": "មជ្ឈមណ្ឌល។",
-		"kartoHavem2": "ជាន់",
-		"kartoDiamanto": "ពេជ្រ",
-		"kartoJes": "បាទ",
-		"kartoNe": "ទេ",
-		"kartoVepaqHunaq": "ប្រភេទ",
-		"kartoXekuxa": "ទីតាំង",
-		"titoloInqoxa": "ព័ត៌មាន",
-		"subtitoloInqoxa": "អាគារ, អាហារ, ប្រភេទ",
-		"ariaInqoxaButono": "បើកព័ត៌មាន",
-		"ariaPukxeiButono": "បិទ",
-		"taboPaqj": "អាគារ",
-		"taboMangxajxoj": "អាហារ",
-		"taboHapudal": "ប្រភេទ",
-		"grupoPaga": "សត្វ",
-		"pudalL2xkupukai": "បេរ៉ូ",
-		"pudalPriskriboL2xkupukai": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
-		"pudalL2xcaxlefai": "នេមីអូបស៊ីស",
-		"pudalPriskriboL2xcaxlefai": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
+		"thalaHavem2": "ជាន់",
+		"thalaDiamanto": "ពេជ្រ",
+		"thalaJes": "បាទ",
+		"thalaNe": "ទេ",
+		"thalaVepaqHunaq": "ប្រភេទ",
+		"thalaXekuxa": "ទីតាំង",
+		"hate2Inqoxa": "ព័ត៌មាន",
+		"ksakat2xaInqoxa": "អាគារ, អាហារ, ប្រភេទ",
+		"ariaInqoxaCatsiina": "បើកព័ត៌មាន",
+		"ariaPukxeiCatsiina": "បិទ",
+		"cax2lPaqj": "អាគារ",
+		"cax2lMangxajxoj": "អាហារ",
+		"cax2lHapudal": "ប្រភេទ",
+		"hatePaga": "សត្វ",
+		"pudalLiixkupukai": "បេរ៉ូ",
+		"pudalPriskriboLiixkupukai": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
+		"pudalLiixcaxlefai": "នេមីអូបស៊ីស",
+		"pudalPriskriboLiixcaxlefai": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
 		"pudalPleŭrobrakia": "ប្លឿរ៉ូប្រាគីអា",
 		"pudalPriskriboPleŭrobrakia": "ចាហួយសិតមូលតូច មានអង់តែនវែងពីរ។",
 		"pudalTq2wa": "ត្រីទឹកកក",
@@ -22408,7 +22398,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "ពីងពាងសមុទ្រតូច មានជើងវែងប្រាំបី។",
 		"pudalNeĝotemek": "បក្សីព្រិល",
 		"pudalPriskriboNeĝotemek": "សត្វសមុទ្រពណ៌សសុទ្ធ ហើរពីលើបឹង និងទន្លេ។",
-		"grupoPlanto": "រុក្ខជាតិ",
+		"hatePlanto": "រុក្ខជាតិ",
 		"pudalBetulo": "លាមិថ",
 		"pudalPriskriboBetulo": "ដើមឈើដែលមានឈើពណ៌ស។",
 		"pudalLariko": "តាកសាល",
@@ -22431,22 +22421,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "រុក្ខជាតិឡើងសំបកទន់ ( Equisetum praeltum )។",
 		"pudalCakeo": "ត្សាកេ",
 		"pudalPriskriboCakeo": "រុក្ខជាតិដូចជាកន្ទុយឆ្អឹង ( Equisetum telmateia )។",
-		"taboVestoj": "សម្លៀកបំពាក់",
-		"vestoWeh2Lhant": "ពណ៌បៃតង",
-		"vestoWeh2Hearth": "ពណ៌ត្នោត",
-		"vestoWeh2Mist": "ពណ៌ស",
-		"vestoWeh2Ember": "ពណ៌ក្រហម",
-		"vestoWeh2Azure": "ពណ៌ខៀវ",
-		"vestoWeh2Violet": "ពណ៌ស្វាយ",
-		"vestoWeh2Gilt": "ពណ៌លឿង",
-		"vestoWeh2Rose": "ពណ៌ផ្កាឈូក",
-		"vestoWeh2Obsidian": "ពណ៌ខ្មៅ",
-		"vestoWeh2Cyan": "ពណ៌ស៊ីអាន",
-		"taboHararo": "សក់",
-		"tsaqSekcio": "ម៉ូដសក់",
+		"cax2lHasoqte": "សម្លៀកបំពាក់",
+		"soqteWeh2Lhant": "ពណ៌បៃតង",
+		"soqteWeh2Hearth": "ពណ៌ត្នោត",
+		"soqteWeh2Mist": "ពណ៌ស",
+		"soqteWeh2Ember": "ពណ៌ក្រហម",
+		"soqteWeh2Azure": "ពណ៌ខៀវ",
+		"soqteWeh2Violet": "ពណ៌ស្វាយ",
+		"soqteWeh2Gilt": "ពណ៌លឿង",
+		"soqteWeh2Rose": "ពណ៌ផ្កាឈូក",
+		"soqteWeh2Obsidian": "ពណ៌ខ្មៅ",
+		"soqteWeh2Cyan": "ពណ៌ស៊ីអាន",
+		"cax2lHararo": "សក់",
+		"tsaqQaroxema": "ម៉ូដសក់",
 		"tsaqPsazai": "ខ្លី",
-		"tsaqSahak": "វែង",
-		"harWeh2Sekcio": "ពណ៌សក់",
+		"tsaqSahakani": "វែង",
+		"harWeh2Qaroxema": "ពណ៌សក់",
 		"harWeh2Bruna": "ត្នោត",
 		"harWeh2Hunasai": "ខ្មៅ",
 		"harWeh2Ruĝeta": "ក្រហមឆ្អៅ",
@@ -22454,9 +22444,9 @@ const skakefani = {
 		"harWeh2Blonda": "ទង់ដែង",
 		"harWeh2Griza": "ប្រផេះ",
 		"muziko": "តន្ត្រី",
-		"ariaKrepuskoButono": "ប្តូររបៀបព្រលប់",
+		"ariaKrepuskoCatsiina": "ប្តូររបៀបព្រលប់",
 		"ariaKrepuskoKama": "កម្រិតព្រលប់",
-		"ariaVet6limaButono": "អាកាសធាតុ",
+		"ariaVet6limaCatsiina": "អាកាសធាតុ",
 		"vet6limaNebula": "អ័ព្ទ",
 		"vet6limaPluva": "ភ្លៀង",
 		"vet6limaHajla": "ព្រិលកក",
@@ -22464,40 +22454,39 @@ const skakefani = {
 		"webglNeSubtenata": "កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រ WebGL ទេ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នកសម្រាប់បទពិសោធន៍ពេញលេញ។",
 		"webglDetalo": "កាជីតេ ត្រូវការ WebGL ដើម្បីដំណើរការ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នក ឬពិនិត្យការកំណត់ GPU របស់អ្នក។",
 		"webglReprovi": "ព្យាយាមម្តងទៀត",
-		"ariaEniriMondon": "ចូលពិភពលោកចម្បង។",
-		"saxeiMondo": "បង្កើត ឬ ផ្ទុកពិភពលោក",
-		"mondTitolo": "ពិភពលោក",
-		"mondNomo": "ពិភពលោក",
+		"ariaEniriNala": "ចូលពិភពលោកចម្បង។",
+		"saxeiNala": "បង្កើត ឬ ផ្ទុកពិភពលោក",
+		"mondKsaka": "ពិភពលោក",
 		"mondSxono": "ពូជ",
-		"butonoKf2Mondon": "បង្កើត",
-		"mondSavitaListo": "ពិភពលោកដែលបានរក្ទក់",
+		"catsiinaKf2Nala": "បង្កើត",
+		"mondSavitaCatsara": "ពិភពលោកដែលបានរក្ទក់",
 		"mondQun2": "មិនទាន់មានពិភពលោកដែលបានរក្ទក់ទេ",
-		"ariaMondoRestauri": "បន្ត",
-		"ariaMondoH2li": "លុប",
-		"ariaMondoDuobligi": "ចម្លង",
-		"butonoVetlaqiEliri": "រក្ទក់ និង ចេញពីពិភពលោក។",
-		"titoloHaku1o": "ការកំណត់",
-		"subtitoloHaku1o": "ភាសា, សំឡេង, តន្ត្រី, សម្លៀកបំពាក់។",
-		"butonoSono": "សំឡេង",
-		"butonoBruo": "សំឡេងផ្ទៃខាងក្រោយ",
-		"ariaLingvoButono": "ភាសា",
-		"titoloLingvo": "ភាសា"
+		"ariaNalaRestauri": "បន្ត",
+		"ariaNalaH2li": "លុប",
+		"ariaNalaDuobligi": "ចម្លង",
+		"catsiinaVetlaqiEliri": "រក្ទក់ និង ចេញពីពិភពលោក។",
+		"hate2Haku1o": "ការកំណត់",
+		"ksakat2xaHaku1o": "ភាសា, សំឡេង, តន្ត្រី, សម្លៀកបំពាក់។",
+		"catsiinaSono": "សំឡេង",
+		"catsiinaBruo": "សំឡេងផ្ទៃខាងក្រោយ",
+		"ariaGaweCatsiina": "ភាសា",
+		"hate2Gawe": "ភាសា"
 	}
 };
-const LINGK6H6 = [
+const Hagawe = [
 	"aih",
 	"eo",
 	"en",
 	"ja",
 	"km"
 ];
-let aktivaLingvo = "aih";
-function nomoAih(ca3aq, hunaq = ca3aq) {
-	const rekta = skakefani.aih[ca3aq];
-	if (rekta) return rekta;
+let tikGawe = "aih";
+function ksakaAih(ca3aq, hunaq = ca3aq) {
+	const xaqadiS2bana = skakefani.aih[ca3aq];
+	if (xaqadiS2bana) return xaqadiS2bana;
 	return skakefani.aih[TIPARO[hunaq]?.labelKey ?? ""] ?? ca3aq;
 }
-const SPECIFIKAJ_PLANTNOMOJ = /* @__PURE__ */ new Set([
+const G6ZXA3EKSKAOJ = /* @__PURE__ */ new Set([
 	"pudalBetulo",
 	"pudalLariko",
 	"pudalTlexlefhxakai",
@@ -22510,7 +22499,7 @@ const SPECIFIKAJ_PLANTNOMOJ = /* @__PURE__ */ new Set([
 	"pudalCetkuo",
 	"pudalCakeo"
 ]);
-const KONSTRUAJ_NOMOJ = /* @__PURE__ */ new Set([
+const VEPAQKSKAOJ = /* @__PURE__ */ new Set([
 	"vepaqHunaqKap2",
 	"vepaqHunaqGeqqa",
 	"vepaqHunaqKasafeo",
@@ -22518,148 +22507,148 @@ const KONSTRUAJ_NOMOJ = /* @__PURE__ */ new Set([
 	"vepaqHunaqTuro",
 	"vepaqHunaqSanktejo"
 ]);
-function deriviNomon(ca3aq) {
-	if (aktivaLingvo === "aih") return null;
-	if (!/^(vepaqNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !SPECIFIKAJ_PLANTNOMOJ.has(ca3aq) && !KONSTRUAJ_NOMOJ.has(ca3aq)) return null;
+function ksan2Ksaka(ca3aq) {
+	if (tikGawe === "aih") return null;
+	if (!/^(vepaqKsaka|muzikT2bakobesai|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !G6ZXA3EKSKAOJ.has(ca3aq) && !VEPAQKSKAOJ.has(ca3aq)) return null;
 	const aihQoxa = skakefani.aih[ca3aq];
 	if (!aihQoxa) return null;
-	const ksaka = aihQoxa.split("•").map((p) => ipaAlLingvo(gkAlIpa(p.trim()), aktivaLingvo)).join(" • ");
+	const ksaka = aihQoxa.split("•").map((p) => ipaAlGawe(gkAlIpa(p.trim()), tikGawe)).join(" • ");
 	if (!ksaka) return null;
 	return ksaka.charAt(0).toUpperCase() + ksaka.slice(1);
 }
-function traduki(ca3aq) {
-	const rekta = (skakefani[aktivaLingvo] || skakefani.eo)[ca3aq];
-	if (rekta !== void 0 && rekta !== "") return rekta;
-	const derivita = deriviNomon(ca3aq);
-	if (derivita) return derivita;
-	return rekta || ca3aq;
+function skakef(ca3aq) {
+	const xaqadiS2bana = (skakefani[tikGawe] || skakefani.eo)[ca3aq];
+	if (xaqadiS2bana !== void 0 && xaqadiS2bana !== "") return xaqadiS2bana;
+	const tboKsaka = ksan2Ksaka(ca3aq);
+	if (tboKsaka) return tboKsaka;
+	return xaqadiS2bana || ca3aq;
 }
-function aplikiSkakefanon(lingvo) {
-	aktivaLingvo = lingvo;
-	document.documentElement.lang = lingvo;
-	if (lingvo === "aih") document.body.classList.remove("tapufal");
+function k2reiGawe(gawe) {
+	tikGawe = gawe;
+	document.documentElement.lang = gawe;
+	if (gawe === "aih") document.body.classList.remove("tapufal");
 	else {
 		document.body.classList.remove("cepufal");
 		document.body.classList.add("tapufal");
 	}
-	document.querySelectorAll("[data-oskakefani]").forEach((el) => {
-		const ca3aq = el.getAttribute("data-oskakefani");
+	document.querySelectorAll("[data-oskakefani]").forEach((kek) => {
+		const ca3aq = kek.getAttribute("data-oskakefani");
 		if (ca3aq) {
-			const traduko = traduki(ca3aq);
-			if (traduko !== ca3aq) el.textContent = traduko;
+			const tboS2bana = skakef(ca3aq);
+			if (tboS2bana !== ca3aq) kek.textContent = tboS2bana;
 		}
 	});
-	document.querySelectorAll("[data-oskakefani-aria]").forEach((el) => {
-		const ca3aq = el.getAttribute("data-oskakefani-aria");
+	document.querySelectorAll("[data-oskakefani-aria]").forEach((kek) => {
+		const ca3aq = kek.getAttribute("data-oskakefani-aria");
 		if (ca3aq) {
-			const traduko = traduki(ca3aq);
-			if (traduko !== ca3aq) el.setAttribute("aria-label", traduko);
+			const tboS2bana = skakef(ca3aq);
+			if (tboS2bana !== ca3aq) kek.setAttribute("aria-label", tboS2bana);
 		}
 	});
-	document.querySelectorAll("[data-oskakefani-aria=\"ariaLingvoButono\"]").forEach((el) => {
-		el.textContent = lingvo.toUpperCase();
+	document.querySelectorAll("[data-oskakefani-aria=\"ariaGaweCatsiina\"]").forEach((kek) => {
+		kek.textContent = gawe.toUpperCase();
 	});
 	try {
-		localStorage.setItem("aranis-lingvo", lingvo);
+		localStorage.setItem("aranis-gawe", gawe);
 	} catch {}
 	try {
 		const ruva = new URL(window.location.href);
-		if (lingvo === "aih") ruva.searchParams.delete("lang");
-		else ruva.searchParams.set("lang", lingvo);
+		if (gawe === "aih") ruva.searchParams.delete("lang");
+		else ruva.searchParams.set("lang", gawe);
 		window.history.replaceState(null, "", ruva.toString());
 	} catch {}
-	if (lingvo !== "aih") document.querySelectorAll("a").forEach((cel) => {
-		const href = cel.href;
+	if (gawe !== "aih") document.querySelectorAll("a").forEach((k6h6) => {
+		const href = k6h6.href;
 		if (!href || href.startsWith("#")) return;
 		try {
-			const celRuva = new URL(decodeURIComponent(href), window.location.href);
-			celRuva.searchParams.set("lang", lingvo);
-			cel.href = celRuva.toString();
+			const k6h6Ruva = new URL(decodeURIComponent(href), window.location.href);
+			k6h6Ruva.searchParams.set("lang", gawe);
+			k6h6.href = k6h6Ruva.toString();
 		} catch {}
 	});
-	aplikiVacepuSe();
+	k2reiVacepuSe();
 	window.dispatchEvent(new CustomEvent("lingvovasaka"));
 }
-function aplikiVacepuSe() {
-	if (aktivaLingvo !== "aih" || typeof vacepu !== "function") return;
+function k2reiVacepuSe() {
+	if (tikGawe !== "aih" || typeof vacepu !== "function") return;
 	try {
 		vacepu("aih");
 	} catch {}
 }
-function catsaraLingvon(lingvo) {
-	if (!LINGK6H6.includes(lingvo)) return;
-	aplikiSkakefanon(lingvo);
+function catsaraGawe(gawe) {
+	if (!Hagawe.includes(gawe)) return;
+	k2reiGawe(gawe);
 }
-let lingvPagho = null;
-let lingvPopUp = null;
-function markiAktivanLingvon() {
-	document.querySelectorAll("[data-lingvo]").forEach((el) => {
-		const lingvo = el.dataset.lingvo || "";
-		el.setAttribute("aria-pressed", String(lingvo === aktivaLingvo));
+let gaweVula = null;
+let gaweN2tanu = null;
+function s2tasCe3eGawe() {
+	document.querySelectorAll("[data-gawe]").forEach((kek) => {
+		const gawe = kek.dataset.gawe || "";
+		kek.setAttribute("aria-pressed", String(gawe === tikGawe));
 	});
 }
-function vetem2iLingvanListon(ujo) {
-	ujo.innerHTML = "";
-	for (const lingvo of LINGK6H6) {
-		const butono = document.createElement("button");
-		butono.dataset.lingvo = lingvo;
-		butono.textContent = lingvo.toUpperCase();
-		ujo.appendChild(butono);
+function k2reiGaweCatsara(kuba) {
+	kuba.innerHTML = "";
+	for (const gawe of Hagawe) {
+		const catsiina = document.createElement("button");
+		catsiina.dataset.gawe = gawe;
+		catsiina.textContent = gawe.toUpperCase();
+		kuba.appendChild(catsiina);
 	}
 }
-function sukf2qiLingvon(lingvo, pukxei) {
-	const sama = lingvo === aktivaLingvo;
-	catsaraLingvon(lingvo);
-	markiAktivanLingvon();
-	aplikiVacepuSe();
-	if (!sama) pukxei();
+function sukf2qiGawe(gawe, cal) {
+	const kant2 = gawe === tikGawe;
+	catsaraGawe(gawe);
+	s2tasCe3eGawe();
+	k2reiVacepuSe();
+	if (!kant2) cal();
 }
-function prepariLingvajnMenuojn() {
-	const paghaUjo = document.getElementById("lingvPaghoX2pa");
-	const popaUjo = document.getElementById("lingvPopUpX2pa");
-	if (paghaUjo) vetem2iLingvanListon(paghaUjo);
-	if (popaUjo) vetem2iLingvanListon(popaUjo);
-	lingvPagho = document.getElementById("lingvPagho") ? kf2Staton("lingvPagho", markiAktivanLingvon) : null;
-	lingvPopUp = document.getElementById("lingvPopUp") ? kf2Staton("lingvPopUp", markiAktivanLingvon) : null;
-	for (const ujo of [paghaUjo, popaUjo]) ujo?.addEventListener("click", (e) => {
-		const butono = e.target.closest("button[data-lingvo]");
-		if (!butono) return;
-		sukf2qiLingvon(butono.dataset.lingvo || "", () => {
-			if (ujo === popaUjo) lingvPopUp?.pukxei();
-			else lingvPagho?.pukxei();
+function sax0baGaweN2tanuon() {
+	const vulaKuba = document.getElementById("lingvPaghoVico");
+	const n2tanuKuba = document.getElementById("lingvPopUpVico");
+	if (vulaKuba) k2reiGaweCatsara(vulaKuba);
+	if (n2tanuKuba) k2reiGaweCatsara(n2tanuKuba);
+	gaweVula = document.getElementById("lingvPagho") ? kf2S2k61o("lingvPagho", s2tasCe3eGawe) : null;
+	gaweN2tanu = document.getElementById("lingvPopUp") ? kf2S2k61o("lingvPopUp", s2tasCe3eGawe) : null;
+	for (const kuba of [vulaKuba, n2tanuKuba]) kuba?.addEventListener("click", (cal) => {
+		const catsiina = cal.target.closest("button[data-gawe]");
+		if (!catsiina) return;
+		sukf2qiGawe(catsiina.dataset.gawe || "", () => {
+			if (kuba === n2tanuKuba) gaweN2tanu?.kobe();
+			else gaweVula?.kobe();
 		});
 	});
 }
-function detektiLingvon() {
+function b6keweGawe() {
 	try {
-		const parametro = new URLSearchParams(window.location.search).get("lang");
-		if (parametro && LINGK6H6.includes(parametro)) return parametro;
+		const s2karanu = new URLSearchParams(window.location.search).get("lang");
+		if (s2karanu && Hagawe.includes(s2karanu)) return s2karanu;
 	} catch {}
 	try {
-		const vetlaqita = localStorage.getItem("aranis-lingvo");
-		if (vetlaqita && LINGK6H6.includes(vetlaqita)) return vetlaqita;
+		const vetlaqita = localStorage.getItem("aranis-gawe");
+		if (vetlaqita && Hagawe.includes(vetlaqita)) return vetlaqita;
 	} catch {}
 	return "aih";
 }
-function inicializi() {
-	aplikiSkakefanon(detektiLingvon());
-	prepariLingvajnMenuojn();
-	document.getElementById("butLingvo")?.addEventListener("click", () => lingvPopUp?.h6w6i());
-	document.getElementById("butAgordLingvo")?.addEventListener("click", () => lingvPagho?.h6w6i());
-	markiAktivanLingvon();
-	window.addEventListener("popstate", () => aplikiSkakefanon(detektiLingvon()));
-	window.addEventListener("lingvovasaka", markiAktivanLingvon);
+function saxeGawe() {
+	k2reiGawe(b6keweGawe());
+	sax0baGaweN2tanuon();
+	document.getElementById("butGawe")?.addEventListener("click", () => gaweN2tanu?.h6w6i());
+	document.getElementById("butAgordGawe")?.addEventListener("click", () => gaweVula?.h6w6i());
+	s2tasCe3eGawe();
+	window.addEventListener("popstate", () => k2reiGawe(b6keweGawe()));
+	window.addEventListener("lingvovasaka", s2tasCe3eGawe);
 }
 if (typeof document !== "undefined") {
-	if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", inicializi);
-	else inicializi();
+	if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", saxeGawe);
+	else saxeGawe();
 }
-// kantaoj/fasado/nala.ts
-const MONDA_SXLOSILO = "aranis-hanala";
-const AKTIVA_SXLOSILO = "aranis-aktiva-mondo";
+// ../../kanta/s2cel2f/nala.ts
+const MONDASXLOSILO = "aranis-hanala";
+const AKTIVASXLOSILO = "aranis-kxe-nala";
 function vefalHanala() {
 	try {
-		const kruda = localStorage.getItem(MONDA_SXLOSILO);
+		const kruda = localStorage.getItem(MONDASXLOSILO);
 		if (!kruda) return [];
 		const dato = JSON.parse(kruda);
 		if (!Array.isArray(dato)) return [];
@@ -22682,81 +22671,81 @@ function normaligi(kruda) {
 		ca3aq: typeof dato.ca3aq === "string" ? dato.ca3aq : "",
 		ksaka: typeof dato.ksaka === "string" ? dato.ksaka : "",
 		smino: typeof dato.smino === "string" ? dato.smino : "",
-		tempo: typeof dato.tempo === "number" ? dato.tempo : 0
+		tif: typeof dato.tif === "number" ? dato.tif : 0
 	};
 }
 function vefalAktivanId() {
 	try {
-		return localStorage.getItem(AKTIVA_SXLOSILO) || "";
+		return localStorage.getItem(AKTIVASXLOSILO) || "";
 	} catch {
 		return "";
 	}
 }
-function aktivaMondo() {
+function tikNala() {
 	const id = vefalAktivanId();
 	if (!id) return null;
 	return vefalHanala().find((m) => m.id === id) ?? null;
 }
-function aktivaSemo() {
-	return (aktivaMondo()?.smino ?? "").trim();
+function tikRuva() {
+	return (tikNala()?.smino ?? "").trim();
 }
-// kantaoj/mondo/ruva.ts
-const FNV_SAXEO = 2166136261;
-const FNV_PLIIGO = 16777619;
-function semoDeS2bana(s2banani) {
-	let h = FNV_SAXEO;
+// ../../kanta/nala/ruva.ts
+const FNVSAXEO = 2166136261;
+const FNVPLIIGO = 16777619;
+function ruvaDeS2bana(s2banani) {
+	let h = FNVSAXEO;
 	for (let i = 0; i < s2banani.length; i++) {
 		h ^= s2banani.charCodeAt(i);
-		h = Math.imul(h, FNV_PLIIGO);
+		h = Math.imul(h, FNVPLIIGO);
 	}
 	h ^= h >>> 13;
 	h = Math.imul(h, 625341585);
 	h ^= h >>> 11;
 	return h >>> 0;
 }
-function subSemo(tk2ni, qar6xe) {
+function subRuva(tk2ni, qar6xe) {
 	let h = tk2ni + Math.imul(qar6xe + 1, 2654435761) | 0;
 	h ^= h >>> 14;
 	h = Math.imul(h, 2246822519);
 	h ^= h >>> 11;
 	return h >>> 0;
 }
-// kantaoj/mondo/casacakakcasai.ts
-const KANALO_KONTINENTO = 1;
-const KANALO_JAQO = 2;
-const KANALO_HAKHACAHT2 = 3;
-const KANALO_ONDETOJ = 4;
-const KANALO_PLANTOJ = 5;
-const KANALO_BESTOJ = 8;
-const KANALO_MONTARA_SEMO = 9;
-const KANALO_KARAKT6LIMA = 10;
-const KONTINENTA_SKALO = 272;
-const MONTARA_SKALO = 112;
-const HAKILA_SKALO = 72;
-const ONDETA_SKALO = 26;
-const KONTINENTA_FORTO = 46;
-const KONTINENTA_L6DA = 2;
-const MONTARA_FORTO = 36;
-const HAKILA_FORTO = 12;
-const ONDETA_FORTO = 8;
-const KONTINENTA_MEDIANO = 1 / 2;
-const MONTARA_KVANTILO = 56 / 64;
-const MONTARA_SOJL_LO = 5 / 64;
-const MONTARA_SOJL_HI = 8 / 64;
-const KARAKTERA_BAZO = 7 / 8;
-const KARAKTERA_VARIO = 6 / 8;
-const BIOMO_JAQO = 1;
-const BIOMO_VALO = 2;
-const BIOMO_EBENAJXO = 3;
-const BIOMO_AKVAJ_PLANTOJ = 4;
-const BIOMO_EKVIZETO = 5;
-const BESTO_AKVA = 1;
-const BESTO_PETRELA = 2;
-const BESTO_NPC = 4;
-const FONTA_MINIMUMA_L6DA = 16;
-const FONTA_DISTANCO = 32;
-const FONTA_KVANTO = 20;
-const FONTA_FLUO = 16;
+// ../../kanta/nala/casacakakcasai.ts
+const KANALOKONTINENTO = 1;
+const KANALOJaqo = 2;
+const KANALOHAKHACAHT2 = 3;
+const KANALOONDETOJ = 4;
+const KANALOPLANTOJ = 5;
+const KANALOBESTOJ = 8;
+const KANALOMONTARASEMO = 9;
+const KANALOKARAKT6LIMA = 10;
+const KONTINENTASKALO = 272;
+const JAQOSAHAKANI = 112;
+const HAKILASKALO = 72;
+const ONDETASKALO = 26;
+const KONTINENTAFORTO = 46;
+const KONTINENTAL6DA = 2;
+const JAQOFORTO = 36;
+const HAKILAFORTO = 12;
+const ONDETAFORTO = 8;
+const KONTINENTAMEDIANO = 1 / 2;
+const MONTARAKVANTILO = 56 / 64;
+const MONTARASOJLLO = 5 / 64;
+const MONTARASOJLHI = 8 / 64;
+const KARAKTERABAZO = 7 / 8;
+const KARAKTERAVARIO = 6 / 8;
+const BIOMOJAQO = 1;
+const BIOMOVALO = 2;
+const BIOMOEBENAJXO = 3;
+const BIOMOAKVAJPLANTOJ = 4;
+const BIOMOEKVIZETO = 5;
+const BESTOAKVA = 1;
+const BESTOPETRELA = 2;
+const BESTONPC = 4;
+const FONTAMINIMUMAL6DA = 16;
+const FONTADISTANCO = 32;
+const FONTAKVANTO = 20;
+const FONTAFLUO = 16;
 function miksu(a, b, s) {
 	let n = Math.imul(a, 461845907) ^ Math.imul(b, 668265261) ^ s | 0;
 	n = Math.imul(n ^ n >>> 13, 2246822507);
@@ -22765,8 +22754,8 @@ function miksu(a, b, s) {
 function famaf(x, z, s) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;
-	const u = glata(fx);
-	const v = glata(fz);
+	const u = xaha$1(fx);
+	const v = xaha$1(fz);
 	const a = miksu(ix, iz, s);
 	const b = miksu(ix + 1, iz, s);
 	const c = miksu(ix, iz + 1, s);
@@ -22774,38 +22763,38 @@ function famaf(x, z, s) {
 	return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 }
 function multoblaBruo(x, z, oktoj, s) {
-	let tlunakani = 0, amplekso = 1, normo = 0, f = 1;
+	let tlunakani = 0, s2karanu = 1, xiix2q = 0, f = 1;
 	for (let i = 0; i < oktoj; i++) {
-		tlunakani += amplekso * famaf(x * f, z * f, s + i * 5369127);
-		normo += amplekso;
-		amplekso *= 1 / 2;
+		tlunakani += s2karanu * famaf(x * f, z * f, s + i * 5369127);
+		xiix2q += s2karanu;
+		s2karanu *= 1 / 2;
 		f *= 2;
 	}
-	return tlunakani / normo;
+	return tlunakani / xiix2q;
 }
 function kresto(x, z, oktoj, s) {
-	let tlunakani = 0, amplekso = 1, normo = 0, f = 1;
+	let tlunakani = 0, s2karanu = 1, xiix2q = 0, f = 1;
 	for (let i = 0; i < oktoj; i++) {
 		const n = famaf(x * f, z * f, s + i * 668265261);
 		const k = 1 - Math.abs(2 * n - 1);
-		tlunakani += k * k * amplekso;
-		normo += amplekso;
-		amplekso *= 1 / 2;
+		tlunakani += k * k * s2karanu;
+		xiix2q += s2karanu;
+		s2karanu *= 1 / 2;
 		f *= 2;
 	}
-	return tlunakani / normo;
+	return tlunakani / xiix2q;
 }
-function generiT6liman(tk2ni, n, vepat6ni, origino, vem2, enQoxa) {
-	const sKontinento = subSemo(tk2ni, KANALO_KONTINENTO);
-	const sJaqo = subSemo(tk2ni, KANALO_JAQO);
-	const sHakhacaht2 = subSemo(tk2ni, KANALO_HAKHACAHT2);
-	const sOndetoj = subSemo(tk2ni, KANALO_ONDETOJ);
-	const sPlantoj = subSemo(tk2ni, KANALO_PLANTOJ);
-	const sHapaga = subSemo(tk2ni, KANALO_BESTOJ);
+function generiT6liman(tk2ni, n, vepat6ni, tsiq, vem2, enQoxa) {
+	const sKontinento = subRuva(tk2ni, KANALOKONTINENTO);
+	const sJaqo = subRuva(tk2ni, KANALOJaqo);
+	const sHakhacaht2 = subRuva(tk2ni, KANALOHAKHACAHT2);
+	const sOndetoj = subRuva(tk2ni, KANALOONDETOJ);
+	const sPlantoj = subRuva(tk2ni, KANALOPLANTOJ);
+	const sHapaga = subRuva(tk2ni, KANALOBESTOJ);
 	const N = n * n;
-	const x0 = origino[0], z0 = origino[1];
+	const x0 = tsiq[0], z0 = tsiq[1];
 	const kontinentoj = [];
-	const kontinentajHaskek2 = new Float64Array(N);
+	const kontinentajHevem2 = new Float64Array(N);
 	const ene = new Uint8Array(N);
 	for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
 		const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
@@ -22813,39 +22802,39 @@ function generiT6liman(tk2ni, n, vepat6ni, origino, vem2, enQoxa) {
 		const ena = enQoxa(x, z);
 		ene[id] = ena ? 1 : 0;
 		if (!ena) continue;
-		const kontinento = multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 5, sKontinento);
-		kontinentajHaskek2[id] = kontinento;
+		const kontinento = multoblaBruo(x / KONTINENTASKALO, z / KONTINENTASKALO, 5, sKontinento);
+		kontinentajHevem2[id] = kontinento;
 		kontinentoj.push(kontinento);
 	}
 	kontinentoj.sort((a, b) => a - b);
 	const havecax2l = kontinentoj.length;
-	const mediano = havecax2l > 0 ? kontinentoj[havecax2l >> 1] : KONTINENTA_MEDIANO;
-	const plosteq = havecax2l > 0 ? kontinentoj[Math.floor(havecax2l * MONTARA_KVANTILO)] : KONTINENTA_MEDIANO;
-	const montoFaktoro = KARAKTERA_BAZO + subSemo(tk2ni, KANALO_KARAKT6LIMA) % 512 / 512 * KARAKTERA_VARIO;
+	const mediano = havecax2l > 0 ? kontinentoj[havecax2l >> 1] : KONTINENTAMEDIANO;
+	const plosteq = havecax2l > 0 ? kontinentoj[Math.floor(havecax2l * MONTARAKVANTILO)] : KONTINENTAMEDIANO;
+	const montoVap6zukani = KARAKTERABAZO + subRuva(tk2ni, KANALOKARAKT6LIMA) % 512 / 512 * KARAKTERAVARIO;
 	function l6daElKontinento(x, z, kontinento) {
-		const jaqo = kresto(x / MONTARA_SKALO, z / MONTARA_SKALO, 5, sJaqo);
-		const hakhacaht2 = multoblaBruo(x / HAKILA_SKALO, z / HAKILA_SKALO, 3, sHakhacaht2) - 1 / 2;
-		const ondetoj = multoblaBruo(x / ONDETA_SKALO, z / ONDETA_SKALO, 4, sOndetoj) - 1 / 2;
-		const kozuni = (kontinento - mediano) * KONTINENTA_FORTO + KONTINENTA_L6DA;
-		const jaqoMasko = glataPaso(plosteq - MONTARA_SOJL_LO, plosteq + MONTARA_SOJL_HI, kontinento);
-		return kozuni + jaqo * jaqo * MONTARA_FORTO * jaqoMasko * montoFaktoro + hakhacaht2 * HAKILA_FORTO + ondetoj * ONDETA_FORTO;
+		const jaqo = kresto(x / JAQOSAHAKANI, z / JAQOSAHAKANI, 5, sJaqo);
+		const hakhacaht2 = multoblaBruo(x / HAKILASKALO, z / HAKILASKALO, 3, sHakhacaht2) - 1 / 2;
+		const ondetoj = multoblaBruo(x / ONDETASKALO, z / ONDETASKALO, 4, sOndetoj) - 1 / 2;
+		const kozuni = (kontinento - mediano) * KONTINENTAFORTO + KONTINENTAL6DA;
+		const jaqoMasko = glataTona(plosteq - MONTARASOJLLO, plosteq + MONTARASOJLHI, kontinento);
+		return kozuni + jaqo * jaqo * JAQOFORTO * jaqoMasko * montoVap6zukani + hakhacaht2 * HAKILAFORTO + ondetoj * ONDETAFORTO;
 	}
 	function l6da(x, z) {
-		return l6daElKontinento(x, z, multoblaBruo(x / KONTINENTA_SKALO, z / KONTINENTA_SKALO, 5, sKontinento));
+		return l6daElKontinento(x, z, multoblaBruo(x / KONTINENTASKALO, z / KONTINENTASKALO, 5, sKontinento));
 	}
 	const hal6da = new Float32Array(N);
 	for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
 		const id = j * n + i;
 		const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
-		hal6da[id] = ene[id] ? l6daElKontinento(x, z, kontinentajHaskek2[id]) : l6da(x, z);
+		hal6da[id] = ene[id] ? l6daElKontinento(x, z, kontinentajHevem2[id]) : l6da(x, z);
 	}
-	const akvaMasko = new Uint8Array(N);
-	const sub = (i, j) => i < 0 || j < 0 || i >= n || j >= n ? false : ene[j * n + i] === 1 && hal6da[j * n + i] < vem2;
+	const tsasaMasko = new Uint8Array(N);
+	const c2w2q = (i, j) => i < 0 || j < 0 || i >= n || j >= n ? false : ene[j * n + i] === 1 && hal6da[j * n + i] < vem2;
 	for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
 		const id = j * n + i;
 		if (!ene[id] || hal6da[id] >= vem2) continue;
-		if (sub(i - 1, j) || sub(i, j - 1)) continue;
-		akvaMasko[id] = 1;
+		if (c2w2q(i - 1, j) || c2w2q(i, j - 1)) continue;
+		tsasaMasko[id] = 1;
 	}
 	const habs2 = new Uint8Array(N);
 	for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
@@ -22853,12 +22842,12 @@ function generiT6liman(tk2ni, n, vepat6ni, origino, vem2, enQoxa) {
 		if (!ene[id]) continue;
 		const h = hal6da[id];
 		if (h < vem2) {
-			habs2[id] = famaf(x0 / 36 + i, z0 / 36 + j, sPlantoj) > 1 / 2 ? BIOMO_AKVAJ_PLANTOJ : BIOMO_EKVIZETO;
+			habs2[id] = famaf(x0 / 36 + i, z0 / 36 + j, sPlantoj) > 1 / 2 ? BIOMOAKVAJPLANTOJ : BIOMOEKVIZETO;
 			continue;
 		}
-		if (h > 18) habs2[id] = BIOMO_JAQO;
-		else if (h > 4) habs2[id] = BIOMO_VALO;
-		else habs2[id] = BIOMO_EBENAJXO;
+		if (h > 18) habs2[id] = BIOMOJAQO;
+		else if (h > 4) habs2[id] = BIOMOVALO;
+		else habs2[id] = BIOMOEBENAJXO;
 	}
 	const hapaga = new Uint8Array(N);
 	for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
@@ -22866,63 +22855,63 @@ function generiT6liman(tk2ni, n, vepat6ni, origino, vem2, enQoxa) {
 		if (!ene[id]) continue;
 		const h = hal6da[id];
 		if (h < vem2 + 4 / 8) {
-			hapaga[id] |= BESTO_AKVA;
+			hapaga[id] |= BESTOAKVA;
 			continue;
 		}
-		if (famaf(i / 12, j / 12, sHapaga) > 56 / 64) hapaga[id] |= BESTO_PETRELA;
+		if (famaf(i / 12, j / 12, sHapaga) > 56 / 64) hapaga[id] |= BESTOPETRELA;
 		const v = i > 0 && i < n - 1 ? i - 1 : i;
 		const w = i > 0 && i < n - 1 ? i + 1 : i;
 		const p = j > 0 && j < n - 1 ? j - 1 : j;
 		const q = j > 0 && j < n - 1 ? j + 1 : j;
-		if (Math.max(Math.abs(hal6da[j * n + w] - hal6da[j * n + v]), Math.abs(hal6da[q * n + i] - hal6da[p * n + i])) / (2 * vepat6ni) < 24 / 64 && h > vem2 + 1) hapaga[id] |= BESTO_NPC;
+		if (Math.max(Math.abs(hal6da[j * n + w] - hal6da[j * n + v]), Math.abs(hal6da[q * n + i] - hal6da[p * n + i])) / (2 * vepat6ni) < 24 / 64 && h > vem2 + 1) hapaga[id] |= BESTONPC;
 	}
-	const kandidatoj = [];
+	const hakandidato = [];
 	for (let j = 1; j < n - 1; j++) for (let i = 1; i < n - 1; i++) {
 		const id = j * n + i;
 		if (!ene[id]) continue;
 		const h = hal6da[id];
-		if (h < FONTA_MINIMUMA_L6DA) continue;
-		let kma = h;
+		if (h < FONTAMINIMUMAL6DA) continue;
+		let plosteq = h;
 		for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
 			if (di === 0 && dj === 0) continue;
-			kma = Math.max(kma, hal6da[(j + dj) * n + i + di]);
+			plosteq = Math.max(plosteq, hal6da[(j + dj) * n + i + di]);
 		}
-		if (h >= kma) kandidatoj.push({
+		if (h >= plosteq) hakandidato.push({
 			id,
 			h
 		});
 	}
-	kandidatoj.sort((a, b) => b.h - a.h);
+	hakandidato.sort((a, b) => b.h - a.h);
 	const hatsiq = [];
-	for (const k of kandidatoj) {
-		if (hatsiq.length >= FONTA_KVANTO) break;
+	for (const k of hakandidato) {
+		if (hatsiq.length >= FONTAKVANTO) break;
 		const i = k.id % n, j = (k.id - i) / n;
 		const x = x0 + i * vepat6ni, z = z0 + j * vepat6ni;
-		let troProksima = false;
-		for (const f of hatsiq) if (Math.hypot(f.x - x, f.z - z) < FONTA_DISTANCO) {
-			troProksima = true;
+		let troTsiike = false;
+		for (const f of hatsiq) if (Math.hypot(f.x - x, f.z - z) < FONTADISTANCO) {
+			troTsiike = true;
 			break;
 		}
-		if (troProksima) continue;
+		if (troTsiike) continue;
 		hatsiq.push({
 			x,
 			z,
-			fluo: FONTA_FLUO
+			las: FONTAFLUO
 		});
 	}
 	return {
-		semo: tk2ni,
+		ruva: tk2ni,
 		l6da,
-		akvaMasko,
+		tsasaMasko,
 		habs2,
 		hapaga,
 		hatsiq,
-		jaqoSemoBazo: 83 / 64 + subSemo(tk2ni, KANALO_MONTARA_SEMO) % 2048 / 2048 * 64
+		jaqoRuvaKozunu: 83 / 64 + subRuva(tk2ni, KANALOMONTARASEMO) % 2048 / 2048 * 64
 	};
 }
-// kantaoj/mondo/qox2n2k/celoj.ts
-function kf2Kradon(arangxo) {
-	const n = arangxo.arangxaGrando;
+// ../../kanta/nala/qox2n2k/kxawa.ts
+function kf2Qox2n2k(ptalu) {
+	const n = ptalu.ptaluPal6;
 	const haKekkozusai = [];
 	if (n === 1) {
 		for (const [x, z] of [
@@ -22938,7 +22927,7 @@ function kf2Kradon(arangxo) {
 		haKekkozusai.push([
 			0,
 			0,
-			"sanktejo"
+			"qaman2"
 		]);
 		return haKekkozusai;
 	}
@@ -22947,23 +22936,23 @@ function kf2Kradon(arangxo) {
 			haKekkozusai.push([
 				0,
 				0,
-				"sanktejo"
+				"qaman2"
 			]);
 			continue;
 		}
-		if (enKrado(n, x, z)) haKekkozusai.push([
+		if (enQox2n2k(n, x, z)) haKekkozusai.push([
 			x,
 			z,
-			hunaqDeRingo(Math.max(Math.abs(x), Math.abs(z)), x, z)
+			hunaqDeT2q2(Math.max(Math.abs(x), Math.abs(z)), x, z)
 		]);
 	}
 	return haKekkozusai;
 }
-function enKrado(n, x, z) {
+function enQox2n2k(n, x, z) {
 	return Math.abs(x) + Math.abs(z) <= n + 1;
 }
-function hunaqDeRingo(r, x, z) {
-	if (r === 0) return "sanktejo";
+function hunaqDeT2q2(r, x, z) {
+	if (r === 0) return "qaman2";
 	if (r === 1) return Math.abs(x) === Math.abs(z) ? "geqqa" : "kasafeo";
 	if (r === 2) return Math.min(Math.abs(x), Math.abs(z)) === 0 ? "turo" : "kap2";
 	if (r === 3) {
@@ -22972,7 +22961,7 @@ function hunaqDeRingo(r, x, z) {
 	}
 	return Math.min(Math.abs(x), Math.abs(z)) === 0 ? "turo" : "kap2";
 }
-function fazoDeCelo(cx, cz) {
+function xafanitapuDeCelo(cx, cz) {
 	const ax = Math.abs(cx), az = Math.abs(cz);
 	if (ax === az) {
 		if (cx > 0 && cz > 0) return 0;
@@ -22983,11 +22972,11 @@ function fazoDeCelo(cx, cz) {
 	if (az > ax) return cz > 0 ? 0 : 2;
 	return cx > 0 ? 3 : 1;
 }
-function hunaqDeBloko(kozuni, cx, cz, ox, oz) {
-	if (kozuni === "sanktejo") return kozuni;
-	if (kozuni === "stacio") return "stacio";
+function hunaqDeK6liq(kozuni, cx, cz, ox, oz) {
+	if (kozuni === "qaman2") return kozuni;
+	if (kozuni === "ka5asexaz") return "ka5asexaz";
 	if (kozuni === "kap2") return "kap2";
-	const bazoHahunaq = kozuni === "turo" ? [
+	const kozunuHahunaq = kozuni === "turo" ? [
 		"kap2",
 		"turo",
 		"kasafeo",
@@ -22998,14 +22987,14 @@ function hunaqDeBloko(kozuni, cx, cz, ox, oz) {
 		"kasafeo",
 		"geqqa"
 	];
-	const fazo = fazoDeCelo(cx, cz);
-	return bazoHahunaq[((ox > 0 ? oz > 0 ? 0 : 3 : oz > 0 ? 1 : 2) - fazo + 4) % 4];
+	const xafanitapu = xafanitapuDeCelo(cx, cz);
+	return kozunuHahunaq[((ox > 0 ? oz > 0 ? 0 : 3 : oz > 0 ? 1 : 2) - xafanitapu + 4) % 4];
 }
-// kantaoj/mondo/qox2n2k/teru.ts
-function aplikiHatik(haKekkozusai, hatik) {
-	if (!hatik) return;
-	for (const [ŝ, hunaq] of hatik) {
-		const hakek = ŝ.split(",");
+// ../../kanta/nala/qox2n2k/teru.ts
+function k2reiHatik(haKekkozusai, hateru) {
+	if (!hateru) return;
+	for (const [ca3aq, hunaq] of hateru) {
+		const hakek = ca3aq.split(",");
 		if (hakek.length !== 2) continue;
 		const [c, r] = hakek.map(Number);
 		const ind = haKekkozusai.findIndex(([lc, lr]) => lc === c && lr === r);
@@ -23021,39 +23010,39 @@ function aplikiHatik(haKekkozusai, hatik) {
 		]);
 	}
 }
-// kantaoj/mondo/qox2n2k/derivajoj.ts
-function kradajDerivajoj(arangxo) {
-	const TONA = arangxo.blokaGrando === "kvar" ? 32 : 24;
-	const nordaPinto = arangxo.arangxaGrando * TONA;
-	const ringoX = TONA / 2;
-	const ringoSuda = (arangxo.arangxaGrando - 1 / 2) * TONA;
+// ../../kanta/nala/qox2n2k/qox2n2kSef4.ts
+function qox2n2kSef4(ptalu) {
+	const TONA = ptalu.k6liqPal6 === "kvar" ? 32 : 24;
+	const laqN2k = ptalu.ptaluPal6 * TONA;
+	const t2q2X = TONA / 2;
+	const t2q2Kaq = (ptalu.ptaluPal6 - 1 / 2) * TONA;
 	return {
 		TONA,
-		nordaPinto,
-		ringoX,
-		ringoSuda,
-		sudaK6h6: -ringoSuda,
-		stacioZ: nordaPinto + 24,
-		staciaRingaNordo: nordaPinto + 12,
-		BLOKO: 8
+		laqN2k,
+		t2q2X,
+		t2q2Kaq,
+		kaqK6h6: -t2q2Kaq,
+		ka5asexazZ: laqN2k + 24,
+		kukc2qLaq: laqN2k + 12,
+		K6LIQ: 8
 	};
 }
-// kantaoj/mondo/qox2n2k/s2t2bakano.ts
-function skaniK6h6nReton(retoX, retoZ, TONA, ofsX, ofsZ, limo, hasCellAt) {
-	const ĉelaX = (v) => [Math.round((v - ofsX) / TONA - 4 / 8), Math.round((v - ofsX) / TONA + 4 / 8)];
-	const ĉelaZ = (v) => [Math.round((v - ofsZ) / TONA - 4 / 8), Math.round((v - ofsZ) / TONA + 4 / 8)];
-	const unuLinio = (konstanto, skanatoj, ĉelaKonstanta, ĉelaSkanata, konstantaZ, ofsKonstanta, ofsSkanata) => {
-		const [p1, p2] = ĉelaKonstanta(konstanto);
+// ../../kanta/nala/qox2n2k/s2t2bakano.ts
+function skaniK6h6nCaxlefkakai(caxlefkakaiX, caxlefkakaiZ, TONA, ofsX, ofsZ, plosteq, hasCellJe) {
+	const k2paX = (v) => [Math.round((v - ofsX) / TONA - 4 / 8), Math.round((v - ofsX) / TONA + 4 / 8)];
+	const k2paZ = (v) => [Math.round((v - ofsZ) / TONA - 4 / 8), Math.round((v - ofsZ) / TONA + 4 / 8)];
+	const unuLinio = (konstanto, skanatoj, k2paKonstanta, k2paSkanata, konstantaZ, ofsKonstanta, ofsSkanata) => {
+		const [p1, p2] = k2paKonstanta(konstanto);
 		const intersekcantoj = [];
 		for (const s of skanatoj) {
-			const [q1, q2] = ĉelaSkanata(s);
-			if (konstantaZ ? hasCellAt(q1, p1) || hasCellAt(q1, p2) || hasCellAt(q2, p1) || hasCellAt(q2, p2) : hasCellAt(p1, q1) || hasCellAt(p1, q2) || hasCellAt(p2, q1) || hasCellAt(p2, q2)) intersekcantoj.push(s);
+			const [q1, q2] = k2paSkanata(s);
+			if (konstantaZ ? hasCellJe(q1, p1) || hasCellJe(q1, p2) || hasCellJe(q2, p1) || hasCellJe(q2, p2) : hasCellJe(p1, q1) || hasCellJe(p1, q2) || hasCellJe(p2, q1) || hasCellJe(p2, q2)) intersekcantoj.push(s);
 		}
 		if (intersekcantoj.length < 2) return null;
 		const pts = [...intersekcantoj].sort((a, b) => a - b);
-		if (limo === null) return pts;
+		if (plosteq === null) return pts;
 		let xaqadi = -1, z2hak = -1;
-		for (let i = 0; i < pts.length - 1; i++) if (Math.abs((pts[i] + pts[i + 1]) / 2 - ofsSkanata) + Math.abs(konstanto - ofsKonstanta) <= limo) {
+		for (let i = 0; i < pts.length - 1; i++) if (Math.abs((pts[i] + pts[i + 1]) / 2 - ofsSkanata) + Math.abs(konstanto - ofsKonstanta) <= plosteq) {
 			if (xaqadi < 0) xaqadi = i;
 			z2hak = i;
 		}
@@ -23061,28 +23050,28 @@ function skaniK6h6nReton(retoX, retoZ, TONA, ofsX, ofsZ, limo, hasCellAt) {
 		return pts.slice(xaqadi, z2hak + 2);
 	};
 	const EW = /* @__PURE__ */ new Map();
-	for (const roadZ of retoZ) {
-		const uzeblaj = unuLinio(roadZ, retoX, ĉelaZ, ĉelaX, true, ofsZ, ofsX);
-		if (uzeblaj) EW.set(roadZ, uzeblaj);
+	for (const roadZ of caxlefkakaiZ) {
+		const hakamekai = unuLinio(roadZ, caxlefkakaiX, k2paZ, k2paX, true, ofsZ, ofsX);
+		if (hakamekai) EW.set(roadZ, hakamekai);
 	}
 	const NS = /* @__PURE__ */ new Map();
-	for (const roadX of retoX) {
-		const uzeblaj = unuLinio(roadX, retoZ, ĉelaX, ĉelaZ, false, ofsX, ofsZ);
-		if (uzeblaj) NS.set(roadX, uzeblaj);
+	for (const roadX of caxlefkakaiX) {
+		const hakamekai = unuLinio(roadX, caxlefkakaiZ, k2paX, k2paZ, false, ofsX, ofsZ);
+		if (hakamekai) NS.set(roadX, hakamekai);
 	}
 	return {
 		EW,
 		NS
 	};
 }
-// kantaoj/mondo/qox2n2k/b6vakanta.ts
-function kf2KradanPlanon(arangxo, hatik, aldonajHak6liq) {
-	const { TONA, nordaPinto, ringoX, ringoSuda, sudaK6h6, stacioZ, staciaRingaNordo, BLOKO } = kradajDerivajoj(arangxo);
-	const n = arangxo.arangxaGrando;
-	const haKekkozusai = kf2Kradon(arangxo);
-	aplikiHatik(haKekkozusai, hatik);
+// ../../kanta/nala/qox2n2k/b6vakanta.ts
+function kf2Qox2n2kB6vakantan(ptalu, hateru, tlunakHak6liq) {
+	const { TONA, laqN2k, t2q2X, t2q2Kaq, kaqK6h6, ka5asexazZ, kukc2qLaq, K6LIQ } = qox2n2kSef4(ptalu);
+	const n = ptalu.ptaluPal6;
+	const haKekkozusai = kf2Qox2n2k(ptalu);
+	k2reiHatik(haKekkozusai, hateru);
 	const paqj = [];
-	const tlunakani = (x, z, rot, hunaq, sub, stacia, ekstra = false, konektita = false) => {
+	const tlunakani = (x, z, rot, hunaq, c2w2q, kuk, nek2resai = false, c2k = false) => {
 		paqj.push({
 			x,
 			z,
@@ -23090,65 +23079,65 @@ function kf2KradanPlanon(arangxo, hatik, aldonajHak6liq) {
 			hunaq,
 			cx: Math.round(x / TONA),
 			cz: Math.round(z / TONA),
-			sub,
-			stacia,
-			ekstra,
-			konektita
+			c2w2q,
+			kuk,
+			nek2resai,
+			c2k
 		});
 	};
 	for (const [col, row, hunaq] of haKekkozusai) {
 		const cx = col * TONA, cz = row * TONA;
 		if (col === 0 && row === 0) {
-			if (arangxo.blokaGrando === "kvar") tlunakani(0, 0, 0, "sanktejo", "centro", true);
-			else tlunakani(0, 0, 0, hunaq, "centro", false);
+			if (ptalu.k6liqPal6 === "kvar") tlunakani(0, 0, 0, "qaman2", "sost2", true);
+			else tlunakani(0, 0, 0, hunaq, "sost2", false);
 			continue;
 		}
-		if (arangxo.blokaGrando === "kvar") {
+		if (ptalu.k6liqPal6 === "kvar") {
 			const suboj = [
 				[
-					BLOKO,
-					BLOKO,
+					K6LIQ,
+					K6LIQ,
 					0,
 					"NE"
 				],
 				[
-					-BLOKO,
-					BLOKO,
+					-K6LIQ,
+					K6LIQ,
 					-Math.PI / 2,
 					"NW"
 				],
 				[
-					-BLOKO,
-					-BLOKO,
+					-K6LIQ,
+					-K6LIQ,
 					Math.PI,
 					"SW"
 				],
 				[
-					BLOKO,
-					-BLOKO,
+					K6LIQ,
+					-K6LIQ,
 					Math.PI / 2,
 					"SE"
 				]
 			];
-			for (const [blx, blz, rot, sub] of suboj) {
-				const subHunaq = hatik?.get(`${col},${row},${sub}`);
-				tlunakani(cx + blx, cz + blz, rot, subHunaq ?? hunaqDeBloko(hunaq, col, row, blx, blz), sub, false);
+			for (const [blx, blz, rot, c2w2q] of suboj) {
+				const subHunaq = hateru?.get(`${col},${row},${c2w2q}`);
+				tlunakani(cx + blx, cz + blz, rot, subHunaq ?? hunaqDeK6liq(hunaq, col, row, blx, blz), c2w2q, false);
 			}
-		} else tlunakani(cx, cz, 0, hunaq, "centro", false);
+		} else tlunakani(cx, cz, 0, hunaq, "sost2", false);
 	}
-	if (arangxo.blokaGrando === "unu") for (const k of paqj) {
-		if (k.stacia || k.ekstra || k.x === 0 && k.z === 0) continue;
+	if (ptalu.k6liqPal6 === "vakox2qita") for (const k of paqj) {
+		if (k.kuk || k.nek2resai || k.x === 0 && k.z === 0) continue;
 		if (Math.abs(k.x) > Math.abs(k.z)) k.rot = k.x > 0 ? -Math.PI / 2 : Math.PI / 2;
 		else k.rot = k.z > 0 ? Math.PI : 0;
 	}
-	for (const b of aldonajHak6liq ?? []) tlunakani(b.x, b.z, b.rot ?? 0, b.hunaq, b.sub ?? "centro", !!b.stacia, true, !!b.konektita);
-	for (const b of aldonajHak6liq ?? []) {
-		if (!b.konektita) continue;
+	for (const b of tlunakHak6liq ?? []) tlunakani(b.x, b.z, b.rot ?? 0, b.hunaq, b.c2w2q ?? "sost2", !!b.kuk, true, !!b.c2k);
+	for (const b of tlunakHak6liq ?? []) {
+		if (!b.c2k) continue;
 		const c = Math.round(b.x / TONA), r = Math.round(b.z / TONA);
 		if (!haKekkozusai.some(([lc, lr]) => lc === c && lr === r)) haKekkozusai.push([
 			c,
 			r,
-			"sanktejo"
+			"qaman2"
 		]);
 	}
 	const hak6h6 = [];
@@ -23159,60 +23148,60 @@ function kf2KradanPlanon(arangxo, hatik, aldonajHak6liq) {
 	}
 	const KOLOJ = [...colSet].sort((a, b) => a - b);
 	const HAVESEFESTAF = [...rowSet].sort((a, b) => a - b);
-	const RETO_X = [];
-	for (let ci = 0; ci < KOLOJ.length - 1; ci++) if (KOLOJ[ci + 1] - KOLOJ[ci] === 1) RETO_X.push((KOLOJ[ci] + KOLOJ[ci + 1]) / 2 * TONA);
-	const RETO_Z = [];
-	for (let ri = 0; ri < HAVESEFESTAF.length - 1; ri++) if (HAVESEFESTAF[ri + 1] - HAVESEFESTAF[ri] === 1) RETO_Z.push((HAVESEFESTAF[ri] + HAVESEFESTAF[ri + 1]) / 2 * TONA);
-	if (arangxo.blokaGrando === "kvar") {
+	const RETOX = [];
+	for (let ci = 0; ci < KOLOJ.length - 1; ci++) if (KOLOJ[ci + 1] - KOLOJ[ci] === 1) RETOX.push((KOLOJ[ci] + KOLOJ[ci + 1]) / 2 * TONA);
+	const RETOZ = [];
+	for (let ri = 0; ri < HAVESEFESTAF.length - 1; ri++) if (HAVESEFESTAF[ri + 1] - HAVESEFESTAF[ri] === 1) RETOZ.push((HAVESEFESTAF[ri] + HAVESEFESTAF[ri + 1]) / 2 * TONA);
+	if (ptalu.k6liqPal6 === "kvar") {
 		const e = (n + 1 / 2) * TONA;
-		RETO_X.push(e, -e);
-		RETO_Z.push(e, -e);
+		RETOX.push(e, -e);
+		RETOZ.push(e, -e);
 	}
-	const hasCellAt = (c, r) => haKekkozusai.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
-	const { EW, NS } = skaniK6h6nReton(RETO_X, RETO_Z, TONA, 0, 0, arangxo.blokaGrando === "unu" ? (n + 1) * TONA : null, hasCellAt);
-	const NS_ekstentoj = /* @__PURE__ */ new Map();
-	const EW_ekstentoj = /* @__PURE__ */ new Map();
-	for (const [roadZ, uzeblaj] of EW) {
-		EW_ekstentoj.set(roadZ, [uzeblaj[0], uzeblaj[uzeblaj.length - 1]]);
-		for (let i = 0; i < uzeblaj.length - 1; i++) {
-			const x1 = uzeblaj[i], x2 = uzeblaj[i + 1];
+	const hasCellJe = (c, r) => haKekkozusai.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
+	const { EW, NS } = skaniK6h6nCaxlefkakai(RETOX, RETOZ, TONA, 0, 0, ptalu.k6liqPal6 === "vakox2qita" ? (n + 1) * TONA : null, hasCellJe);
+	const NSekstentoj = /* @__PURE__ */ new Map();
+	const EWekstentoj = /* @__PURE__ */ new Map();
+	for (const [roadZ, hakamekai] of EW) {
+		EWekstentoj.set(roadZ, [hakamekai[0], hakamekai[hakamekai.length - 1]]);
+		for (let i = 0; i < hakamekai.length - 1; i++) {
+			const x1 = hakamekai[i], x2 = hakamekai[i + 1];
 			if (Math.abs(x2 - x1) > 1 / 8) hak6h6.push({
-				orient: "EW",
+				kanto: "EW",
 				haxekuxa: roadZ,
-				de: x1,
-				al: x2
+				l6: x1,
+				sai: x2
 			});
 		}
 	}
-	for (const [roadX, uzeblaj] of NS) {
-		NS_ekstentoj.set(roadX, [uzeblaj[0], uzeblaj[uzeblaj.length - 1]]);
-		for (let i = 0; i < uzeblaj.length - 1; i++) {
-			const z1 = uzeblaj[i], z2 = uzeblaj[i + 1];
+	for (const [roadX, hakamekai] of NS) {
+		NSekstentoj.set(roadX, [hakamekai[0], hakamekai[hakamekai.length - 1]]);
+		for (let i = 0; i < hakamekai.length - 1; i++) {
+			const z1 = hakamekai[i], z2 = hakamekai[i + 1];
 			if (Math.abs(z2 - z1) > 1 / 8) hak6h6.push({
-				orient: "NS",
+				kanto: "NS",
 				haxekuxa: roadX,
-				de: z1,
-				al: z2
+				l6: z1,
+				sai: z2
 			});
 		}
 	}
 	const hahufwuk2 = [];
-	if (arangxo.hahufwuk2 !== false) {
-		const LAMPA_DEDUPO = 2;
-		const aldoniLampon = (x, z) => {
-			for (const l of hahufwuk2) if (Math.hypot(l.x - x, l.z - z) < LAMPA_DEDUPO) return;
+	if (ptalu.hahufwuk2 !== false) {
+		const LAMPADEDUPO = 2;
+		const tlunakLampon = (x, z) => {
+			for (const l of hahufwuk2) if (Math.hypot(l.x - x, l.z - z) < LAMPADEDUPO) return;
 			hahufwuk2.push({
 				x,
 				z
 			});
 		};
-		const placaKvaropo = 17 / 8;
+		const qotawaKvaropo = 17 / 8;
 		const krucaKvaropo = 19 / 8;
-		const placaKvaropoOfsetoj = [
+		const qotawaKvaropoOfsetoj = [
 			[-2.125, -2.125],
-			[placaKvaropo, -2.125],
-			[-2.125, placaKvaropo],
-			[placaKvaropo, placaKvaropo]
+			[qotawaKvaropo, -2.125],
+			[-2.125, qotawaKvaropo],
+			[qotawaKvaropo, qotawaKvaropo]
 		];
 		const krucaKvaropoOfsetoj = [
 			[-2.375, -2.375],
@@ -23220,111 +23209,111 @@ function kf2KradanPlanon(arangxo, hatik, aldonajHak6liq) {
 			[-2.375, krucaKvaropo],
 			[krucaKvaropo, krucaKvaropo]
 		];
-		for (const [x, [de, al]] of NS_ekstentoj) for (const z of [de, al]) for (const [dx, dz] of placaKvaropoOfsetoj) aldoniLampon(x + dx, z + dz);
-		for (const [z, [de, al]] of EW_ekstentoj) for (const x of [de, al]) for (const [dx, dz] of placaKvaropoOfsetoj) aldoniLampon(x + dx, z + dz);
+		for (const [x, [l6, sai]] of NSekstentoj) for (const z of [l6, sai]) for (const [dx, dz] of qotawaKvaropoOfsetoj) tlunakLampon(x + dx, z + dz);
+		for (const [z, [l6, sai]] of EWekstentoj) for (const x of [l6, sai]) for (const [dx, dz] of qotawaKvaropoOfsetoj) tlunakLampon(x + dx, z + dz);
 		for (const ns of hak6h6) {
-			if (ns.orient !== "NS") continue;
+			if (ns.kanto !== "NS") continue;
 			for (const ew of hak6h6) {
-				if (ew.orient !== "EW") continue;
-				if (ew.haxekuxa < ns.de - 8 ** -7 || ew.haxekuxa > ns.al + 8 ** -7) continue;
-				if (ns.haxekuxa < ew.de - 8 ** -7 || ns.haxekuxa > ew.al + 8 ** -7) continue;
-				for (const [dx, dz] of krucaKvaropoOfsetoj) aldoniLampon(ns.haxekuxa + dx, ew.haxekuxa + dz);
+				if (ew.kanto !== "EW") continue;
+				if (ew.haxekuxa < ns.l6 - 8 ** -7 || ew.haxekuxa > ns.sai + 8 ** -7) continue;
+				if (ns.haxekuxa < ew.l6 - 8 ** -7 || ns.haxekuxa > ew.sai + 8 ** -7) continue;
+				for (const [dx, dz] of krucaKvaropoOfsetoj) tlunakLampon(ns.haxekuxa + dx, ew.haxekuxa + dz);
 			}
 		}
 	}
 	const hatohtanu = [];
-	if (arangxo.blokaGrando === "unu") {
-		const ekst = NS_ekstentoj.get(ringoX);
+	if (ptalu.k6liqPal6 === "vakox2qita") {
+		const ekst = NSekstentoj.get(t2q2X);
 		if (ekst) ekst[0] = Math.min(ekst[0], -88);
 	}
 	for (let i = 0; i < paqj.length; i++) {
 		const s = paqj[i];
-		if (s.ekstra && !s.konektita) continue;
+		if (s.nek2resai && !s.c2k) continue;
 		if (s.x === 0 && s.z === 0) continue;
 		const rot = s.rot || 0;
-		const duonD = 4;
+		const p2somaniD = 4;
 		const kevOffset = 5.5;
 		const kevX = s.x + Math.sin(rot) * kevOffset;
 		const kevZ = s.z + Math.cos(rot) * kevOffset;
-		const tohtanuX = s.x + Math.sin(rot) * duonD;
-		const tohtanuZ = s.z + Math.cos(rot) * duonD;
+		const tohtanuX = s.x + Math.sin(rot) * p2somaniD;
+		const tohtanuZ = s.z + Math.cos(rot) * p2somaniD;
 		const fX = Math.sin(rot), fZ = Math.cos(rot);
-		const duonL = 7 / 8;
+		const p2somaniL = 7 / 8;
 		let celX = 0, celZ = 0, celita = false;
 		if (Math.abs(fX) > Math.abs(fZ)) {
-			const signo = fX > 0 ? 1 : -1;
-			celX = signo > 0 ? Math.max(...RETO_X) : Math.min(...RETO_X);
-			for (const rx of RETO_X) {
-				if (signo > 0 && rx > kevX && rx < celX) celX = rx;
-				if (signo < 0 && rx < kevX && rx > celX) celX = rx;
+			const kaatse = fX > 0 ? 1 : -1;
+			celX = kaatse > 0 ? Math.max(...RETOX) : Math.min(...RETOX);
+			for (const rx of RETOX) {
+				if (kaatse > 0 && rx > kevX && rx < celX) celX = rx;
+				if (kaatse < 0 && rx < kevX && rx > celX) celX = rx;
 			}
-			if (signo > 0 && celX <= tohtanuX || signo < 0 && celX >= tohtanuX) continue;
-			const ekstX = NS_ekstentoj.get(celX);
-			if (!ekstX || tohtanuZ < ekstX[0] - duonL || tohtanuZ > ekstX[1] + duonL) continue;
+			if (kaatse > 0 && celX <= tohtanuX || kaatse < 0 && celX >= tohtanuX) continue;
+			const ekstX = NSekstentoj.get(celX);
+			if (!ekstX || tohtanuZ < ekstX[0] - p2somaniL || tohtanuZ > ekstX[1] + p2somaniL) continue;
 			celZ = tohtanuZ;
 			celita = true;
 		} else {
-			const signo = fZ > 0 ? 1 : -1;
-			celZ = signo > 0 ? Math.max(...RETO_Z) : Math.min(...RETO_Z);
-			for (const rz of RETO_Z) {
-				if (signo > 0 && rz > kevZ && rz < celZ) celZ = rz;
-				if (signo < 0 && rz < kevZ && rz > celZ) celZ = rz;
+			const kaatse = fZ > 0 ? 1 : -1;
+			celZ = kaatse > 0 ? Math.max(...RETOZ) : Math.min(...RETOZ);
+			for (const rz of RETOZ) {
+				if (kaatse > 0 && rz > kevZ && rz < celZ) celZ = rz;
+				if (kaatse < 0 && rz < kevZ && rz > celZ) celZ = rz;
 			}
-			if (signo > 0 && celZ <= tohtanuZ || signo < 0 && celZ >= tohtanuZ) continue;
-			const ekstZ = EW_ekstentoj.get(celZ);
-			if (!ekstZ || tohtanuX < ekstZ[0] - duonL || tohtanuX > ekstZ[1] + duonL) continue;
+			if (kaatse > 0 && celZ <= tohtanuZ || kaatse < 0 && celZ >= tohtanuZ) continue;
+			const ekstZ = EWekstentoj.get(celZ);
+			if (!ekstZ || tohtanuX < ekstZ[0] - p2somaniL || tohtanuX > ekstZ[1] + p2somaniL) continue;
 			celX = tohtanuX;
 			celita = true;
 		}
-		const celoX = celX - fX * duonL;
-		const celoZ = celZ - fZ * duonL;
+		const celoX = celX - fX * p2somaniL;
+		const celoZ = celZ - fZ * p2somaniL;
 		if (celita && Math.hypot(tohtanuX - celoX, tohtanuZ - celoZ) > 4 / 8) hatohtanu.push({
-			de: [tohtanuX, tohtanuZ],
-			al: [celoX, celoZ],
+			l6: [tohtanuX, tohtanuZ],
+			sai: [celoX, celoZ],
 			paq: i
 		});
 	}
 	return {
-		arangxo,
+		ptalu,
 		haKekkozusai,
 		TONA,
-		nordaPinto,
-		ringoX,
-		ringoSuda,
-		sudaK6h6,
-		stacioZ,
-		staciaRingaNordo,
+		laqN2k,
+		t2q2X,
+		t2q2Kaq,
+		kaqK6h6,
+		ka5asexazZ,
+		kukc2qLaq,
 		paqj,
 		hak6h6,
 		hatohtanu,
-		spurXoj: RETO_X,
-		spurZoj: RETO_Z,
-		retoX: RETO_X,
-		retoZ: RETO_Z,
+		spurXoj: RETOX,
+		spurZoj: RETOZ,
+		caxlefkakaiX: RETOX,
+		caxlefkakaiZ: RETOZ,
 		hahufwuk2
 	};
 }
-// kantaoj/mondo/kekkaatsiisai.ts
-const KANALO_EJOJ = 1;
-const KANALO_HAKAXTE = 2;
-const KANALO_KROMPOJ = 3;
-const KANALO_ORNAMOJ = 4;
-const EJA_TONA = 32;
-const EJA_MARGXENO = 256;
-const EJA_KRUDEJO = 64;
-const EJA_KRUDA_L6DA = 10;
-const EJA_SEKURA_PROFUNDO = 6;
-const EJA_MONTA_LIMO = 17;
-const URBA_TONA_UNU = 24;
-const QAKAJ2_DISTANCO_MIN = 64;
-const QAKAJ2_DISTANCO_MAKS = 448;
-const QAKAJ2_APARTO = 128;
-const QAKAJ2_KVANTO = 3;
-const QAKAJ2_PROFUNDO = 16;
-const QAKAJ2_ALTERANDO = 10;
-const LAMPA_TONA = 48;
-const LAMPA_ALTERANDO = 6;
-const KANUOTA_DISTANCO = 8;
+// ../../kanta/nala/kekkaatsiisai.ts
+const KANALOEJOJ = 1;
+const KANALOHAKAXTE = 2;
+const KANALOKROMPOJ = 3;
+const KANALOORNAMOJ = 4;
+const EJATONA = 32;
+const EJAMARGXENO = 256;
+const EJAKRUDEJO = 64;
+const EJAKRUDAL6DA = 10;
+const EJASEKURAPROFUNDO = 6;
+const EJAMONTALIMO = 17;
+const URBATONAUNU = 24;
+const QAKAJ2DISTANCOMIN = 64;
+const QAKAJ2DISTANCOMAKS = 448;
+const QAKAJ2APARTO = 128;
+const QAKAJ2KVANTO = 3;
+const QAKAJ2PROFUNDO = 16;
+const QAKAJ2ALTERANDO = 10;
+const LAMPATONA = 48;
+const LAMPAALTERANDO = 6;
+const KANUOTADISTANCO = 8;
 function krudecoDe(mut6q, x, z, p2somani) {
 	let kmaPsazai = Infinity, kmaAlta = -Infinity;
 	for (const [dx, dz] of [
@@ -23345,45 +23334,45 @@ function krudecoDe(mut6q, x, z, p2somani) {
 	return kmaAlta - kmaPsazai;
 }
 function surSekuraT6lima(mut6q, vem2, x, z) {
-	return mut6q.l6da(x, z) > vem2 + EJA_SEKURA_PROFUNDO && Math.max(krudecoDe(mut6q, x, z, EJA_KRUDEJO), 0) < EJA_KRUDA_L6DA;
+	return mut6q.l6da(x, z) > vem2 + EJASEKURAPROFUNDO && Math.max(krudecoDe(mut6q, x, z, EJAKRUDEJO), 0) < EJAKRUDAL6DA;
 }
-function punktoDeEjo(mut6q, hasukf2qani, x, z, hazardo) {
+function n2kDeEjo(mut6q, hasukf2qani, x, z, sakxo) {
 	const h = mut6q.l6da(x, z);
 	const kma = h - hasukf2qani.vem2;
-	let n2k = -krudecoDe(mut6q, x, z, EJA_KRUDEJO) * 4;
-	if (kma < EJA_SEKURA_PROFUNDO) n2k -= (EJA_SEKURA_PROFUNDO - kma) * 10;
-	if (h > EJA_MONTA_LIMO) n2k -= (h - EJA_MONTA_LIMO) * 4;
-	n2k += hazardo;
+	let n2k = -krudecoDe(mut6q, x, z, EJAKRUDEJO) * 4;
+	if (kma < EJASEKURAPROFUNDO) n2k -= (EJASEKURAPROFUNDO - kma) * 10;
+	if (h > EJAMONTALIMO) n2k -= (h - EJAMONTALIMO) * 4;
+	n2k += sakxo;
 	return n2k;
 }
 function trovuEjon(tk2ni, mut6q, hasukf2qani, malpermesoj) {
-	const famaf = (i) => (subSemo(tk2ni, i) % 512 / 512 - 1 / 2) * 4;
+	const famaf = (i) => (subRuva(tk2ni, i) % 512 / 512 - 1 / 2) * 4;
 	let kmaXobe = null;
-	let kmaPunkto = -Infinity;
+	let kmaN2k = -Infinity;
 	let rezervo = null;
-	let rezervaPunkto = -Infinity;
+	let rezervaN2k = -Infinity;
 	let i = 0;
-	for (let z = -256; z <= EJA_MARGXENO; z += EJA_TONA) for (let x = -256; x <= EJA_MARGXENO; x += EJA_TONA) {
+	for (let z = -256; z <= EJAMARGXENO; z += EJATONA) for (let x = -256; x <= EJAMARGXENO; x += EJATONA) {
 		i++;
 		if (!hasukf2qani.enQoxa(x, z)) continue;
-		if (hasukf2qani.randoDeQoxa(x, z) > -160) continue;
-		let proksima = false;
+		if (hasukf2qani.pukazDeQoxa(x, z) > -160) continue;
+		let tsiike = false;
 		for (const [mx, mz, mr] of malpermesoj) if (Math.hypot(x - mx, z - mz) < mr) {
-			proksima = true;
+			tsiike = true;
 			break;
 		}
-		if (proksima) continue;
+		if (tsiike) continue;
 		const tsel2sai = surSekuraT6lima(mut6q, hasukf2qani.vem2, x, z);
-		const n2k = punktoDeEjo(mut6q, hasukf2qani, x, z, famaf(i));
-		if (tsel2sai && n2k > kmaPunkto) {
-			kmaPunkto = n2k;
+		const n2k = n2kDeEjo(mut6q, hasukf2qani, x, z, famaf(i));
+		if (tsel2sai && n2k > kmaN2k) {
+			kmaN2k = n2k;
 			kmaXobe = {
 				x,
 				z
 			};
 		}
-		if (n2k > rezervaPunkto) {
-			rezervaPunkto = n2k;
+		if (n2k > rezervaN2k) {
+			rezervaN2k = n2k;
 			rezervo = {
 				x,
 				z
@@ -23392,28 +23381,28 @@ function trovuEjon(tk2ni, mut6q, hasukf2qani, malpermesoj) {
 	}
 	return kmaXobe ?? rezervo;
 }
-function angulojDeKaxte(kaxte) {
-	const plano = kf2KradanPlanon({
-		arangxaGrando: kaxte.arangxaGrando,
-		blokaGrando: kaxte.blokaGrando
-	}, void 0, kaxte.aldonajHak6liq ?? []);
-	const NS = plano.hak6h6.filter((v) => v.orient === "NS");
-	const EW = plano.hak6h6.filter((v) => v.orient === "EW");
-	const EPS = 1 / 64;
+function hatafkaqDeKaxte(kaxte) {
+	const b6vakanta = kf2Qox2n2kB6vakantan({
+		ptaluPal6: kaxte.ptaluPal6,
+		k6liqPal6: kaxte.k6liqPal6
+	}, void 0, kaxte.tlunakHak6liq ?? []);
+	const NS = b6vakanta.hak6h6.filter((v) => v.kanto === "NS");
+	const EW = b6vakanta.hak6h6.filter((v) => v.kanto === "EW");
+	const M2M2 = 1 / 64;
 	const hatafkaq = [];
-	const viditaj = /* @__PURE__ */ new Set();
+	const hakix2 = /* @__PURE__ */ new Set();
 	for (const ns of NS) for (const ew of EW) {
 		const lx = ns.haxekuxa, lz = ew.haxekuxa;
-		if (lz < ns.de - EPS || lz > ns.al + EPS) continue;
-		if (lx < ew.de - EPS || lx > ew.al + EPS) continue;
+		if (lz < ns.l6 - M2M2 || lz > ns.sai + M2M2) continue;
+		if (lx < ew.l6 - M2M2 || lx > ew.sai + M2M2) continue;
 		const k = lx + "," + lz;
-		if (viditaj.has(k)) continue;
-		viditaj.add(k);
+		if (hakix2.has(k)) continue;
+		hakix2.add(k);
 		const kfekoc2kaij = [];
-		if (!NS.some((v) => Math.abs(v.haxekuxa - lx) < EPS && v.al > lz + EPS)) kfekoc2kaij.push([0, 1]);
-		if (!NS.some((v) => Math.abs(v.haxekuxa - lx) < EPS && v.de < lz - EPS)) kfekoc2kaij.push([0, -1]);
-		if (!EW.some((v) => Math.abs(v.haxekuxa - lz) < EPS && v.al > lx + EPS)) kfekoc2kaij.push([1, 0]);
-		if (!EW.some((v) => Math.abs(v.haxekuxa - lz) < EPS && v.de < lx - EPS)) kfekoc2kaij.push([-1, 0]);
+		if (!NS.some((v) => Math.abs(v.haxekuxa - lx) < M2M2 && v.sai > lz + M2M2)) kfekoc2kaij.push([0, 1]);
+		if (!NS.some((v) => Math.abs(v.haxekuxa - lx) < M2M2 && v.l6 < lz - M2M2)) kfekoc2kaij.push([0, -1]);
+		if (!EW.some((v) => Math.abs(v.haxekuxa - lz) < M2M2 && v.sai > lx + M2M2)) kfekoc2kaij.push([1, 0]);
+		if (!EW.some((v) => Math.abs(v.haxekuxa - lz) < M2M2 && v.l6 < lx - M2M2)) kfekoc2kaij.push([-1, 0]);
 		if (!kfekoc2kaij.length) continue;
 		hatafkaq.push({
 			x: kaxte.ofsX + lx,
@@ -23423,7 +23412,7 @@ function angulojDeKaxte(kaxte) {
 	}
 	return hatafkaq;
 }
-function saxeaAngulo(hatafkaq, celo, uzitaj) {
+function saxeaTafkaq(hatafkaq, natakatomasai, uzitaj) {
 	let kmaXobe = null;
 	let kmaXobeKfekoc2kai = null;
 	let kmaXobeSef4 = null;
@@ -23431,7 +23420,7 @@ function saxeaAngulo(hatafkaq, celo, uzitaj) {
 	let kmaDist = Infinity, kmaDistKfekoc2kai = Infinity;
 	let kmaDistSef4 = Infinity, kmaDistKfekoc2kaiSef4 = Infinity;
 	for (const a of hatafkaq) {
-		const dx = celo.x - a.x, dz = celo.z - a.z;
+		const dx = natakatomasai.x - a.x, dz = natakatomasai.z - a.z;
 		const dist = Math.hypot(dx, dz);
 		if (dist < 1) continue;
 		const sef4 = !uzitaj.has(a.x + "," + a.z);
@@ -23474,12 +23463,12 @@ function saxeaAngulo(hatafkaq, celo, uzitaj) {
 function troviCxefojn(mut6q, hasukf2qani, sost2, vepat6ni) {
 	const trovajxoj = [];
 	const laqazo = (x, z) => mut6q.l6da(x, z) - hasukf2qani.vem2;
-	for (let z = -256; z <= EJA_MARGXENO; z += vepat6ni) for (let x = -256; x <= EJA_MARGXENO; x += vepat6ni) {
+	for (let z = -256; z <= EJAMARGXENO; z += vepat6ni) for (let x = -256; x <= EJAMARGXENO; x += vepat6ni) {
 		if (!hasukf2qani.enQoxa(x, z)) continue;
 		if (laqazo(x, z) >= -1 / 8) continue;
 		const dist = Math.hypot(x - sost2.x, z - sost2.z);
-		if (dist < QAKAJ2_DISTANCO_MIN || dist > QAKAJ2_DISTANCO_MAKS) continue;
-		let nx = 0, nz = 0, akvaj = 0;
+		if (dist < QAKAJ2DISTANCOMIN || dist > QAKAJ2DISTANCOMAKS) continue;
+		let nx = 0, nz = 0, tsasa = 0;
 		for (const [dx, dz] of [
 			[1, 0],
 			[-1, 0],
@@ -23488,9 +23477,9 @@ function troviCxefojn(mut6q, hasukf2qani, sost2, vepat6ni) {
 		]) if (laqazo(x + dx * vepat6ni, z + dz * vepat6ni) < 0) {
 			nx += dx;
 			nz += dz;
-			akvaj++;
+			tsasa++;
 		}
-		if (akvaj === 0) continue;
+		if (tsasa === 0) continue;
 		const sahakani = Math.hypot(nx, nz) || 1;
 		trovajxoj.push({
 			x,
@@ -23502,103 +23491,103 @@ function troviCxefojn(mut6q, hasukf2qani, sost2, vepat6ni) {
 	}
 	return trovajxoj;
 }
-function sukf2qiCxefojn(kandidatoj, mut6q, hasukf2qani, sost2, vem2) {
-	const haca1ara = kandidatoj.map((k) => {
+function sukf2qiCxefojn(hakandidato, mut6q, hasukf2qani, sost2, vem2) {
+	const haca1ara = hakandidato.map((k) => {
 		const al = Math.hypot(sost2.x - k.x, sost2.z - k.z);
-		const havepat6ni = Math.max(2, Math.round(al / QAKAJ2_ALTERANDO));
-		let akvaj = 0;
+		const havepat6ni = Math.max(2, Math.round(al / QAKAJ2ALTERANDO));
+		let hatsasa = 0;
 		for (let s = 1; s <= havepat6ni; s++) {
 			const t = s / havepat6ni;
-			if (mut6q.l6da(k.x + (sost2.x - k.x) * t, k.z + (sost2.z - k.z) * t) < hasukf2qani.vem2) akvaj++;
+			if (mut6q.l6da(k.x + (sost2.x - k.x) * t, k.z + (sost2.z - k.z) * t) < hasukf2qani.vem2) hatsasa++;
 		}
 		return {
 			k,
-			n2k: -akvaj * 8 - k.dist
+			n2k: -hatsasa * 8 - k.dist
 		};
 	});
 	haca1ara.sort((a, b) => b.n2k - a.n2k);
-	const sukf2qitaj = [];
+	const hasukf2qita = [];
 	for (const o of haca1ara) {
-		if (sukf2qitaj.length >= vem2) break;
+		if (hasukf2qita.length >= vem2) break;
 		const k = o.k;
-		let proksima = false;
-		for (const e of sukf2qitaj) if (Math.hypot(e.x - k.x, e.z - k.z) < QAKAJ2_APARTO) {
-			proksima = true;
+		let tsiike = false;
+		for (const e of hasukf2qita) if (Math.hypot(e.x - k.x, e.z - k.z) < QAKAJ2APARTO) {
+			tsiike = true;
 			break;
 		}
-		if (proksima) continue;
-		sukf2qitaj.push({
+		if (tsiike) continue;
+		hasukf2qita.push({
 			x: k.x,
 			z: k.z,
 			nx: k.nx,
 			nz: k.nz
 		});
 	}
-	return sukf2qitaj;
+	return hasukf2qita;
 }
 function generiSetlejon(tk2ni, mut6q, hasukf2qani) {
-	const sEjoj = subSemo(tk2ni, KANALO_EJOJ);
-	const sHakaxte = subSemo(tk2ni, KANALO_HAKAXTE);
-	const sKrompoj = subSemo(tk2ni, KANALO_KROMPOJ);
-	const sOrnamoj = subSemo(tk2ni, KANALO_ORNAMOJ);
+	const sEjoj = subRuva(tk2ni, KANALOEJOJ);
+	const sHakaxte = subRuva(tk2ni, KANALOHAKAXTE);
+	const sKrompoj = subRuva(tk2ni, KANALOKROMPOJ);
+	const sOrnamoj = subRuva(tk2ni, KANALOORNAMOJ);
 	const hakaxte = [];
 	const hak6h6 = [];
 	const haqakaj2 = [];
-	const hatoxemani = [];
+	const hazace = [];
 	const cefa = trovuEjon(sEjoj, mut6q, hasukf2qani, []);
 	if (!cefa) return {
 		hakaxte,
 		hak6h6,
 		haqakaj2,
-		hatoxemani
+		hazace
 	};
-	const cefaGrando = 2 + sHakaxte % 2;
-	const cefaPaso = URBA_TONA_UNU;
+	const cefaGpukaz = 2 + sHakaxte % 2;
+	const cefaTona = URBATONAUNU;
 	hakaxte.push({
 		ksaka: "Geles",
-		arangxaGrando: cefaGrando,
-		blokaGrando: "unu",
+		ptaluPal6: cefaGpukaz,
+		k6liqPal6: "vakox2qita",
 		ofsX: cefa.x,
 		ofsZ: cefa.z,
-		keuxfhxeso: sHakaxte % 3 !== 0,
+		kekufxeso: sHakaxte % 3 !== 0,
 		hahufwuk2: true,
-		aldonajHak6liq: [{
+		tlunakHak6liq: [{
 			x: 0,
-			z: (cefaGrando + 1) * cefaPaso,
-			hunaq: "sanktejo",
+			z: (cefaGpukaz + 1) * cefaTona,
+			hunaq: "qaman2",
 			rot: Math.PI,
-			sub: "centro",
-			stacia: true,
-			konektita: true
+			c2w2q: "sost2",
+			kuk: true,
+			c2k: true
 		}]
 	});
-	hatoxemani.push({
+	hazace.push({
 		x: cefa.x,
-		z: cefa.z + (cefaGrando + 1) * cefaPaso,
+		z: cefa.z + (cefaGpukaz + 1) * cefaTona,
 		pudal: "spacosxipo"
 	});
 	if (sHakaxte % 4 === 1) {
-		const dua = trovuEjon(subSemo(tk2ni, 17), mut6q, hasukf2qani, [[
+		const p2sadi = trovuEjon(subRuva(tk2ni, 17), mut6q, hasukf2qani, [[
 			cefa.x,
 			cefa.z,
 			256
 		]]);
-		if (dua) hakaxte.push({
+		if (p2sadi) hakaxte.push({
 			ksaka: "Dua",
-			arangxaGrando: 2 + (sHakaxte >>> 4) % 2,
-			blokaGrando: "kvar",
-			ofsX: dua.x,
-			ofsZ: dua.z,
-			keuxfhxeso: false,
+			ptaluPal6: 2 + (sHakaxte >>> 4) % 2,
+			k6liqPal6: "kvar",
+			ofsX: p2sadi.x,
+			ofsZ: p2sadi.z,
+			kekufxeso: false,
 			hahufwuk2: true,
-			aldonajHak6liq: []
+			tlunakHak6liq: []
 		});
 	}
 	const sost2 = hakaxte[0];
-	const hatafkaq = angulojDeKaxte(sost2);
-	const uzitajAnguloj = /* @__PURE__ */ new Set();
+	const hatafkaq = hatafkaqDeKaxte(sost2);
+	const uzitajHatafkaq = /* @__PURE__ */ new Set();
 	const registri = (a) => {
-		uzitajAnguloj.add(a.x + "," + a.z);
+		uzitajHatafkaq.add(a.x + "," + a.z);
 	};
 	const cxefoj = sukf2qiCxefojn(troviCxefojn(mut6q, hasukf2qani, {
 		x: sost2.ofsX,
@@ -23606,24 +23595,24 @@ function generiSetlejon(tk2ni, mut6q, hasukf2qani) {
 	}, 4), mut6q, hasukf2qani, {
 		x: sost2.ofsX,
 		z: sost2.ofsZ
-	}, QAKAJ2_KVANTO);
+	}, QAKAJ2KVANTO);
 	for (let i = 0; i < cxefoj.length; i++) {
 		const k = cxefoj[i];
-		const rotacio = Math.atan2(-k.nx, -k.nz);
+		const s2sabo = Math.atan2(-k.nx, -k.nz);
 		haqakaj2.push({
 			x: k.x,
 			z: k.z,
-			profundo: QAKAJ2_PROFUNDO,
-			rotacio
+			jufu: QAKAJ2PROFUNDO,
+			s2sabo
 		});
-		const landaX = k.x + Math.sin(rotacio) * (QAKAJ2_PROFUNDO / 2);
-		const landaZ = k.z + Math.cos(rotacio) * (QAKAJ2_PROFUNDO / 2);
-		const akvaX = k.x - Math.sin(rotacio) * KANUOTA_DISTANCO;
-		const akvaZ = k.z - Math.cos(rotacio) * KANUOTA_DISTANCO;
-		const saxeni = saxeaAngulo(hatafkaq, {
+		const landaX = k.x + Math.sin(s2sabo) * (QAKAJ2PROFUNDO / 2);
+		const landaZ = k.z + Math.cos(s2sabo) * (QAKAJ2PROFUNDO / 2);
+		const tsasaX = k.x - Math.sin(s2sabo) * KANUOTADISTANCO;
+		const tsasaZ = k.z - Math.cos(s2sabo) * KANUOTADISTANCO;
+		const saxeni = saxeaTafkaq(hatafkaq, {
 			x: landaX,
 			z: landaZ
-		}, uzitajAnguloj) ?? {
+		}, uzitajHatafkaq) ?? {
 			x: sost2.ofsX,
 			z: sost2.ofsZ
 		};
@@ -23638,30 +23627,30 @@ function generiSetlejon(tk2ni, mut6q, hasukf2qani) {
 				[landaX, landaZ]
 			]
 		});
-		if (mut6q.l6da(akvaX, akvaZ) < hasukf2qani.vem2) hatoxemani.push({
-			x: akvaX,
-			z: akvaZ,
-			pudal: "kanuo",
-			rotacio: rotacio + Math.PI
+		if (mut6q.l6da(tsasaX, tsasaZ) < hasukf2qani.vem2) hazace.push({
+			x: tsasaX,
+			z: tsasaZ,
+			pudal: "s2kaj2",
+			s2sabo: s2sabo + Math.PI
 		});
 	}
 	const ejoDeAvenuo = () => {
 		let kmaXobe = null;
-		let kmaPunkto = -Infinity;
+		let kmaN2k = -Infinity;
 		for (let a = 0; a < 16; a++) {
-			const h = subSemo(sKrompoj, a);
+			const h = subRuva(sKrompoj, a);
 			const tafkaq = h % 512 / 512 * Math.PI * 2;
 			const h6kuni = 192 + (h >>> 8) % 192;
 			const x = sost2.ofsX + Math.cos(tafkaq) * h6kuni;
 			const z = sost2.ofsZ + Math.sin(tafkaq) * h6kuni;
 			if (!hasukf2qani.enQoxa(x, z)) continue;
-			if (hasukf2qani.randoDeQoxa(x, z) > -64) continue;
+			if (hasukf2qani.pukazDeQoxa(x, z) > -64) continue;
 			const l6da = mut6q.l6da(x, z);
-			if (l6da < hasukf2qani.vem2 + EJA_SEKURA_PROFUNDO) continue;
-			if (l6da > EJA_MONTA_LIMO) continue;
+			if (l6da < hasukf2qani.vem2 + EJASEKURAPROFUNDO) continue;
+			if (l6da > EJAMONTALIMO) continue;
 			const n2k = h6kuni - l6da * 8;
-			if (n2k > kmaPunkto) {
-				kmaPunkto = n2k;
+			if (n2k > kmaN2k) {
+				kmaN2k = n2k;
 				kmaXobe = {
 					x,
 					z
@@ -23670,24 +23659,24 @@ function generiSetlejon(tk2ni, mut6q, hasukf2qani) {
 		}
 		return kmaXobe;
 	};
-	const celo = hakaxte.length >= 2 ? {
+	const natakatomasai = hakaxte.length >= 2 ? {
 		x: hakaxte[1].ofsX,
 		z: hakaxte[1].ofsZ
 	} : ejoDeAvenuo();
-	if (celo) {
-		const ekiro = saxeaAngulo(hatafkaq, celo, uzitajAnguloj) ?? {
+	if (natakatomasai) {
+		const ekiro = saxeaTafkaq(hatafkaq, natakatomasai, uzitajHatafkaq) ?? {
 			x: sost2.ofsX,
 			z: sost2.ofsZ
 		};
 		registri(ekiro);
-		const mezX = (ekiro.x + celo.x) / 2;
-		const mezZ = (ekiro.z + celo.z) / 2;
-		const kanto = sKrompoj % 2 === 0 ? 1 : -1;
-		const bendX = mezX - (celo.z - ekiro.z) * 3 / 64 * kanto;
-		const bendZ = mezZ + (celo.x - ekiro.x) * 3 / 64 * kanto;
+		const mezX = (ekiro.x + natakatomasai.x) / 2;
+		const mezZ = (ekiro.z + natakatomasai.z) / 2;
+		const vek2fe = sKrompoj % 2 === 0 ? 1 : -1;
+		const bendX = mezX - (natakatomasai.z - ekiro.z) * 3 / 64 * vek2fe;
+		const bendZ = mezZ + (natakatomasai.x - ekiro.x) * 3 / 64 * vek2fe;
 		const n2k = [[ekiro.x, ekiro.z]];
 		for (const [bx, bz] of [[mezX, mezZ], [bendX, bendZ]]) if (hasukf2qani.enQoxa(bx, bz) && mut6q.l6da(bx, bz) >= hasukf2qani.vem2) n2k.push([bx, bz]);
-		n2k.push([celo.x, celo.z]);
+		n2k.push([natakatomasai.x, natakatomasai.z]);
 		hak6h6.push({
 			ksaka: hakaxte.length >= 2 ? "K6h6 inter hakaxte" : "Avenuo",
 			sefini: 224 / 64,
@@ -23698,22 +23687,22 @@ function generiSetlejon(tk2ni, mut6q, hasukf2qani) {
 		const [ax, az] = k6h6.n2k[i];
 		const [bx, bz] = k6h6.n2k[i + 1];
 		const sahakani = Math.hypot(bx - ax, bz - az);
-		const havepat6ni = Math.max(1, Math.round(sahakani / LAMPA_TONA));
+		const havepat6ni = Math.max(1, Math.round(sahakani / LAMPATONA));
 		const nx = -(bz - az) / (sahakani || 1), nz = (bx - ax) / (sahakani || 1);
 		for (let s = 0; s <= havepat6ni; s++) {
 			const t = s / havepat6ni;
 			if (i === 0 && s === 0) continue;
-			const kanto = (s + i & 1) === 0 ? 1 : -1;
-			const x = ax + (bx - ax) * t + nx * LAMPA_ALTERANDO * kanto;
-			const z = az + (bz - az) * t + nz * LAMPA_ALTERANDO * kanto;
+			const vek2fe = (s + i & 1) === 0 ? 1 : -1;
+			const x = ax + (bx - ax) * t + nx * LAMPAALTERANDO * vek2fe;
+			const z = az + (bz - az) * t + nz * LAMPAALTERANDO * vek2fe;
 			if (!hasukf2qani.enQoxa(x, z)) continue;
 			if (mut6q.l6da(x, z) < hasukf2qani.vem2 + 1 / 2) continue;
 			if ((sOrnamoj >>> (s + i * 7) % 8) % 5 === 0) continue;
-			hatoxemani.push({
+			hazace.push({
 				x,
 				z,
 				pudal: "hxeuxfoPa12",
-				rotacio: Math.PI / 4
+				s2sabo: Math.PI / 4
 			});
 		}
 	}
@@ -23721,26 +23710,26 @@ function generiSetlejon(tk2ni, mut6q, hasukf2qani) {
 		hakaxte,
 		hak6h6,
 		haqakaj2,
-		hatoxemani
+		hazace
 	};
 }
-// kantaoj/mut6q-havop2/tlohk2nikziisai.ts
-function dekodiInt16(kruda) {
-	if (kruda === "") return null;
+// ../../kanta/mut6q-havop2/tlohk2nikziisai.ts
+function kf2Int16(ne1anesai) {
+	if (ne1anesai === "") return null;
 	try {
-		const hacacaja = Uint8Array.from(atob(kruda), (c) => c.charCodeAt(0));
+		const hacacaja = Uint8Array.from(atob(ne1anesai), (c) => c.charCodeAt(0));
 		const havop2 = new Int16Array(hacacaja.length / 2);
-		const vido = new DataView(hacacaja.buffer);
-		for (let i = 0; i < havop2.length; i++) havop2[i] = vido.getInt16(i * 2, true);
+		const kix2 = new DataView(hacacaja.buffer);
+		for (let i = 0; i < havop2.length; i++) havop2[i] = kix2.getInt16(i * 2, true);
 		return havop2;
 	} catch {
 		return null;
 	}
 }
-function dekodiMaskon(kruda, vem2) {
-	if (kruda === "") return null;
+function kf2K6liq(ne1anesai, vem2) {
+	if (ne1anesai === "") return null;
 	try {
-		const hacacaja = Uint8Array.from(atob(kruda), (c) => c.charCodeAt(0));
+		const hacacaja = Uint8Array.from(atob(ne1anesai), (c) => c.charCodeAt(0));
 		const k6liqani = new Uint8Array(vem2);
 		for (let i = 0; i < vem2; i++) k6liqani[i] = hacacaja[i >> 3] >> (i & 7) & 1;
 		return k6liqani;
@@ -23748,56 +23737,56 @@ function dekodiMaskon(kruda, vem2) {
 		return null;
 	}
 }
-const GENERITA_T6LIMA = (() => {
-	const semoS2bana = aktivaSemo();
-	if (semoS2bana === "") return null;
-	const mapo = aktivaMapo();
-	return generiT6liman(semoDeS2bana(semoS2bana), 192, 4, SKULPTA_ORIGINO, SKULPTA_AKVA_NIVELO, (x, z) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z));
+const GENERITAT6LIMA = (() => {
+	const ruvaS2bana = tikRuva();
+	if (ruvaS2bana === "") return null;
+	const bal2 = kxeBal2();
+	return generiT6liman(ruvaDeS2bana(ruvaS2bana), 192, 4, SKULPTAORIGINO, SKULPTAAKVANIVELO, (x, z) => bsej2kuqQoxa(bal2.qoxa, bal2.pal6, x, z));
 })();
-const GENERITA_SETLEJO = (() => {
-	if (!GENERITA_T6LIMA) return null;
-	const mapo = aktivaMapo();
-	return generiSetlejon(GENERITA_T6LIMA.semo, GENERITA_T6LIMA, {
-		vem2: SKULPTA_AKVA_NIVELO,
-		enQoxa: (x, z) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z),
-		randoDeQoxa: (x, z) => h6kuniQoxa(mapo.qoxa, mapo.grandeco, x, z)
+const GENERITASETLEJO = (() => {
+	if (!GENERITAT6LIMA) return null;
+	const bal2 = kxeBal2();
+	return generiSetlejon(GENERITAT6LIMA.ruva, GENERITAT6LIMA, {
+		vem2: SKULPTAAKVANIVELO,
+		enQoxa: (x, z) => bsej2kuqQoxa(bal2.qoxa, bal2.pal6, x, z),
+		pukazDeQoxa: (x, z) => h6kuniQoxa(bal2.qoxa, bal2.pal6, x, z)
 	});
 })();
-const DELTAJ = GENERITA_T6LIMA || false ? null : dekodiInt16(SKULPTA_DELTAJ);
-const AKVA_MASKO = GENERITA_T6LIMA ? GENERITA_T6LIMA.akvaMasko : dekodiMaskon(SKULPTA_AKVA_MASKO, 36864);
-GENERITA_T6LIMA ? GENERITA_T6LIMA.habs2 : dekodi3Bit(SKULPTA_BIOMOJ, 36864);
-GENERITA_T6LIMA ? GENERITA_T6LIMA.hapaga : dekodi3Bit(SKULPTA_BESTOJ, 36864);
-function aktivaL6da(x, z) {
-	return GENERITA_T6LIMA ? GENERITA_T6LIMA.l6da(x, z) : 0;
+const DELTAJ = ((d) => d && d.length === 36864 ? d : null)(GENERITAT6LIMA || false ? null : kf2Int16(SKULPTADELTAJ));
+const AKVAMASKO = GENERITAT6LIMA ? GENERITAT6LIMA.tsasaMasko : kf2K6liq(SKULPTAAKVAMASKO, 36864);
+GENERITAT6LIMA ? GENERITAT6LIMA.habs2 : kf2Bit3(SKULPTABIOMOJ, 36864);
+GENERITAT6LIMA ? GENERITAT6LIMA.hapaga : kf2Bit3(SKULPTABESTOJ, 36864);
+function tikL6da(x, z) {
+	return GENERITAT6LIMA ? GENERITAT6LIMA.l6da(x, z) : 0;
 }
-function aktivajTsasahatsiq() {
-	return GENERITA_T6LIMA ? GENERITA_T6LIMA.hatsiq : SKULPTA_HAXAIQ;
+function tikTsasahatsiq() {
+	return GENERITAT6LIMA ? GENERITAT6LIMA.hatsiq : SKULPTAHAXAIQ;
 }
-function aktivaAkvaMasko() {
-	return AKVA_MASKO;
+function tikAkvaMasko() {
+	return AKVAMASKO;
 }
 function tsekeGeneritaT6lima() {
-	return GENERITA_T6LIMA !== null;
+	return GENERITAT6LIMA !== null;
 }
-function aktivajHakaxte() {
-	return GENERITA_SETLEJO ? GENERITA_SETLEJO.hakaxte : SKULPTA_HAKAXTE;
+function tikHakaxte() {
+	return GENERITASETLEJO ? GENERITASETLEJO.hakaxte : SKULPTAHAKAXTE;
 }
-function aktivajHak6h6() {
-	return GENERITA_SETLEJO ? GENERITA_SETLEJO.hak6h6 : SKULPTA_HAK6H6;
+function tikHak6h6() {
+	return GENERITASETLEJO ? GENERITASETLEJO.hak6h6 : SKULPTAHAKAS2KANTA;
 }
-function aktivajHaqakaj2() {
-	return GENERITA_SETLEJO ? GENERITA_SETLEJO.haqakaj2 : SKULPTA_HAQAKAJ2;
+function tikHaqakaj2() {
+	return GENERITASETLEJO ? GENERITASETLEJO.haqakaj2 : SKULPTAHAQAKAJ2;
 }
-function skulptaDelta(x, z) {
+function knat6keqanuDelta(x, z) {
 	if (!DELTAJ) return 0;
-	const fx = (x - SKULPTA_ORIGINO[0]) / 4;
-	const fz = (z - SKULPTA_ORIGINO[1]) / 4;
+	const fx = (x - SKULPTAORIGINO[0]) / 4;
+	const fz = (z - SKULPTAORIGINO[1]) / 4;
 	return bikubaPx01o(DELTAJ, 192, fx, fz) / 16;
 }
-function dekodi3Bit(kruda, vem2) {
-	if (kruda === "") return null;
+function kf2Bit3(ne1anesai, vem2) {
+	if (ne1anesai === "") return null;
 	try {
-		const hacacaja = Uint8Array.from(atob(kruda), (c) => c.charCodeAt(0));
+		const hacacaja = Uint8Array.from(atob(ne1anesai), (c) => c.charCodeAt(0));
 		const hatskek2 = new Uint8Array(vem2);
 		for (let i = 0; i < vem2; i++) {
 			const b = i * 3;
@@ -23809,8 +23798,8 @@ function dekodi3Bit(kruda, vem2) {
 		return null;
 	}
 }
-// kantaoj/mondo/tsasaVek2fe.ts
-const NAJBARAJ_DI = new Int8Array([
+// ../../kanta/nala/tsasaVek2fe.ts
+const SIRAQX = new Int8Array([
 	-1,
 	0,
 	1,
@@ -23820,7 +23809,7 @@ const NAJBARAJ_DI = new Int8Array([
 	0,
 	1
 ]);
-const NAJBARAJ_DJ = new Int8Array([
+const SIRAQZ = new Int8Array([
 	-1,
 	-1,
 	-1,
@@ -23830,16 +23819,16 @@ const NAJBARAJ_DJ = new Int8Array([
 	1,
 	1
 ]);
-const NAJBAROJ = 8;
-const EPS = 1 / 16;
-const BASENETO_MAKS = 24;
-function vek2feTsasan(n, vepat6ni, origino, l6da, enQoxa, hatsiq, hatk2ni, haku1o) {
+const SIRAQPAL6 = 8;
+const M2M2 = 1 / 16;
+const QOXUPUF2 = 24;
+function vek2feTsasa(n, vepat6ni, tsiq, l6da, enQoxa, hatsiq, hatk2ni, haku1o) {
 	const N = n * n;
-	const x0 = origino[0], z0 = origino[1];
+	const x0 = tsiq[0], z0 = tsiq[1];
 	const vem2 = haku1o.vem2;
-	const profundoMaks = haku1o.profundoMaks ?? 6 / 8;
-	const fluoSkalo = haku1o.fluoSkalo ?? 8;
-	const minimumaProfundo = haku1o.minimumaProfundo ?? 1 / 32;
+	const jufuPuf2 = haku1o.jufuPuf2 ?? 6 / 8;
+	const lasP6zuk = haku1o.lasP6zuk ?? 8;
+	const m2m2Jufu = haku1o.m2m2Jufu ?? 1 / 32;
 	const H = new Float32Array(N);
 	const ene = new Uint8Array(N);
 	const pukaz = new Uint8Array(N);
@@ -23854,8 +23843,8 @@ function vek2feTsasan(n, vepat6ni, origino, l6da, enQoxa, hatsiq, hatk2ni, haku1
 	for (let j = 0; j < n; j++) for (let i = 0; i < n; i++) {
 		const id = j * n + i;
 		if (!ene[id]) continue;
-		for (let q = 0; q < NAJBAROJ; q++) {
-			const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
+		for (let q = 0; q < SIRAQPAL6; q++) {
+			const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
 			if (ni < 0 || nj < 0 || ni >= n || nj >= n) {
 				pukaz[id] = 1;
 				break;
@@ -23869,167 +23858,167 @@ function vek2feTsasan(n, vepat6ni, origino, l6da, enQoxa, hatsiq, hatk2ni, haku1
 	const havesukani = new Float32Array(N).fill(Infinity);
 	const ca1ara = new Int32Array(N).fill(-1);
 	{
-		const amaso = new Amaso(N);
+		const kom2 = new Kom2(N);
 		for (let id = 0; id < N; id++) if (ene[id] && pukaz[id]) {
 			havesukani[id] = H[id];
-			amaso.tlunakani(H[id], id);
+			kom2.tlunakani(H[id], id);
 		}
 		let cak2fe = 0;
-		while (amaso.length > 0) {
-			amaso.bok();
-			const l6daNun = amaso.skek2, id = amaso.vecax2lani;
+		while (kom2.sahakani > 0) {
+			kom2.bok();
+			const l6daNun = kom2.skek2, id = kom2.vecax2lani;
 			if (ca1ara[id] >= 0) continue;
 			ca1ara[id] = cak2fe++;
 			const i = id % n, j = (id - i) / n;
-			for (let q = 0; q < NAJBAROJ; q++) {
-				const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
+			for (let q = 0; q < SIRAQPAL6; q++) {
+				const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
 				if (ni < 0 || nj < 0 || ni >= n || nj >= n) continue;
 				const nid = nj * n + ni;
 				if (!ene[nid] || ca1ara[nid] >= 0) continue;
 				const sef4 = Math.max(H[nid], l6daNun);
 				if (sef4 < havesukani[nid]) {
 					havesukani[nid] = sef4;
-					amaso.tlunakani(sef4, nid);
+					kom2.tlunakani(sef4, nid);
 				}
 			}
 		}
 	}
 	const k6liqani = new Uint8Array(N);
 	const havem2 = new Float32Array(N).fill(NaN);
-	const kak6h6 = new Float32Array(N);
-	const fluo = new Float32Array(N);
+	const hah6k6 = new Float32Array(N);
+	const las = new Float32Array(N);
 	const qar6xe = new Uint8Array(N);
-	const tsofFluo = haku1o.tsofFluo === true;
-	const pasaVido = new Uint8Array(N);
-	const basenaX2pa = new Int32Array(N);
-	const basenetaX2pa = new Int32Array(N < 64 ? 64 : N);
-	const basenetaVidita = new Uint8Array(N);
-	let ternoj = 0;
-	const tsiqjCxeloj = [];
+	const tsofLas = haku1o.tsofLas === true;
+	const t2baK2pa = new Uint8Array(N);
+	const qoxuX2pa = new Int32Array(N);
+	const qoxuM2X2pa = new Int32Array(N < 64 ? 64 : N);
+	const qoxuM2T2ba = new Uint8Array(N);
+	let hat6lima = 0;
+	const tsiqjHak2pa = [];
 	for (const tsiq of hatsiq) {
 		const fi = Math.round((tsiq.x - x0) / vepat6ni);
 		const fj = Math.round((tsiq.z - z0) / vepat6ni);
 		if (fi < 0 || fj < 0 || fi >= n || fj >= n) continue;
 		const saxeni = fj * n + fi;
 		if (!ene[saxeni]) continue;
-		const restanta = Math.max(0, tsiq.fluo);
-		if (restanta > 0) tsiqjCxeloj.push(saxeni);
+		const kukLas = Math.max(0, tsiq.las);
+		if (kukLas > 0) tsiqjHak2pa.push(saxeni);
 		let id = saxeni;
 		let tsel2sai = 0;
-		if (tsofFluo) pasaVido.fill(0);
-		while (restanta > 0 && tsel2sai++ < N && id >= 0) {
+		if (tsofLas) t2baK2pa.fill(0);
+		while (kukLas > 0 && tsel2sai++ < N && id >= 0) {
 			if (pukaz[id]) break;
-			if (tsofFluo) pasaVido[id] = 1;
-			if (tsofFluo && H[id] >= vem2 && havesukani[id] > H[id] + EPS) markiBaseneton(H, k6liqani, havem2, ene, n, id, havesukani[id], basenetaX2pa, basenetaVidita);
-			fluo[id] += restanta;
+			if (tsofLas) t2baK2pa[id] = 1;
+			if (tsofLas && H[id] >= vem2 && havesukani[id] > H[id] + M2M2) s2tasQoxunM2M2(H, k6liqani, havem2, ene, n, id, havesukani[id], qoxuM2X2pa, qoxuM2T2ba);
+			las[id] += kukLas;
 			if (!k6liqani[id]) qar6xe[id] = 1;
 			const i = id % n, j = (id - i) / n;
-			let pana = -1, panaL6da = H[id];
-			let kmaFruta = -1, kmaFrutaOrdo = ca1ara[id];
-			let kmaPsazai = -1, kmaPsazaiInundo = Infinity, kmaPsazaiOrdo = Infinity;
-			for (let q = 0; q < NAJBAROJ; q++) {
-				const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
+			let psazaiSiraq = -1, psazaiL6da = H[id];
+			let kmaCa1ara = -1, kmaCa1araOrdo = ca1ara[id];
+			let kmaPsazai = -1, kmaPsazaiVesuk = Infinity, kmaPsazaiOrdo = Infinity;
+			for (let q = 0; q < SIRAQPAL6; q++) {
+				const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
 				if (ni < 0 || nj < 0 || ni >= n || nj >= n) continue;
 				const nid = nj * n + ni;
 				if (!ene[nid]) continue;
-				if (tsofFluo) {
-					if (pasaVido[nid]) continue;
-					if (havesukani[nid] < kmaPsazaiInundo || havesukani[nid] === kmaPsazaiInundo && ca1ara[nid] < kmaPsazaiOrdo) {
-						kmaPsazaiInundo = havesukani[nid];
+				if (tsofLas) {
+					if (t2baK2pa[nid]) continue;
+					if (havesukani[nid] < kmaPsazaiVesuk || havesukani[nid] === kmaPsazaiVesuk && ca1ara[nid] < kmaPsazaiOrdo) {
+						kmaPsazaiVesuk = havesukani[nid];
 						kmaPsazaiOrdo = ca1ara[nid];
 						kmaPsazai = nid;
 					}
 					continue;
 				}
-				if (H[nid] < panaL6da - EPS) {
-					panaL6da = H[nid];
-					pana = nid;
+				if (H[nid] < psazaiL6da - M2M2) {
+					psazaiL6da = H[nid];
+					psazaiSiraq = nid;
 				}
-				if (ca1ara[nid] >= 0 && ca1ara[nid] < kmaFrutaOrdo) {
-					kmaFrutaOrdo = ca1ara[nid];
-					kmaFruta = nid;
+				if (ca1ara[nid] >= 0 && ca1ara[nid] < kmaCa1araOrdo) {
+					kmaCa1araOrdo = ca1ara[nid];
+					kmaCa1ara = nid;
 				}
 			}
-			if (tsofFluo) pana = kmaPsazai;
-			if (pana < 0) {
-				if (!tsofFluo) {
-					if (havesukani[id] > H[id] + EPS) {
-						markiBasenon(H, k6liqani, havem2, ene, n, id, havesukani[id], basenaX2pa);
+			if (tsofLas) psazaiSiraq = kmaPsazai;
+			if (psazaiSiraq < 0) {
+				if (!tsofLas) {
+					if (havesukani[id] > H[id] + M2M2) {
+						s2tasQoxun(H, k6liqani, havem2, ene, n, id, havesukani[id], qoxuX2pa);
 						qar6xe[id] = 0;
 					}
-					pana = kmaFruta;
+					psazaiSiraq = kmaCa1ara;
 				}
-				if (pana < 0) {
-					if (!tsofFluo && !k6liqani[id]) {
-						ternoj++;
-						markiTernon(H, k6liqani, havem2, ene, n, id, vem2);
+				if (psazaiSiraq < 0) {
+					if (!tsofLas && !k6liqani[id]) {
+						hat6lima++;
+						s2tasTernon(H, k6liqani, havem2, ene, n, id, vem2);
 						qar6xe[id] = 0;
 					}
 					break;
 				}
 			}
-			if (H[pana] < vem2) {
-				markiBasenon(H, k6liqani, havem2, ene, n, pana, vem2, basenaX2pa);
+			if (H[psazaiSiraq] < vem2) {
+				s2tasQoxun(H, k6liqani, havem2, ene, n, psazaiSiraq, vem2, qoxuX2pa);
 				break;
 			}
-			id = pana;
+			id = psazaiSiraq;
 		}
 	}
 	for (let id = 0; id < N; id++) {
 		if (!qar6xe[id] || k6liqani[id] || H[id] < vem2) continue;
-		const profundo0 = profundoMaks * (1 - Math.exp(-fluo[id] / fluoSkalo));
-		const profundo = Math.min(profundo0, Math.max(0, H[id] - vem2));
-		if (profundo < minimumaProfundo) continue;
-		kak6h6[id] = profundo;
-		const soza = H[id] - profundo * (1 / 4);
+		const jufu0 = jufuPuf2 * (1 - Math.exp(-las[id] / lasP6zuk));
+		const jufu = Math.min(jufu0, Math.max(0, H[id] - vem2));
+		if (jufu < m2m2Jufu) continue;
+		hah6k6[id] = jufu;
+		const soza = H[id] - jufu * (1 / 4);
 		havem2[id] = soza;
 		k6liqani[id] = 1;
-		const larghxo = profundo / profundoMaks;
+		const sefini = jufu / jufuPuf2;
 		const i = id % n, j = (id - i) / n;
-		for (let q = 0; q < NAJBAROJ; q++) {
-			const di = NAJBARAJ_DI[q], dj = NAJBARAJ_DJ[q];
+		for (let q = 0; q < SIRAQPAL6; q++) {
+			const di = SIRAQX[q], dj = SIRAQZ[q];
 			const ni = i + di, nj = j + dj;
 			if (ni < 0 || nj < 0 || ni >= n || nj >= n) continue;
 			const nid = nj * n + ni;
 			if (!ene[nid] || !qar6xe[nid] || k6liqani[nid] || H[nid] < vem2) continue;
-			const kav = profundo * (di === 0 || dj === 0 ? 1 / 2 : 1 / 16) * larghxo;
-			if (H[nid] - kav >= soza) continue;
-			if (kav > kak6h6[nid]) kak6h6[nid] = kav;
+			const cataPal6 = jufu * (di === 0 || dj === 0 ? 1 / 2 : 1 / 16) * sefini;
+			if (H[nid] - cataPal6 >= soza) continue;
+			if (cataPal6 > hah6k6[nid]) hah6k6[nid] = cataPal6;
 			if (Number.isNaN(havem2[nid]) || havem2[nid] > soza) havem2[nid] = soza;
 			k6liqani[nid] = 1;
 		}
 	}
 	for (let id = 0; id < N; id++) {
-		if (!k6liqani[id] || kak6h6[id] <= 0 || !qar6xe[id]) continue;
-		const minimumo = H[id] - kak6h6[id] + minimumaProfundo * (3 / 4);
-		if (havem2[id] < minimumo) havem2[id] = minimumo;
+		if (!k6liqani[id] || hah6k6[id] <= 0 || !qar6xe[id]) continue;
+		const m2m2 = H[id] - hah6k6[id] + m2m2Jufu * (3 / 4);
+		if (havem2[id] < m2m2) havem2[id] = m2m2;
 	}
 	if (hatk2ni) {
-		for (let id = 0; id < N; id++) if (hatk2ni[id] && ene[id] && H[id] < vem2) markiBasenon(H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa);
+		for (let id = 0; id < N; id++) if (hatk2ni[id] && ene[id] && H[id] < vem2) s2tasQoxun(H, k6liqani, havem2, ene, n, id, vem2, qoxuX2pa);
 	}
-	for (const id of tsiqjCxeloj) if (H[id] < vem2) markiBasenon(H, k6liqani, havem2, ene, n, id, vem2, basenaX2pa);
-	if (tsofFluo) {
+	for (const id of tsiqjHak2pa) if (H[id] < vem2) s2tasQoxun(H, k6liqani, havem2, ene, n, id, vem2, qoxuX2pa);
+	if (tsofLas) {
 		for (let id = 0; id < N; id++) if (!k6liqani[id]) havem2[id] = H[id] - 1 / 4;
 	}
-	let akvaj = 0, haqar6xe = 0;
+	let hatsasa = 0, haqar6xe = 0;
 	for (let id = 0; id < N; id++) if (k6liqani[id]) {
-		akvaj++;
-		if (kak6h6[id] > 0) haqar6xe++;
+		hatsasa++;
+		if (hah6k6[id] > 0) haqar6xe++;
 	}
 	return {
 		k6liqani,
 		havem2,
-		kak6h6,
+		hah6k6,
 		havesukani,
-		havop2kekai: {
+		vop2kekai: {
 			hatsiq: hatsiq.length,
 			haqar6xe,
-			akvaj,
-			ternoj
+			hatsasa,
+			hat6lima
 		}
 	};
 }
-function markiBasenon(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa) {
+function s2tasQoxun(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa) {
 	if (H[saxeni] >= vem2) return;
 	if (k6liqani[saxeni] && havem2[saxeni] === vem2) return;
 	let teruni = 0, nar2sa = 0;
@@ -24039,8 +24028,8 @@ function markiBasenon(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa) {
 	while (teruni < nar2sa) {
 		const id = x2pa[teruni++];
 		const i = id % n, j = (id - i) / n;
-		for (let q = 0; q < NAJBAROJ; q++) {
-			const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
+		for (let q = 0; q < SIRAQPAL6; q++) {
+			const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
 			if (ni < 0 || nj < 0 || ni >= n || nj >= n) continue;
 			const nid = nj * n + ni;
 			if (k6liqani[nid] || !ene[nid] || H[nid] >= vem2) continue;
@@ -24050,30 +24039,30 @@ function markiBasenon(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa) {
 		}
 	}
 }
-function markiBaseneton(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa, vidita) {
+function s2tasQoxunM2M2(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa, kix2) {
 	if (H[saxeni] >= vem2 || k6liqani[saxeni]) return false;
 	let nar2sa = 0;
 	x2pa[nar2sa++] = saxeni;
-	vidita[saxeni] = 1;
-	let troPuf2 = false;
+	kix2[saxeni] = 1;
+	let troGpukaz = false;
 	for (let teruni = 0; teruni < nar2sa; teruni++) {
-		if (nar2sa >= BASENETO_MAKS) {
-			troPuf2 = true;
+		if (nar2sa >= QOXUPUF2) {
+			troGpukaz = true;
 			break;
 		}
 		const id = x2pa[teruni];
 		const i = id % n, j = (id - i) / n;
-		for (let q = 0; q < NAJBAROJ; q++) {
-			const ni = i + NAJBARAJ_DI[q], nj = j + NAJBARAJ_DJ[q];
+		for (let q = 0; q < SIRAQPAL6; q++) {
+			const ni = i + SIRAQX[q], nj = j + SIRAQZ[q];
 			if (ni < 0 || nj < 0 || ni >= n || nj >= n) continue;
 			const nid = nj * n + ni;
-			if (vidita[nid] || k6liqani[nid] || !ene[nid] || H[nid] >= vem2) continue;
-			vidita[nid] = 1;
+			if (kix2[nid] || k6liqani[nid] || !ene[nid] || H[nid] >= vem2) continue;
+			kix2[nid] = 1;
 			x2pa[nar2sa++] = nid;
 		}
 	}
-	for (let q = 0; q < nar2sa; q++) vidita[x2pa[q]] = 0;
-	if (troPuf2) return false;
+	for (let q = 0; q < nar2sa; q++) kix2[x2pa[q]] = 0;
+	if (troGpukaz) return false;
 	for (let q = 0; q < nar2sa; q++) {
 		const id = x2pa[q];
 		k6liqani[id] = 1;
@@ -24081,7 +24070,7 @@ function markiBaseneton(H, k6liqani, havem2, ene, n, saxeni, vem2, x2pa, vidita)
 	}
 	return true;
 }
-function markiTernon(H, k6liqani, havem2, ene, n, saxeni, vem2) {
+function s2tasTernon(H, k6liqani, havem2, ene, n, saxeni, vem2) {
 	const soza = Math.max(H[saxeni] + 1 / 8, vem2);
 	const i0 = saxeni % n, j0 = (saxeni - i0) / n;
 	for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++) {
@@ -24093,24 +24082,24 @@ function markiTernon(H, k6liqani, havem2, ene, n, saxeni, vem2) {
 		havem2[nid] = soza;
 	}
 }
-function px01oDulineara(krado, n, vepat6ni, origino, x, z) {
-	const fx = (x - origino[0]) / vepat6ni, fz = (z - origino[1]) / vepat6ni;
+function px01oX2pa2(qox2n2k, n, vepat6ni, tsiq, x, z) {
+	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
 	const i0 = Math.floor(fx), j0 = Math.floor(fz);
 	if (i0 < 0 || j0 < 0 || i0 + 1 >= n || j0 + 1 >= n) return 0;
 	const u = fx - i0, v = fz - j0;
-	const a = krado[j0 * n + i0], b = krado[j0 * n + i0 + 1];
-	const c = krado[(j0 + 1) * n + i0], d = krado[(j0 + 1) * n + i0 + 1];
+	const a = qox2n2k[j0 * n + i0], b = qox2n2k[j0 * n + i0 + 1];
+	const c = qox2n2k[(j0 + 1) * n + i0], d = qox2n2k[(j0 + 1) * n + i0 + 1];
 	return a * (1 - u) * (1 - v) + b * u * (1 - v) + c * (1 - u) * v + d * u * v;
 }
-function px01oBikuba(krado, n, vepat6ni, origino, x, z) {
-	const fx = (x - origino[0]) / vepat6ni, fz = (z - origino[1]) / vepat6ni;
-	return Math.max(0, bikubaPx01o(krado, n, fx, fz));
+function px01oBikuba(qox2n2k, n, vepat6ni, tsiq, x, z) {
+	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
+	return Math.max(0, bikubaPx01o(qox2n2k, n, fx, fz));
 }
-function tsasaCxe(tseuni, n, vepat6ni, origino, x, z) {
-	return px01oDulineara(tseuni.k6liqani, n, vepat6ni, origino, x, z) >= 1 / 2;
+function tsasaJe(tseuni, n, vepat6ni, tsiq, x, z) {
+	return px01oX2pa2(tseuni.k6liqani, n, vepat6ni, tsiq, x, z) >= 1 / 2;
 }
-function vem2Cxe(tseuni, n, vepat6ni, origino, x, z, r = 1) {
-	const fx = (x - origino[0]) / vepat6ni, fz = (z - origino[1]) / vepat6ni;
+function vem2Je(tseuni, n, vepat6ni, tsiq, x, z, r = 1) {
+	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
 	const i0 = Math.floor(fx), j0 = Math.floor(fz);
 	const u = fx - i0, v = fz - j0;
 	let tlunakani = 0, s2karanu = 0;
@@ -24124,11 +24113,11 @@ function vem2Cxe(tseuni, n, vepat6ni, origino, x, z, r = 1) {
 		s2karanu += w;
 	}
 	if (s2karanu > 0) return tlunakani / s2karanu;
-	return vem2Proksima(tseuni, n, vepat6ni, origino, x, z, r);
+	return vem2Tsiike(tseuni, n, vepat6ni, tsiq, x, z, r);
 }
-function vem2Proksima(tseuni, n, vepat6ni, origino, x, z, r = 1) {
-	const ic = Math.round((x - origino[0]) / vepat6ni);
-	const jc = Math.round((z - origino[1]) / vepat6ni);
+function vem2Tsiike(tseuni, n, vepat6ni, tsiq, x, z, r = 1) {
+	const ic = Math.round((x - tsiq[0]) / vepat6ni);
+	const jc = Math.round((z - tsiq[1]) / vepat6ni);
 	for (let c2q = 0; c2q <= r; c2q++) for (let dj = -c2q; dj <= c2q; dj++) for (let di = -c2q; di <= c2q; di++) {
 		if (c2q > 0 && Math.abs(di) !== c2q && Math.abs(dj) !== c2q) continue;
 		const i = ic + di, j = jc + dj;
@@ -24138,10 +24127,10 @@ function vem2Proksima(tseuni, n, vepat6ni, origino, x, z, r = 1) {
 	}
 	return NaN;
 }
-var Amaso = class {
+var Kom2 = class {
 	hatskek2;
 	havecax2lani;
-	length = 0;
+	sahakani = 0;
 	skek2 = 0;
 	vecax2lani = 0;
 	constructor(vanekalani) {
@@ -24149,37 +24138,37 @@ var Amaso = class {
 		this.havecax2lani = new Int32Array(vanekalani + 1);
 	}
 	tlunakani(skek2, vecax2lani) {
-		let c = this.length++;
+		let c = this.sahakani++;
 		this.hatskek2[c] = skek2;
 		this.havecax2lani[c] = vecax2lani;
 		while (c > 0) {
 			const p = c - 1 >> 1;
 			if (this.hatskek2[p] <= this.hatskek2[c]) break;
-			this.interVasaka(p, c);
+			this.vasaka(p, c);
 			c = p;
 		}
 	}
 	bok() {
 		const skek2 = this.hatskek2[0], vecax2lani = this.havecax2lani[0];
-		this.length--;
-		if (this.length > 0) {
-			this.hatskek2[0] = this.hatskek2[this.length];
-			this.havecax2lani[0] = this.havecax2lani[this.length];
+		this.sahakani--;
+		if (this.sahakani > 0) {
+			this.hatskek2[0] = this.hatskek2[this.sahakani];
+			this.havecax2lani[0] = this.havecax2lani[this.sahakani];
 			let p = 0;
 			for (;;) {
 				const l = 2 * p + 1, r = l + 1;
 				let m = p;
-				if (l < this.length && this.hatskek2[l] < this.hatskek2[m]) m = l;
-				if (r < this.length && this.hatskek2[r] < this.hatskek2[m]) m = r;
+				if (l < this.sahakani && this.hatskek2[l] < this.hatskek2[m]) m = l;
+				if (r < this.sahakani && this.hatskek2[r] < this.hatskek2[m]) m = r;
 				if (m === p) break;
-				this.interVasaka(p, m);
+				this.vasaka(p, m);
 				p = m;
 			}
 		}
 		this.skek2 = skek2;
 		this.vecax2lani = vecax2lani;
 	}
-	interVasaka(a, b) {
+	vasaka(a, b) {
 		const v = this.hatskek2[a];
 		this.hatskek2[a] = this.hatskek2[b];
 		this.hatskek2[b] = v;
@@ -24188,134 +24177,134 @@ var Amaso = class {
 		this.havecax2lani[b] = i;
 	}
 };
-// kantaoj/mondo/mut6qSoza.ts
-function riveroZ(x) {
+// ../../kanta/nala/mut6qSoza.ts
+function k6siZ(x) {
 	return 12 * Math.sin(x * 1 / 64) - 112;
 }
-const LAGO_X = -184;
-const RIVERA_ENFLUO_X = -144;
-const LAGO_Z = riveroZ(RIVERA_ENFLUO_X) + 24;
-const LAGO_NIVELO = tsasaY(RIVERA_ENFLUO_X);
-function lagoVem2() {
-	return LAGO_NIVELO;
+const LAGOX = -184;
+const LAGO1IQX = -144;
+const LAGOZ = k6siZ(LAGO1IQX) + 24;
+const LAGONIVELO = tsasaY(LAGO1IQX);
+function s2xuruVem2() {
+	return LAGONIVELO;
 }
-function lagoRadio(ang) {
-	const ondo = Math.sin(4 * ang + 19 / 16) + 1 / 2 * Math.sin(11 * ang + 7 / 8);
-	const rx = 48 * (1 + 6 / 64 * ondo * 43 / 64);
-	const rz = 72 * (1 + 6 / 64 * ondo * 43 / 64);
+function s2xuruCabole(ang) {
+	const x6mi = Math.sin(4 * ang + 19 / 16) + 1 / 2 * Math.sin(11 * ang + 7 / 8);
+	const rx = 48 * (1 + 6 / 64 * x6mi * 43 / 64);
+	const rz = 72 * (1 + 6 / 64 * x6mi * 43 / 64);
 	return 1 / Math.sqrt((Math.cos(ang) / rx) ** 2 + (Math.sin(ang) / rz) ** 2);
 }
-const LAGO_R_MIN = 43.464677944779396;
-const LAGO_R_MAKS = 78.80303498357534;
-function tsekeEnLago(x, z) {
-	const dx = x - LAGO_X, dz = z - LAGO_Z;
+const LAGORMIN = 43.464677944779396;
+const LAGORMAKS = 78.80303498357534;
+function tsekeEnS2xuru(x, z) {
+	const dx = x - LAGOX, dz = z - LAGOZ;
 	const h6kuni = Math.hypot(dx, dz);
-	if (h6kuni >= LAGO_R_MAKS) return false;
-	if (h6kuni < LAGO_R_MIN) return true;
-	return h6kuni < lagoRadio(Math.atan2(dz, dx));
+	if (h6kuni >= LAGORMAKS) return false;
+	if (h6kuni < LAGORMIN) return true;
+	return h6kuni < s2xuruCabole(Math.atan2(dz, dx));
 }
-const RIVERA_BUŜO_X = (() => {
+const K6SIW6QAX = (() => {
 	for (let i = 0; i <= 312; i++) {
 		const x = -72 - i;
-		if (tsekeEnLago(x, riveroZ(x))) return x;
+		if (tsekeEnS2xuru(x, k6siZ(x))) return x;
 	}
 	return -136;
 })();
-function riveraAkvaVem2(x) {
-	const m = glataPaso(RIVERA_BUŜO_X - 72, RIVERA_BUŜO_X, x);
+function k6siAkvaVem2(x) {
+	const m = glataTona(K6SIW6QAX - 72, K6SIW6QAX, x);
 	if (m === 0) return tsasaY(x);
-	if (m === 1) return LAGO_NIVELO;
-	return tsasaY(x) * (1 - m) + LAGO_NIVELO * m;
+	if (m === 1) return LAGONIVELO;
+	return tsasaY(x) * (1 - m) + LAGONIVELO * m;
 }
-function akvaVem2(x, z) {
-	const derivita = skulptitaAkvaVem2(x, z);
-	if (derivita !== null) return derivita;
-	if (tsekeEnNordorientaRivero(x, z)) return riveraNordOrientaVem2(z);
-	return tsekeEnLago(x, z) ? lagoVem2() : riveraAkvaVem2(x);
+function tsasaVem2(x, z) {
+	const ksan2 = skulptitaAkvaVem2(x, z);
+	if (ksan2 !== null) return ksan2;
+	if (tsekeEnLaqRaqK6si(x, z)) return k6siLaqRaqVem2(z);
+	return tsekeEnS2xuru(x, z) ? s2xuruVem2() : k6siAkvaVem2(x);
 }
-function jaqoBazo(x, z) {
+function jaqoKozunu(x, z) {
 	return 141 / 64 * Math.sin(x * 1 / 32 + 35 / 32) * Math.cos(z * 1 / 32 - 4 / 8) + 45 / 32 * Math.sin(x * 1 / 16 - 115 / 64) * Math.sin(z * 1 / 16 + 77 / 64) + 19 / 32 * Math.sin((x + z) * 3 / 64 + 19 / 64);
 }
 function tsasaY(x) {
-	return jaqoBazo(x, riveroZ(x)) - 269 / 64;
+	return jaqoKozunu(x, k6siZ(x)) - 269 / 64;
 }
-function jaqoNordOrienta(x, z) {
-	const sudaEniro = glataPaso(36, 82, z);
-	if (sudaEniro <= 0) return 0;
-	const nordaEliro = 1 - glataPaso(88, 128, z);
-	if (nordaEliro <= 0) return 0;
-	const okcidentaEliro = glataPaso(-284, -256, x);
-	if (okcidentaEliro <= 0) return 0;
-	const orientaEliro = 1 - glataPaso(-246, -194, x);
-	if (orientaEliro <= 0) return 0;
-	const vas2flof = Math.min(sudaEniro, nordaEliro, okcidentaEliro, orientaEliro);
+function jaqoLaqRaq(x, z) {
+	const kaqEniro = glataTona(36, 82, z);
+	if (kaqEniro <= 0) return 0;
+	const laqEliro = 1 - glataTona(88, 128, z);
+	if (laqEliro <= 0) return 0;
+	const saqEliro = glataTona(-284, -256, x);
+	if (saqEliro <= 0) return 0;
+	const raqEliro = 1 - glataTona(-246, -194, x);
+	if (raqEliro <= 0) return 0;
+	const vas2flof = Math.min(kaqEniro, laqEliro, saqEliro, raqEliro);
 	const dx1 = (x + 248) / 46, dz1 = (z - 86) / 46;
-	const pinto1 = 32 * Math.exp(-1 / 2 * (dx1 * dx1 + dz1 * dz1));
+	const cet21 = 32 * Math.exp(-1 / 2 * (dx1 * dx1 + dz1 * dz1));
 	const dx2 = (x + 224) / 32, dz2 = (z - 68) / 32;
-	const pinto2 = 17 * Math.exp(-1 / 2 * (dx2 * dx2 + dz2 * dz2));
+	const cet22 = 17 * Math.exp(-1 / 2 * (dx2 * dx2 + dz2 * dz2));
 	const dx3 = (x + 236) / 32, dz3 = (z - 72) / 44;
-	const pinto3 = 14 * Math.exp(-1 / 2 * (dx3 * dx3 + dz3 * dz3));
+	const cet23 = 14 * Math.exp(-1 / 2 * (dx3 * dx3 + dz3 * dz3));
 	const dxS = (x + 236) / 34, dzS = (z - 78) / 32;
 	const selo = 12 * Math.exp(-1 / 2 * (dxS * dxS + dzS * dzS));
-	return Math.max(0, (pinto1 + pinto2 + pinto3 - selo) * vas2flof);
+	return Math.max(0, (cet21 + cet22 + cet23 - selo) * vas2flof);
 }
-function riveroNordOrientaX(z) {
+function k6siLaqRaqX(z) {
 	const maltikn = 1 - Math.max(0, Math.min(1, (z - -128) / 192));
 	return -232 + 24 * maltikn + 4 * Math.sin(maltikn * Math.PI * 2);
 }
-const RIVERA_NORDORIENTA_BUŜO_Z = (() => {
+const K6SILAQRAQW6QAZ = (() => {
 	for (let i = 0; i <= 448; i++) {
 		const z = 64 - i;
-		if (tsekeEnLago(riveroNordOrientaX(z), z)) return z;
+		if (tsekeEnS2xuru(k6siLaqRaqX(z), z)) return z;
 	}
 	return -128;
 })();
-function riveraNordOrientaVem2(z) {
-	const m = 1 - glataPaso(RIVERA_NORDORIENTA_BUŜO_Z, RIVERA_NORDORIENTA_BUŜO_Z + 72, z);
-	if (m === 1) return LAGO_NIVELO;
-	const x = riveroNordOrientaX(z);
-	const mut6q = jaqoBazo(x, z) + jaqoNordOrienta(x, z) - 269 / 64;
+function k6siLaqRaqVem2(z) {
+	const m = 1 - glataTona(K6SILAQRAQW6QAZ, K6SILAQRAQW6QAZ + 72, z);
+	if (m === 1) return LAGONIVELO;
+	const x = k6siLaqRaqX(z);
+	const mut6q = jaqoKozunu(x, z) + jaqoLaqRaq(x, z) - 269 / 64;
 	if (m === 0) return mut6q;
-	return mut6q * (1 - m) + LAGO_NIVELO * m;
+	return mut6q * (1 - m) + LAGONIVELO * m;
 }
-function tsekeEnNordorientaRivero(x, z) {
-	if (z > 64 || z < RIVERA_NORDORIENTA_BUŜO_Z) return false;
-	return Math.abs(x - riveroNordOrientaX(z)) < 6;
+function tsekeEnLaqRaqK6si(x, z) {
+	if (z > 64 || z < K6SILAQRAQW6QAZ) return false;
+	return Math.abs(x - k6siLaqRaqX(z)) < 6;
 }
 function nex2caL6da(x, z) {
-	return bazaL6da(x, z) + skulptaDelta(x, z);
+	return kozonuL6da(x, z) + knat6keqanuDelta(x, z);
 }
 function l6da(x, z) {
-	return nex2caL6da(x, z) - akvaEltrancxo(x, z);
+	return nex2caL6da(x, z) - tsasaEltrancxo(x, z);
 }
 function tsasa(x, z) {
 	return skulptitaTsasa(x, z);
 }
-function bazaL6da(x, z) {
-	return aktivaL6da(x, z);
+function kozonuL6da(x, z) {
+	return tikL6da(x, z);
 }
 const AKVA = (() => {
-	const mapo = aktivaMapo();
-	return vek2feTsasan(192, 4, SKULPTA_ORIGINO, nex2caL6da, (x, z) => bsej2kuqQoxa(mapo.qoxa, mapo.grandeco, x, z), aktivajTsasahatsiq(), aktivaAkvaMasko(), {
-		vem2: SKULPTA_AKVA_NIVELO,
-		tsofFluo: tsekeGeneritaT6lima()
+	const bal2 = kxeBal2();
+	return vek2feTsasa(192, 4, SKULPTAORIGINO, nex2caL6da, (x, z) => bsej2kuqQoxa(bal2.qoxa, bal2.pal6, x, z), tikTsasahatsiq(), tikAkvaMasko(), {
+		vem2: SKULPTAAKVANIVELO,
+		tsofLas: tsekeGeneritaT6lima()
 	});
 })();
-function akvaEltrancxo(x, z) {
+function tsasaEltrancxo(x, z) {
 	if (!AKVA) return 0;
-	return px01oBikuba(AKVA.kak6h6, 192, 4, SKULPTA_ORIGINO, x, z);
+	return px01oBikuba(AKVA.hah6k6, 192, 4, SKULPTAORIGINO, x, z);
 }
 function skulptitaTsasa(x, z) {
 	if (!AKVA) return false;
-	return tsasaCxe(AKVA, 192, 4, SKULPTA_ORIGINO, x, z);
+	return tsasaJe(AKVA, 192, 4, SKULPTAORIGINO, x, z);
 }
 function skulptitaAkvaVem2(x, z) {
 	if (!AKVA) return null;
-	const vem2 = vem2Cxe(AKVA, 192, 4, SKULPTA_ORIGINO, x, z);
+	const vem2 = vem2Je(AKVA, 192, 4, SKULPTAORIGINO, x, z);
 	return Number.isNaN(vem2) ? null : vem2;
 }
-// eskekoj/tom6nu/kunfandajxoj.ts
-function kunfandiGeometriojn(geos) {
+// ../../skek2/p6kpu/hakox2q.ts
+function vakox2qQoxaKefoujn(geos) {
 	if (geos.length === 0) return new BufferGeometry();
 	let tv = 0, ti = 0;
 	for (const g of geos) {
@@ -24323,11 +24312,11 @@ function kunfandiGeometriojn(geos) {
 		ti += g.index ? g.index.count : g.getAttribute("position").count;
 	}
 	const raqa = new Float32Array(tv * 3);
-	const normo = new Float32Array(tv * 3);
+	const xiix2q = new Float32Array(tv * 3);
 	const uv = new Float32Array(tv * 2);
 	const uv1 = new Float32Array(tv * 2);
-	const nek2resai = new Float32Array(tv * 4);
-	const kovrilo = new Float32Array(tv);
+	const tlunak = new Float32Array(tv * 4);
+	const k6liq = new Float32Array(tv);
 	const idxArr = tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti);
 	let vo = 0, io = 0;
 	for (const g of geos) {
@@ -24336,18 +24325,18 @@ function kunfandiGeometriojn(geos) {
 		const u = g.getAttribute("uv");
 		const u1 = g.getAttribute("uv1");
 		const ek = g.getAttribute("aKonturaEkstra");
-		const kov = g.getAttribute("aKonturaKovrilo");
+		const kov = g.getAttribute("aKonturaK6liq");
 		const c = p.count;
 		raqa.set(p.array, vo * 3);
-		if (n) normo.set(n.array, vo * 3);
+		if (n) xiix2q.set(n.array, vo * 3);
 		if (u) uv.set(u.array, vo * 2);
 		if (u1) uv1.set(u1.array, vo * 2);
-		if (ek) nek2resai.set(ek.array, vo * 4);
-		if (kov) kovrilo.set(kov.array, vo);
-		const indico = g.index;
-		if (indico) {
-			for (let i = 0; i < indico.array.length; i++) idxArr[io + i] = indico.array[i] + vo;
-			io += indico.array.length;
+		if (ek) tlunak.set(ek.array, vo * 4);
+		if (kov) k6liq.set(kov.array, vo);
+		const vecax2l = g.index;
+		if (vecax2l) {
+			for (let i = 0; i < vecax2l.array.length; i++) idxArr[io + i] = vecax2l.array[i] + vo;
+			io += vecax2l.array.length;
 		} else {
 			for (let i = 0; i < c; i++) idxArr[io + i] = i + vo;
 			io += c;
@@ -24356,31 +24345,31 @@ function kunfandiGeometriojn(geos) {
 	}
 	const out = new BufferGeometry();
 	out.setAttribute("position", new BufferAttribute(raqa, 3));
-	out.setAttribute("normal", new BufferAttribute(normo, 3));
+	out.setAttribute("normal", new BufferAttribute(xiix2q, 3));
 	out.setAttribute("uv", new BufferAttribute(uv, 2));
 	out.setAttribute("uv1", new BufferAttribute(uv1, 2));
-	out.setAttribute("aKonturaEkstra", new BufferAttribute(nek2resai, 4));
-	out.setAttribute("aKonturaKovrilo", new BufferAttribute(kovrilo, 1));
+	out.setAttribute("aKonturaEkstra", new BufferAttribute(tlunak, 4));
+	out.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
 	out.setIndex(new BufferAttribute(idxArr, 1));
 	return out;
 }
-function kf2BuferanGeometrion(haxekuxa, havecax2lani, haku1o = {}) {
-	const geometrio = new BufferGeometry();
-	geometrio.setAttribute("position", new Float32BufferAttribute(haxekuxa, 3));
-	if (haku1o.qan2k) geometrio.setAttribute("uv", new Float32BufferAttribute(haku1o.qan2k, 2));
-	if (haku1o.normaloj) geometrio.setAttribute("normal", new Float32BufferAttribute(haku1o.normaloj, 3));
-	geometrio.setIndex(havecax2lani);
-	if (!haku1o.normaloj) geometrio.computeVertexNormals();
-	return geometrio;
+function kf2Bufezacen(haxekuxa, havecax2lani, haku1o = {}) {
+	const zace = new BufferGeometry();
+	zace.setAttribute("position", new Float32BufferAttribute(haxekuxa, 3));
+	if (haku1o.qan2k) zace.setAttribute("uv", new Float32BufferAttribute(haku1o.qan2k, 2));
+	if (haku1o.tom6nu) zace.setAttribute("normal", new Float32BufferAttribute(haku1o.tom6nu, 3));
+	zace.setIndex(havecax2lani);
+	if (!haku1o.tom6nu) zace.computeVertexNormals();
+	return zace;
 }
-const kunfandajRezultoj = {
+const vakox2qHatseuni = {
 	ne3ak2: 0,
-	poste: 0
+	kvoz: 0
 };
-function kunfandiMondajnHacakamaha(gepatra, hazace, hasukf2qani = {}) {
-	const celo = hasukf2qani.celo || 0;
-	const vetlaqu = hasukf2qani.vetlaqu;
-	const hate = /* @__PURE__ */ new Map();
+function vakox2qMondajnHacakamaha(mavaluj2, hazace, hasukf2qani = {}) {
+	const natakatomasai = hasukf2qani.natakatomasai || 0;
+	const ve3aq = hasukf2qani.ve3aq;
+	const hate2 = /* @__PURE__ */ new Map();
 	let ne3ak2 = 0;
 	for (const zace of hazace) {
 		zace.updateWorldMatrix(true, true);
@@ -24389,12 +24378,12 @@ function kunfandiMondajnHacakamaha(gepatra, hazace, hasukf2qani = {}) {
 			const m = o;
 			if (m.isMesh !== true || m.isInstancedMesh === true) return;
 			if (Array.isArray(m.material)) return;
-			if (vetlaqu !== void 0 && vetlaqu(m)) return;
+			if (ve3aq !== void 0 && ve3aq(m)) return;
 			ne3ak2++;
-			const geometrio = m.geometry;
-			const signaturo = geometrio.uuid + "|" + Object.keys(geometrio.attributes).sort().join(",") + (geometrio.index === null ? "|n" : "|i");
-			const matrico = m.matrixWorld;
-			const kekkozusai = celo > 0 ? Math.floor(matrico.elements[12] / celo) + "," + Math.floor(matrico.elements[14] / celo) : "-";
+			const zace = m.geometry;
+			const signaturo = zace.uuid + "|" + Object.keys(zace.attributes).sort().join(",") + (zace.index === null ? "|n" : "|i");
+			const qox2n2k = m.matrixWorld;
+			const tile = natakatomasai > 0 ? Math.floor(qox2n2k.elements[12] / natakatomasai) + "," + Math.floor(qox2n2k.elements[14] / natakatomasai) : "-";
 			const ca3aq = [
 				m.material.uuid,
 				m.castShadow ? 1 : 0,
@@ -24402,89 +24391,89 @@ function kunfandiMondajnHacakamaha(gepatra, hazace, hasukf2qani = {}) {
 				m.renderOrder,
 				m.layers.mask,
 				signaturo,
-				kekkozusai
+				tile
 			].join("|");
-			let ca1ara = hate.get(ca3aq);
-			if (ca1ara === void 0) hate.set(ca3aq, ca1ara = []);
+			let ca1ara = hate2.get(ca3aq);
+			if (ca1ara === void 0) hate2.set(ca3aq, ca1ara = []);
 			ca1ara.push({
 				cakamaha: m,
-				matrico: matrico.clone()
+				qox2n2k: qox2n2k.clone()
 			});
 		});
 	}
-	let poste = 0;
-	for (const ca1ara of hate.values()) {
+	let kvoz = 0;
+	for (const ca1ara of hate2.values()) {
 		if (ca1ara.length < 2) {
-			poste += ca1ara.length;
+			kvoz += ca1ara.length;
 			continue;
 		}
 		const xaqadi = ca1ara[0].cakamaha;
 		const cakamaha = new InstancedMesh(xaqadi.geometry, xaqadi.material, ca1ara.length);
-		for (let i = 0; i < ca1ara.length; i++) cakamaha.setMatrixAt(i, ca1ara[i].matrico);
+		for (let i = 0; i < ca1ara.length; i++) cakamaha.setMatrixAt(i, ca1ara[i].qox2n2k);
 		cakamaha.instanceMatrix.needsUpdate = true;
 		cakamaha.castShadow = xaqadi.castShadow;
 		cakamaha.receiveShadow = xaqadi.receiveShadow;
 		cakamaha.renderOrder = xaqadi.renderOrder;
 		cakamaha.layers.mask = xaqadi.layers.mask;
-		let samaj = xaqadi.userData;
-		for (const a of ca1ara) if (a.cakamaha.userData !== samaj) {
-			samaj = null;
+		let vekant2 = xaqadi.userData;
+		for (const a of ca1ara) if (a.cakamaha.userData !== vekant2) {
+			vekant2 = null;
 			break;
 		}
-		if (samaj !== null) cakamaha.userData = samaj;
+		if (vekant2 !== null) cakamaha.userData = vekant2;
 		cakamaha.name = "veb6kekita";
-		gepatra.add(cakamaha);
+		mavaluj2.add(cakamaha);
 		for (const a of ca1ara) a.cakamaha.removeFromParent();
-		poste++;
+		kvoz++;
 	}
-	kunfandajRezultoj.ne3ak2 += ne3ak2;
-	kunfandajRezultoj.poste += poste;
+	vakox2qHatseuni.ne3ak2 += ne3ak2;
+	vakox2qHatseuni.kvoz += kvoz;
 	return {
 		ne3ak2,
-		poste
+		kvoz
 	};
 }
-function kunfandiKajVeldoiGeometriojn(geos) {
+function vakox2qKajVeldoi(geos) {
 	if (geos.length === 0) return new BufferGeometry();
-	const unu = kunfandiGeometriojn(geos);
-	const raqa = unu.getAttribute("position");
-	const idxArr = unu.getIndex().array;
+	const vakox2qita = vakox2qQoxaKefoujn(geos);
+	const raqa = vakox2qita.getAttribute("position");
+	const idxArr = vakox2qita.getIndex().array;
 	const tv = raqa.count;
 	const p6zukani = 4096;
-	const mapo = /* @__PURE__ */ new Map();
-	const sef4Indekso = new Uint32Array(tv);
+	const bal2 = /* @__PURE__ */ new Map();
+	const sef4Vecax2l = new Uint32Array(tv);
 	let nv = 0;
 	for (let i = 0; i < tv; i++) {
-		const sxlosilo = Math.round(raqa.getX(i) * p6zukani) + "," + Math.round(raqa.getY(i) * p6zukani) + "," + Math.round(raqa.getZ(i) * p6zukani);
-		const trovita = mapo.get(sxlosilo);
-		if (trovita !== void 0) sef4Indekso[i] = trovita;
+		const ca3aq = Math.round(raqa.getX(i) * p6zukani) + "," + Math.round(raqa.getY(i) * p6zukani) + "," + Math.round(raqa.getZ(i) * p6zukani);
+		const kawake = bal2.get(ca3aq);
+		if (kawake !== void 0) sef4Vecax2l[i] = kawake;
 		else {
-			mapo.set(sxlosilo, nv);
-			sef4Indekso[i] = nv;
+			bal2.set(ca3aq, nv);
+			sef4Vecax2l[i] = nv;
 			nv++;
 		}
 	}
-	const veldita = new Float32Array(nv * 3);
-	const tsiqUv = unu.getAttribute("uv");
+	const veb6kekita = new Float32Array(nv * 3);
+	const tsiqUv = vakox2qita.getAttribute("uv");
 	const velditaUv = tsiqUv ? new Float32Array(nv * 2) : null;
 	for (let i = 0; i < tv; i++) {
-		veldita[sef4Indekso[i] * 3] = raqa.getX(i);
-		veldita[sef4Indekso[i] * 3 + 1] = raqa.getY(i);
-		veldita[sef4Indekso[i] * 3 + 2] = raqa.getZ(i);
+		veb6kekita[sef4Vecax2l[i] * 3] = raqa.getX(i);
+		veb6kekita[sef4Vecax2l[i] * 3 + 1] = raqa.getY(i);
+		veb6kekita[sef4Vecax2l[i] * 3 + 2] = raqa.getZ(i);
 		if (velditaUv && tsiqUv) {
-			velditaUv[sef4Indekso[i] * 2] = tsiqUv.getX(i);
-			velditaUv[sef4Indekso[i] * 2 + 1] = tsiqUv.getY(i);
+			velditaUv[sef4Vecax2l[i] * 2] = tsiqUv.getX(i);
+			velditaUv[sef4Vecax2l[i] * 2 + 1] = tsiqUv.getY(i);
 		}
 	}
-	for (let i = 0; i < idxArr.length; i++) idxArr[i] = sef4Indekso[idxArr[i]];
+	for (let i = 0; i < idxArr.length; i++) idxArr[i] = sef4Vecax2l[idxArr[i]];
 	const out = new BufferGeometry();
-	out.setAttribute("position", new BufferAttribute(veldita, 3));
+	out.setAttribute("position", new BufferAttribute(veb6kekita, 3));
 	if (velditaUv) out.setAttribute("uv", new BufferAttribute(velditaUv, 2));
 	out.setIndex(new BufferAttribute(idxArr, 1));
 	out.computeVertexNormals();
 	return out;
 }
-// eskekoj/tom6nu/haweh2.ts
+// ../../skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -24502,17 +24491,17 @@ function veb6qaiWeh2Skek(weh2) {
 function veb6qaiWeh2Kek(kek) {
 	return kek & 248;
 }
-function veb6qaiW2d2(alfo) {
-	const cacaja = Math.round(Math.max(0, Math.min(1, alfo)) * 255);
+function veb6qaiW2d2(cento) {
+	const cacaja = Math.round(Math.max(0, Math.min(1, cento)) * 255);
 	if (cacaja <= 0) return 0;
 	if (cacaja >= 255) return 1;
 	return veb6qaiWeh2Kek(cacaja) / 255;
 }
 function veb6qaiCss(css) {
 	const s2banani = css.trim();
-	const kongruo = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
-	if (kongruo) {
-		const hakek = kongruo[1].split(",").map((ero) => ero.trim());
+	const kpapa = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
+	if (kpapa) {
+		const hakek = kpapa[1].split(",").map((kek) => kek.trim());
 		return `rgba(${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[0])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[1])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[2])))))},${hakek[3] === void 0 ? 1 : veb6qaiW2d2(Number(hakek[3]))})`;
 	}
 	const h6 = /^#([0-9a-f]{6})$/i.exec(s2banani);
@@ -24520,8 +24509,8 @@ function veb6qaiCss(css) {
 	const h8 = /^#([0-9a-f]{6})([0-9a-f]{2})$/i.exec(s2banani);
 	if (h8) {
 		const weh2 = veb6qaiWeh2(parseInt(h8[1], 16));
-		const alfo = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
-		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${alfo})`;
+		const cento = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
+		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${cento})`;
 	}
 	const h3 = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(s2banani);
 	if (h3) {
@@ -24535,12 +24524,12 @@ function veb6qaiCss(css) {
 function kf2Veb6qaiKs2bu() {
 	if (typeof CanvasGradient === "undefined") return;
 	const kozunuSkek = CanvasGradient.prototype;
-	if (kozunuSkek.__veb6qai) return;
+	if (kozunuSkek.veb6qai) return;
 	const xaqadi = kozunuSkek.addColorStop;
 	kozunuSkek.addColorStop = function(raqa, weh2) {
 		xaqadi.call(this, raqa, veb6qaiCss(weh2));
 	};
-	kozunuSkek.__veb6qai = true;
+	kozunuSkek.veb6qai = true;
 }
 kf2Veb6qaiKs2bu();
 function hunanuWeh2(weh2, n = 1) {
@@ -24550,7 +24539,7 @@ function hunanuWeh2(weh2, n = 1) {
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
 kf2Veb6qaiKs2bu();
-// eskekoj/tom6nu/pukek.ts
+// ../../skek2/p6kpu/pukek.ts
 function kf2KevPukek(tu5ekani1el2saiPukek) {
 	const kev = tu5ekani1el2saiPukek.clone();
 	kev.color = new Color(hunanuWeh2(tu5ekani1el2saiPukek.color.getHex(), 1 / 2));
@@ -24588,7 +24577,7 @@ function kf2KuhalPukek(weh2) {
 		envMapIntensity: 10 / 8
 	});
 }
-// eskekoj/tom6nu/haqoxa.ts
+// ../../skek2/p6kpu/haqoxa.ts
 function kf2Cawez2Qoxa(w, h) {
 	const s = new Shape();
 	const hw = w / 2, r = h / 2;
@@ -24600,29 +24589,29 @@ function kf2Cawez2Qoxa(w, h) {
 	s.closePath();
 	return s;
 }
-function kf2SexiQoxa(w, h, pukazPal6, pintoKanto, pintoSupro) {
+function kf2SexiQoxa(w, h, pukazPal6, cet2Vek2fe, cet2Teru) {
 	const s = new Shape();
 	const hw = w / 2, r = h / 2;
 	const R = r + pukazPal6, teru = h + pukazPal6, psaz = -pukazPal6;
 	const d = R * Math.SQRT1_2;
 	const tap2 = (hw - r) * 3 / 8;
-	const svingo = (r - d + pukazPal6 + pintoKanto) * 1 / 2;
+	const cab6ka = (r - d + pukazPal6 + cet2Vek2fe) * 1 / 2;
 	s.moveTo(hw - r, psaz);
 	s.absarc(hw - r, r, R, -Math.PI / 2, -Math.PI / 4, false);
-	s.bezierCurveTo(hw - r + d + svingo * Math.SQRT1_2, r - d + svingo * Math.SQRT1_2, hw + pukazPal6 + pintoKanto - svingo, r, hw + pukazPal6 + pintoKanto, r);
-	s.bezierCurveTo(hw + pukazPal6 + pintoKanto - svingo, r, hw - r + d + svingo * Math.SQRT1_2, r + d - svingo * Math.SQRT1_2, hw - r + d, r + d);
+	s.bezierCurveTo(hw - r + d + cab6ka * Math.SQRT1_2, r - d + cab6ka * Math.SQRT1_2, hw + pukazPal6 + cet2Vek2fe - cab6ka, r, hw + pukazPal6 + cet2Vek2fe, r);
+	s.bezierCurveTo(hw + pukazPal6 + cet2Vek2fe - cab6ka, r, hw - r + d + cab6ka * Math.SQRT1_2, r + d - cab6ka * Math.SQRT1_2, hw - r + d, r + d);
 	s.absarc(hw - r, r, R, Math.PI / 4, Math.PI / 2, false);
 	s.lineTo(tap2, teru);
-	s.bezierCurveTo(tap2 * 1 / 2, teru, 0, teru + pintoSupro * 1 / 2, 0, teru + pintoSupro);
-	s.bezierCurveTo(0, teru + pintoSupro * 1 / 2, -tap2 * 1 / 2, teru, -tap2, teru);
+	s.bezierCurveTo(tap2 * 1 / 2, teru, 0, teru + cet2Teru * 1 / 2, 0, teru + cet2Teru);
+	s.bezierCurveTo(0, teru + cet2Teru * 1 / 2, -tap2 * 1 / 2, teru, -tap2, teru);
 	s.lineTo(-hw + r, teru);
 	s.absarc(-hw + r, r, R, Math.PI / 2, Math.PI * 3 / 4, false);
-	s.bezierCurveTo(-hw + r - d - svingo * Math.SQRT1_2, r + d - svingo * Math.SQRT1_2, -hw - pukazPal6 - pintoKanto + svingo, r, -hw - pukazPal6 - pintoKanto, r);
-	s.bezierCurveTo(-hw - pukazPal6 - pintoKanto + svingo, r, -hw + r - d - svingo * Math.SQRT1_2, r - d + svingo * Math.SQRT1_2, -hw + r - d, r - d);
+	s.bezierCurveTo(-hw + r - d - cab6ka * Math.SQRT1_2, r + d - cab6ka * Math.SQRT1_2, -hw - pukazPal6 - cet2Vek2fe + cab6ka, r, -hw - pukazPal6 - cet2Vek2fe, r);
+	s.bezierCurveTo(-hw - pukazPal6 - cet2Vek2fe + cab6ka, r, -hw + r - d - cab6ka * Math.SQRT1_2, r - d + cab6ka * Math.SQRT1_2, -hw + r - d, r - d);
 	s.absarc(-hw + r, r, R, Math.PI * 5 / 4, Math.PI * 3 / 2, false);
 	s.lineTo(-tap2, psaz);
-	s.bezierCurveTo(-tap2 * 1 / 2, psaz, 0, psaz - pintoSupro * 1 / 2, 0, psaz - pintoSupro);
-	s.bezierCurveTo(0, psaz - pintoSupro * 1 / 2, tap2 * 1 / 2, psaz, tap2, psaz);
+	s.bezierCurveTo(-tap2 * 1 / 2, psaz, 0, psaz - cet2Teru * 1 / 2, 0, psaz - cet2Teru);
+	s.bezierCurveTo(0, psaz - cet2Teru * 1 / 2, tap2 * 1 / 2, psaz, tap2, psaz);
 	s.closePath();
 	return s;
 }
@@ -24662,7 +24651,7 @@ function kf2CibeKen2qQoxa(w, d, r) {
 	s.closePath();
 	return s;
 }
-function kf2X2x2qQan2k(qoxa) {
+function kf2Xiix2qQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv) return qoxa;
 	let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -24683,13 +24672,13 @@ function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
 	qoxa.setAttribute("uv1", uv.clone());
-	const p6kpu = qoxa.getAttribute("normal");
+	const xiix2q = qoxa.getAttribute("normal");
 	const bal2 = /* @__PURE__ */ new Map();
 	for (let i = 0; i < uv.count; i++) {
 		let kl = 0;
-		if (p6kpu) {
-			const ax = Math.abs(p6kpu.getX(i)), ay = Math.abs(p6kpu.getY(i)), az = Math.abs(p6kpu.getZ(i));
-			kl = ay >= ax && ay >= az ? p6kpu.getY(i) > 0 ? 1 : 2 : ax >= az ? p6kpu.getX(i) > 0 ? 3 : 4 : p6kpu.getZ(i) > 0 ? 5 : 6;
+		if (xiix2q) {
+			const ax = Math.abs(xiix2q.getX(i)), ay = Math.abs(xiix2q.getY(i)), az = Math.abs(xiix2q.getZ(i));
+			kl = ay >= ax && ay >= az ? xiix2q.getY(i) > 0 ? 1 : 2 : ax >= az ? xiix2q.getX(i) > 0 ? 3 : 4 : xiix2q.getZ(i) > 0 ? 5 : 6;
 		}
 		let ca1ara = bal2.get(kl);
 		if (!ca1ara) bal2.set(kl, ca1ara = []);
@@ -24715,10 +24704,10 @@ function sax0baPukazQan2kS2qena(qoxa, s2qena) {
 	sax0baPukazQan2k(qoxa);
 	if (s2qena.length < 2) return qoxa;
 	const xekuxa = qoxa.getAttribute("position");
-	const p6kpu = qoxa.getAttribute("normal");
+	const xiix2q = qoxa.getAttribute("normal");
 	const uv = qoxa.getAttribute("uv");
 	for (let i = 0; i < uv.count; i++) {
-		if (p6kpu && Math.abs(p6kpu.getZ(i)) < 511 / 512) continue;
+		if (xiix2q && Math.abs(xiix2q.getZ(i)) < 511 / 512) continue;
 		const y = xekuxa.getY(i);
 		let psaz = s2qena[0], teru = s2qena[s2qena.length - 1];
 		for (let k = 1; k < s2qena.length; k++) if (y <= s2qena[k][0]) {
@@ -24734,38 +24723,38 @@ function sax0baPukazQan2kS2qena(qoxa, s2qena) {
 	uv.needsUpdate = true;
 	return qoxa;
 }
-function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
+function kf2F2kQan2k(qoxa, rB, rT, namaVek2fe = false, k6liqPal6 = [0, 0]) {
 	const g = qoxa.index ? qoxa.toNonIndexed() : qoxa;
 	const xekuxa = g.getAttribute("position");
-	const p6kpu = g.getAttribute("normal");
+	const xiix2q = g.getAttribute("normal");
 	const uv = g.getAttribute("uv");
 	const psazQan2k = uv.clone();
 	g.setAttribute("uv1", psazQan2k);
 	const k6liq = new Float32Array(xekuxa.count);
-	const p2somaniSuba = rB * Math.SQRT1_2, p2somaniTik = rT * Math.SQRT1_2;
+	const p2somaniSuba = rB * Math.SQRT1_2, p2somaniTeru = rT * Math.SQRT1_2;
 	const tafkaqKek = Math.PI / 2, caxomani = Math.PI / 4;
-	const pinta = rT < 1 / 4096 && !namaKanto;
-	const nek2resai = new Float32Array(xekuxa.count * 4);
+	const pinta = rT < 1 / 4096 && !namaVek2fe;
+	const tlunak = new Float32Array(xekuxa.count * 4);
 	for (let i = 0; i < xekuxa.count; i += 3) {
-		const sozasai = Math.abs(p6kpu.getY(i)) > 7 / 8;
+		const sozasai = Math.abs(xiix2q.getY(i)) > 7 / 8;
 		let cx = 0, cz = 0;
 		for (let k = 0; k < 3; k++) {
 			cx += xekuxa.getX(i + k);
 			cz += xekuxa.getZ(i + k);
 		}
 		const sost2 = Math.floor((Math.atan2(cx, cz) + caxomani) / tafkaqKek) * tafkaqKek;
-		let pintoK = 0;
+		let cet2K = 0;
 		if (pinta && !sozasai) {
-			for (let k = 1; k < 3; k++) if (xekuxa.getY(i + k) > xekuxa.getY(i + pintoK)) pintoK = k;
+			for (let k = 1; k < 3; k++) if (xekuxa.getY(i + k) > xekuxa.getY(i + cet2K)) cet2K = k;
 		}
 		for (let k = 0; k < 3; k++) {
 			const j = i + k, x = xekuxa.getX(j);
 			xekuxa.getY(j);
 			const z = xekuxa.getZ(j);
-			if (sozasai && !namaKanto) {
-				const p2somani = p6kpu.getY(i) > 0 ? p2somaniTik : p2somaniSuba;
+			if (sozasai && !namaVek2fe) {
+				const p2somani = xiix2q.getY(i) > 0 ? p2somaniTeru : p2somaniSuba;
 				const d = p2somani > 1 / 4096 ? p2somani : 1;
-				const k6liqPal6Kek = p6kpu.getY(i) > 0 ? k6liqPal6[0] : k6liqPal6[1];
+				const k6liqPal6Kek = xiix2q.getY(i) > 0 ? k6liqPal6[0] : k6liqPal6[1];
 				k6liq[j] = k6liqPal6Kek > 0 ? Math.min(1, k6liqPal6Kek) : -1;
 				const hafeX = x * Math.cos(sost2) - z * Math.sin(sost2);
 				const hafeZ = x * Math.sin(sost2) + z * Math.cos(sost2);
@@ -24776,11 +24765,11 @@ function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 				const dAng = Math.atan2(Math.sin(ang), Math.cos(ang));
 				uv.setXY(j, Math.min(1, Math.max(0, (dAng + caxomani) / tafkaqKek)), uv.getY(j));
 				if (pinta && !sozasai) {
-					const b = k === pintoK ? [
+					const b = k === cet2K ? [
 						0,
 						0,
 						1
-					] : k === (pintoK + 1) % 3 ? [
+					] : k === (cet2K + 1) % 3 ? [
 						1,
 						0,
 						0
@@ -24789,20 +24778,20 @@ function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 						1,
 						0
 					];
-					nek2resai[j * 4] = b[0];
-					nek2resai[j * 4 + 1] = b[1];
-					nek2resai[j * 4 + 2] = b[2];
+					tlunak[j * 4] = b[0];
+					tlunak[j * 4 + 1] = b[1];
+					tlunak[j * 4 + 2] = b[2];
 				}
 			}
 		}
 	}
 	uv.needsUpdate = true;
 	psazQan2k.needsUpdate = true;
-	g.setAttribute("aKonturaEkstra", new BufferAttribute(nek2resai, 4));
-	g.setAttribute("aKonturaKovrilo", new BufferAttribute(k6liq, 1));
+	g.setAttribute("aKonturaEkstra", new BufferAttribute(tlunak, 4));
+	g.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
 	return g;
 }
-// node_modules/three/examples/jsm/geometries/RoundedBoxGeometry.js
+// ../../node_modules/three/examples/jsm/geometries/RoundedBoxGeometry.js
 const _tempNormal = new Vector3();
 function getUv(faceDirVector, normal, uvAxis, projectionAxis, radius, sideLength) {
 	const totArcLength = 2 * Math.PI * radius / 4;
@@ -24930,38 +24919,38 @@ var RoundedBoxGeometry = class RoundedBoxGeometry extends BoxGeometry {
 		return new RoundedBoxGeometry(data.width, data.height, data.depth, data.segments, data.radius);
 	}
 };
-// eskekoj/mebloj/hacax2l.ts
-const LIGNA_WEH2 = 5783600;
-const oraTablaRando = new MeshStandardMaterial({
+// ../../skek2/w2ta/cax2loj.ts
+const KEHUWEH2 = 5783600;
+const kuhalCax2lPukaz = new MeshStandardMaterial({
 	color: 14200936,
 	metalness: 3 / 4,
 	roughness: 3 / 8
 });
-function aldoniCax2ln(hate, x, z, y, sefini, profundo, lignaPukek, randoPukek = oraTablaRando) {
-	const cax2l = new Mesh(new RoundedBoxGeometry(sefini, 3 / 8, profundo, 3, 1 / 8), lignaPukek);
-	cax2l.position.set(x, y + 2 / 8, z);
-	cax2l.castShadow = true;
-	hate.add(cax2l);
-	const pukaz = new Mesh(new RoundedBoxGeometry(sefini + 1 / 16, 1 / 16, profundo + 1 / 16, 3, 1 / 8), randoPukek);
+function tlunakCax2l(hate2, x, z, y, sefini, jufu, kehuPukek, pukazPukek = kuhalCax2lPukaz) {
+	const tabelo = new Mesh(new RoundedBoxGeometry(sefini, 3 / 8, jufu, 3, 1 / 8), kehuPukek);
+	tabelo.position.set(x, y + 2 / 8, z);
+	tabelo.castShadow = true;
+	hate2.add(tabelo);
+	const pukaz = new Mesh(new RoundedBoxGeometry(sefini + 1 / 16, 1 / 16, jufu + 1 / 16, 3, 1 / 8), pukazPukek);
 	pukaz.position.set(x, y + 2 / 8 + 3 / 16 - 1 / 32 - 1 / 64, z);
 	pukaz.castShadow = true;
-	hate.add(pukaz);
+	hate2.add(pukaz);
 }
-function aldoniSegxon(hate, x, z, y, segxPukek, randoPukek = oraTablaRando, rotacio = 0) {
-	const benko = new Mesh(new RoundedBoxGeometry(10 / 8, 3 / 8, 4 / 8, 3, 1 / 16), segxPukek);
-	benko.position.set(x, y + 3 / 16, z);
-	benko.rotation.y = rotacio;
-	benko.castShadow = true;
-	hate.add(benko);
-	const pukaz = new Mesh(new RoundedBoxGeometry(1.3125, 1 / 16, .5625, 3, 1 / 8), randoPukek);
+function tlunakCacap2baz2(hate2, x, z, y, cacap2baz2Pukek, pukazPukek = kuhalCax2lPukaz, tafkaq = 0) {
+	const cacap2baz2 = new Mesh(new RoundedBoxGeometry(10 / 8, 3 / 8, 4 / 8, 3, 1 / 16), cacap2baz2Pukek);
+	cacap2baz2.position.set(x, y + 3 / 16, z);
+	cacap2baz2.rotation.y = tafkaq;
+	cacap2baz2.castShadow = true;
+	hate2.add(cacap2baz2);
+	const pukaz = new Mesh(new RoundedBoxGeometry(1.3125, 1 / 16, .5625, 3, 1 / 8), pukazPukek);
 	pukaz.position.set(x, y + 3 / 16 + 3 / 16 - 1 / 32 - 1 / 64, z);
-	pukaz.rotation.y = rotacio;
+	pukaz.rotation.y = tafkaq;
 	pukaz.castShadow = true;
-	hate.add(pukaz);
+	hate2.add(pukaz);
 }
-function aldoniManĝcax2ln(hate, x, z, y, lignaPukek, randoPukek, nurTriFlankoj = false) {
-	aldoniCax2ln(hate, x, z, y, 14 / 8, 10 / 8, lignaPukek, randoPukek);
-	const benkajOfsetoj = nurTriFlankoj ? [
+function tlunakMangxCax2l(hate2, x, z, y, kehuPukek, pukazPukek, namaTlVek2fe = false) {
+	tlunakCax2l(hate2, x, z, y, 14 / 8, 10 / 8, kehuPukek, pukazPukek);
+	const cacap2baz2X2pa = namaTlVek2fe ? [
 		[12 / 8, 0],
 		[-12 / 8, 0],
 		[0, 10 / 8]
@@ -24971,9 +24960,9 @@ function aldoniManĝcax2ln(hate, x, z, y, lignaPukek, randoPukek, nurTriFlankoj 
 		[0, 10 / 8],
 		[0, -10 / 8]
 	];
-	for (const [ox, oz] of benkajOfsetoj) aldoniSegxon(hate, x + ox, z + oz, y, lignaPukek, randoPukek, oz === 0 ? Math.PI / 2 : 0);
+	for (const [ox, oz] of cacap2baz2X2pa) tlunakCacap2baz2(hate2, x + ox, z + oz, y, kehuPukek, pukazPukek, oz === 0 ? Math.PI / 2 : 0);
 }
-// node_modules/three/examples/jsm/math/ConvexHull.js
+// ../../node_modules/three/examples/jsm/math/ConvexHull.js
 const Visible = 0;
 const Deleted = 1;
 const _v1 = new Vector3();
@@ -25017,7 +25006,7 @@ var ConvexHull = class {
 		return this;
 	}
 	/**
-	* Computes the convex hull of the given 3D object (incveqapahakaning its descendants),
+	* Computes the convex hull of the given 3D object (including its descendants),
 	* accounting for the world transforms of both the 3D object and its descendants.
 	*
 	* @param {Object3D} object - The 3D object to compute the convex hull for.
@@ -25920,7 +25909,7 @@ var VertexList = class {
 		return this.head === null;
 	}
 };
-// node_modules/three/examples/jsm/geometries/ConvexGeometry.js
+// ../../node_modules/three/examples/jsm/geometries/ConvexGeometry.js
 /**
 * This class can be used to generate a convex hull for a given array of 3D points.
 * The average time complexity for this task is considered to be O(nlog(n)).
@@ -25960,29 +25949,29 @@ var ConvexGeometry = class extends BufferGeometry {
 		this.setAttribute("normal", new Float32BufferAttribute(normals, 3));
 	}
 };
-// eskekoj/hapaq/satalaj/haqoxa.ts
-const MURA_KLINO = 5 / 16;
-const SANKTEJA_BAZPA12_KROMO = 58 / 64;
-const SANKTEJA_BAZPA12_L6DA = 1 / 8;
-function rondigitaTrah6poQoxa(blokoLargho, tw, h, rb, rt) {
-	const s = new Shape(), sl = (blokoLargho / 2 - tw / 2) / h;
-	s.moveTo(-blokoLargho / 2 + rb, 0);
-	s.lineTo(blokoLargho / 2 - rb, 0);
-	s.quadraticCurveTo(blokoLargho / 2, 0, blokoLargho / 2 - sl * rt, rt);
+// ../../skek2/hapaq/satalaj/haqoxa.ts
+const MURAKLINO = 5 / 16;
+const SANKTEJABAZPA12KROMO = 58 / 64;
+const SANKTEJABAZPA12L6DA = 1 / 8;
+function rondigitaTrah6poQoxa(k6liqSefini, tw, h, rb, rt) {
+	const s = new Shape(), sl = (k6liqSefini / 2 - tw / 2) / h;
+	s.moveTo(-k6liqSefini / 2 + rb, 0);
+	s.lineTo(k6liqSefini / 2 - rb, 0);
+	s.quadraticCurveTo(k6liqSefini / 2, 0, k6liqSefini / 2 - sl * rt, rt);
 	s.lineTo(tw / 2 + sl * rt, h - rt);
 	s.quadraticCurveTo(tw / 2, h, tw / 2 - rt, h);
 	s.lineTo(-tw / 2 + rt, h);
 	s.quadraticCurveTo(-tw / 2, h, -tw / 2 - sl * rt, h - rt);
-	s.lineTo(-blokoLargho / 2 + sl * rb, rb);
-	s.quadraticCurveTo(-blokoLargho / 2, 0, -blokoLargho / 2 + rb, 0);
+	s.lineTo(-k6liqSefini / 2 + sl * rb, rb);
+	s.quadraticCurveTo(-k6liqSefini / 2, 0, -k6liqSefini / 2 + rb, 0);
 	return s;
 }
-function kf2KlinoTavolon(hwB, hdB, hwT, hdT, l6da, kovrajSkaloj = [0, 0]) {
+function kf2S2saboTavolon(hwB, hdB, hwT, hdT, l6da, kovrajP6zukj = [0, 0]) {
 	const rB = Math.max(1 / 16, Math.hypot(hwB, hdB));
 	const rT = Math.max(1 / 16, Math.hypot(hwT, hdT));
 	const g = new CylinderGeometry(rT, rB, l6da, 4, 1);
 	g.rotateY(Math.PI / 4);
-	return kf2F2kQan2k(g, rB, rT, false, kovrajSkaloj);
+	return kf2F2kQan2k(g, rB, rT, false, kovrajP6zukj);
 }
 function kf2SexieanQoxan(w, h, r1, r2) {
 	const s = new Shape();
@@ -25996,7 +25985,7 @@ function kf2SexieanQoxan(w, h, r1, r2) {
 	s.closePath();
 	return s;
 }
-function diamantajDuonoj(s, rc = 1 / 16) {
+function diamantajHap2somani(s, rc = 1 / 16) {
 	const d = s * Math.SQRT1_2;
 	const kvar = [
 		[d, -d],
@@ -26008,22 +25997,22 @@ function diamantajDuonoj(s, rc = 1 / 16) {
 	const n2k = [];
 	for (let j = 0; j < kvar.length; j++) {
 		const a = kvar[j];
-		const antauxa = kvar[(j + kvar.length - 1) % kvar.length];
-		const panaa = kvar[(j + 1) % kvar.length];
-		const u = new Vector2(a[0] - antauxa[0], a[1] - antauxa[1]).normalize();
-		const v = new Vector2(panaa[0] - a[0], panaa[1] - a[1]).normalize();
+		const ne3ak2 = kvar[(j + kvar.length - 1) % kvar.length];
+		const ksoz = kvar[(j + 1) % kvar.length];
+		const u = new Vector2(a[0] - ne3ak2[0], a[1] - ne3ak2[1]).normalize();
+		const v = new Vector2(ksoz[0] - a[0], ksoz[1] - a[1]).normalize();
 		const sost2 = [a[0] + rc * (v.x - u.x), a[1] + rc * (v.y - u.y)];
-		const saxeaAngulo = Math.atan2(-v.y, -v.x);
+		const saxeaTafkaq = Math.atan2(-v.y, -v.x);
 		for (let k = 0; k <= ARKOJ; k++) {
-			const tafkaq = saxeaAngulo - k / ARKOJ * Math.PI / 2;
+			const tafkaq = saxeaTafkaq - k / ARKOJ * Math.PI / 2;
 			n2k.push([sost2[0] + rc * Math.cos(tafkaq), sost2[1] + rc * Math.sin(tafkaq)]);
 		}
-		const longeco = new Vector2(panaa[0] - a[0], panaa[1] - a[1]).length() - 2 * rc;
-		for (let k = 1; k <= FLATAJ; k++) n2k.push([a[0] + v.x * rc + v.x * longeco * k / 2, a[1] + v.y * rc + v.y * longeco * k / 2]);
+		const sahakani = new Vector2(ksoz[0] - a[0], ksoz[1] - a[1]).length() - 2 * rc;
+		for (let k = 1; k <= FLATAJ; k++) n2k.push([a[0] + v.x * rc + v.x * sahakani * k / 2, a[1] + v.y * rc + v.y * sahakani * k / 2]);
 	}
 	return n2k;
 }
-// eskekoj/hapaq/satalaj/enirejo.ts
+// ../../skek2/hapaq/satalaj/c2h2.ts
 function kf2JoqanKkaxten(qoxa, z, sampoj = 16) {
 	const putho = new CurvePath();
 	const n2k = [];
@@ -26038,142 +26027,142 @@ function kf2JoqanKkaxten(qoxa, z, sampoj = 16) {
 	for (let i = 0; i < n2k.length - 1; i++) putho.add(new LineCurve3(n2k[i], n2k[i + 1]));
 	return putho;
 }
-const BLOKA_LARGHO = 155 / 64;
-const TW = BLOKA_LARGHO * 37 / 64;
+const BLOKALARGHO = 155 / 64;
+const TW = BLOKALARGHO * 37 / 64;
 const EH = 9 / 4;
-const PORD_DIKECO = 7 / 64;
-const PORD_BEVELO = 1 / 32;
-const PORD_DIKECO_TUTA = .171875;
-const PORD_Z = -1 / 64;
+const PORDDIKECO = 7 / 64;
+const PORDBEVELO = 1 / 32;
+const PORDDIKECOTUTA = .171875;
+const PORDZ = -1 / 64;
 let enirejajKashmemoro = null;
-function bokEnirejajnGeometriojn() {
+function bokEnirejajnQoxaKefoujn() {
 	if (enirejajKashmemoro) return enirejajKashmemoro;
 	const pordaC2q = 1 / 4;
-	const shape = rondigitaTrah6poQoxa(BLOKA_LARGHO, TW, EH, pordaC2q, pordaC2q);
+	const shape = rondigitaTrah6poQoxa(BLOKALARGHO, TW, EH, pordaC2q, pordaC2q);
 	const kev = new ExtrudeGeometry(shape, {
-		depth: PORD_DIKECO,
+		depth: PORDDIKECO,
 		bevelEnabled: true,
-		bevelSize: PORD_BEVELO,
-		bevelThickness: PORD_BEVELO,
+		bevelSize: PORDBEVELO,
+		bevelThickness: PORDBEVELO,
 		bevelSegments: 2,
 		curveSegments: 16
 	});
-	sax0baPukazQan2kS2qena(kev, [[0, BLOKA_LARGHO], [EH, TW]]);
+	sax0baPukazQan2kS2qena(kev, [[0, BLOKALARGHO], [EH, TW]]);
 	enirejajKashmemoro = {
 		kev,
-		joqa: new TubeGeometry(kf2JoqanKkaxten(shape, .0390625), 32, PORD_DIKECO_TUTA / 2, 8, true)
+		joqa: new TubeGeometry(kf2JoqanKkaxten(shape, .0390625), 32, PORDDIKECOTUTA / 2, 8, true)
 	};
 	return enirejajKashmemoro;
 }
-function kf2Hakula(tieroL6da) {
-	const bazaX = BLOKA_LARGHO / 2;
-	const tikX = TW / 2;
-	const nagetaDikeco = 1 / 16;
+function kf2Hakula(b6k61oL6da) {
+	const kozunuX = BLOKALARGHO / 2;
+	const teruX = TW / 2;
+	const nagetaKof = 1 / 16;
 	const zMebl = .0390625;
-	const tafkaq = tieroL6da > 0 ? -Math.atan(MURA_KLINO / tieroL6da) : 0;
+	const tafkaq = b6k61oL6da > 0 ? -Math.atan(MURAKLINO / b6k61oL6da) : 0;
 	const kos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
-	const celZ = SANKTEJA_BAZPA12_KROMO / 2;
-	const celY = kos * SANKTEJA_BAZPA12_L6DA + sin * celZ;
-	const lokaCelZ = -sin * SANKTEJA_BAZPA12_L6DA + kos * celZ;
+	const celZ = SANKTEJABAZPA12KROMO / 2;
+	const celY = kos * SANKTEJABAZPA12L6DA + sin * celZ;
+	const lokaCelZ = -sin * SANKTEJABAZPA12L6DA + kos * celZ;
 	const hakula = [];
 	for (const sX of [-1, 1]) {
-		const maltik = new Vector3(sX * bazaX, 0, zMebl);
-		const teru = new Vector3(sX * tikX, EH, zMebl);
-		const ekstera = new Vector3(sX * bazaX, celY, lokaCelZ);
+		const maltik = new Vector3(sX * kozunuX, 0, zMebl);
+		const teru = new Vector3(sX * teruX, EH, zMebl);
+		const p6sca = new Vector3(sX * kozunuX, celY, lokaCelZ);
 		const unuo = teru.clone().sub(maltik).normalize();
-		const normalo = new Vector3().crossVectors(unuo, new Vector3(0, 0, 1)).normalize();
+		const p6kpu = new Vector3().crossVectors(unuo, new Vector3(0, 0, 1)).normalize();
 		const n2k = [];
 		for (const p of [
 			maltik,
 			teru,
-			ekstera
+			p6sca
 		]) {
-			n2k.push(p.clone().addScaledVector(normalo, -.0625 / 2));
-			n2k.push(p.clone().addScaledVector(normalo, nagetaDikeco / 2));
+			n2k.push(p.clone().addScaledVector(p6kpu, -.0625 / 2));
+			n2k.push(p.clone().addScaledVector(p6kpu, nagetaKof / 2));
 		}
-		const geometrio = new ConvexGeometry(n2k);
-		const np = geometrio.getAttribute("position");
+		const zace = new ConvexGeometry(n2k);
+		const np = zace.getAttribute("position");
 		const ek = new Float32Array(np.count * 4);
-		const kovrilo = new Float32Array(np.count);
+		const k6liq = new Float32Array(np.count);
 		const hatafkaq = [
 			maltik,
 			teru,
-			ekstera
+			p6sca
 		];
 		for (let i = 0; i < np.count; i++) {
 			const n2k = new Vector3().fromBufferAttribute(np, i);
-			let kmaProksima = 0, kmaM2m2 = Infinity;
+			let kmaTsiike = 0, kmaMalgpukaz = Infinity;
 			for (let a = 0; a < hatafkaq.length; a++) {
 				const d = n2k.distanceToSquared(hatafkaq[a]);
-				if (d < kmaM2m2) {
-					kmaM2m2 = d;
-					kmaProksima = a;
+				if (d < kmaMalgpukaz) {
+					kmaMalgpukaz = d;
+					kmaTsiike = a;
 				}
 			}
-			ek[i * 4 + kmaProksima] = 1;
+			ek[i * 4 + kmaTsiike] = 1;
 		}
-		geometrio.setAttribute("aKonturaEkstra", new BufferAttribute(ek, 4));
-		geometrio.setAttribute("aKonturaKovrilo", new BufferAttribute(kovrilo, 1));
-		hakula.push(sax0baPukazQan2k(geometrio));
+		zace.setAttribute("aKonturaEkstra", new BufferAttribute(ek, 4));
+		zace.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
+		hakula.push(sax0baPukazQan2k(zace));
 	}
 	return hakula;
 }
-function aldoniEnirejon(group, d, joqaPukek, eniraPukek, flankoj = 1, tieroL6da = 0, hakula = false) {
-	const geo = bokEnirejajnGeometriojn();
-	const pordGrupo = new Group();
-	const klinGrupo = new Group();
-	klinGrupo.position.set(0, 0, d / 2);
-	pordGrupo.add(klinGrupo);
+function tlunakEnirejon(group, d, joqaPukek, eniraPukek, vek2fe = 1, b6k61oL6da = 0, hakula = false) {
+	const geo = bokEnirejajnQoxaKefoujn();
+	const pordHate = new Group();
+	const klinHate = new Group();
+	klinHate.position.set(0, 0, d / 2);
+	pordHate.add(klinHate);
 	const enirejo = new Mesh(geo.kev, eniraPukek);
-	enirejo.position.set(0, 0, PORD_Z);
-	klinGrupo.add(enirejo);
-	klinGrupo.add(new Mesh(geo.joqa, joqaPukek));
-	if (tieroL6da > 0) klinGrupo.rotation.x = -Math.atan(MURA_KLINO / tieroL6da);
-	if (hakula) for (const g of kf2Hakula(tieroL6da)) {
+	enirejo.position.set(0, 0, PORDZ);
+	klinHate.add(enirejo);
+	klinHate.add(new Mesh(geo.joqa, joqaPukek));
+	if (b6k61oL6da > 0) klinHate.rotation.x = -Math.atan(MURAKLINO / b6k61oL6da);
+	if (hakula) for (const g of kf2Hakula(b6k61oL6da)) {
 		const nageto = new Mesh(g, joqaPukek);
 		nageto.name = "porda-nageto";
 		nageto.castShadow = nageto.receiveShadow = true;
-		klinGrupo.add(nageto);
+		klinHate.add(nageto);
 	}
-	for (let i = 0; i < flankoj; i++) {
-		const kopio = i === 0 ? pordGrupo : pordGrupo.clone();
+	for (let i = 0; i < vek2fe; i++) {
+		const kopio = i === 0 ? pordHate : pordHate.clone();
 		kopio.rotation.y = i * Math.PI / 2;
 		group.add(kopio);
 	}
 }
-// eskekoj/hapaq/satalaj/hacah6k6.ts
+// ../../skek2/hapaq/satalaj/cah6k6.ts
 const fenProud = 1 / 64;
 const joqaRondigo = 1 / 16;
-function fenestraSubFaco(facaRadiuso, klino, fenL6da, tieroL6da, psaz = false) {
-	const klinaAngulo = Math.atan(klino / tieroL6da);
-	return facaRadiuso + (psaz ? -1 : 1) * klino * fenL6da / (2 * tieroL6da) + fenProud / Math.cos(klinaAngulo);
+function fenestraSubFaco(facaKa5ik, s2sabo, fenL6da, b6k61oL6da, psaz = false) {
+	const klinaTafkaq = Math.atan(s2sabo / b6k61oL6da);
+	return facaKa5ik + (psaz ? -1 : 1) * s2sabo * fenL6da / (2 * b6k61oL6da) + fenProud / Math.cos(klinaTafkaq);
 }
-function fenestraMargxeno(facaRadiusoLarga) {
-	return facaRadiusoLarga * 2 / 8;
+function fenestraMargxeno(facaKa5ikLarga) {
+	return facaKa5ikLarga * 2 / 8;
 }
-function fenestraLargho(facaRadiuso, fenL6da, margxeno) {
-	if (margxeno !== void 0) return facaRadiuso * 2 - margxeno * 2;
-	return Math.min(facaRadiuso * 2 - 3 / 8, facaRadiuso * 4 / 3 + 1 / 4, fenL6da * 9);
+function fenestraSefini(facaKa5ik, fenL6da, pukazBendo) {
+	if (pukazBendo !== void 0) return facaKa5ik * 2 - pukazBendo * 2;
+	return Math.min(facaKa5ik * 2 - 3 / 8, facaKa5ik * 4 / 3 + 1 / 4, fenL6da * 9);
 }
 const fenestrajKashmemoroj = /* @__PURE__ */ new Map();
-function fenestrajGeometrioj(ww, fenL6da, facaRadiuso, tieroL6da, vertikala) {
-	const ca3aq = `${ww}|${fenL6da}|${facaRadiuso}|${tieroL6da}|${vertikala ? 1 : 0}`;
-	const trovita = fenestrajKashmemoroj.get(ca3aq);
-	if (trovita) return trovita;
+function fenestrajHavecax2lani(ww, fenL6da, facaKa5ik, b6k61oL6da, vertikala) {
+	const ca3aq = `${ww}|${fenL6da}|${facaKa5ik}|${b6k61oL6da}|${vertikala ? 1 : 0}`;
+	const kawake = fenestrajKashmemoroj.get(ca3aq);
+	if (kawake) return kawake;
 	const vitro = new ShapeGeometry(kf2Cawez2Qoxa(ww, fenL6da), 16);
 	if (vertikala) {
 		vitro.rotateZ(Math.PI / 2);
 		vitro.translate(fenL6da / 2, ww / 2, 0);
 	}
-	const joqaLargho = 1 / 8, joqaDikeco = 1 / 16;
-	const liberoSahak = vertikala ? (tieroL6da - ww) * 1 / 2 : facaRadiuso - ww * 1 / 2;
-	const liberoC2na = vertikala ? facaRadiuso - fenL6da * 1 / 2 : (tieroL6da - fenL6da) * 1 / 2;
-	const pintoTik = fenL6da * 1 / 2;
-	const sexi = veb6qaiPukaz(kf2SexiQoxa(ww, fenL6da, joqaLargho, Math.max(0, Math.min(pintoTik, liberoSahak - joqaLargho - 1 / 64)), Math.max(0, Math.min(pintoTik, liberoC2na - joqaLargho - 1 / 64))).getPoints(8), joqaRondigo);
+	const joqaSefini = 1 / 8, joqaKof = 1 / 16;
+	const liberoSahakani = vertikala ? (b6k61oL6da - ww) * 1 / 2 : facaKa5ik - ww * 1 / 2;
+	const liberoC2na = vertikala ? facaKa5ik - fenL6da * 1 / 2 : (b6k61oL6da - fenL6da) * 1 / 2;
+	const cet2Tik = fenL6da * 1 / 2;
+	const sexi = veb6qaiPukaz(kf2SexiQoxa(ww, fenL6da, joqaSefini, Math.max(0, Math.min(cet2Tik, liberoSahakani - joqaSefini - 1 / 64)), Math.max(0, Math.min(cet2Tik, liberoC2na - joqaSefini - 1 / 64))).getPoints(8), joqaRondigo);
 	const truo = kf2Cawez2Qoxa(ww - 1 / 64, fenL6da - 1 / 64).getPoints(8);
 	sexi.holes.push(new Path(truo.reverse()));
 	const joqa = new ExtrudeGeometry(sexi, {
-		depth: joqaDikeco,
+		depth: joqaKof,
 		bevelEnabled: false,
 		curveSegments: 4
 	});
@@ -26182,23 +26171,23 @@ function fenestrajGeometrioj(ww, fenL6da, facaRadiuso, tieroL6da, vertikala) {
 		joqa.translate(fenL6da / 2, ww / 2, 0);
 	}
 	const sef4 = {
-		vitro: kf2X2x2qQan2k(vitro),
-		joqa: kf2X2x2qQan2k(joqa)
+		vitro: kf2Xiix2qQan2k(vitro),
+		joqa: kf2Xiix2qQan2k(joqa)
 	};
 	fenestrajKashmemoroj.set(ca3aq, sef4);
 	return sef4;
 }
-function aldoniPilolCah6k6(group, joqaPukek, fenestraPukek, facoIndekso, yCentro, facaRadiuso, klino, tieroL6da, fenL6da, psaz = false, margxeno, vertikala = false) {
-	const klinaAngulo = Math.atan(klino / tieroL6da);
-	const ww = vertikala ? fenL6da * 2 : fenestraLargho(facaRadiuso, fenL6da, margxeno);
+function tlunakPilolCah6k6(group, joqaPukek, fenestraPukek, facoVecax2l, ySost2, facaKa5ik, s2sabo, b6k61oL6da, fenL6da, psaz = false, pukazBendo, vertikala = false) {
+	const klinaTafkaq = Math.atan(s2sabo / b6k61oL6da);
+	const ww = vertikala ? fenL6da * 2 : fenestraSefini(facaKa5ik, fenL6da, pukazBendo);
 	const fenL6daTuta = vertikala ? ww : fenL6da;
 	const faco = new Group();
-	faco.rotation.y = facoIndekso * Math.PI / 2;
+	faco.rotation.y = facoVecax2l * Math.PI / 2;
 	const monto = new Group();
-	monto.position.set(0, yCentro - fenL6daTuta / 2, fenestraSubFaco(facaRadiuso, klino, fenL6daTuta, tieroL6da, psaz));
-	monto.rotation.x = psaz ? klinaAngulo : -klinaAngulo;
+	monto.position.set(0, ySost2 - fenL6daTuta / 2, fenestraSubFaco(facaKa5ik, s2sabo, fenL6daTuta, b6k61oL6da, psaz));
+	monto.rotation.x = psaz ? klinaTafkaq : -klinaTafkaq;
 	faco.add(monto);
-	const { vitro, joqa } = fenestrajGeometrioj(ww, fenL6da, facaRadiuso, tieroL6da, vertikala);
+	const { vitro, joqa } = fenestrajHavecax2lani(ww, fenL6da, facaKa5ik, b6k61oL6da, vertikala);
 	const fen = new Mesh(vitro, fenestraPukek);
 	monto.add(fen);
 	monto.add(new Mesh(joqa, joqaPukek));
@@ -26208,8 +26197,8 @@ function aldoniPilolCah6k6(group, joqaPukek, fenestraPukek, facoIndekso, yCentro
 function fenestraPukek() {
 	return paqPukek("cah6k6", () => kf2Cah6k6Pukek());
 }
-// eskekoj/hapaq/satalaj/hac2nu.ts
-function aldoniDiamantanSpegulon(qena, spec, group, w) {
+// ../../skek2/hapaq/satalaj/hac2nu.ts
+function tlunakDiamantanSpegulon(qena, spec, group, w) {
 	const mg = group.clone();
 	mg.scale.y = -1;
 	mg.position.y = (spec.h0 || 0) - 2 / 64;
@@ -26229,11 +26218,11 @@ function aldoniDiamantanSpegulon(qena, spec, group, w) {
 	ring.position.set(spec.x, (spec.h0 || 0) + 1 / 64, spec.z);
 	qena.add(ring);
 }
-const RANDO_LARGHO = 1 / 8;
-const RANDO_L6DA = 1 / 32;
-function kf2TavolanRandanGeometrion(hw, hd, y, klino, l6da = RANDO_L6DA) {
-	const qoxa = kf2CibeKen2qQoxa((hw - klino) * 2 + RANDO_LARGHO, (hd - klino) * 2 + RANDO_LARGHO, 3 / 16);
-	const truo = kf2CibeKen2qQoxa((hw - klino) * 2 - RANDO_LARGHO, (hd - klino) * 2 - RANDO_LARGHO, Math.max(1 / 16, .0625)).getPoints(32);
+const RANDOLARGHO = 1 / 8;
+const RANDOL6DA = 1 / 32;
+function kf2TanekanPukazanQoxaKefoun(hw, hd, y, s2sabo, l6da = RANDOL6DA) {
+	const qoxa = kf2CibeKen2qQoxa((hw - s2sabo) * 2 + RANDOLARGHO, (hd - s2sabo) * 2 + RANDOLARGHO, 3 / 16);
+	const truo = kf2CibeKen2qQoxa((hw - s2sabo) * 2 - RANDOLARGHO, (hd - s2sabo) * 2 - RANDOLARGHO, Math.max(1 / 16, .0625)).getPoints(32);
 	qoxa.holes.push(new Path(truo.reverse()));
 	const geo = new ExtrudeGeometry(qoxa, {
 		depth: l6da,
@@ -26244,9 +26233,9 @@ function kf2TavolanRandanGeometrion(hw, hd, y, klino, l6da = RANDO_L6DA) {
 	const haxekuxa = geo.getAttribute("position");
 	const nor = geo.getAttribute("normal");
 	const uv = geo.getAttribute("uv");
-	const ekstra = new Float32Array(haxekuxa.count * 4);
-	const outerX = hw - klino + RANDO_LARGHO / 2, innerX = hw - klino - RANDO_LARGHO / 2;
-	const outerZ = hd - klino + RANDO_LARGHO / 2, innerZ = hd - klino - RANDO_LARGHO / 2;
+	const nek2resai = new Float32Array(haxekuxa.count * 4);
+	const outerX = hw - s2sabo + RANDOLARGHO / 2, innerX = hw - s2sabo - RANDOLARGHO / 2;
+	const outerZ = hd - s2sabo + RANDOLARGHO / 2, innerZ = hd - s2sabo - RANDOLARGHO / 2;
 	for (let i = 0; i < haxekuxa.count; i++) {
 		const vx = haxekuxa.getX(i), vy = haxekuxa.getY(i), vz = haxekuxa.getZ(i);
 		const flanke = Math.abs(nor.getY(i)) > 7 / 8;
@@ -26255,41 +26244,41 @@ function kf2TavolanRandanGeometrion(hw, hd, y, klino, l6da = RANDO_L6DA) {
 		if (ax >= az) {
 			fx = Math.sign(vx) || 1;
 			u = vz / (2 * outerZ) + 1 / 2;
-			v = flanke ? (Math.abs(vx) - innerX) / RANDO_LARGHO : vy / l6da;
+			v = flanke ? (Math.abs(vx) - innerX) / RANDOLARGHO : vy / l6da;
 		} else {
 			fz = Math.sign(vz) || 1;
 			u = vx / (2 * outerX) + 1 / 2;
-			v = flanke ? (Math.abs(vz) - innerZ) / RANDO_LARGHO : vy / l6da;
+			v = flanke ? (Math.abs(vz) - innerZ) / RANDOLARGHO : vy / l6da;
 		}
 		uv.setXY(i, Math.min(1, Math.max(0, u)), Math.min(1, Math.max(0, v)));
 		if (flanke) {
-			ekstra[i * 4] = fx;
-			ekstra[i * 4 + 2] = fz;
-			ekstra[i * 4 + 3] = 1;
+			nek2resai[i * 4] = fx;
+			nek2resai[i * 4 + 2] = fz;
+			nek2resai[i * 4 + 3] = 1;
 		}
 	}
 	uv.needsUpdate = true;
-	geo.setAttribute("aKonturaEkstra", new BufferAttribute(ekstra, 4));
+	geo.setAttribute("aKonturaEkstra", new BufferAttribute(nek2resai, 4));
 	geo.translate(0, y, 0);
 	return geo;
 }
-function aldoniTavolanRandon(geos, hw, hd, y, klino, tieroL6da) {
+function tlunakTavolanRandon(geos, hw, hd, y, s2sabo, b6k61oL6da) {
 	const lipoL6da = 1 / 40;
-	geos.push(kf2TavolanRandanGeometrion(hw, hd, y + tieroL6da - RANDO_L6DA, klino));
-	geos.push(kf2TavolanRandanGeometrion(hw, hd, y + tieroL6da, klino, lipoL6da));
+	geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da - RANDOL6DA, s2sabo));
+	geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da, s2sabo, lipoL6da));
 }
-// eskekoj/hapaq/satalaj/cel2nu.ts
+// ../../skek2/hapaq/satalaj/cel2nu.ts
 function kf2Pilierhajoqan(curve, has2nasce, H) {
 	const tangents = [], moj = [], Loj = [], Woj = [];
-	const V = new Vector3(), antauxaV = new Vector3().copy(H);
-	const U = new Vector3(), antauxaU = new Vector3();
+	const V = new Vector3(), ne3ak2V = new Vector3().copy(H);
+	const U = new Vector3(), ne3ak2U = new Vector3();
 	const L = new Vector3();
 	for (let i = 0; i <= has2nasce; i++) {
 		const ta = curve.getTangentAt(i / has2nasce).normalize();
 		const m = ta;
 		V.copy(H).addScaledVector(m, -H.dot(m));
-		if (V.lengthSq() < 8 ** -9) V.copy(antauxaV).addScaledVector(m, -antauxaV.dot(m));
-		if (V.lengthSq() < 8 ** -9) V.copy(antauxaU);
+		if (V.lengthSq() < 8 ** -9) V.copy(ne3ak2V).addScaledVector(m, -ne3ak2V.dot(m));
+		if (V.lengthSq() < 8 ** -9) V.copy(ne3ak2U);
 		V.normalize();
 		U.crossVectors(m, V).normalize();
 		L.addVectors(V, U).multiplyScalar(Math.SQRT1_2);
@@ -26298,8 +26287,8 @@ function kf2Pilierhajoqan(curve, has2nasce, H) {
 		moj.push(m);
 		Loj.push(L.clone());
 		Woj.push(W);
-		antauxaV.copy(V);
-		antauxaU.copy(U);
+		ne3ak2V.copy(V);
+		ne3ak2U.copy(U);
 	}
 	return {
 		tangents,
@@ -26308,8 +26297,8 @@ function kf2Pilierhajoqan(curve, has2nasce, H) {
 		Woj
 	};
 }
-function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaSkalo = 1, finialaLargho = 1, tipLongeco = 0) {
-	const hap2somani = diamantajDuonoj(s);
+function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaP6zuk = 1, finialaSefini = 1, tipSahakani = 0) {
+	const hap2somani = diamantajHap2somani(s);
 	const RINGO = hap2somani.length;
 	const c2q = has2nasce + 1;
 	const n2k = Array.from({ length: c2q }, (_, i) => curve.getPointAt(i / (c2q - 1)));
@@ -26318,17 +26307,17 @@ function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaS
 	const poFaco = RINGO / 4;
 	for (let i = 0; i < c2q; i++) {
 		let p = n2k[i];
-		if (i === has2nasce && tipLongeco > 0) p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipLongeco);
+		if (i === has2nasce && tipSahakani > 0) p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipSahakani);
 		const L = hajoqa.Loj[i], W = hajoqa.Woj[i];
 		const konturo = hap2somani;
 		const t = i / (c2q - 1);
 		const u = talonoS0 > 0 ? Math.max(0, Math.min(1, (t - talonoS0) / (1 - talonoS0))) : 0;
-		const glata = u * u * (3 - 2 * u);
-		const p6zukani = talonoS0 > 0 ? 1 - (1 - finialaSkalo) * glata : 1;
-		const largxaSkalo = talonoS0 > 0 ? 1 - (1 - finialaLargho) * glata : 1;
+		const xaha = u * u * (3 - 2 * u);
+		const p6zukani = talonoS0 > 0 ? 1 - (1 - finialaP6zuk) * xaha : 1;
+		const largxaP6zuk = talonoS0 > 0 ? 1 - (1 - finialaSefini) * xaha : 1;
 		for (let j = 0; j < konturo.length; j++) {
 			const [a, c] = konturo[j];
-			vertoj.push(p.x + L.x * a * p6zukani + W.x * c * largxaSkalo, p.y + L.y * a * p6zukani + W.y * c * largxaSkalo, p.z + L.z * a * p6zukani + W.z * c * largxaSkalo);
+			vertoj.push(p.x + L.x * a * p6zukani + W.x * c * largxaP6zuk, p.y + L.y * a * p6zukani + W.y * c * largxaP6zuk, p.z + L.z * a * p6zukani + W.z * c * largxaP6zuk);
 			qan2k.push(j % poFaco / poFaco, i / (c2q - 1));
 		}
 	}
@@ -26347,32 +26336,32 @@ function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaS
 	g.computeVertexNormals();
 	return g;
 }
-function kf2RondigitanDiamantanKapon(p, ta, n, b, s, sahakSkalo, largxaSkalo, renversita = false) {
+function kf2RondigitanDiamantanKapon(p, ta, n, b, s, sahakaniP6zuk, largxaP6zuk, renversita = false) {
 	const qoxa = new Shape();
-	const n2k = diamantajDuonoj(s);
+	const n2k = diamantajHap2somani(s);
 	const konturo = renversita ? [...n2k].reverse() : n2k;
-	qoxa.moveTo(konturo[0][0] * sahakSkalo, konturo[0][1] * largxaSkalo);
-	for (const [a, c] of konturo.slice(1)) qoxa.lineTo(a * sahakSkalo, c * largxaSkalo);
+	qoxa.moveTo(konturo[0][0] * sahakaniP6zuk, konturo[0][1] * largxaP6zuk);
+	for (const [a, c] of konturo.slice(1)) qoxa.lineTo(a * sahakaniP6zuk, c * largxaP6zuk);
 	qoxa.closePath();
 	const teruni = new ShapeGeometry(qoxa);
 	teruni.applyMatrix4(new Matrix4().makeBasis(n, b, ta));
 	teruni.translate(p.x, p.y, p.z);
-	return kf2X2x2qQan2k(teruni);
+	return kf2Xiix2qQan2k(teruni);
 }
-function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf = true, fora = 65 / 512) {
+function tlunakJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, s2sabo = 0, slaf = true, fora = 65 / 512) {
 	const out = 7 / 16;
 	const foraSub = 21 / 128;
-	const cXT = cX - sX * klino, cZT = cZ - sZ * klino;
-	const tieroL6da = yT - yB;
+	const cXT = cX - sX * s2sabo, cZT = cZ - sZ * s2sabo;
+	const b6k61oL6da = yT - yB;
 	const kf2TalonanKkaxte = () => {
 		const yA = upward ? yB : yT;
 		const yS = upward ? yT - 1 / 4 : yB + 1 / 4;
 		const yF = upward ? yT + 3 / 8 : yB - 3 / 8;
-		const linia = (tieroL6da - 1 / 64) / tieroL6da;
-		const suproX = cX + sX * (fora - klino * linia);
-		const suproZ = cZ + sZ * (fora - klino * linia);
+		const linia = (b6k61oL6da - 1 / 64) / b6k61oL6da;
+		const teruX = cX + sX * (fora - s2sabo * linia);
+		const teruZ = cZ + sZ * (fora - s2sabo * linia);
 		const p0 = new Vector3(cX + sX * fora, yA, cZ + sZ * fora);
-		const p1 = new Vector3(suproX, yS, suproZ);
+		const p1 = new Vector3(teruX, yS, teruZ);
 		const p2 = new Vector3(cXT + sX * out, yF, cZT + sZ * out);
 		const c2w2q = new Vector3(p1.x - p0.x, p1.y - p0.y, p1.z - p0.z).normalize();
 		const hoko = new CubicBezierCurve3(p1, p1.clone().addScaledVector(c2w2q, 3 / 16), new Vector3(p2.x - sX * 3 / 16, p2.y + (upward ? -1 / 32 : 1 / 32), p2.z - sZ * 3 / 16), p2);
@@ -26380,10 +26369,10 @@ function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf 
 		putho.add(new LineCurve3(p0, p1));
 		putho.add(hoko);
 		const shaftLen = p0.distanceTo(p1);
-		const tutaKkaxteLongeco = putho.getLength();
+		const tutaKkaxteSahakani = putho.getLength();
 		return {
 			curve: putho,
-			talonoS0: tutaKkaxteLongeco > 0 ? Math.min(7 / 8, shaftLen / tutaKkaxteLongeco) : 0
+			talonoS0: tutaKkaxteSahakani > 0 ? Math.min(7 / 8, shaftLen / tutaKkaxteSahakani) : 0
 		};
 	};
 	const subtera = new QuadraticBezierCurve3(new Vector3(cX + sX * foraSub, yT - 1 / 64, cZ + sZ * foraSub), new Vector3(cXT + sX * foraSub, yB + 13 / 32, cZT + sZ * foraSub), new Vector3(cXT + sX * out, yB - 3 / 8, cZT + sZ * out));
@@ -26396,53 +26385,53 @@ function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf 
 	const hajoqa = kf2Pilierhajoqan(curve, SEG, H);
 	const hakek = [];
 	if (upward || slaf) {
-		const finialaSkalo = 1 / 8, finialaLargho = 1 / 8;
-		hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa, talonoS0, finialaSkalo, finialaLargho, 1 / 64));
-		const bazaKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1);
-		const finaKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(1).clone().addScaledVector(hajoqa.tangents[SEG], -1 / 64), hajoqa.tangents[SEG], hajoqa.Loj[SEG], hajoqa.Woj[SEG], s, finialaSkalo, finialaLargho, true);
-		geos.push(kunfandiKajVeldoiGeometriojn(hakek));
-		geos.push(bazaKapo, finaKapo);
+		const finialaP6zuk = 1 / 8, finialaSefini = 1 / 8;
+		hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa, talonoS0, finialaP6zuk, finialaSefini, 1 / 64));
+		const kozunuKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1);
+		const tlakakKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(1).clone().addScaledVector(hajoqa.tangents[SEG], -1 / 64), hajoqa.tangents[SEG], hajoqa.Loj[SEG], hajoqa.Woj[SEG], s, finialaP6zuk, finialaSefini, true);
+		geos.push(vakox2qKajVeldoi(hakek));
+		geos.push(kozunuKapo, tlakakKapo);
 	} else {
 		hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa));
 		hakek.push(kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1));
 		hakek.push(kf2RondigitanDiamantanKapon(curve.getPointAt(1), hajoqa.tangents[SEG], hajoqa.Loj[SEG], hajoqa.Woj[SEG], s, 1, 1, true));
 	}
-	if (!(upward || slaf)) geos.push(kunfandiKajVeldoiGeometriojn(hakek));
+	if (!(upward || slaf)) geos.push(vakox2qKajVeldoi(hakek));
 }
-// eskekoj/tom6nu/skripto-rivelilo.ts
-const GAWEKIIF_FAMILIO = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
-function generiSkribanCac2sex(s2banani, opts = {}) {
-	const vortoj = s2banani.split(/\s+/).filter(Boolean);
-	const kanvasa = document.createElement("canvas");
-	kanvasa.width = opts.w || 96;
-	kanvasa.height = opts.h || 192;
-	const kuns2bana = kanvasa.getContext("2d");
-	const cac2sex = new CanvasTexture(kanvasa);
+// ../../skek2/p6kpu/gek2f.ts
+const GAWEKIIFDAKAQ = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
+function kf2S2banaCac2sex(s2banani, ku1o = {}) {
+	const hakef = s2banani.split(/\s+/).filter(Boolean);
+	const p2t6zo = document.createElement("canvas");
+	p2t6zo.width = ku1o.w || 96;
+	p2t6zo.height = ku1o.h || 192;
+	const kuns2bana = p2t6zo.getContext("2d");
+	const cac2sex = new CanvasTexture(p2t6zo);
 	cac2sex.colorSpace = SRGBColorSpace;
 	cac2sex.anisotropy = 4;
 	const k2f = () => {
-		kuns2bana.clearRect(0, 0, kanvasa.width, kanvasa.height);
-		if (opts.bg) {
-			kuns2bana.fillStyle = opts.bg;
-			kuns2bana.fillRect(0, 0, kanvasa.width, kanvasa.height);
+		kuns2bana.clearRect(0, 0, p2t6zo.width, p2t6zo.height);
+		if (ku1o.iit2l) {
+			kuns2bana.fillStyle = ku1o.iit2l;
+			kuns2bana.fillRect(0, 0, p2t6zo.width, p2t6zo.height);
 		}
-		if (vortoj.length === 0) return;
+		if (hakef.length === 0) return;
 		kuns2bana.textAlign = "center";
 		kuns2bana.textBaseline = "middle";
-		kuns2bana.fillStyle = opts.ink || "#d8b068";
+		kuns2bana.fillStyle = ku1o.weh2 || "#d8b068";
 		const REF = 64;
-		kuns2bana.font = `${REF}px ${GAWEKIIF_FAMILIO}`;
-		const maksLargho = kanvasa.width * 53 / 64;
-		const largho100 = Math.max(1, ...vortoj.map((v) => kuns2bana.measureText(v).width));
-		const fsLargho = REF * maksLargho / largho100;
-		const fsL6da = kanvasa.height / (32 / 64 + (vortoj.length - 1) * 7 / 4 + 4 / 8);
-		const fs = Math.max(8, Math.min(fsLargho, fsL6da));
-		const linioL6da = fs * 7 / 4;
-		let y = kanvasa.height / 2 + (vortoj.length - 1) * linioL6da / 2;
-		for (const v of vortoj) {
-			kuns2bana.font = `${fs}px ${GAWEKIIF_FAMILIO}`;
-			kuns2bana.fillText(v, kanvasa.width / 2, y);
-			y -= linioL6da;
+		kuns2bana.font = `${REF}px ${GAWEKIIFDAKAQ}`;
+		const plosteqSefini = p2t6zo.width * 53 / 64;
+		const sefini100 = Math.max(1, ...hakef.map((v) => kuns2bana.measureText(v).width));
+		const fsSefini = REF * plosteqSefini / sefini100;
+		const fsL6da = p2t6zo.height / (32 / 64 + (hakef.length - 1) * 7 / 4 + 4 / 8);
+		const fs = Math.max(8, Math.min(fsSefini, fsL6da));
+		const x2paL6da = fs * 7 / 4;
+		let y = p2t6zo.height / 2 + (hakef.length - 1) * x2paL6da / 2;
+		for (const v of hakef) {
+			kuns2bana.font = `${fs}px ${GAWEKIIFDAKAQ}`;
+			kuns2bana.fillText(v, p2t6zo.width / 2, y);
+			y -= x2paL6da;
 		}
 	};
 	k2f();
@@ -26454,7 +26443,7 @@ function generiSkribanCac2sex(s2banani, opts = {}) {
 	} catch (e) {}
 	return cac2sex;
 }
-// eskekoj/hapaq/satalaj/fasw2d2.ts
+// ../../skek2/hapaq/satalaj/fasw2d2.ts
 function sexieaVitro() {
 	return paqPukek("sexieo", () => new MeshStandardMaterial({
 		color: 16777215,
@@ -26462,23 +26451,23 @@ function sexieaVitro() {
 		metalness: 0,
 		transparent: true,
 		opacity: 6 / 8,
-		emissive: veb6qaiWeh2(662040),
+		emissive: veb6qaiWeh2(530456),
 		emissiveIntensity: 1 / 4
 	}));
 }
-const SEXIEA_INKO_TAGE = new Color(12759855);
-new Color(15920806);
-const sexieaInkaWeh2 = veb6qaiWeh2Skek(new Color().copy(SEXIEA_INKO_TAGE));
+const SEXIEAINKOTAGE = new Color(12628008);
+new Color(15788192);
+const sexieaInkaWeh2 = veb6qaiWeh2Skek(new Color().copy(SEXIEAINKOTAGE));
 const sexieaBordoWeh2 = new Color(16777215);
-function sexieaS2bana(mapo) {
-	const im = mapo.image;
+function sexieaS2bana(bal2) {
+	const im = bal2.image;
 	return new ShaderMaterial({
 		uniforms: {
-			uMapo: { value: mapo },
+			uBal2: { value: bal2 },
 			uInko: { value: sexieaInkaWeh2 },
 			uBordo: { value: sexieaBordoWeh2 },
 			uTeksele: { value: new Vector2(1 / im.width, 1 / im.height) },
-			uDikeco: { value: 5 / 2 }
+			uKof: { value: 5 / 2 }
 		},
 		transparent: true,
 		depthWrite: false,
@@ -26490,16 +26479,16 @@ function sexieaS2bana(mapo) {
     #endif
     gl_Position = projectionMatrix * modelViewMatrix * haxekuxa; }`,
 		fragmentShader: `precision highp float;
-    uniform sampler2D uMapo; uniform vec3 uInko; uniform vec3 uBordo;
-    uniform vec2 uTeksele; uniform float uDikeco; varying vec2 vUv;
+    uniform sampler2D uBal2; uniform vec3 uInko; uniform vec3 uBordo;
+    uniform vec2 uTeksele; uniform float uKof; varying vec2 vUv;
     void main(){
-      float a = texture2D( uMapo, vUv ).a;
+      float a = texture2D( uBal2, vUv ).a;
       float r = 0.0;
       for ( int i = 0; i < 8; i++ ) {
         float ang = float( i ) * 0.7853981634;
-        vec2 of = vec2( cos( ang ), sin( ang ) ) * uTeksele * uDikeco;
-        r = max( r, texture2D( uMapo, vUv + of ).a );
-        r = max( r, texture2D( uMapo, vUv + of * 0.55 ).a );
+        vec2 of = vec2( cos( ang ), sin( ang ) ) * uTeksele * uKof;
+        r = max( r, texture2D( uBal2, vUv + of ).a );
+        r = max( r, texture2D( uBal2, vUv + of * 0.55 ).a );
       }
       float inka = smoothstep( 0.35, 0.6, a );
       float kontura = smoothstep( 0.35, 0.6, r );
@@ -26508,11 +26497,11 @@ function sexieaS2bana(mapo) {
     }`
 	});
 }
-function aldoniSexieanSignon(group, name, hunaq, w, d) {
-	const cac2sex = generiSkribanCac2sex(nomoAih(name, hunaq), {
+function tlunakSexieanKaatse(group, name, hunaq, w, d) {
+	const cac2sex = kf2S2banaCac2sex(ksakaAih(name, hunaq), {
 		w: 192,
 		h: 846,
-		ink: "#ffffff"
+		weh2: "#ffffff"
 	});
 	cac2sex.wrapS = cac2sex.wrapT = ClampToEdgeWrapping;
 	const signaY = 1 / 64;
@@ -26529,87 +26518,87 @@ function aldoniSexieanSignon(group, name, hunaq, w, d) {
 	const facePoz = faceGeo.getAttribute("position");
 	const faceUV = faceGeo.getAttribute("uv");
 	const faceUjo = faceGeo.boundingBox;
-	const faceLargho = Math.max(8 ** -7, faceUjo.max.x - faceUjo.min.x);
+	const faceSefini = Math.max(8 ** -7, faceUjo.max.x - faceUjo.min.x);
 	const faceL6da = Math.max(8 ** -7, faceUjo.max.y - faceUjo.min.y);
-	const s2banaSkalo = 7 / 6;
+	const s2banaP6zuk = 7 / 6;
 	for (let i = 0; i < faceUV.count; i++) {
-		const u = (facePoz.getX(i) - faceUjo.min.x) / faceLargho;
+		const u = (facePoz.getX(i) - faceUjo.min.x) / faceSefini;
 		const v = (facePoz.getY(i) - faceUjo.min.y) / faceL6da;
-		faceUV.setXY(i, 1 / 2 + (u - 1 / 2) * s2banaSkalo, 1 / 2 + (v - 1 / 2) * s2banaSkalo);
+		faceUV.setXY(i, 1 / 2 + (u - 1 / 2) * s2banaP6zuk, 1 / 2 + (v - 1 / 2) * s2banaP6zuk);
 	}
 	faceUV.needsUpdate = true;
 	const face = new Mesh(faceGeo, sexieaS2bana(cac2sex));
 	face.position.set(w * 11 / 32, signaY, d / 2 + 74 / 64);
 	group.add(face);
 }
-// eskekoj/hapaq/satalaj-hapaq.ts
-function tavolajHavem2(w, d, tiers, tieroL6da) {
-	const tikLargho = Math.max(141 / 64, w * 19 / 64);
-	const tikProfundo = Math.max(2, d * 19 / 64);
-	const malpliiX = (w / 2 - tikLargho / 2) / Math.max(1, tiers - 1);
-	const malpliiZ = (d / 2 - tikProfundo / 2) / Math.max(1, tiers - 1);
+// ../../skek2/hapaq/satalaj-hapaq.ts
+function hatanekHavem2(w, d, tiers, b6k61oL6da) {
+	const teruSefini = Math.max(141 / 64, w * 19 / 64);
+	const teruProfundo = Math.max(2, d * 19 / 64);
+	const malpliiX = (w / 2 - teruSefini / 2) / Math.max(1, tiers - 1);
+	const malpliiZ = (d / 2 - teruProfundo / 2) / Math.max(1, tiers - 1);
 	const havem2 = [];
 	for (let i = 0; i < tiers; i++) havem2.push({
-		y: i * tieroL6da,
+		y: i * b6k61oL6da,
 		hw: w / 2 - i * malpliiX,
 		hd: d / 2 - i * malpliiZ
 	});
 	return havem2;
 }
-const tavolajKashmemoroj = /* @__PURE__ */ new Map();
-function tavolajGeometrioj(w, d, tiers, tieroL6da) {
-	const klino = MURA_KLINO;
-	const murajGeometrioj = [], joqajGeometrioj = [];
-	const havem2 = tavolajHavem2(w, d, tiers, tieroL6da);
+const hatanekKashmemoroj = /* @__PURE__ */ new Map();
+function hatanekHavecax2lani(w, d, tiers, b6k61oL6da) {
+	const s2sabo = MURAKLINO;
+	const murajHavecax2lani = [], joqajHavecax2lani = [];
+	const havem2 = hatanekHavem2(w, d, tiers, b6k61oL6da);
 	for (let i = 0; i < havem2.length; i++) {
 		const { y, hw, hd } = havem2[i];
 		const maltik = havem2[i - 1], teru = havem2[i + 1];
-		const tikKovrilo = teru ? Math.min(1, teru.hw / (hw - klino), teru.hd / (hd - klino)) : 0;
-		const subaKovrilo = maltik ? Math.min(1, (maltik.hw - klino) / hw, (maltik.hd - klino) / hd) : 0;
-		const tavolo = kf2KlinoTavolon(hw, hd, hw - klino, hd - klino, tieroL6da, [tikKovrilo, subaKovrilo]);
-		tavolo.translate(0, y + tieroL6da / 2, 0);
-		murajGeometrioj.push(tavolo);
-		for (const sX of [-1, 1]) for (const sZ of [-1, 1]) aldoniJoqanTubon(joqajGeometrioj, sX * hw, sZ * hd, y, y + tieroL6da, sX, sZ, true, klino);
-		aldoniTavolanRandon(joqajGeometrioj, hw, hd, y, klino, tieroL6da);
+		const teruK6liq = teru ? Math.min(1, teru.hw / (hw - s2sabo), teru.hd / (hd - s2sabo)) : 0;
+		const subaK6liq = maltik ? Math.min(1, (maltik.hw - s2sabo) / hw, (maltik.hd - s2sabo) / hd) : 0;
+		const tanek = kf2S2saboTavolon(hw, hd, hw - s2sabo, hd - s2sabo, b6k61oL6da, [teruK6liq, subaK6liq]);
+		tanek.translate(0, y + b6k61oL6da / 2, 0);
+		murajHavecax2lani.push(tanek);
+		for (const sX of [-1, 1]) for (const sZ of [-1, 1]) tlunakJoqanTubon(joqajHavecax2lani, sX * hw, sZ * hd, y, y + b6k61oL6da, sX, sZ, true, s2sabo);
+		tlunakTavolanRandon(joqajHavecax2lani, hw, hd, y, s2sabo, b6k61oL6da);
 	}
 	return {
-		hatu5ekani1el2sai: kunfandiGeometriojn(murajGeometrioj),
-		hajoqa: kunfandiGeometriojn(joqajGeometrioj)
+		hatu5ekani1el2sai: vakox2qQoxaKefoujn(murajHavecax2lani),
+		hajoqa: vakox2qQoxaKefoujn(joqajHavecax2lani)
 	};
 }
-function bokTavolajnGeometriojn(typeKey, w, d, tiers, tieroL6da) {
-	const ca3aq = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + tieroL6da;
-	let g = tavolajKashmemoroj.get(ca3aq);
+function bokTavolajnQoxaKefoujn(typeKey, w, d, tiers, b6k61oL6da) {
+	const ca3aq = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + b6k61oL6da;
+	let g = hatanekKashmemoroj.get(ca3aq);
 	if (!g) {
-		g = tavolajGeometrioj(w, d, tiers, tieroL6da);
-		tavolajKashmemoroj.set(ca3aq, g);
+		g = hatanekHavecax2lani(w, d, tiers, b6k61oL6da);
+		hatanekKashmemoroj.set(ca3aq, g);
 	}
 	return g;
 }
-function satalaBazaL6da(spec, grundoFn) {
+function satalaBazaL6da(spec, mut6qFn) {
 	const sost2 = spec.h0 || 0;
-	if (spec.type !== "sanktejo" || !grundoFn) return sost2;
-	const duonoX = (spec.w + 58 / 64) / 2;
-	const duonoZ = (spec.d + 58 / 64) / 2;
+	if (spec.type !== "qaman2" || !mut6qFn) return sost2;
+	const p2somaniX = (spec.w + 58 / 64) / 2;
+	const p2somaniZ = (spec.d + 58 / 64) / 2;
 	const kos = Math.cos(spec.rot), sin = Math.sin(spec.rot);
 	let l6da = sost2;
 	for (let ix = -4; ix <= 4; ix++) for (let iz = -4; iz <= 4; iz++) {
-		const lx = ix / 4 * duonoX, lz = iz / 4 * duonoZ;
+		const lx = ix / 4 * p2somaniX, lz = iz / 4 * p2somaniZ;
 		const wx = spec.x + kos * lx + sin * lz;
 		const wz = spec.z - sin * lx + kos * lz;
-		l6da = Math.max(l6da, grundoFn(wx, wz) + 1 / 64);
+		l6da = Math.max(l6da, mut6qFn(wx, wz) + 1 / 64);
 	}
 	return l6da;
 }
-function vepaqSatalon(spec, qena, ssukf2qajxoj, grundoFn) {
-	const { havem2: tiers, tieroL6da, w, d, type: typeKey, name } = spec;
-	spec.h0 = satalaBazaL6da(spec, grundoFn);
+function vepaqSatalon(spec, qena, knasukf2qdalai, mut6qFn) {
+	const { havem2: tiers, b6k61oL6da, w, d, type: typeKey, name } = spec;
+	spec.h0 = satalaBazaL6da(spec, mut6qFn);
 	const sube = spec.sube || 0;
-	const tikLargho = Math.max(141 / 64, w * 19 / 64);
+	const teruSefini = Math.max(141 / 64, w * 19 / 64);
 	const T = TIPARO[typeKey] || TIPARO.kap2;
-	const muraWeh2 = T.wall, joqaWeh2 = T.frame;
-	const klino = MURA_KLINO;
-	const tavolaj = bokTavolajnGeometriojn(typeKey, w, d, tiers, tieroL6da);
+	const muraWeh2 = T.wall, joqaWeh2 = T.catu5ek;
+	const s2sabo = MURAKLINO;
+	const hatanek = bokTavolajnQoxaKefoujn(typeKey, w, d, tiers, b6k61oL6da);
 	const group = new Group();
 	const muraPukek = paqPukek("tu5ekani1el2sai" + muraWeh2 + (typeKey === "kasafeo" ? "k" : ""), () => new MeshStandardMaterial({
 		color: muraWeh2,
@@ -26618,25 +26607,25 @@ function vepaqSatalon(spec, qena, ssukf2qajxoj, grundoFn) {
 		envMapIntensity: 0
 	}));
 	const joqaPukek = paqPukek("joqa" + joqaWeh2, () => kf2KuhalPukek(joqaWeh2));
-	const eniraPukek = typeKey === "kasafeo" || typeKey === "stacioxipo" ? fenestraPukek() : paqPukek("eniro" + muraWeh2, () => kf2KevPukek(muraPukek));
-	const hatu5ekani1el2sai = new Mesh(tavolaj.hatu5ekani1el2sai, muraPukek);
+	const eniraPukek = typeKey === "kasafeo" || typeKey === "ka5asexazxipo" ? fenestraPukek() : paqPukek("eniro" + muraWeh2, () => kf2KevPukek(muraPukek));
+	const hatu5ekani1el2sai = new Mesh(hatanek.hatu5ekani1el2sai, muraPukek);
 	hatu5ekani1el2sai.castShadow = hatu5ekani1el2sai.receiveShadow = true;
 	hatu5ekani1el2sai.userData = {
 		spec,
 		buildingType: T
 	};
-	ssukf2qajxoj.push(hatu5ekani1el2sai);
+	knasukf2qdalai.push(hatu5ekani1el2sai);
 	group.add(hatu5ekani1el2sai);
-	group.add(new Mesh(tavolaj.hajoqa, joqaPukek));
-	aldoniEnirejon(group, d, joqaPukek, eniraPukek, typeKey === "sanktejo" ? 4 : 1, tieroL6da, typeKey === "sanktejo");
-	if (typeKey === "sanktejo") {
-		const pintaRadiuso = tikLargho * 35 / 64;
-		const pintajxo = new Mesh(kf2F2kQan2k(new ConeGeometry(pintaRadiuso, 51 / 32, 4).rotateY(Math.PI / 4), pintaRadiuso, 0), joqaPukek);
-		pintajxo.position.y = tiers * tieroL6da + 51 / 64;
+	group.add(new Mesh(hatanek.hajoqa, joqaPukek));
+	tlunakEnirejon(group, d, joqaPukek, eniraPukek, typeKey === "qaman2" ? 4 : 1, b6k61oL6da, typeKey === "qaman2");
+	if (typeKey === "qaman2") {
+		const pintaKa5ik = teruSefini * 35 / 64;
+		const pintajxo = new Mesh(kf2F2kQan2k(new ConeGeometry(pintaKa5ik, 51 / 32, 4).rotateY(Math.PI / 4), pintaKa5ik, 0), joqaPukek);
+		pintajxo.position.y = tiers * b6k61oL6da + 51 / 64;
 		pintajxo.castShadow = true;
 		group.add(pintajxo);
 	}
-	if (typeKey === "stacioxipo") {
+	if (typeKey === "ka5asexazxipo") {
 		const apronGeo = new ExtrudeGeometry(kf2CibeKen2qQoxa(w + 4, d + 4, 1), {
 			depth: 3 / 32,
 			bevelEnabled: false,
@@ -26645,7 +26634,7 @@ function vepaqSatalon(spec, qena, ssukf2qajxoj, grundoFn) {
 		apronGeo.rotateX(-Math.PI / 2);
 		apronGeo.translate(0, -1 / 32, 0);
 		apronGeo.setAttribute("uv1", apronGeo.getAttribute("uv").clone());
-		kf2X2x2qQan2k(apronGeo);
+		kf2Xiix2qQan2k(apronGeo);
 		const apronPukek = muraPukek.clone();
 		if (apronPukek.map) {
 			apronPukek.map = apronPukek.map.clone();
@@ -26671,51 +26660,51 @@ function vepaqSatalon(spec, qena, ssukf2qajxoj, grundoFn) {
 			group.add(new Mesh(b2, joqaPukek));
 		}
 		for (const sX of [-1, 1]) for (const sZ of [-1, 1]) {
-			const piliero = new Mesh(new CylinderGeometry(1 / 8, 3 / 16, 7 / 4, 6), joqaPukek);
-			piliero.position.set(sX * (w / 2 + 13 / 8), 7 / 8, sZ * (d / 2 + 13 / 8));
-			piliero.castShadow = true;
-			group.add(piliero);
-			const brilo = new Mesh(new SphereGeometry(5 / 32, 8, 6), eniraPukek);
-			brilo.position.set(sX * (w / 2 + 13 / 8), 1.90625, sZ * (d / 2 + 13 / 8));
-			group.add(brilo);
+			const cel2nu = new Mesh(new CylinderGeometry(1 / 8, 3 / 16, 7 / 4, 6), joqaPukek);
+			cel2nu.position.set(sX * (w / 2 + 13 / 8), 7 / 8, sZ * (d / 2 + 13 / 8));
+			cel2nu.castShadow = true;
+			group.add(cel2nu);
+			const dci = new Mesh(new SphereGeometry(5 / 32, 8, 6), eniraPukek);
+			dci.position.set(sX * (w / 2 + 13 / 8), 1.90625, sZ * (d / 2 + 13 / 8));
+			group.add(dci);
 		}
-		const roofY = tiers * tieroL6da;
+		const roofY = tiers * b6k61oL6da;
 		const c2q = new Mesh(new RingGeometry(5 / 16, 9 / 16, 32).rotateX(-Math.PI / 2), joqaPukek);
 		c2q.position.y = roofY + 1 / 32;
 		group.add(c2q);
 	}
-	if (!(typeKey === "kap2" || typeKey === "geqqa" || typeKey === "turo" || typeKey === "sanktejo")) {
-		const fenL6da = Math.min(5 / 8, tieroL6da * 19 / 64);
+	if (!(typeKey === "kap2" || typeKey === "geqqa" || typeKey === "turo" || typeKey === "qaman2")) {
+		const fenL6da = Math.min(5 / 8, b6k61oL6da * 19 / 64);
 		const vitro = fenestraPukek();
-		const fenMargxeno = fenestraMargxeno(Math.min(w / 2, d / 2) - klino / 2);
-		for (const { y, hw, hd } of tavolajHavem2(w, d, tiers, tieroL6da)) {
-			const faco = Math.min(hw, hd) - klino / 2;
-			const horizontala = faco * 2 - fenMargxeno * 2 >= fenL6da;
-			if (!horizontala && faco < fenL6da * 1 / 2 + 1 / 8) continue;
-			const yC = y + tieroL6da / 2;
+		const fenMargxeno = fenestraMargxeno(Math.min(w / 2, d / 2) - s2sabo / 2);
+		for (const { y, hw, hd } of hatanekHavem2(w, d, tiers, b6k61oL6da)) {
+			const faco = Math.min(hw, hd) - s2sabo / 2;
+			const tapu = faco * 2 - fenMargxeno * 2 >= fenL6da;
+			if (!tapu && faco < fenL6da * 1 / 2 + 1 / 8) continue;
+			const yC = y + b6k61oL6da / 2;
 			for (let f = 0; f < 4; f++) {
 				if (y === 0 && f === 0) continue;
-				aldoniPilolCah6k6(group, joqaPukek, vitro, f, yC, faco, klino, tieroL6da, fenL6da, false, horizontala ? fenMargxeno : void 0, !horizontala);
+				tlunakPilolCah6k6(group, joqaPukek, vitro, f, yC, faco, s2sabo, b6k61oL6da, fenL6da, false, tapu ? fenMargxeno : void 0, !tapu);
 			}
 		}
 	}
-	aldoniSexieanSignon(group, name, typeKey, w, d);
+	tlunakSexieanKaatse(group, name, typeKey, w, d);
 	const eksterajHacax2l = typeKey === "geqqa" && spec.fixed !== "kvar" ? new Group() : null;
 	if (eksterajHacax2l) {
 		const lignaPukek = paqPukek("ligno", () => new MeshStandardMaterial({
-			color: LIGNA_WEH2,
+			color: KEHUWEH2,
 			roughness: 33 / 64,
 			metalness: 9 / 64
 		}));
-		for (let i = -1; i <= 1; i += 2) aldoniManĝcax2ln(eksterajHacax2l, i * 5, d / 2 + 3, 0, lignaPukek, joqaPukek);
+		for (let i = -1; i <= 1; i += 2) tlunakMangxCax2l(eksterajHacax2l, i * 5, d / 2 + 3, 0, lignaPukek, joqaPukek);
 	}
-	if (sube > 0 && typeKey === "sanktejo") {
-		const joqaW = w + SANKTEJA_BAZPA12_KROMO, joqaD = d + SANKTEJA_BAZPA12_KROMO;
-		const dikeco = 1 / 2;
-		const rAnguloj = 1 / 2;
-		const pa12L6da = SANKTEJA_BAZPA12_L6DA;
-		const joqaQoxa = kf2CibeKen2qQoxa(joqaW, joqaD, rAnguloj);
-		const ena = kf2CibeKen2qQoxa(joqaW - dikeco * 2, joqaD - dikeco * 2, Math.max(1 / 16, 0)).getPoints(32);
+	if (sube > 0 && typeKey === "qaman2") {
+		const joqaW = w + SANKTEJABAZPA12KROMO, joqaD = d + SANKTEJABAZPA12KROMO;
+		const kof = 1 / 2;
+		const rHatafkaq = 1 / 2;
+		const pa12L6da = SANKTEJABAZPA12L6DA;
+		const joqaQoxa = kf2CibeKen2qQoxa(joqaW, joqaD, rHatafkaq);
+		const ena = kf2CibeKen2qQoxa(joqaW - kof * 2, joqaD - kof * 2, Math.max(1 / 16, 0)).getPoints(32);
 		joqaQoxa.holes.push(new Path(ena.reverse()));
 		const joqaGeo = new ExtrudeGeometry(joqaQoxa, {
 			depth: pa12L6da,
@@ -26731,11 +26720,11 @@ function vepaqSatalon(spec, qena, ssukf2qajxoj, grundoFn) {
 	group.position.set(spec.x, spec.h0, spec.z);
 	group.rotation.y = spec.rot;
 	qena.add(group);
-	if (spec.diamond) aldoniDiamantanSpegulon(qena, spec, group, w);
+	if (spec.diamond) tlunakDiamantanSpegulon(qena, spec, group, w);
 	if (eksterajHacax2l) group.add(eksterajHacax2l);
 	return group;
 }
-// eskekoj/tom6nu/cac2sex/keuxfhxesa-slaf.ts
+// ../../skek2/p6kpu/cac2sex/keuxfhxesa-slaf.ts
 let fu36Sema = null;
 function s2tosaxFu36Tahaq() {
 	if (!fu36Sema) fu36Sema = new Promise((sema, semaX) => {
@@ -26752,14 +26741,14 @@ function kx2weh2Hac2nu(p2t6zo, tahaq) {
 	const kekSefini = p2t6zo.width / kekka;
 	for (let j = 0; j < kekka; j++) k.drawImage(tahaq, j * kekSefini, 0, kekSefini, p2t6zo.height);
 }
-function pul2meniSoq(k2fP2t6zo, qoxa, lko) {
-	const W = lko.width, H = lko.height;
+function pul2meniSoq(k2fP2t6zo, qoxa, texture) {
+	const W = texture.width, H = texture.height;
 	const sefini = k2fP2t6zo.width, l6da = k2fP2t6zo.height;
 	const k = k2fP2t6zo.getContext("2d");
 	k.fillStyle = "#a0c8b0";
 	k.fillRect(0, 0, sefini, l6da);
-	const c2ta = k.getImageData(0, 0, sefini, l6da);
-	const tseuni = lko.getContext("2d").getImageData(0, 0, W, H);
+	const ciita = k.getImageData(0, 0, sefini, l6da);
+	const tseuni = texture.getContext("2d").getImageData(0, 0, W, H);
 	const kekka = 6;
 	const kekSefini = W / kekka;
 	for (let y = 0; y < l6da; y++) for (let t = 0; t < sefini; t++) {
@@ -26776,11 +26765,11 @@ function pul2meniSoq(k2fP2t6zo, qoxa, lko) {
 		if (sx < 0 || sx >= W || sy < 0 || sy >= H) continue;
 		const si = (sy * W + sx) * 4, di = (y * sefini + t) * 4;
 		if (tseuni.data[si + 3] < 52) continue;
-		for (let b = 0; b < 4; b++) c2ta.data[di + b] = tseuni.data[si + b];
+		for (let b = 0; b < 4; b++) ciita.data[di + b] = tseuni.data[si + b];
 	}
-	k.putImageData(c2ta, 0, 0);
+	k.putImageData(ciita, 0, 0);
 }
-function vepaqSlaflko(qoxa) {
+function vepaqSlaftexture(qoxa) {
 	const l6da = 1024;
 	const sefini = 2304;
 	const kf2P2t6zo = document.createElement("canvas");
@@ -26789,27 +26778,27 @@ function vepaqSlaflko(qoxa) {
 	const kf = kf2P2t6zo.getContext("2d");
 	kf.fillStyle = "#a0c8b0";
 	kf.fillRect(0, 0, sefini, l6da);
-	const lko = new CanvasTexture(kf2P2t6zo);
-	lko.colorSpace = SRGBColorSpace;
-	lko.anisotropy = 8;
+	const texture = new CanvasTexture(kf2P2t6zo);
+	texture.colorSpace = SRGBColorSpace;
+	texture.anisotropy = 8;
 	s2tosaxFu36Tahaq().then((tahaq) => {
 		const tsiq = document.createElement("canvas");
 		tsiq.width = sefini;
 		tsiq.height = l6da;
 		kx2weh2Hac2nu(tsiq, tahaq);
 		pul2meniSoq(kf2P2t6zo, qoxa, tsiq);
-		lko.needsUpdate = true;
-	}).catch((k3ohk2nik2p2) => {});
-	return lko;
+		texture.needsUpdate = true;
+	}).catch((ktlohk2nik2p2) => {});
+	return texture;
 }
-// eskekoj/mebloj/keuxfhxeso.ts
-const KEUXFHXESO_KA5IK = 51 / 64;
-const KEUXFHXESO_L6DA = 30 / 8;
+// ../../skek2/w2ta/kubes.ts
+const KEUXFHXESOKA5IK = 51 / 64;
+const KEUXFHXESOL6DA = 30 / 8;
 function qaroxemaKa5ik(ka5ik, tafkaq) {
 	const skek2Ka5ik = ka5ik * 37 / 64;
 	return skek2Ka5ik + (ka5ik - skek2Ka5ik) * Math.pow(Math.abs(Math.cos(3 * tafkaq)), 4);
 }
-function kavaSexi(ka5ik) {
+function k6fSexi(ka5ik) {
 	const n2k = [];
 	const kek = 84;
 	for (let j = 0; j < kek; j++) {
@@ -26834,9 +26823,9 @@ function slafS2qena(t) {
 	return A * Math.sqrt(t) * (1 - m) + soq * m;
 }
 function slafQoxa() {
-	const ka5ik = KEUXFHXESO_KA5IK;
+	const ka5ik = KEUXFHXESOKA5IK;
 	return {
-		l6da: KEUXFHXESO_L6DA,
+		l6da: KEUXFHXESOL6DA,
 		ka5ik,
 		ka5ikTafkaq: (tafkaq) => qaroxemaKa5ik(ka5ik, tafkaq),
 		s2qena: slafS2qena,
@@ -26844,7 +26833,7 @@ function slafQoxa() {
 	};
 }
 function tlekubesSoq(ka5ik, l6da, k2fe) {
-	const qaroxema = kavaSexi(ka5ik);
+	const qaroxema = k6fSexi(ka5ik);
 	const N = qaroxema.length;
 	const sexiKek = qaroxema.map((p) => Math.hypot(p.x, p.y) / ka5ik);
 	const sexiKekI = sexiKek.map((f) => 1 / f);
@@ -26902,57 +26891,57 @@ function ksikTsiiq(ka5ik, l6da, tafkaq, sefini) {
 		const b = (i + 1) * n + j;
 		havecax2lani.push(a, b, (i + 1) * n + j2, a, (i + 1) * n + j2, i * n + j2);
 	}
-	return kf2BuferanGeometrion(xekuxa, havecax2lani);
+	return kf2Bufezacen(xekuxa, havecax2lani);
 }
-let lkoVepabok = null;
+let textureVepabok = null;
 let pukekVepabok = null;
-function vepaqKeuxfhxeso(kagani, raqa, l6da, joqaPukek) {
+function vepaqKekufxeso(kagani, raqa, l6da, joqaPukek) {
 	const soqQoxa = [];
 	const joqaQoxa = [];
-	const ka5ik = KEUXFHXESO_KA5IK;
-	const l6da2 = KEUXFHXESO_L6DA;
-	const soqS2n2x = tlekubesSoq(ka5ik, l6da2, 32);
-	const ksikS2n2x = [];
-	for (let k = 0; k < 6; k++) ksikS2n2x.push(ksikTsiiq(ka5ik, l6da2, k * Math.PI / 3, 4 / 64));
+	const ka5ik = KEUXFHXESOKA5IK;
+	const l6da2 = KEUXFHXESOL6DA;
+	const soqS2niix = tlekubesSoq(ka5ik, l6da2, 32);
+	const ksikS2niix = [];
+	for (let k = 0; k < 6; k++) ksikS2niix.push(ksikTsiiq(ka5ik, l6da2, k * Math.PI / 3, 4 / 64));
 	for (const p of raqa) {
 		const l6daRaqa = l6da(p.x, p.z);
 		const s2sabo = p.s2sabo ?? 0;
 		const M = new Matrix4().makeRotationY(s2sabo);
-		const soq = soqS2n2x.clone();
+		const soq = soqS2niix.clone();
 		soq.applyMatrix4(M);
 		soq.translate(p.x, l6daRaqa, p.z);
 		soqQoxa.push(soq);
 		for (let k = 0; k < 6; k++) {
-			const ksik = ksikS2n2x[k].clone();
-			ksik.applyMatrix4(M);
-			ksik.translate(p.x, l6daRaqa, p.z);
-			joqaQoxa.push(ksik);
+			const ripo = ksikS2niix[k].clone();
+			ripo.applyMatrix4(M);
+			ripo.translate(p.x, l6daRaqa, p.z);
+			joqaQoxa.push(ripo);
 		}
 	}
-	const hate = new Group();
+	const hate2 = new Group();
 	if (!pukekVepabok) {
-		lkoVepabok = vepaqSlaflko(slafQoxa());
+		textureVepabok = vepaqSlaftexture(slafQoxa());
 		pukekVepabok = new MeshStandardMaterial({
 			color: 16777215,
 			roughness: 6 / 8,
 			metalness: 0,
-			map: lkoVepabok
+			map: textureVepabok
 		});
 	}
 	const pukek = pukekVepabok;
-	const soq2 = new Mesh(kunfandiGeometriojn(soqQoxa), pukek);
+	const soq2 = new Mesh(vakox2qQoxaKefoujn(soqQoxa), pukek);
 	soq2.castShadow = soq2.receiveShadow = true;
-	hate.add(soq2);
-	const joqa = new Mesh(kunfandiGeometriojn(joqaQoxa), joqaPukek);
+	hate2.add(soq2);
+	const joqa = new Mesh(vakox2qQoxaKefoujn(joqaQoxa), joqaPukek);
 	joqa.castShadow = joqa.receiveShadow = true;
-	hate.add(joqa);
-	kagani.add(hate);
-	return hate;
+	hate2.add(joqa);
+	kagani.add(hate2);
+	return hate2;
 }
-// kantaoj/mondo/kaxte/hahufwuk2.ts
-function kf2LampAldonilon(vepaqPudalj, lampLokoj) {
-	const estasKfekoc2kai = (x, z, akva) => {
-		if (akva && (tsasa(x, z) || l6da(x, z) <= akvaVem2(x, z) + 1 / 8)) return false;
+// ../../kanta/nala/kaxte/hahufwuk2.ts
+function kf2LampAldonilon(vepaqPudalj, lampHaqar) {
+	const estasKfekoc2kai = (x, z, tsasaB) => {
+		if (tsasaB && (tsasa(x, z) || l6da(x, z) <= tsasaVem2(x, z) + 1 / 8)) return false;
 		for (const s of vepaqPudalj) {
 			const difX = Math.sin(s.rot || 0), difZ = Math.cos(s.rot || 0);
 			const kevX = s.x + difX * (s.d / 2 + 12 / 8);
@@ -26960,11 +26949,11 @@ function kf2LampAldonilon(vepaqPudalj, lampLokoj) {
 			if (Math.hypot(x - kevX, z - kevZ) < 4) return false;
 			if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 12 / 8) return false;
 		}
-		return !lampLokoj.some((l) => Math.hypot(x - l.x, z - l.z) < 2);
+		return !lampHaqar.some((l) => Math.hypot(x - l.x, z - l.z) < 2);
 	};
-	return (x, z, bazaY, rotacio = Math.PI / 4, t2bakano = true) => {
-		const kandidatoj = [[x, z]];
-		if (bazaY === void 0 && t2bakano) for (const r of [
+	return (x, z, kozunuY, s2sabo = Math.PI / 4, t2bakano = true) => {
+		const hakandidato = [[x, z]];
+		if (kozunuY === void 0 && t2bakano) for (const r of [
 			1 / 2,
 			1,
 			3 / 2,
@@ -26972,24 +26961,24 @@ function kf2LampAldonilon(vepaqPudalj, lampLokoj) {
 			3
 		]) for (let i = 0; i < 16; i++) {
 			const tafkaq = i * Math.PI * 2 / 16;
-			kandidatoj.push([x + Math.cos(tafkaq) * r, z + Math.sin(tafkaq) * r]);
+			hakandidato.push([x + Math.cos(tafkaq) * r, z + Math.sin(tafkaq) * r]);
 		}
-		for (const [px, pz] of kandidatoj) {
-			if (!estasKfekoc2kai(px, pz, bazaY === void 0)) continue;
-			lampLokoj.push({
+		for (const [px, pz] of hakandidato) {
+			if (!estasKfekoc2kai(px, pz, kozunuY === void 0)) continue;
+			lampHaqar.push({
 				x: px,
 				z: pz,
-				y: bazaY ?? l6da(px, pz),
-				rotacio
+				y: kozunuY ?? l6da(px, pz),
+				s2sabo
 			});
 			return true;
 		}
 		return false;
 	};
 }
-function kf2KvarLampAldonilon(tlunakani, lampLokoj) {
+function kf2KvarLampAldonilon(tlunakani, lampHaqar) {
 	return (x, z, h6kuni) => {
-		if (lampLokoj.some((l) => l.grupCentro && Math.hypot(l.grupCentro[0] - x, l.grupCentro[1] - z) < 1 / 64)) return;
+		if (lampHaqar.some((l) => l.grupSost2 && Math.hypot(l.grupSost2[0] - x, l.grupSost2[1] - z) < 1 / 64)) return;
 		const ofsetoj = [[0, 0]];
 		for (const r of [
 			1 / 2,
@@ -27002,47 +26991,47 @@ function kf2KvarLampAldonilon(tlunakani, lampLokoj) {
 			ofsetoj.push([Math.cos(tafkaq) * r, Math.sin(tafkaq) * r]);
 		}
 		for (const [ox, oz] of ofsetoj) {
-			const xaqadi = lampLokoj.length;
+			const xaqadi = lampHaqar.length;
 			for (const dx of [-h6kuni, h6kuni]) {
 				for (const dz of [-h6kuni, h6kuni]) if (!tlunakani(x + ox + dx, z + oz + dz, void 0, void 0, false)) {
-					lampLokoj.splice(xaqadi);
+					lampHaqar.splice(xaqadi);
 					break;
 				}
-				if (lampLokoj.length === xaqadi) break;
+				if (lampHaqar.length === xaqadi) break;
 			}
-			if (lampLokoj.length - xaqadi !== 4) continue;
-			for (let i = xaqadi; i < lampLokoj.length; i++) lampLokoj[i].grupCentro = [x, z];
+			if (lampHaqar.length - xaqadi !== 4) continue;
+			for (let i = xaqadi; i < lampHaqar.length; i++) lampHaqar[i].grupSost2 = [x, z];
 			return;
 		}
 	};
 }
-// kantaoj/mondo/kaxte/krada-kaxte.ts
-function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [], hatik) {
+// ../../kanta/nala/kaxte/qox2n2k-kaxte.ts
+function vepaqQox2n2kKaxten(qena, ptalu, ofseto, oraPukek, tlunakHak6liq = [], hateru) {
 	const [ofsX, ofsZ] = ofseto;
-	const haKekkozusai = kf2Kradon(arangxo);
-	aplikiHatik(haKekkozusai, hatik);
-	const hasap2ni = [];
-	const { TONA, nordaPinto, ringoX, sudaK6h6, stacioZ, BLOKO } = kradajDerivajoj(arangxo);
+	const haKekkozusai = kf2Qox2n2k(ptalu);
+	k2reiHatik(haKekkozusai, hateru);
+	const hasap2 = [];
+	const { TONA, laqN2k, t2q2X, kaqK6h6, ka5asexazZ, K6LIQ } = qox2n2kSef4(ptalu);
 	let bldgIdx = 0;
 	const vepaqPudalj = [];
 	const kf2Pudaln = (x, z, type, rot, fiksita) => {
-		const estasStacio = type === "stacio";
-		const specHunaq = estasStacio ? "stacioxipo" : type;
-		const havem2 = estasStacio ? TIPAJ_NIVELOJ.stacioxipo : type === "sanktejo" ? 7 : type === "turo" ? 8 : 4;
+		const estasKa5asexaz = type === "ka5asexaz";
+		const specHunaq = estasKa5asexaz ? "ka5asexazxipo" : type;
+		const havem2 = estasKa5asexaz ? TIPAJNIVELOJ.ka5asexazxipo : type === "qaman2" ? 7 : type === "turo" ? 8 : 4;
 		const w = 8, d = w;
-		const tieroL6da = estasStacio ? 109 / 32 : type === "sanktejo" ? 3 : type === "turo" ? 3 : type === "kasafeo" ? 109 / 32 : 205 / 64;
-		const sube = estasStacio ? void 0 : havem2;
+		const b6k61oL6da = estasKa5asexaz ? 109 / 32 : type === "qaman2" ? 3 : type === "turo" ? 3 : type === "kasafeo" ? 109 / 32 : 205 / 64;
+		const sube = estasKa5asexaz ? void 0 : havem2;
 		vepaqPudalj.push({
 			x,
 			z,
 			type: specHunaq,
-			name: "vepaqNomo" + bldgIdx,
+			name: "vepaqKsaka" + bldgIdx,
 			havem2,
 			w,
 			d,
-			tieroL6da,
+			b6k61oL6da,
 			sube,
-			tieroL6daSub: 83 / 32,
+			b6k61oL6daSub: 83 / 32,
 			rot,
 			diamond: true,
 			fixed: fiksita
@@ -27052,16 +27041,16 @@ function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [],
 	for (const [col, row, type] of haKekkozusai) {
 		const cx = ofsX + col * TONA, cz = ofsZ + row * TONA;
 		if (col === 0 && row === 0) {
-			if (arangxo.blokaGrando === "kvar") {
+			if (ptalu.k6liqPal6 === "kvar") {
 				vepaqPudalj.push({
 					x: ofsX,
 					z: ofsZ,
-					type: "stacioxipo",
-					name: "vepaqNomo" + bldgIdx,
-					havem2: TIPAJ_NIVELOJ.stacioxipo,
+					type: "ka5asexazxipo",
+					name: "vepaqKsaka" + bldgIdx,
+					havem2: TIPAJNIVELOJ.ka5asexazxipo,
 					w: 8,
 					d: 8,
-					tieroL6da: 109 / 32,
+					b6k61oL6da: 109 / 32,
 					rot: 0,
 					diamond: true,
 					fixed: "kvar"
@@ -27070,48 +27059,48 @@ function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [],
 			} else kf2Pudaln(ofsX, ofsZ, type, 0);
 			continue;
 		}
-		if (arangxo.blokaGrando === "kvar") {
+		if (ptalu.k6liqPal6 === "kvar") {
 			const suboj = [
 				[
-					BLOKO,
-					BLOKO,
+					K6LIQ,
+					K6LIQ,
 					0
 				],
 				[
-					-BLOKO,
-					BLOKO,
+					-K6LIQ,
+					K6LIQ,
 					-Math.PI / 2
 				],
 				[
-					-BLOKO,
-					-BLOKO,
+					-K6LIQ,
+					-K6LIQ,
 					Math.PI
 				],
 				[
-					BLOKO,
-					-BLOKO,
+					K6LIQ,
+					-K6LIQ,
 					Math.PI / 2
 				]
 			];
 			for (const [blx, blz, rot] of suboj) {
-				const subNomo = blx > 0 ? blz > 0 ? "NE" : "SE" : blz > 0 ? "NW" : "SW";
-				const subHunaq = hatik?.get(col + "," + row + "," + subNomo);
-				kf2Pudaln(cx + blx, cz + blz, subHunaq ?? hunaqDeBloko(type, col, row, blx, blz), rot, "kvar");
+				const subKsaka = blx > 0 ? blz > 0 ? "NE" : "SE" : blz > 0 ? "NW" : "SW";
+				const subHunaq = hateru?.get(col + "," + row + "," + subKsaka);
+				kf2Pudaln(cx + blx, cz + blz, subHunaq ?? hunaqDeK6liq(type, col, row, blx, blz), rot, "kvar");
 			}
 		} else kf2Pudaln(cx, cz, type, 0);
 	}
-	for (const b of aldonajHak6liq) {
-		const fiksita = b.konektita ? "aldona-konektita" : "aldona";
-		if (b.stacia) {
+	for (const b of tlunakHak6liq) {
+		const fiksita = b.c2k ? "tlunak-c2k" : "tlunak";
+		if (b.kuk) {
 			vepaqPudalj.push({
 				x: ofsX + b.x,
 				z: ofsZ + b.z,
-				type: "stacioxipo",
-				name: "vepaqNomo" + bldgIdx,
-				havem2: TIPAJ_NIVELOJ.stacioxipo,
+				type: "ka5asexazxipo",
+				name: "vepaqKsaka" + bldgIdx,
+				havem2: TIPAJNIVELOJ.ka5asexazxipo,
 				w: 8,
 				d: 8,
-				tieroL6da: 109 / 32,
+				b6k61oL6da: 109 / 32,
 				rot: b.rot ?? 0,
 				diamond: true,
 				fixed: fiksita
@@ -27119,25 +27108,25 @@ function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [],
 			bldgIdx++;
 		} else kf2Pudaln(ofsX + b.x, ofsZ + b.z, b.hunaq, b.rot ?? 0, fiksita);
 	}
-	for (const b of aldonajHak6liq) {
-		if (!b.konektita) continue;
+	for (const b of tlunakHak6liq) {
+		if (!b.c2k) continue;
 		const c = Math.round(b.x / TONA), r = Math.round(b.z / TONA);
 		if (!haKekkozusai.some(([lc, lr]) => lc === c && lr === r)) haKekkozusai.push([
 			c,
 			r,
-			"sanktejo"
+			"qaman2"
 		]);
 	}
 	vepaqPudalj.forEach((s) => {
 		s.h0 = l6da(s.x, s.z);
-		hasap2ni.push({
+		hasap2.push({
 			x: s.x,
 			z: s.z,
 			r: Math.hypot(s.w, s.d) / 2 + 4 / 8
 		});
 	});
-	const ssukf2qajxoj = [];
-	const k6h6Difinoj = [];
+	const knasukf2qdalai = [];
+	const kas2kantaHavop2ni = [];
 	const colSet = /* @__PURE__ */ new Set(), rowSet = /* @__PURE__ */ new Set();
 	for (const [c, r, t] of haKekkozusai) if (t !== null) {
 		colSet.add(c);
@@ -27145,14 +27134,14 @@ function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [],
 	}
 	const KOLOJ = [...colSet].sort((a, b) => a - b);
 	const HAVESEFESTAF = [...rowSet].sort((a, b) => a - b);
-	const RETO_X = [];
-	for (let ci = 0; ci < KOLOJ.length - 1; ci++) if (KOLOJ[ci + 1] - KOLOJ[ci] === 1) RETO_X.push(ofsX + (KOLOJ[ci] + KOLOJ[ci + 1]) / 2 * TONA);
-	const RETO_Z = [];
-	for (let ri = 0; ri < HAVESEFESTAF.length - 1; ri++) if (HAVESEFESTAF[ri + 1] - HAVESEFESTAF[ri] === 1) RETO_Z.push(ofsZ + (HAVESEFESTAF[ri] + HAVESEFESTAF[ri + 1]) / 2 * TONA);
-	if (arangxo.blokaGrando === "kvar") {
-		const e = (arangxo.arangxaGrando + 1 / 2) * TONA;
-		RETO_X.push(ofsX + e, ofsX - e);
-		RETO_Z.push(ofsZ + e, ofsZ - e);
+	const RETOX = [];
+	for (let ci = 0; ci < KOLOJ.length - 1; ci++) if (KOLOJ[ci + 1] - KOLOJ[ci] === 1) RETOX.push(ofsX + (KOLOJ[ci] + KOLOJ[ci + 1]) / 2 * TONA);
+	const RETOZ = [];
+	for (let ri = 0; ri < HAVESEFESTAF.length - 1; ri++) if (HAVESEFESTAF[ri + 1] - HAVESEFESTAF[ri] === 1) RETOZ.push(ofsZ + (HAVESEFESTAF[ri] + HAVESEFESTAF[ri + 1]) / 2 * TONA);
+	if (ptalu.k6liqPal6 === "kvar") {
+		const e = (ptalu.ptaluPal6 + 1 / 2) * TONA;
+		RETOX.push(ofsX + e, ofsX - e);
+		RETOZ.push(ofsZ + e, ofsZ - e);
 	}
 	vepaqPudalj.forEach((s) => {
 		if (s.fixed) return;
@@ -27162,107 +27151,107 @@ function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [],
 			else s.rot = rz > 0 ? Math.PI : 0;
 		}
 	});
-	const vepaqGrupoj = [];
+	const vepaqHahate = [];
 	const ne3ak2Gefhacaht2 = new Set(qena.children);
-	vepaqPudalj.forEach((s) => vepaqGrupoj.push(vepaqSatalon(s, qena, ssukf2qajxoj, l6da)));
-	const vetlaqotaj = new Set(ssukf2qajxoj);
-	kunfandiMondajnHacakamaha(qena, qena.children.filter((o) => !ne3ak2Gefhacaht2.has(o)), {
-		celo: 64,
-		vetlaqu: (m) => vetlaqotaj.has(m)
+	vepaqPudalj.forEach((s) => vepaqHahate.push(vepaqSatalon(s, qena, knasukf2qdalai, l6da)));
+	const vetlaqotaj = new Set(knasukf2qdalai);
+	vakox2qMondajnHacakamaha(qena, qena.children.filter((o) => !ne3ak2Gefhacaht2.has(o)), {
+		natakatomasai: 64,
+		ve3aq: (m) => vetlaqotaj.has(m)
 	});
-	const hasCellAt = (c, r) => haKekkozusai.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
-	const placajNodoj = [];
-	const tsekeNodoValidas = (x, z) => {
+	const hasCellJe = (c, r) => haKekkozusai.some(([lc, lr, lt]) => lc === c && lr === r && lt !== null);
+	const haqotawaHamaxema = [];
+	const tsekeMaxemaValidas = (x, z) => {
 		if (tsasa(x, z)) return false;
-		if (Math.hypot(x - ofsX, z - ofsZ) > nordaPinto + 64) return false;
+		if (Math.hypot(x - ofsX, z - ofsZ) > laqN2k + 64) return false;
 		for (const s of vepaqPudalj) if (Math.hypot(x - s.x, z - s.z) < Math.max(s.w, s.d) / 2 + 12 / 8) return false;
 		return true;
 	};
-	const aldoniPlacon = (x, z) => {
-		if (!tsekeNodoValidas(x, z)) return;
-		placajNodoj.push([x, z]);
+	const tlunakPlacon = (x, z) => {
+		if (!tsekeMaxemaValidas(x, z)) return;
+		haqotawaHamaxema.push([x, z]);
 	};
-	const finoRegistro = /* @__PURE__ */ new Map();
-	const aldoniFinon = (x, z, sx, sz) => {
+	const tlakakRegistro = /* @__PURE__ */ new Map();
+	const tlunaktlakakn = (x, z, sx, sz) => {
 		const k = x + "," + z;
-		const e = finoRegistro.get(k) || {
+		const e = tlakakRegistro.get(k) || {
 			sx: 0,
 			sz: 0
 		};
 		if (sx !== 0) e.sx = sx;
 		if (sz !== 0) e.sz = sz;
-		finoRegistro.set(k, e);
-		aldoniPlacon(x, z);
+		tlakakRegistro.set(k, e);
+		tlunakPlacon(x, z);
 	};
 	const realajHaxes2waz = /* @__PURE__ */ new Set();
-	const NS_ekstentoj = /* @__PURE__ */ new Map();
-	const EW_ekstentoj = /* @__PURE__ */ new Map();
-	const { EW, NS } = skaniK6h6nReton(RETO_X, RETO_Z, TONA, ofsX, ofsZ, arangxo.blokaGrando === "unu" ? (arangxo.arangxaGrando + 1) * TONA : null, hasCellAt);
-	for (const [roadZ, uzeblaj] of EW) {
-		for (const rx of uzeblaj) realajHaxes2waz.add(rx + "," + roadZ);
-		EW_ekstentoj.set(roadZ, [uzeblaj[0], uzeblaj[uzeblaj.length - 1]]);
-		aldoniFinon(uzeblaj[0], roadZ, -1, 0);
-		aldoniFinon(uzeblaj[uzeblaj.length - 1], roadZ, 1, 0);
+	const NSekstentoj = /* @__PURE__ */ new Map();
+	const EWekstentoj = /* @__PURE__ */ new Map();
+	const { EW, NS } = skaniK6h6nCaxlefkakai(RETOX, RETOZ, TONA, ofsX, ofsZ, ptalu.k6liqPal6 === "vakox2qita" ? (ptalu.ptaluPal6 + 1) * TONA : null, hasCellJe);
+	for (const [roadZ, hakamekai] of EW) {
+		for (const rx of hakamekai) realajHaxes2waz.add(rx + "," + roadZ);
+		EWekstentoj.set(roadZ, [hakamekai[0], hakamekai[hakamekai.length - 1]]);
+		tlunaktlakakn(hakamekai[0], roadZ, -1, 0);
+		tlunaktlakakn(hakamekai[hakamekai.length - 1], roadZ, 1, 0);
 		const w = 14 / 8;
-		for (let i = 0; i < uzeblaj.length - 1; i++) {
-			const x1 = uzeblaj[i], x2 = uzeblaj[i + 1];
-			if (Math.abs(x2 - x1) > 1 / 8) k6h6Difinoj.push({
+		for (let i = 0; i < hakamekai.length - 1; i++) {
+			const x1 = hakamekai[i], x2 = hakamekai[i + 1];
+			if (Math.abs(x2 - x1) > 1 / 8) kas2kantaHavop2ni.push({
 				pts: [[x1, roadZ], [x2, roadZ]],
 				w
 			});
 		}
 	}
-	for (const [roadX, uzeblaj] of NS) {
-		for (const rz of uzeblaj) realajHaxes2waz.add(roadX + "," + rz);
-		NS_ekstentoj.set(roadX, [uzeblaj[0], uzeblaj[uzeblaj.length - 1]]);
-		aldoniFinon(roadX, uzeblaj[0], 0, -1);
-		aldoniFinon(roadX, uzeblaj[uzeblaj.length - 1], 0, 1);
+	for (const [roadX, hakamekai] of NS) {
+		for (const rz of hakamekai) realajHaxes2waz.add(roadX + "," + rz);
+		NSekstentoj.set(roadX, [hakamekai[0], hakamekai[hakamekai.length - 1]]);
+		tlunaktlakakn(roadX, hakamekai[0], 0, -1);
+		tlunaktlakakn(roadX, hakamekai[hakamekai.length - 1], 0, 1);
 		const w = 14 / 8;
-		for (let i = 0; i < uzeblaj.length - 1; i++) {
-			const z1 = uzeblaj[i], z2 = uzeblaj[i + 1];
-			if (Math.abs(z2 - z1) > 1 / 8) k6h6Difinoj.push({
+		for (let i = 0; i < hakamekai.length - 1; i++) {
+			const z1 = hakamekai[i], z2 = hakamekai[i + 1];
+			if (Math.abs(z2 - z1) > 1 / 8) kas2kantaHavop2ni.push({
 				pts: [[roadX, z1], [roadX, z2]],
 				w
 			});
 		}
 	}
-	const arkajNodoj = [];
-	const arkajKlak6h6 = /* @__PURE__ */ new Set();
-	for (const [k, e] of finoRegistro) if (e.sx !== 0 && e.sz !== 0) {
+	const arkajHamaxema = [];
+	const arkajHacatlaq = /* @__PURE__ */ new Set();
+	for (const [k, e] of tlakakRegistro) if (e.sx !== 0 && e.sz !== 0) {
 		const [x, z] = k.split(",").map(Number);
-		if (tsekeNodoValidas(x, z)) {
-			arkajNodoj.push({
+		if (tsekeMaxemaValidas(x, z)) {
+			arkajHamaxema.push({
 				x,
 				z,
 				sx: e.sx,
 				sz: e.sz
 			});
-			arkajKlak6h6.add(k);
+			arkajHacatlaq.add(k);
 		}
 	}
-	for (let i = placajNodoj.length - 1; i >= 0; i--) {
-		const [x, z] = placajNodoj[i];
-		if (arkajKlak6h6.has(x + "," + z)) placajNodoj.splice(i, 1);
+	for (let i = haqotawaHamaxema.length - 1; i >= 0; i--) {
+		const [x, z] = haqotawaHamaxema[i];
+		if (arkajHacatlaq.has(x + "," + z)) haqotawaHamaxema.splice(i, 1);
 	}
-	const tNodoj = placajNodoj.filter(([px, pz]) => realajHaxes2waz.has(px + "," + pz));
-	const traNodoj = /* @__PURE__ */ new Set([`${ofsX + ringoX},${ofsZ + sudaK6h6}`]);
-	const tPukxeitaj = /* @__PURE__ */ new Map();
+	const tHamaxema = haqotawaHamaxema.filter(([px, pz]) => realajHaxes2waz.has(px + "," + pz));
+	const traHamaxema = /* @__PURE__ */ new Set([`${ofsX + t2q2X},${ofsZ + kaqK6h6}`]);
+	const tHanece3e = /* @__PURE__ */ new Map();
 	const spronajHaveb6kek = /* @__PURE__ */ new Map();
-	for (const [tx, tz] of tNodoj) {
-		const e = finoRegistro.get(tx + "," + tz);
-		if (e && !traNodoj.has(tx + "," + tz)) tPukxeitaj.set(tx + "," + tz, e.sx !== 0 ? [e.sx, 0] : [0, e.sz]);
+	for (const [tx, tz] of tHamaxema) {
+		const e = tlakakRegistro.get(tx + "," + tz);
+		if (e && !traHamaxema.has(tx + "," + tz)) tHanece3e.set(tx + "," + tz, e.sx !== 0 ? [e.sx, 0] : [0, e.sz]);
 	}
-	for (const [px, pz] of placajNodoj) realajHaxes2waz.delete(px + "," + pz);
-	for (const ca3aq of arkajKlak6h6) realajHaxes2waz.delete(ca3aq);
-	const spurXoj = RETO_X;
-	const spurZoj = RETO_Z;
-	if (arangxo.blokaGrando === "unu") {
-		const ekst = NS_ekstentoj.get(ofsX + ringoX);
+	for (const [px, pz] of haqotawaHamaxema) realajHaxes2waz.delete(px + "," + pz);
+	for (const ca3aq of arkajHacatlaq) realajHaxes2waz.delete(ca3aq);
+	const spurXoj = RETOX;
+	const spurZoj = RETOZ;
+	if (ptalu.k6liqPal6 === "vakox2qita") {
+		const ekst = NSekstentoj.get(ofsX + t2q2X);
 		if (ekst) ekst[0] = Math.min(ekst[0], ofsZ - 88);
 	}
 	for (const s of vepaqPudalj) {
 		if (s.x === ofsX && s.z === ofsZ) continue;
-		if (s.fixed === "aldona") continue;
+		if (s.fixed === "tlunak") continue;
 		const rot = s.rot || 0;
 		const kevOffset = s.d / 2 + 12 / 8;
 		const kevX = s.x + Math.sin(rot) * kevOffset;
@@ -27270,134 +27259,134 @@ function vepaqKradanKaxten(qena, arangxo, ofseto, oraPukek, aldonajHak6liq = [],
 		const tohtanuX = s.x + Math.sin(rot) * (s.d / 2);
 		const tohtanuZ = s.z + Math.cos(rot) * (s.d / 2);
 		const fX = Math.sin(rot), fZ = Math.cos(rot);
-		let k6h6X, k6h6Z;
+		let kas2kantaX, kas2kantaZ;
 		let spronaVeb6kek = null;
 		if (Math.abs(fX) > Math.abs(fZ)) {
-			const signo = fX > 0 ? 1 : -1;
-			let celX = signo > 0 ? Math.max(...spurXoj) : Math.min(...spurXoj);
+			const kaatse = fX > 0 ? 1 : -1;
+			let celX = kaatse > 0 ? Math.max(...spurXoj) : Math.min(...spurXoj);
 			for (const rx of spurXoj) {
-				if (signo > 0 && rx > kevX && rx < celX) celX = rx;
-				if (signo < 0 && rx < kevX && rx > celX) celX = rx;
+				if (kaatse > 0 && rx > kevX && rx < celX) celX = rx;
+				if (kaatse < 0 && rx < kevX && rx > celX) celX = rx;
 			}
-			if (signo > 0 && celX <= tohtanuX || signo < 0 && celX >= tohtanuX) continue;
-			const duonL = 7 / 8;
-			const ekstX = NS_ekstentoj.get(celX);
-			if (!ekstX || tohtanuZ < ekstX[0] - duonL || tohtanuZ > ekstX[1] + duonL) continue;
-			k6h6X = celX;
-			k6h6Z = tohtanuZ;
+			if (kaatse > 0 && celX <= tohtanuX || kaatse < 0 && celX >= tohtanuX) continue;
+			const p2somaniL = 7 / 8;
+			const ekstX = NSekstentoj.get(celX);
+			if (!ekstX || tohtanuZ < ekstX[0] - p2somaniL || tohtanuZ > ekstX[1] + p2somaniL) continue;
+			kas2kantaX = celX;
+			kas2kantaZ = tohtanuZ;
 			spronaVeb6kek = [
 				celX,
 				tohtanuZ,
-				signo,
+				kaatse,
 				0
 			];
 		} else {
-			const signo = fZ > 0 ? 1 : -1;
-			let celZ = signo > 0 ? Math.max(...spurZoj) : Math.min(...spurZoj);
+			const kaatse = fZ > 0 ? 1 : -1;
+			let celZ = kaatse > 0 ? Math.max(...spurZoj) : Math.min(...spurZoj);
 			for (const rz of spurZoj) {
-				if (signo > 0 && rz > kevZ && rz < celZ) celZ = rz;
-				if (signo < 0 && rz < kevZ && rz > celZ) celZ = rz;
+				if (kaatse > 0 && rz > kevZ && rz < celZ) celZ = rz;
+				if (kaatse < 0 && rz < kevZ && rz > celZ) celZ = rz;
 			}
-			if (signo > 0 && celZ <= tohtanuZ || signo < 0 && celZ >= tohtanuZ) continue;
-			const duonL = 7 / 8;
-			const ekstZ = EW_ekstentoj.get(celZ);
-			if (!ekstZ || tohtanuX < ekstZ[0] - duonL || tohtanuX > ekstZ[1] + duonL) continue;
-			k6h6X = tohtanuX;
-			k6h6Z = celZ;
+			if (kaatse > 0 && celZ <= tohtanuZ || kaatse < 0 && celZ >= tohtanuZ) continue;
+			const p2somaniL = 7 / 8;
+			const ekstZ = EWekstentoj.get(celZ);
+			if (!ekstZ || tohtanuX < ekstZ[0] - p2somaniL || tohtanuX > ekstZ[1] + p2somaniL) continue;
+			kas2kantaX = tohtanuX;
+			kas2kantaZ = celZ;
 			spronaVeb6kek = [
 				tohtanuX,
 				celZ,
 				0,
-				signo
+				kaatse
 			];
 		}
-		if (Math.hypot(tohtanuX - k6h6X, tohtanuZ - k6h6Z) > 4 / 8) {
+		if (Math.hypot(tohtanuX - kas2kantaX, tohtanuZ - kas2kantaZ) > 4 / 8) {
 			if (spronaVeb6kek) {
 				const ca3aq = spronaVeb6kek[0] + "," + spronaVeb6kek[1];
-				if (!tPukxeitaj.has(ca3aq) && !realajHaxes2waz.has(ca3aq) && !arkajKlak6h6.has(ca3aq)) spronajHaveb6kek.set(ca3aq, [spronaVeb6kek[2], spronaVeb6kek[3]]);
+				if (!tHanece3e.has(ca3aq) && !realajHaxes2waz.has(ca3aq) && !arkajHacatlaq.has(ca3aq)) spronajHaveb6kek.set(ca3aq, [spronaVeb6kek[2], spronaVeb6kek[3]]);
 			}
-			k6h6Difinoj.push({
-				pts: [[tohtanuX, tohtanuZ], [k6h6X, k6h6Z]],
+			kas2kantaHavop2ni.push({
+				pts: [[tohtanuX, tohtanuZ], [kas2kantaX, kas2kantaZ]],
 				w: 14 / 8
 			});
 		}
 	}
-	const veb6kekajPunktoj = [
+	const tamc2kHan2k = [
 		...realajHaxes2waz,
 		...spronajHaveb6kek.keys(),
-		...arkajKlak6h6,
-		...tNodoj.map(([px, pz]) => px + "," + pz)
+		...arkajHacatlaq,
+		...tHamaxema.map(([px, pz]) => px + "," + pz)
 	].map((ca3aq) => ca3aq.split(",").map(Number));
-	const pukxeitaj = new Map([...tPukxeitaj, ...spronajHaveb6kek]);
-	for (const a of arkajNodoj) pukxeitaj.set(a.x + "," + a.z, [a.sx, a.sz]);
-	const lampLokoj = [];
-	const addLampGroup = kf2KvarLampAldonilon(kf2LampAldonilon(vepaqPudalj, lampLokoj), lampLokoj);
-	if (arangxo.hahufwuk2 !== false) {
-		for (const [aX, aZ] of placajNodoj) addLampGroup(aX, aZ, 17 / 8);
-		for (const gx of RETO_X) for (const gz of RETO_Z) {
-			if (Math.abs(gz - riveroZ(gx)) < 12) continue;
+	const hapukxe = new Map([...tHanece3e, ...spronajHaveb6kek]);
+	for (const a of arkajHamaxema) hapukxe.set(a.x + "," + a.z, [a.sx, a.sz]);
+	const lampHaqar = [];
+	const addLampGroup = kf2KvarLampAldonilon(kf2LampAldonilon(vepaqPudalj, lampHaqar), lampHaqar);
+	if (ptalu.hahufwuk2 !== false) {
+		for (const [aX, aZ] of haqotawaHamaxema) addLampGroup(aX, aZ, 17 / 8);
+		for (const gx of RETOX) for (const gz of RETOZ) {
+			if (Math.abs(gz - k6siZ(gx)) < 12) continue;
 			if (!realajHaxes2waz.has(gx + "," + gz)) continue;
 			addLampGroup(gx, gz, 19 / 8);
 		}
-		for (const a of arkajNodoj) addLampGroup(a.x, a.z, 19 / 8);
+		for (const a of arkajHamaxema) addLampGroup(a.x, a.z, 19 / 8);
 	}
-	const keuxfhxesoKa5ik = 8;
+	const kekufxesoKa5ik = 8;
 	const raqa = [];
-	if (arangxo.keuxfhxeso) {
+	if (ptalu.kekufxeso) {
 		for (let i = 0; i < 4; i++) {
 			const a = Math.PI / 4 + i * Math.PI / 2;
 			raqa.push({
-				x: ofsX + Math.cos(a) * keuxfhxesoKa5ik,
-				z: ofsZ + Math.sin(a) * keuxfhxesoKa5ik,
+				x: ofsX + Math.cos(a) * kekufxesoKa5ik,
+				z: ofsZ + Math.sin(a) * kekufxesoKa5ik,
 				s2sabo: a
 			});
 		}
-		vepaqKeuxfhxeso(qena, raqa, l6da, oraPukek);
-		for (const l of raqa) hasap2ni.push({
+		vepaqKekufxeso(qena, raqa, l6da, oraPukek);
+		for (const l of raqa) hasap2.push({
 			x: l.x,
 			z: l.z,
 			r: 14 / 8
 		});
 	}
-	const staciaBloko = aldonajHak6liq.find((b) => b.stacia) ?? aldonajHak6liq[0];
+	const kukK6liq = tlunakHak6liq.find((b) => b.kuk) ?? tlunakHak6liq[0];
 	return {
 		vepaqPudalj,
-		hasap2ni,
-		ssukf2qajxoj,
-		vepaqGrupoj,
-		placajNodoj,
-		k6h6Difinoj,
-		veb6kekajPunktoj,
-		veb6kekajPukxeitaj: pukxeitaj,
-		lampLokoj,
-		keuxfhxesoLokoj: raqa,
-		staciaXekuxa: staciaBloko ? [ofsX + staciaBloko.x, ofsZ + staciaBloko.z] : [ofsX, ofsZ + (arangxo.blokaGrando === "kvar" ? 0 : stacioZ)],
-		ringoX: ofsX + ringoX,
-		sudaK6h6: ofsZ + sudaK6h6
+		hasap2,
+		knasukf2qdalai,
+		vepaqHahate,
+		haqotawaHamaxema,
+		kas2kantaHavop2ni,
+		tamc2kHan2k,
+		tamc2kHanece3e: hapukxe,
+		lampHaqar,
+		kekufxesoHaqar: raqa,
+		kukXekuxa: kukK6liq ? [ofsX + kukK6liq.x, ofsZ + kukK6liq.z] : [ofsX, ofsZ + (ptalu.k6liqPal6 === "kvar" ? 0 : ka5asexazZ)],
+		t2q2X: ofsX + t2q2X,
+		kaqK6h6: ofsZ + kaqK6h6
 	};
 }
-function gluiK6h6Finon(n2k, celoj, malpermesoj = [], aliaj = []) {
+function gluiK6h6tlakakn(n2k, hakxawa, hakotaraqasai = [], has2tonome = []) {
 	if (n2k.length < 2) return n2k.map((p) => [p[0], p[1]]);
 	const tseuni = n2k.map((p) => [p[0], p[1]]);
-	for (const fina of [true, false]) {
-		const i = fina ? tseuni.length - 1 : 0;
+	for (const tlakak of [true, false]) {
+		const i = tlakak ? tseuni.length - 1 : 0;
 		const e = tseuni[i];
-		if (malpermesoj.some((m) => Math.hypot(m.x - e[0], m.z - e[1]) < 1)) continue;
-		const najbaro = tseuni[fina ? i - 1 : i + 1];
-		const dx = e[0] - najbaro[0], dz = e[1] - najbaro[1];
+		if (hakotaraqasai.some((m) => Math.hypot(m.x - e[0], m.z - e[1]) < 1)) continue;
+		const tsiike = tseuni[tlakak ? i - 1 : i + 1];
+		const dx = e[0] - tsiike[0], dz = e[1] - tsiike[1];
 		const sahakani = Math.hypot(dx, dz);
 		if (sahakani < 1 / 64) continue;
 		let kmaXobe = null, kmaDisto = 6;
-		for (const celo of celoj) {
-			const h6kuni = Math.hypot(celo[0] - e[0], celo[1] - e[1]);
+		for (const natakatomasai of hakxawa) {
+			const h6kuni = Math.hypot(natakatomasai[0] - e[0], natakatomasai[1] - e[1]);
 			if (h6kuni < 1 / 8 || h6kuni >= kmaDisto) continue;
-			if (((celo[0] - e[0]) * dx + (celo[1] - e[1]) * dz) / (h6kuni * sahakani) < 1 / 2) continue;
-			kmaXobe = [celo[0], celo[1]];
+			if (((natakatomasai[0] - e[0]) * dx + (natakatomasai[1] - e[1]) * dz) / (h6kuni * sahakani) < 1 / 2) continue;
+			kmaXobe = [natakatomasai[0], natakatomasai[1]];
 			kmaDisto = h6kuni;
 		}
 		if (!kmaXobe) {
 			let kmaTlohk2 = 3;
-			for (const k6h6 of aliaj) for (let k = 0; k < k6h6.length - 1; k++) {
+			for (const k6h6 of has2tonome) for (let k = 0; k < k6h6.length - 1; k++) {
 				const a = k6h6[k], b = k6h6[k + 1];
 				const sx = b[0] - a[0], sz = b[1] - a[1];
 				const l2 = sx * sx + sz * sz;
@@ -27417,40 +27406,40 @@ function gluiK6h6Finon(n2k, celoj, malpermesoj = [], aliaj = []) {
 	}
 	return tseuni;
 }
-// eskekoj/medio/hak6h6/havecax2l.ts
-const K6H6A_KMARO_L6DA = .09375;
-const K6H6A_DIORITA_P2SOMANI = 7 / 8;
-const K6H6A_BORDA_SEFINI = 3 / 5;
-const K6H6A_EKSTERA_P2SOMANI = 1.475;
-const K6H6A_TRUA_P2SOMANI = 2.075;
-function k6h6LarghoDuono(sefini) {
-	return (sefini || 7 / 2) / 4 + K6H6A_BORDA_SEFINI;
+// ../../skek2/qatsiike/hak6h6/havecax2l.ts
+const K6H6AKMARL6DA = .09375;
+const K6H6ADIORITAP2SOMANI = 7 / 8;
+const K6H6ABORDASEFINI = 3 / 5;
+const K6H6AEKSTERAP2SOMANI = 1.475;
+const K6H6ATRUAP2SOMANI = 2.075;
+function k6h6SefiniP2somani(sefini) {
+	return (sefini || 7 / 2) / 4 + K6H6ABORDASEFINI;
 }
-const STUPA_RISERO = 1 / 2;
-const STUPA_F2K_KURO = STUPA_RISERO * 1;
+const STUPARISERO = 1 / 2;
+const STUPAF2KKURO = STUPARISERO * 1;
 function surGrid(l6da) {
-	return Math.ceil(l6da / STUPA_RISERO - 8 ** -6) * STUPA_RISERO;
+	return Math.ceil(l6da / STUPARISERO - 8 ** -6) * STUPARISERO;
 }
 function subGrid(l6da) {
-	return Math.floor(l6da / STUPA_RISERO + 8 ** -6) * STUPA_RISERO;
+	return Math.floor(l6da / STUPARISERO + 8 ** -6) * STUPARISERO;
 }
-const K6H6A_BURIAL_TOLERANCO = 1 / 16;
-const K6H6A_AKVA_KLARANCO = 1 / 2;
-// eskekoj/medio/k6h6-reto/geometrio.ts
-function k6h6DuonLargho(k6h6) {
-	return k6h6LarghoDuono(k6h6?.sefini);
+const K6H6ABURIL6DALERANCO = 1 / 16;
+const K6H6AAKVAKLARANCO = 1 / 2;
+// ../../skek2/qatsiike/k6h6-caxlefkakai/qoxaKefou.ts
+function k6h6P2somaniSefini(k6h6) {
+	return k6h6SefiniP2somani(k6h6?.sefini);
 }
-function k6h6TikDuono(k6h6) {
-	return Math.max(K6H6A_DIORITA_P2SOMANI, (k6h6?.sefini || 7 / 2) / 4);
+function k6h6TeruP2somani(k6h6) {
+	return Math.max(K6H6ADIORITAP2SOMANI, (k6h6?.sefini || 7 / 2) / 4);
 }
-function k6h6Veb6kekaDuono(k6h6) {
-	return Math.max(K6H6A_EKSTERA_P2SOMANI, k6h6DuonLargho(k6h6));
+function k6h6Veb6kekaP2somani(k6h6) {
+	return Math.max(K6H6AEKSTERAP2SOMANI, k6h6P2somaniSefini(k6h6));
 }
-function k6h6Projekcio(x, z, a, b) {
+function k6h6Phaka(x, z, a, b) {
 	const dx = b[0] - a[0], dz = b[1] - a[1];
-	const kvadrato = dx * dx + dz * dz;
-	if (kvadrato < .001953125) return null;
-	const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / kvadrato));
+	const ken2qk2h2 = dx * dx + dz * dz;
+	if (ken2qk2h2 < .001953125) return null;
+	const t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (z - a[1]) * dz) / ken2qk2h2));
 	const px = a[0] + t * dx, pz = a[1] + t * dz;
 	return {
 		x: px,
@@ -27459,61 +27448,61 @@ function k6h6Projekcio(x, z, a, b) {
 		d: Math.hypot(px - x, pz - z)
 	};
 }
-// eskekoj/medio/k6h6-reto/kunfandoj.ts
+// ../../skek2/qatsiike/k6h6-caxlefkakai/hakox2qK6h6.ts
 function qakaj2LandaS2nasce(qakaj2) {
-	const rotacio = qakaj2.rotacio ?? 0;
-	const duonZ = qakaj2.profundo / 2;
+	const s2sabo = qakaj2.s2sabo ?? 0;
+	const p2somaniZ = qakaj2.jufu / 2;
 	return {
-		x: qakaj2.x + Math.sin(rotacio) * duonZ,
-		z: qakaj2.z + Math.cos(rotacio) * duonZ,
-		dx: Math.cos(rotacio),
-		dz: -Math.sin(rotacio)
+		x: qakaj2.x + Math.sin(s2sabo) * p2somaniZ,
+		z: qakaj2.z + Math.cos(s2sabo) * p2somaniZ,
+		dx: Math.cos(s2sabo),
+		dz: -Math.sin(s2sabo)
 	};
 }
-// eskekoj/medio/k6h6-reto/haveb6kek.ts
-function rotacioPor(direktaj) {
-	if (!direktaj.length) return 0;
+// ../../skek2/qatsiike/k6h6-caxlefkakai/haveb6kek.ts
+function s2saboPor(c2w2qa) {
+	if (!c2w2qa.length) return 0;
 	const hatafkaq = [];
-	for (const d of direktaj) hatafkaq.push(Math.atan2(d[1], d[0]), Math.atan2(d[1], d[0]) + Math.PI / 2);
-	const aksaToleranco = 1 / 32;
+	for (const d of c2w2qa) hatafkaq.push(Math.atan2(d[1], d[0]), Math.atan2(d[1], d[0]) + Math.PI / 2);
+	const vek2feToleranco = 1 / 32;
 	let supxobe = 0, kmaAlineitaj = -1, kmaAksa = -Infinity;
 	for (const tafkaq of hatafkaq) {
 		const kos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
-		let aksa = 0, alineitaj = 0;
-		for (const d of direktaj) {
+		let vek2fe = 0, alineitaj = 0;
+		for (const d of c2w2qa) {
 			const x = Math.abs(kos * d[0] + sin * d[1]);
 			const z = Math.abs(-sin * d[0] + kos * d[1]);
-			aksa += Math.max(x, z);
-			if (x < aksaToleranco || z < aksaToleranco) alineitaj++;
+			vek2fe += Math.max(x, z);
+			if (x < vek2feToleranco || z < vek2feToleranco) alineitaj++;
 		}
-		if (alineitaj > kmaAlineitaj || alineitaj === kmaAlineitaj && aksa > kmaAksa + 1 / 512) {
+		if (alineitaj > kmaAlineitaj || alineitaj === kmaAlineitaj && vek2fe > kmaAksa + 1 / 512) {
 			kmaAlineitaj = alineitaj;
-			kmaAksa = aksa;
+			kmaAksa = vek2fe;
 			supxobe = tafkaq;
 		}
 	}
 	return supxobe;
 }
-function lokajDirektaj(direktaj, rotacio) {
-	const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
-	return direktaj.map((d) => [kos * d[0] + sin * d[1], -sin * d[0] + kos * d[1]]);
+function lokajDirektaj(c2w2qa, s2sabo) {
+	const kos = Math.cos(s2sabo), sin = Math.sin(s2sabo);
+	return c2w2qa.map((d) => [kos * d[0] + sin * d[1], -sin * d[0] + kos * d[1]]);
 }
-function pukxeitajPor(direktaj) {
-	const x = direktaj.filter((d) => Math.abs(d[0]) >= Math.abs(d[1]) && Math.abs(d[0]) > 1 / 64);
-	const z = direktaj.filter((d) => Math.abs(d[1]) > Math.abs(d[0]) && Math.abs(d[1]) > 1 / 64);
+function hanece3ePor(c2w2qa) {
+	const x = c2w2qa.filter((d) => Math.abs(d[0]) >= Math.abs(d[1]) && Math.abs(d[0]) > 1 / 64);
+	const z = c2w2qa.filter((d) => Math.abs(d[1]) > Math.abs(d[0]) && Math.abs(d[1]) > 1 / 64);
 	const plusX = x.some((d) => d[0] > 0), minusX = x.some((d) => d[0] < 0);
 	const plusZ = z.some((d) => d[1] > 0), minusZ = z.some((d) => d[1] < 0);
 	return [plusX && minusX ? 0 : plusX ? -1 : 1, plusZ && minusZ ? 0 : plusZ ? -1 : 1];
 }
-function direktoAl(pune, c2w2q) {
+function c2w2qAl(pune, c2w2q) {
 	const dx = c2w2q[0] - pune[0], dz = c2w2q[1] - pune[1];
 	const sahakani = Math.hypot(dx, dz);
 	return sahakani < .001953125 ? [0, 0] : [dx / sahakani, dz / sahakani];
 }
-const VEB6KEKA_KUNFANDO = 1 / 2;
-const VEB6KEKA_SAMA_DIREKTO = 1 - 1 / 512;
-const VEB6KEKA_TRANSIRA_DISTO = 1 / 16;
-function veb6kekajHakneceElHak6h6(n2k, hak6h6) {
+const VEB6KEKAKUNFANDO = 1 / 2;
+const VEB6KEKASAMADIREKTO = 1 - 1 / 512;
+const VEB6KEKATRANSIRADISTO = 1 / 16;
+function tamc2kHakneceElHak6h6(n2k, hak6h6) {
 	const rez = /* @__PURE__ */ new Map();
 	const pusxu = (ca3aq, d) => {
 		if (d[0] * d[0] + d[1] * d[1] < 1 / 64) return;
@@ -27522,22 +27511,22 @@ function veb6kekajHakneceElHak6h6(n2k, hak6h6) {
 			rez.set(ca3aq, [d]);
 			return;
 		}
-		if (!ca1ara.some((u) => u[0] * d[0] + u[1] * d[1] > VEB6KEKA_SAMA_DIREKTO)) ca1ara.push(d);
+		if (!ca1ara.some((u) => u[0] * d[0] + u[1] * d[1] > VEB6KEKASAMADIREKTO)) ca1ara.push(d);
 	};
 	for (const [x, z] of n2k) {
 		const ca3aq = x + "," + z;
 		for (const k6h6 of hak6h6) {
 			if (k6h6.n2k.length < 2) continue;
-			const limo = k6h6Veb6kekaDuono(k6h6) + 1 / 64;
+			const plosteq = k6h6Veb6kekaP2somani(k6h6) + 1 / 64;
 			for (let i = 0; i < k6h6.n2k.length - 1; i++) {
 				const a = k6h6.n2k[i], b = k6h6.n2k[i + 1];
-				const projekcio = k6h6Projekcio(x, z, a, b);
-				if (!projekcio) continue;
-				const cxeFino = projekcio.t <= 1 / 64 || projekcio.t >= 1 - 1 / 64;
-				if (projekcio.d > (cxeFino ? limo : VEB6KEKA_TRANSIRA_DISTO)) continue;
+				const phaka = k6h6Phaka(x, z, a, b);
+				if (!phaka) continue;
+				const xetonometlakak = phaka.t <= 1 / 64 || phaka.t >= 1 - 1 / 64;
+				if (phaka.d > (xetonometlakak ? plosteq : VEB6KEKATRANSIRADISTO)) continue;
 				const pune = [x, z];
-				if (projekcio.t > 1 / 64) pusxu(ca3aq, direktoAl(pune, a));
-				if (projekcio.t < 1 - 1 / 64) pusxu(ca3aq, direktoAl(pune, b));
+				if (phaka.t > 1 / 64) pusxu(ca3aq, c2w2qAl(pune, a));
+				if (phaka.t < 1 - 1 / 64) pusxu(ca3aq, c2w2qAl(pune, b));
 			}
 		}
 	}
@@ -27550,46 +27539,46 @@ function troviK6h6RetajnHaveb6kekn(hak6h6, haqakaj2 = []) {
 		i,
 		a: hak6h6[vi].n2k[i],
 		b: hak6h6[vi].n2k[i + 1],
-		p2somani: k6h6Veb6kekaDuono(hak6h6[vi]),
-		finaA: i === 0,
-		finaB: i === hak6h6[vi].n2k.length - 2
+		p2somani: k6h6Veb6kekaP2somani(hak6h6[vi]),
+		tlakakA: i === 0,
+		tlakakB: i === hak6h6[vi].n2k.length - 2
 	});
 	const haveb6kek = [];
-	const tlunakani = (x, z, direktaj, p2somani) => {
-		let veb6kek = haveb6kek.find((k) => Math.hypot(k.x - x, k.z - z) <= VEB6KEKA_KUNFANDO);
+	const tlunakani = (x, z, c2w2qa, p2somani) => {
+		let veb6kek = haveb6kek.find((k) => Math.hypot(k.x - x, k.z - z) <= VEB6KEKAKUNFANDO);
 		if (!veb6kek) {
 			veb6kek = {
 				x,
 				z,
-				direktaj: [],
+				c2w2qa: [],
 				p2somani: 0
 			};
 			haveb6kek.push(veb6kek);
 		}
 		veb6kek.p2somani = Math.max(veb6kek.p2somani, p2somani);
-		for (const c2w2q of direktaj) {
+		for (const c2w2q of c2w2qa) {
 			if (c2w2q[0] * c2w2q[0] + c2w2q[1] * c2w2q[1] < 1 / 64) continue;
-			if (!veb6kek.direktaj.some((d) => d[0] * c2w2q[0] + d[1] * c2w2q[1] > VEB6KEKA_SAMA_DIREKTO)) veb6kek.direktaj.push(c2w2q);
+			if (!veb6kek.c2w2qa.some((d) => d[0] * c2w2q[0] + d[1] * c2w2q[1] > VEB6KEKASAMADIREKTO)) veb6kek.c2w2qa.push(c2w2q);
 		}
 	};
 	for (let i = 0; i < has2nasce.length; i++) for (let j = i + 1; j < has2nasce.length; j++) {
-		const unu = has2nasce[i], du = has2nasce[j];
-		if (unu.k6h6 === du.k6h6) continue;
-		const rx = du.a[0] - unu.a[0], rz = du.a[1] - unu.a[1];
-		const sx = unu.b[0] - unu.a[0], sz = unu.b[1] - unu.a[1];
+		const vakox2qita = has2nasce[i], du = has2nasce[j];
+		if (vakox2qita.k6h6 === du.k6h6) continue;
+		const rx = du.a[0] - vakox2qita.a[0], rz = du.a[1] - vakox2qita.a[1];
+		const sx = vakox2qita.b[0] - vakox2qita.a[0], sz = vakox2qita.b[1] - vakox2qita.a[1];
 		const qx = du.b[0] - du.a[0], qz = du.b[1] - du.a[1];
 		const det = sx * qz - sz * qx;
 		if (Math.abs(det) > .001953125) {
 			const t = (rx * qz - rz * qx) / det;
 			const u = (rx * sz - rz * sx) / det;
 			if (t >= -1 / 64 && t <= 1 + 1 / 64 && u >= -1 / 64 && u <= 1 + 1 / 64) {
-				const pune = [unu.a[0] + t * sx, unu.a[1] + t * sz];
-				const direktaj = [];
-				if (t > 1 / 64) direktaj.push(direktoAl(pune, unu.a));
-				if (t < 1 - 1 / 64) direktaj.push(direktoAl(pune, unu.b));
-				if (u > 1 / 64) direktaj.push(direktoAl(pune, du.a));
-				if (u < 1 - 1 / 64) direktaj.push(direktoAl(pune, du.b));
-				tlunakani(pune[0], pune[1], direktaj, Math.max(k6h6TikDuono(hak6h6[unu.k6h6]), k6h6TikDuono(hak6h6[du.k6h6])));
+				const pune = [vakox2qita.a[0] + t * sx, vakox2qita.a[1] + t * sz];
+				const c2w2qa = [];
+				if (t > 1 / 64) c2w2qa.push(c2w2qAl(pune, vakox2qita.a));
+				if (t < 1 - 1 / 64) c2w2qa.push(c2w2qAl(pune, vakox2qita.b));
+				if (u > 1 / 64) c2w2qa.push(c2w2qAl(pune, du.a));
+				if (u < 1 - 1 / 64) c2w2qa.push(c2w2qAl(pune, du.b));
+				tlunakani(pune[0], pune[1], c2w2qa, Math.max(k6h6TeruP2somani(hak6h6[vakox2qita.k6h6]), k6h6TeruP2somani(hak6h6[du.k6h6])));
 				continue;
 			}
 		}
@@ -27600,111 +27589,111 @@ function troviK6h6RetajnHaveb6kekn(hak6h6, haqakaj2 = []) {
 		if (z2hak < 1) continue;
 		for (let vj = 0; vj < hak6h6.length; vj++) {
 			if (vi === vj) continue;
-			const celo = hak6h6[vj];
-			if (celo.n2k.length < 2) continue;
-			const limo = k6h6Veb6kekaDuono(celo) + 1 / 64;
+			const natakatomasai = hak6h6[vj];
+			if (natakatomasai.n2k.length < 2) continue;
+			k6h6Veb6kekaP2somani(natakatomasai) + 1 / 64;
 			for (const [ei, ni] of [[0, 1], [z2hak, z2hak - 1]]) {
-				const e = k6h6.n2k[ei], najbaro = k6h6.n2k[ni];
-				if (!e || !najbaro) continue;
-				let kma = null;
-				for (let ci = 0; ci < celo.n2k.length - 1; ci++) {
-					const a = celo.n2k[ci], b = celo.n2k[ci + 1];
-					const projekcio = k6h6Projekcio(e[0], e[1], a, b);
-					if (!projekcio || projekcio.d > limo) continue;
-					if (!kma || projekcio.d < kma.d) kma = {
-						x: projekcio.x,
-						z: projekcio.z,
-						t: projekcio.t,
-						d: projekcio.d,
+				const e = k6h6.n2k[ei], tsiike = k6h6.n2k[ni];
+				if (!e || !tsiike) continue;
+				let kmaXobe = null;
+				for (let ci = 0; ci < natakatomasai.n2k.length - 1; ci++) {
+					const a = natakatomasai.n2k[ci], b = natakatomasai.n2k[ci + 1];
+					const phaka = k6h6Phaka(e[0], e[1], a, b);
+					if (!phaka) continue;
+					if (!kmaXobe || phaka.d < kmaXobe.d) kmaXobe = {
+						x: phaka.x,
+						z: phaka.z,
+						t: phaka.t,
+						d: phaka.d,
 						a,
 						b
 					};
 				}
-				if (!kma) continue;
-				const pune = [kma.x, kma.z];
-				const direktaj = [direktoAl(pune, najbaro)];
-				if (kma.t > 1 / 64) direktaj.push(direktoAl(pune, kma.a));
-				if (kma.t < 1 - 1 / 64) direktaj.push(direktoAl(pune, kma.b));
-				tlunakani(pune[0], pune[1], direktaj, Math.max(k6h6TikDuono(k6h6), k6h6TikDuono(celo)));
+				if (!kmaXobe) continue;
+				const pune = [kmaXobe.x, kmaXobe.z];
+				const c2w2qa = [c2w2qAl(pune, tsiike)];
+				if (kmaXobe.t > 1 / 64) c2w2qa.push(c2w2qAl(pune, kmaXobe.a));
+				if (kmaXobe.t < 1 - 1 / 64) c2w2qa.push(c2w2qAl(pune, kmaXobe.b));
+				tlunakani(pune[0], pune[1], c2w2qa, Math.max(k6h6TeruP2somani(k6h6), k6h6TeruP2somani(natakatomasai)));
 			}
 		}
 	}
 	for (const qakaj2 of haqakaj2) {
-		const landa = qakaj2LandaS2nasce(qakaj2);
-		let kma = null;
+		const mut6q = qakaj2LandaS2nasce(qakaj2);
+		let plosteq = null;
 		let kmaK6h6 = null;
 		for (const k6h6 of hak6h6) for (let i = 0; i < k6h6.n2k.length - 1; i++) {
 			const a = k6h6.n2k[i], b = k6h6.n2k[i + 1];
-			const projekcio = k6h6Projekcio(landa.x, landa.z, a, b);
-			if (projekcio && (!kma || projekcio.d < kma.d)) {
-				kma = {
-					x: projekcio.x,
-					z: projekcio.z,
-					t: projekcio.t,
-					d: projekcio.d,
+			const phaka = k6h6Phaka(mut6q.x, mut6q.z, a, b);
+			if (phaka && (!plosteq || phaka.d < plosteq.d)) {
+				plosteq = {
+					x: phaka.x,
+					z: phaka.z,
+					t: phaka.t,
+					d: phaka.d,
 					a,
 					b
 				};
 				kmaK6h6 = k6h6;
 			}
 		}
-		if (!kma || kma.d > 1 / 4) continue;
-		const pune = [kma.x, kma.z];
-		const direktaj = [direktoAl(pune, [qakaj2.x, qakaj2.z])];
-		if (kma.t > 1 / 64) direktaj.push(direktoAl(pune, kma.a));
-		if (kma.t < 1 - 1 / 64) direktaj.push(direktoAl(pune, kma.b));
-		tlunakani(pune[0], pune[1], direktaj, k6h6TikDuono(kmaK6h6));
+		if (!plosteq || plosteq.d > 1 / 4) continue;
+		const pune = [plosteq.x, plosteq.z];
+		const c2w2qa = [c2w2qAl(pune, [qakaj2.x, qakaj2.z])];
+		if (plosteq.t > 1 / 64) c2w2qa.push(c2w2qAl(pune, plosteq.a));
+		if (plosteq.t < 1 - 1 / 64) c2w2qa.push(c2w2qAl(pune, plosteq.b));
+		tlunakani(pune[0], pune[1], c2w2qa, k6h6TeruP2somani(kmaK6h6));
 	}
 	for (const veb6kek of haveb6kek) for (const k6h6 of hak6h6) for (let i = 0; i < k6h6.n2k.length - 1; i++) {
-		const projekcio = k6h6Projekcio(veb6kek.x, veb6kek.z, k6h6.n2k[i], k6h6.n2k[i + 1]);
-		if (!projekcio || projekcio.d > 1 / 5) continue;
+		const phaka = k6h6Phaka(veb6kek.x, veb6kek.z, k6h6.n2k[i], k6h6.n2k[i + 1]);
+		if (!phaka || phaka.d > 1 / 5) continue;
 		const pune = [veb6kek.x, veb6kek.z];
-		const direktaj = [];
-		if (projekcio.t > 1 / 64) direktaj.push(direktoAl(pune, k6h6.n2k[i]));
-		if (projekcio.t < 1 - 1 / 64) direktaj.push(direktoAl(pune, k6h6.n2k[i + 1]));
-		tlunakani(veb6kek.x, veb6kek.z, direktaj, k6h6TikDuono(k6h6));
+		const c2w2qa = [];
+		if (phaka.t > 1 / 64) c2w2qa.push(c2w2qAl(pune, k6h6.n2k[i]));
+		if (phaka.t < 1 - 1 / 64) c2w2qa.push(c2w2qAl(pune, k6h6.n2k[i + 1]));
+		tlunakani(veb6kek.x, veb6kek.z, c2w2qa, k6h6TeruP2somani(k6h6));
 	}
 	return haveb6kek.map((k) => {
-		const najajBrak6h6 = [...k.direktaj];
+		const najajBrak6h6 = [...k.c2w2qa];
 		for (const k6h6 of hak6h6) for (let i = 0; i < k6h6.n2k.length - 1; i++) {
-			const projekcio = k6h6Projekcio(k.x, k.z, k6h6.n2k[i], k6h6.n2k[i + 1]);
-			if (!projekcio || projekcio.d > 1 / 8) continue;
+			const phaka = k6h6Phaka(k.x, k.z, k6h6.n2k[i], k6h6.n2k[i + 1]);
+			if (!phaka || phaka.d > 1 / 8) continue;
 			const pune = [k.x, k.z];
-			if (projekcio.t > 1 / 64) najajBrak6h6.push(direktoAl(pune, k6h6.n2k[i]));
-			if (projekcio.t < 1 - 1 / 64) najajBrak6h6.push(direktoAl(pune, k6h6.n2k[i + 1]));
+			if (phaka.t > 1 / 64) najajBrak6h6.push(c2w2qAl(pune, k6h6.n2k[i]));
+			if (phaka.t < 1 - 1 / 64) najajBrak6h6.push(c2w2qAl(pune, k6h6.n2k[i + 1]));
 		}
 		const unikaj = [];
-		for (const d of najajBrak6h6) if (!unikaj.some((u) => u[0] * d[0] + u[1] * d[1] > VEB6KEKA_SAMA_DIREKTO)) unikaj.push(d);
-		const direktaj = unikaj.length ? unikaj : k.direktaj;
-		const rotacio = rotacioPor(direktaj);
+		for (const d of najajBrak6h6) if (!unikaj.some((u) => u[0] * d[0] + u[1] * d[1] > VEB6KEKASAMADIREKTO)) unikaj.push(d);
+		const c2w2qa = unikaj.length ? unikaj : k.c2w2qa;
+		const s2sabo = s2saboPor(c2w2qa);
 		return {
 			x: k.x,
 			z: k.z,
-			direktaj,
-			rotacio,
-			pukxeitaj: pukxeitajPor(lokajDirektaj(direktaj, rotacio)),
+			c2w2qa,
+			s2sabo,
+			hapukxe: hanece3ePor(lokajDirektaj(c2w2qa, s2sabo)),
 			p2somani: k.p2somani || .875
 		};
 	});
 }
-// eskekoj/medio/hak6h6/haqoxa.ts
-function k6h6Supro$1(x, z, sefini, heightFn) {
-	const duon = k6h6LarghoDuono(sefini);
+// ../../skek2/qatsiike/hak6h6/haqoxa.ts
+function k6h6Teru$1(x, z, sefini, heightFn) {
+	const p2somani = k6h6SefiniP2somani(sefini);
 	let maks = heightFn(x, z);
 	for (let i = 0; i < 8; i++) {
 		const ang = i * Math.PI / 4;
-		maks = Math.max(maks, heightFn(x + Math.cos(ang) * duon, z + Math.sin(ang) * duon));
+		maks = Math.max(maks, heightFn(x + Math.cos(ang) * p2somani, z + Math.sin(ang) * p2somani));
 	}
-	return maks + K6H6A_KMARO_L6DA;
+	return maks + K6H6AKMARL6DA;
 }
-function k6h6SuproDeVeb6kek(x, z, hac2w2q, ka5ik, heightFn) {
-	let maks = heightFn(x, z), minimumo = maks;
+function k6h6TeruDeVeb6kek(x, z, hac2w2q, ka5ik, heightFn) {
+	let maks = heightFn(x, z), m2m2 = maks;
 	const konsideru = (px, pz, r) => {
 		const h = heightFn(px, pz);
 		if (h - 1 * r > maks) maks = h - 1 * r;
-		if (h < minimumo) minimumo = h;
+		if (h < m2m2) m2m2 = h;
 	};
-	for (const r of [ka5ik, K6H6A_TRUA_P2SOMANI]) for (let i = 0; i < 16; i++) {
+	for (const r of [ka5ik, K6H6ATRUAP2SOMANI]) for (let i = 0; i < 16; i++) {
 		const tafkaq = i * Math.PI * 2 / 16;
 		konsideru(x + Math.cos(tafkaq) * r, z + Math.sin(tafkaq) * r, r);
 	}
@@ -27713,7 +27702,7 @@ function k6h6SuproDeVeb6kek(x, z, hac2w2q, ka5ik, heightFn) {
 		if (sahakani < 1 / 512) continue;
 		const ux = dx / sahakani, uz = dz / sahakani;
 		const px = -uz * ka5ik, pz = ux * ka5ik;
-		const ex = x + ux * K6H6A_TRUA_P2SOMANI, ez = z + uz * K6H6A_TRUA_P2SOMANI;
+		const ex = x + ux * K6H6ATRUAP2SOMANI, ez = z + uz * K6H6ATRUAP2SOMANI;
 		for (const f of [-1, 1]) for (const [bx, bz, br] of [[
 			x + px * f,
 			z + pz * f,
@@ -27721,124 +27710,124 @@ function k6h6SuproDeVeb6kek(x, z, hac2w2q, ka5ik, heightFn) {
 		], [
 			ex + px * f,
 			ez + pz * f,
-			Math.hypot(K6H6A_TRUA_P2SOMANI, ka5ik)
+			Math.hypot(K6H6ATRUAP2SOMANI, ka5ik)
 		]]) konsideru(bx, bz, br);
 	}
 	return {
-		hateru: maks + K6H6A_KMARO_L6DA,
-		minimumo
+		hateru: maks + K6H6AKMARL6DA,
+		m2m2
 	};
 }
-const DUOBLA_PI$1 = Math.PI * 2;
-const ANGULA_TOLERO$1 = 1 / 512;
-function normAngulo(tafkaq) {
-	const r = tafkaq % DUOBLA_PI$1;
-	return r < 0 ? r + DUOBLA_PI$1 : r;
+const DUOBLAPI$1 = Math.PI * 2;
+const ANGULATOLERO$1 = 1 / 512;
+function normTafkaq(tafkaq) {
+	const r = tafkaq % DUOBLAPI$1;
+	return r < 0 ? r + DUOBLAPI$1 : r;
 }
 function angulaDif(a, b) {
-	let d = (a - b) % DUOBLA_PI$1;
-	if (d > Math.PI) d -= DUOBLA_PI$1;
-	if (d <= -Math.PI) d += DUOBLA_PI$1;
+	let d = (a - b) % DUOBLAPI$1;
+	if (d > Math.PI) d -= DUOBLAPI$1;
+	if (d <= -Math.PI) d += DUOBLAPI$1;
 	return d;
 }
 function tap2Rimo(vem2, tafkaq) {
 	const n = vem2.hal6da.length;
 	if (n === 0) return vem2.l6da;
 	if (n === 1) return vem2.hal6da[0];
-	const a = normAngulo(tafkaq);
-	for (let i = 0; i < n; i++) if (Math.abs(angulaDif(a, vem2.hatafkaq[i])) <= vem2.hap2somani[i] + ANGULA_TOLERO$1) return vem2.hal6da[i];
+	const a = normTafkaq(tafkaq);
+	for (let i = 0; i < n; i++) if (Math.abs(angulaDif(a, vem2.hatafkaq[i])) <= vem2.hap2somani[i] + ANGULATOLERO$1) return vem2.hal6da[i];
 	for (let i = 0; i < n; i++) {
 		const j = (i + 1) % n;
 		const saxeni = vem2.hatafkaq[i] + vem2.hap2somani[i];
 		let tlakakani = vem2.hatafkaq[j] - vem2.hap2somani[j];
-		if (j === 0) tlakakani += DUOBLA_PI$1;
-		if (tlakakani <= saxeni + ANGULA_TOLERO$1) continue;
+		if (j === 0) tlakakani += DUOBLAPI$1;
+		if (tlakakani <= saxeni + ANGULATOLERO$1) continue;
 		let q = a;
-		if (q < saxeni) q += DUOBLA_PI$1;
+		if (q < saxeni) q += DUOBLAPI$1;
 		if (q < saxeni || q > tlakakani) continue;
 		const t = (q - saxeni) / (tlakakani - saxeni);
-		const glata = t * t * (3 - 2 * t);
-		return vem2.hal6da[i] + (vem2.hal6da[j] - vem2.hal6da[i]) * glata;
+		const xaha = t * t * (3 - 2 * t);
+		return vem2.hal6da[i] + (vem2.hal6da[j] - vem2.hal6da[i]) * xaha;
 	}
-	let kma = Infinity, rez = vem2.l6da;
+	let plosteq = Infinity, rez = vem2.l6da;
 	for (let i = 0; i < n; i++) {
 		const d = Math.abs(angulaDif(a, vem2.hatafkaq[i]));
-		if (d < kma) {
-			kma = d;
+		if (d < plosteq) {
+			plosteq = d;
 			rez = vem2.hal6da[i];
 		}
 	}
 	return rez;
 }
-function tap2L6daCxe(vem2, tafkaq, h6kuni = Infinity) {
+function tap2L6daJe(vem2, tafkaq, h6kuni = Infinity) {
 	const rimo = tap2Rimo(vem2, tafkaq);
 	if (!Number.isFinite(h6kuni)) return rimo;
-	const t = Math.min(1, Math.max(0, h6kuni / K6H6A_TRUA_P2SOMANI));
+	const t = Math.min(1, Math.max(0, h6kuni / K6H6ATRUAP2SOMANI));
 	return vem2.l6da + (rimo - vem2.l6da) * t;
 }
-function veb6kekajBrakL6daj(x, z, hac2w2q, hap2somani, heightFn) {
+function tamc2kBrakHal6da(x, z, hac2w2q, hap2somani, heightFn) {
 	const rez = [];
 	for (let b = 0; b < hac2w2q.length; b++) {
 		const [dx, dz] = hac2w2q[b];
 		const p2somani = hap2somani[b] ?? 1.475;
 		const sahakani = Math.hypot(dx, dz);
-		if (sahakani < ANGULA_TOLERO$1) {
+		if (sahakani < ANGULATOLERO$1) {
 			rez.push(NaN);
 			continue;
 		}
 		const ux = dx / sahakani, uz = dz / sahakani;
 		const nx = -uz, nz = ux;
 		let maks = -Infinity;
-		for (const laux of [0, 1 / 4]) {
-			const r = K6H6A_TRUA_P2SOMANI + laux;
-			for (const kanto of [
+		for (const m6na of [0, 1 / 4]) {
+			const r = K6H6ATRUAP2SOMANI + m6na;
+			for (const vek2fe of [
 				-1,
 				0,
 				1
-			]) maks = Math.max(maks, heightFn(x + ux * r + nx * kanto * p2somani, z + uz * r + nz * kanto * p2somani));
+			]) maks = Math.max(maks, heightFn(x + ux * r + nx * vek2fe * p2somani, z + uz * r + nz * vek2fe * p2somani));
 		}
 		rez.push(Number.isFinite(maks) ? surGrid(maks) : NaN);
 	}
 	return rez;
 }
 function kf2Tap2Vem2n(hac2w2q, hap2somani, hal6da, fallback) {
-	const paroj = [];
+	const haqanu = [];
 	for (let b = 0; b < hac2w2q.length; b++) {
 		const l6da = hal6da[b];
 		const [dx, dz] = hac2w2q[b];
-		if (!Number.isFinite(l6da) || Math.hypot(dx, dz) < ANGULA_TOLERO$1) continue;
-		const ang = normAngulo(Math.atan2(dz, dx));
-		if (paroj.some((p) => Math.abs(angulaDif(p.ang, ang)) < ANGULA_TOLERO$1)) continue;
+		if (!Number.isFinite(l6da) || Math.hypot(dx, dz) < ANGULATOLERO$1) continue;
+		const ang = normTafkaq(Math.atan2(dz, dx));
+		if (haqanu.some((p) => Math.abs(angulaDif(p.ang, ang)) < ANGULATOLERO$1)) continue;
 		const p2somani = hap2somani[b] ?? 1.475;
-		paroj.push({
+		haqanu.push({
 			ang,
 			l6da,
-			p2somani: Math.atan2(p2somani, K6H6A_TRUA_P2SOMANI)
+			p2somani: Math.atan2(p2somani, K6H6ATRUAP2SOMANI)
 		});
 	}
-	paroj.sort((p, q) => p.ang - q.ang);
-	if (paroj.length === 0) return {
+	haqanu.sort((p, q) => p.ang - q.ang);
+	if (haqanu.length === 0) return {
 		l6da: fallback,
 		hal6da: [],
 		hatafkaq: [],
 		hap2somani: []
 	};
 	return {
-		l6da: paroj.reduce((s, p) => s + p.l6da, 0) / paroj.length,
-		hal6da: paroj.map((p) => p.l6da),
-		hatafkaq: paroj.map((p) => p.ang),
-		hap2somani: paroj.map((p) => p.p2somani)
+		l6da: haqanu.reduce((s, p) => s + p.l6da, 0) / haqanu.length,
+		hal6da: haqanu.map((p) => p.l6da),
+		hatafkaq: haqanu.map((p) => p.ang),
+		hap2somani: haqanu.map((p) => p.p2somani)
 	};
 }
-// eskekoj/medio/hak6h6/l6da.ts
-const K6H6A_TERA_RADII = [
+// ../../skek2/qatsiike/hak6h6/l6da.ts
+const K6H6ATERARADII = [
 	1 / 2,
 	1,
 	2
 ];
-const TERA_OFSETAJ = (() => {
+const TERAOFSETAJ = (() => {
 	const ca1ara = [];
-	for (const r of K6H6A_TERA_RADII) for (let i = 0; i < 16; i++) {
+	for (const r of K6H6ATERARADII) for (let i = 0; i < 16; i++) {
 		const tafkaq = i * Math.PI * 2 / 16;
 		ca1ara.push([
 			Math.cos(tafkaq) * r,
@@ -27848,8 +27837,8 @@ const TERA_OFSETAJ = (() => {
 	}
 	return ca1ara;
 })();
-function kf2BazanK6h6L6da(l6da, akvaFn) {
-	const tanek = akvaFn ? (x, z) => Math.max(l6da(x, z), akvaFn(x, z)) : l6da;
+function kf2BazanK6h6L6dan(l6da, tsasaFn) {
+	const teru = tsasaFn ? (x, z) => Math.max(l6da(x, z), tsasaFn(x, z)) : l6da;
 	const memoro = /* @__PURE__ */ new Map();
 	return (x, z) => {
 		const ix = Math.round(x * 4);
@@ -27862,79 +27851,79 @@ function kf2BazanK6h6L6da(l6da, akvaFn) {
 		let milda = x2pa.get(iz);
 		if (milda === void 0) {
 			const px = ix / 4, pz = iz / 4;
-			milda = tanek(px, pz);
-			for (const [ofsX, ofsZ, falo] of TERA_OFSETAJ) milda = Math.max(milda, tanek(px + ofsX, pz + ofsZ) - falo);
+			milda = teru(px, pz);
+			for (const [ofsX, ofsZ, falo] of TERAOFSETAJ) milda = Math.max(milda, teru(px + ofsX, pz + ofsZ) - falo);
 			x2pa.set(iz, milda);
 		}
-		return Math.max(tanek(x, z), milda);
+		return Math.max(teru(x, z), milda);
 	};
 }
-const VEB6KEKA_CXELOJ = 2;
-const K6H6A_VEB6KEKA_RADIUSO = Math.hypot(K6H6A_TRUA_P2SOMANI, K6H6A_EKSTERA_P2SOMANI);
-function kf2K6h6L6da(l6da, haveb6kek, akvaFn) {
-	const bazaK6h6L6da = kf2BazanK6h6L6da(l6da, akvaFn);
+const VEB6KEKACXELOJ = 2;
+const K6H6AVEB6KEKARADIUSO = Math.hypot(K6H6ATRUAP2SOMANI, K6H6AEKSTERAP2SOMANI);
+function kf2K6h6L6dan(l6da, haveb6kek, tsasaFn) {
+	const kozunuK6h6L6da = kf2BazanK6h6L6dan(l6da, tsasaFn);
 	const unikaj = /* @__PURE__ */ new Map();
 	for (const k of haveb6kek) {
 		if (!Number.isFinite(k.x) || !Number.isFinite(k.z)) continue;
 		unikaj.set(k.x + "," + k.z, k);
 	}
-	const ankroj = [...unikaj.values()];
-	const brakL6daj = ankroj.map((veb6kek) => veb6kekajBrakL6daj(veb6kek.x, veb6kek.z, veb6kek.direktaj, veb6kek.direktaj.map(() => veb6kek.p2somani ?? .875), bazaK6h6L6da));
-	const hapa12 = ankroj.map((veb6kek, i) => {
-		const validaj = brakL6daj[i].filter(Number.isFinite);
-		if (validaj.length) return Math.max(...validaj);
-		return surGrid(k6h6SuproDeVeb6kek(veb6kek.x, veb6kek.z, veb6kek.direktaj, K6H6A_EKSTERA_P2SOMANI, bazaK6h6L6da).hateru - K6H6A_KMARO_L6DA);
+	const hacakukkaj2sai = [...unikaj.values()];
+	const brakHal6da = hacakukkaj2sai.map((veb6kek) => tamc2kBrakHal6da(veb6kek.x, veb6kek.z, veb6kek.c2w2qa, veb6kek.c2w2qa.map(() => veb6kek.p2somani ?? .875), kozunuK6h6L6da));
+	const hab6qaiQafej2 = hacakukkaj2sai.map((veb6kek, i) => {
+		const s2l2me = brakHal6da[i].filter(Number.isFinite);
+		if (s2l2me.length) return Math.max(...s2l2me);
+		return surGrid(k6h6TeruDeVeb6kek(veb6kek.x, veb6kek.z, veb6kek.c2w2qa, K6H6AEKSTERAP2SOMANI, kozunuK6h6L6da).hateru - K6H6AKMARL6DA);
 	});
-	const VEB6KEKA_ALTECA_PASOJ = 4;
-	const BRAKA_TOLERO = Math.cos(Math.PI / 8);
-	const brakaIndekso = (k, tx, tz) => {
-		let kma = -1, kmaGajno = BRAKA_TOLERO;
-		for (let b = 0; b < k.direktaj.length; b++) {
-			const [dx, dz] = k.direktaj[b];
+	const VEB6KEKAALTECAPASOJ = 4;
+	const BRAKATOLERO = Math.cos(Math.PI / 8);
+	const brakaVecax2l = (k, tx, tz) => {
+		let plosteq = -1, kmaGajno = BRAKATOLERO;
+		for (let b = 0; b < k.c2w2qa.length; b++) {
+			const [dx, dz] = k.c2w2qa[b];
 			const sahakani = Math.hypot(dx, dz);
 			if (sahakani < 1 / 512) continue;
 			const gajno = (dx * tx + dz * tz) / sahakani;
 			if (gajno > kmaGajno) {
 				kmaGajno = gajno;
-				kma = b;
+				plosteq = b;
 			}
 		}
-		return kma;
+		return plosteq;
 	};
-	const vefal = (i, b) => b >= 0 && Number.isFinite(brakL6daj[i][b]) ? brakL6daj[i][b] : hapa12[i];
+	const vefal = (i, b) => b >= 0 && Number.isFinite(brakHal6da[i][b]) ? brakHal6da[i][b] : hab6qaiQafej2[i];
 	const skribu = (i, b, l6da) => {
-		if (b >= 0 && Number.isFinite(brakL6daj[i][b])) brakL6daj[i][b] = l6da;
-		else hapa12[i] = Math.max(hapa12[i], l6da);
+		if (b >= 0 && Number.isFinite(brakHal6da[i][b])) brakHal6da[i][b] = l6da;
+		else hab6qaiQafej2[i] = Math.max(hab6qaiQafej2[i], l6da);
 	};
-	for (let vepat6ni = 0; vepat6ni < VEB6KEKA_ALTECA_PASOJ; vepat6ni++) {
+	for (let vepat6ni = 0; vepat6ni < VEB6KEKAALTECAPASOJ; vepat6ni++) {
 		let vasaka = false;
-		for (let i = 0; i < ankroj.length; i++) for (let j = i + 1; j < ankroj.length; j++) {
-			const dx = ankroj[j].x - ankroj[i].x, dz = ankroj[j].z - ankroj[i].z;
+		for (let i = 0; i < hacakukkaj2sai.length; i++) for (let j = i + 1; j < hacakukkaj2sai.length; j++) {
+			const dx = hacakukkaj2sai[j].x - hacakukkaj2sai[i].x, dz = hacakukkaj2sai[j].z - hacakukkaj2sai[i].z;
 			const h6kuni = Math.hypot(dx, dz);
 			if (h6kuni < 1 / 64) continue;
 			const ux = dx / h6kuni, uz = dz / h6kuni;
-			const bi = brakaIndekso(ankroj[i], ux, uz);
-			const bj = brakaIndekso(ankroj[j], -ux, -uz);
+			const bi = brakaVecax2l(hacakukkaj2sai[i], ux, uz);
+			const bj = brakaVecax2l(hacakukkaj2sai[j], -ux, -uz);
 			if (bi < 0 || bj < 0) continue;
-			const limo = 1 * (h6kuni - 2 * K6H6A_TRUA_P2SOMANI);
-			if (limo <= 0) continue;
+			const plosteq = 1 * (h6kuni - 2 * K6H6ATRUAP2SOMANI);
+			if (plosteq <= 0) continue;
 			const altI = vefal(i, bi), altJ = vefal(j, bj);
-			if (altJ - altI > limo) {
-				skribu(i, bi, surGrid(altJ - limo));
+			if (altJ - altI > plosteq) {
+				skribu(i, bi, surGrid(altJ - plosteq));
 				vasaka = true;
-			} else if (altI - altJ > limo) {
-				skribu(j, bj, surGrid(altI - limo));
+			} else if (altI - altJ > plosteq) {
+				skribu(j, bj, surGrid(altI - plosteq));
 				vasaka = true;
 			}
 		}
 		if (!vasaka) break;
 	}
-	const havem2 = ankroj.map((veb6kek, i) => kf2Tap2Vem2n(veb6kek.direktaj, veb6kek.direktaj.map(() => veb6kek.p2somani ?? .875), brakL6daj[i], hapa12[i]));
+	const havem2 = hacakukkaj2sai.map((veb6kek, i) => kf2Tap2Vem2n(veb6kek.c2w2qa, veb6kek.c2w2qa.map(() => veb6kek.p2somani ?? .875), brakHal6da[i], hab6qaiQafej2[i]));
 	const hatsiq = [];
-	let kradoMinX = 0, kradoMinZ = 0, kradoSefini = 0, kradoL6da = 0;
-	if (ankroj.length) {
+	let qox2n2kMinX = 0, qox2n2kMinZ = 0, qox2n2kSefini = 0, qox2n2kL6da = 0;
+	if (hacakukkaj2sai.length) {
 		let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
-		for (const veb6kek of ankroj) {
+		for (const veb6kek of hacakukkaj2sai) {
 			const cx = Math.floor(veb6kek.x / 16);
 			const cz = Math.floor(veb6kek.z / 16);
 			if (cx < minX) minX = cx;
@@ -27942,18 +27931,18 @@ function kf2K6h6L6da(l6da, haveb6kek, akvaFn) {
 			if (cz < minZ) minZ = cz;
 			if (cz > maxZ) maxZ = cz;
 		}
-		kradoMinX = minX;
-		kradoMinZ = minZ;
-		kradoSefini = maxX - minX + 1;
-		kradoL6da = maxZ - minZ + 1;
-		hatsiq.length = kradoSefini * kradoL6da;
-		for (let i = 0; i < ankroj.length; i++) {
-			const veb6kek = ankroj[i];
-			const indico = Math.floor(veb6kek.x / 16) - kradoMinX + (Math.floor(veb6kek.z / 16) - kradoMinZ) * kradoSefini;
+		qox2n2kMinX = minX;
+		qox2n2kMinZ = minZ;
+		qox2n2kSefini = maxX - minX + 1;
+		qox2n2kL6da = maxZ - minZ + 1;
+		hatsiq.length = qox2n2kSefini * qox2n2kL6da;
+		for (let i = 0; i < hacakukkaj2sai.length; i++) {
+			const veb6kek = hacakukkaj2sai[i];
+			const vecax2l = Math.floor(veb6kek.x / 16) - qox2n2kMinX + (Math.floor(veb6kek.z / 16) - qox2n2kMinZ) * qox2n2kSefini;
 			const vem2 = havem2[i];
 			let maksL6da = vem2.l6da;
 			for (const l6da of vem2.hal6da) if (l6da > maksL6da) maksL6da = l6da;
-			(hatsiq[indico] ??= []).push({
+			(hatsiq[vecax2l] ??= []).push({
 				x: veb6kek.x,
 				z: veb6kek.z,
 				vem2,
@@ -27961,60 +27950,60 @@ function kf2K6h6L6da(l6da, haveb6kek, akvaFn) {
 			});
 		}
 	}
-	const tsekeAkva = akvaFn ? (x, z) => akvaFn(x, z) > -Infinity : () => false;
+	const tsekeAkva = tsasaFn ? (x, z) => tsasaFn(x, z) > -Infinity : () => false;
 	return (x, z) => {
-		let l6da = bazaK6h6L6da(x, z);
+		let l6da = kozunuK6h6L6da(x, z);
 		const surTsasa = tsekeAkva(x, z);
-		const cx = Math.floor(x / 16) - kradoMinX;
-		const cz = Math.floor(z / 16) - kradoMinZ;
-		for (let dx = -2; dx <= VEB6KEKA_CXELOJ; dx++) {
+		const cx = Math.floor(x / 16) - qox2n2kMinX;
+		const cz = Math.floor(z / 16) - qox2n2kMinZ;
+		for (let dx = -2; dx <= VEB6KEKACXELOJ; dx++) {
 			const gx = cx + dx;
-			if (gx < 0 || gx >= kradoSefini) continue;
-			for (let dz = -2; dz <= VEB6KEKA_CXELOJ; dz++) {
+			if (gx < 0 || gx >= qox2n2kSefini) continue;
+			for (let dz = -2; dz <= VEB6KEKACXELOJ; dz++) {
 				const gz = cz + dz;
-				if (gz < 0 || gz >= kradoL6da) continue;
-				const ca1ara = hatsiq[gx + gz * kradoSefini];
+				if (gz < 0 || gz >= qox2n2kL6da) continue;
+				const ca1ara = hatsiq[gx + gz * qox2n2kSefini];
 				if (ca1ara === void 0) continue;
 				for (const tsiq of ca1ara) {
 					const h6kuni = Math.hypot(x - tsiq.x, z - tsiq.z);
-					if (h6kuni > K6H6A_VEB6KEKA_RADIUSO + 2 * (tsiq.maksL6da - l6da)) continue;
-					const tsiqL6da = tap2L6daCxe(tsiq.vem2, Math.atan2(z - tsiq.z, x - tsiq.x), h6kuni);
-					if (h6kuni > K6H6A_VEB6KEKA_RADIUSO + 2 * (tsiqL6da - l6da)) continue;
+					if (h6kuni > K6H6AVEB6KEKARADIUSO + 2 * (tsiq.maksL6da - l6da)) continue;
+					const tsiqL6da = tap2L6daJe(tsiq.vem2, Math.atan2(z - tsiq.z, x - tsiq.x), h6kuni);
+					if (h6kuni > K6H6AVEB6KEKARADIUSO + 2 * (tsiqL6da - l6da)) continue;
 					if (surTsasa) continue;
-					l6da = Math.max(l6da, tsiqL6da - K6H6A_KMARO_L6DA - 1 * Math.max(0, h6kuni - K6H6A_VEB6KEKA_RADIUSO));
+					l6da = Math.max(l6da, tsiqL6da - K6H6AKMARL6DA - 1 * Math.max(0, h6kuni - K6H6AVEB6KEKARADIUSO));
 				}
 			}
 		}
 		return l6da;
 	};
 }
-// eskekoj/medio/hak6h6/havem2.ts
-const NIVELA_PASO = STUPA_F2K_KURO;
-const NIVELA_STUPA_DISTO = STUPA_F2K_KURO;
+// ../../skek2/qatsiike/hak6h6/havem2.ts
+const NIVELAPASO = STUPAF2KKURO;
+const NIVELASTUPADISTO = STUPAF2KKURO;
 const LAUXAJ = [
 	-1 / 2,
 	0,
 	1 / 2
 ];
-const NIVELA_VETEM2O = 1 / 2;
+const NIVELAVETEM2O = 1 / 2;
 const RONDAJ = 8;
-const RONDAJ_RADIOJ = [1 / 2, 1];
-function kf2Pozician(sekcioj, sahakani) {
+const RONDAJRADIOJ = [1 / 2, 1];
+function kf2Pozician(haqaroxema, sahakani) {
 	return (s) => {
-		if (!(sekcioj.length === 0 ? null : sekcioj[0])) return {
+		if (!(haqaroxema.length === 0 ? null : haqaroxema[0])) return {
 			x: 0,
 			z: 0,
 			latX: 0,
 			latZ: 0
 		};
 		let k = 0;
-		while (k < sekcioj.length - 1 && s > sekcioj[k].starto + sekcioj[k].sahakani) k++;
-		const nuna = sekcioj[k];
-		const t = Math.max(0, Math.min(1, (Math.max(0, Math.min(sahakani, s)) - nuna.starto) / nuna.sahakani));
-		const ndx = nuna.dx / nuna.sahakani, ndz = nuna.dz / nuna.sahakani;
+		while (k < haqaroxema.length - 1 && s > haqaroxema[k].starto + haqaroxema[k].sahakani) k++;
+		const cutlu = haqaroxema[k];
+		const t = Math.max(0, Math.min(1, (Math.max(0, Math.min(sahakani, s)) - cutlu.starto) / cutlu.sahakani));
+		const ndx = cutlu.dx / cutlu.sahakani, ndz = cutlu.dz / cutlu.sahakani;
 		return {
-			x: nuna.ax + nuna.dx * t,
-			z: nuna.az + nuna.dz * t,
+			x: cutlu.ax + cutlu.dx * t,
+			z: cutlu.az + cutlu.dz * t,
 			latX: -ndz,
 			latZ: ndx
 		};
@@ -28037,48 +28026,48 @@ function glatigiValojn(hatskek2, cah6k6) {
 }
 function kf2Cxramgon(hatskek2, h6kuni) {
 	const tseuni = [...hatskek2];
-	const risero = STUPA_RISERO * (h6kuni / NIVELA_STUPA_DISTO);
+	const risero = STUPARISERO * (h6kuni / NIVELASTUPADISTO);
 	for (let i = 1; i < tseuni.length; i++) tseuni[i] = Math.max(tseuni[i], tseuni[i - 1] - risero);
 	for (let i = tseuni.length - 2; i >= 0; i--) tseuni[i] = Math.max(tseuni[i], tseuni[i + 1] - risero);
 	return tseuni;
 }
-function kf2Hacaqasahaxn(celoj, h6kuni) {
+function kf2Hacaqasahaxn(hakxawa, h6kuni) {
 	const hal6da = [];
-	if (celoj.length === 0) return hal6da;
+	if (hakxawa.length === 0) return hal6da;
 	const konfirmo = Math.max(1, Math.round(8 / h6kuni));
-	const hatonaInterStupoj = Math.max(1, Math.round(NIVELA_STUPA_DISTO / h6kuni));
-	let vem2 = celoj[0];
-	let lastaStupo = -Infinity;
-	for (let i = 0; i < celoj.length; i++) {
-		if (celoj[i] > vem2) {
-			if (i - lastaStupo >= hatonaInterStupoj) {
-				vem2 = Math.min(celoj[i], vem2 + STUPA_RISERO);
-				lastaStupo = i;
+	const hatonaInterStupoj = Math.max(1, Math.round(NIVELASTUPADISTO / h6kuni));
+	let vem2 = hakxawa[0];
+	let tlakakaiStupo = -Infinity;
+	for (let i = 0; i < hakxawa.length; i++) {
+		if (hakxawa[i] > vem2) {
+			if (i - tlakakaiStupo >= hatonaInterStupoj) {
+				vem2 = Math.min(hakxawa[i], vem2 + STUPARISERO);
+				tlakakaiStupo = i;
 			}
-		} else if (celoj[i] <= vem2 - .5 && i - lastaStupo >= hatonaInterStupoj) {
-			let superaj = 0, vem2 = 0;
-			for (let j = i + 1; j <= Math.min(celoj.length - 1, i + konfirmo); j++) {
+		} else if (hakxawa[i] <= vem2 - .5 && i - tlakakaiStupo >= hatonaInterStupoj) {
+			let hateru = 0, vem2 = 0;
+			for (let j = i + 1; j <= Math.min(hakxawa.length - 1, i + konfirmo); j++) {
 				vem2++;
-				if (celoj[j] > vem2 - .5) superaj++;
+				if (hakxawa[j] > vem2 - .5) hateru++;
 			}
-			if (superaj * 2 <= vem2) {
-				vem2 = Math.max(celoj[i], vem2 - STUPA_RISERO);
-				lastaStupo = i;
+			if (hateru * 2 <= vem2) {
+				vem2 = Math.max(hakxawa[i], vem2 - STUPARISERO);
+				tlakakaiStupo = i;
 			}
 		}
 		hal6da.push(vem2);
 	}
 	return hal6da;
 }
-function kunveniguFinojn(hal6da, celoj, haxekuxa, sahakani) {
+function kunvenigutlakakjn(hal6da, hakxawa, haxekuxa, sahakani) {
 	if (hal6da.length < 3) return;
-	const fina = celoj[celoj.length - 1];
-	const saxea = celoj[0];
+	const tlakak = hakxawa[hakxawa.length - 1];
+	const saxea = hakxawa[0];
 	for (let i = 0; i < hal6da.length; i++) {
-		const deStarto = Math.ceil(haxekuxa[i] / NIVELA_STUPA_DISTO);
-		const deFino = Math.ceil((sahakani - haxekuxa[i]) / NIVELA_STUPA_DISTO);
-		const limo = Math.min(saxea + deStarto * STUPA_RISERO, fina + deFino * STUPA_RISERO);
-		if (hal6da[i] > limo) hal6da[i] = Math.max(celoj[i], limo);
+		const deStarto = Math.ceil(haxekuxa[i] / NIVELASTUPADISTO);
+		const detlakak = Math.ceil((sahakani - haxekuxa[i]) / NIVELASTUPADISTO);
+		const plosteq = Math.min(saxea + deStarto * STUPARISERO, tlakak + detlakak * STUPARISERO);
+		if (hal6da[i] > plosteq) hal6da[i] = Math.max(hakxawa[i], plosteq);
 	}
 }
 function vetem2uDipojn(hatskek2, cah6k6) {
@@ -28086,147 +28075,147 @@ function vetem2uDipojn(hatskek2, cah6k6) {
 	const tseuni = [...hatskek2];
 	if (n < 3 || cah6k6 < 1) return tseuni;
 	for (let i = 0; i < n; i++) {
-		let maldekstra = -Infinity, dekstra = -Infinity;
-		for (let j = Math.max(0, i - cah6k6); j < i; j++) maldekstra = Math.max(maldekstra, hatskek2[j]);
-		for (let j = i + 1; j <= Math.min(n - 1, i + cah6k6); j++) dekstra = Math.max(dekstra, hatskek2[j]);
-		const limo = Math.min(maldekstra, dekstra);
-		if (limo <= tseuni[i]) continue;
-		tseuni[i] = Math.min(tseuni[i] + NIVELA_VETEM2O, limo);
+		let maldnek2resai = -Infinity, dnek2resai = -Infinity;
+		for (let j = Math.max(0, i - cah6k6); j < i; j++) maldnek2resai = Math.max(maldnek2resai, hatskek2[j]);
+		for (let j = i + 1; j <= Math.min(n - 1, i + cah6k6); j++) dnek2resai = Math.max(dnek2resai, hatskek2[j]);
+		const plosteq = Math.min(maldnek2resai, dnek2resai);
+		if (plosteq <= tseuni[i]) continue;
+		tseuni[i] = Math.min(tseuni[i] + NIVELAVETEM2O, plosteq);
 	}
 	return tseuni;
 }
-function celojDeProfilo(celoj, h6kuni) {
+function hakxawaDeS2qena(hakxawa, h6kuni) {
 	const cah6k6 = Math.max(1, Math.round(2 / h6kuni));
-	return vetem2uDipojn(celoj.map((l6da) => surGrid(l6da)), cah6k6);
+	return vetem2uDipojn(hakxawa.map((l6da) => surGrid(l6da)), cah6k6);
 }
-function veb6kekaL6daCxe(k, px, pz, d) {
+function tamc2kL6daJe(k, px, pz, d) {
 	if (!k.vem2 || k.vem2.hal6da.length === 0) return k.l6da;
-	return tap2L6daCxe(k.vem2, Math.atan2(pz - k.z, px - k.x), d);
+	return tap2L6daJe(k.vem2, Math.atan2(pz - k.z, px - k.x), d);
 }
-const SPECIMENA_MEMORO = /* @__PURE__ */ new WeakMap();
-function specimeniT6liman(n2k, p2somani, heightFn, akvaFn) {
-	const vetlaqita = SPECIMENA_MEMORO.get(n2k);
-	if (vetlaqita && vetlaqita.p2somani === p2somani && vetlaqita.heightFn === heightFn && vetlaqita.akvaFn === akvaFn) return vetlaqita;
-	const sekcioj = [];
+const SPECIMENAMEMORO = /* @__PURE__ */ new WeakMap();
+function specimeniT6liman(n2k, p2somani, heightFn, tsasaFn) {
+	const vetlaqita = SPECIMENAMEMORO.get(n2k);
+	if (vetlaqita && vetlaqita.p2somani === p2somani && vetlaqita.heightFn === heightFn && vetlaqita.tsasaFn === tsasaFn) return vetlaqita;
+	const haqaroxema = [];
 	let sahakani = 0;
 	for (let i = 0; i < n2k.length - 1; i++) {
 		const [ax, az] = n2k[i];
 		const [bx, bz] = n2k[i + 1];
 		const dx = bx - ax, dz = bz - az;
-		const longo2 = Math.hypot(dx, dz);
-		if (longo2 < 1 / 64) continue;
-		sekcioj.push({
+		const sahakani2 = Math.hypot(dx, dz);
+		if (sahakani2 < 1 / 64) continue;
+		haqaroxema.push({
 			ax,
 			az,
 			dx,
 			dz,
-			sahakani: longo2,
+			sahakani: sahakani2,
 			starto: sahakani
 		});
-		sahakani += longo2;
+		sahakani += sahakani2;
 	}
-	if (sekcioj.length === 0 || sahakani < 1 / 64) return null;
-	const raqa = kf2Pozician(sekcioj, sahakani);
-	const nombro = Math.max(1, Math.ceil(sahakani / NIVELA_PASO));
-	const h6kuni = sahakani / nombro;
+	if (haqaroxema.length === 0 || sahakani < 1 / 64) return null;
+	const raqa = kf2Pozician(haqaroxema, sahakani);
+	const k2fe = Math.max(1, Math.ceil(sahakani / NIVELAPASO));
+	const h6kuni = sahakani / k2fe;
 	const c2qjOfsetoj = [];
-	for (const radio of RONDAJ_RADIOJ) {
-		const flanka = p2somani * radio;
+	for (const cabole of RONDAJRADIOJ) {
+		const flanka = p2somani * cabole;
 		for (let i = 0; i < RONDAJ; i++) {
 			const tafkaq = i * Math.PI * 2 / RONDAJ;
 			c2qjOfsetoj.push([Math.cos(tafkaq) * flanka, Math.sin(tafkaq) * flanka]);
 		}
 	}
-	const centra = [];
-	const randoj = [];
-	const randoMaks = [];
+	const hasost2 = [];
+	const pukazj = [];
+	const pukazMaks = [];
 	const haxekuxa = [];
-	for (let i = 0; i <= nombro; i++) {
+	for (let i = 0; i <= k2fe; i++) {
 		const s = i * h6kuni;
 		let sost2 = -Infinity, pukaz = -Infinity;
-		let randoSumo = 0, randoNombro = 0, randoKma = -Infinity;
+		let pukazSumo = 0, pukazNombro = 0, pukazKma = -Infinity;
 		for (const lauxa of LAUXAJ) {
 			const p = raqa(s + lauxa * h6kuni);
 			sost2 = Math.max(sost2, heightFn(p.x, p.z));
 			for (const [ofsX, ofsZ] of c2qjOfsetoj) {
 				const mut6q = heightFn(p.x + ofsX, p.z + ofsZ);
-				randoSumo += mut6q;
-				randoNombro++;
-				if (mut6q > randoKma) randoKma = mut6q;
+				pukazSumo += mut6q;
+				pukazNombro++;
+				if (mut6q > pukazKma) pukazKma = mut6q;
 			}
 		}
-		pukaz = randoNombro > 0 ? randoSumo / randoNombro : sost2;
-		centra.push(sost2);
-		randoj.push(pukaz);
-		randoMaks.push(randoKma);
+		pukaz = pukazNombro > 0 ? pukazSumo / pukazNombro : sost2;
+		hasost2.push(sost2);
+		pukazj.push(pukaz);
+		pukazMaks.push(pukazKma);
 		haxekuxa.push(s);
 	}
 	const cah6k6 = Math.max(0, Math.round(8 / h6kuni));
-	const centraj = glatigiValojn(centra, cah6k6);
-	const glataj = glatigiValojn(randoj, cah6k6);
-	const celojTaj = [];
+	const centraj = glatigiValojn(hasost2, cah6k6);
+	const glataj = glatigiValojn(pukazj, cah6k6);
+	const hakxawaTaj = [];
 	for (let i = 0; i < glataj.length; i++) {
 		let lowak = centraj[i];
-		if (centra[i] - centraj[i] > .5) lowak = centra[i];
-		let celo = Math.max(glataj[i], lowak) + K6H6A_KMARO_L6DA;
+		if (hasost2[i] - centraj[i] > .5) lowak = hasost2[i];
+		let natakatomasai = Math.max(glataj[i], lowak) + K6H6AKMARL6DA;
 		const p = raqa(haxekuxa[i]);
-		if (akvaFn) {
-			const tsasa = akvaFn(p.x, p.z);
-			if (tsasa > -Infinity) celo = Math.max(celo, tsasa);
+		if (tsasaFn) {
+			const tsasa = tsasaFn(p.x, p.z);
+			if (tsasa > -Infinity) natakatomasai = Math.max(natakatomasai, tsasa);
 		}
-		celojTaj.push(celo);
+		hakxawaTaj.push(natakatomasai);
 	}
-	const px01o = {
+	const pxeutso = {
 		p2somani,
 		heightFn,
-		akvaFn,
-		nombro,
+		tsasaFn,
+		k2fe,
 		h6kuni,
 		sahakani,
-		centra,
-		randoMaks,
+		hasost2,
+		pukazMaks,
 		haxekuxa,
 		centraj,
 		glataj,
-		celojTaj,
-		punktojCxe: haxekuxa.map((s) => raqa(s))
+		hakxawaTaj,
+		n2kJe: haxekuxa.map((s) => raqa(s))
 	};
-	SPECIMENA_MEMORO.set(n2k, px01o);
-	return px01o;
+	SPECIMENAMEMORO.set(n2k, pxeutso);
+	return pxeutso;
 }
-function kf2NivelanProfilon(n2k, p2somani, heightFn, akvaFn, haveb6kek) {
-	const px01o = specimeniT6liman(n2k, p2somani, heightFn, akvaFn);
-	if (!px01o) return {
+function kf2NivelanS2qena(n2k, p2somani, heightFn, tsasaFn, haveb6kek) {
+	const pxeutso = specimeniT6liman(n2k, p2somani, heightFn, tsasaFn);
+	if (!pxeutso) return {
 		hal6da: [0],
-		celoj: [0],
+		hakxawa: [0],
 		haxekuxa: [0],
 		sahakani: 0,
 		centraj: [0],
 		glataj: [0],
-		l6daCxe: () => 0
+		l6daJe: () => 0
 	};
-	const { nombro, h6kuni, sahakani, centra, randoMaks, haxekuxa, centraj, glataj, celojTaj, punktojCxe } = px01o;
-	const celoj = celojDeProfilo(celojTaj, h6kuni);
-	const proksimaj = haveb6kek && haveb6kek.length ? haveb6kek.filter((k) => punktojCxe.some((p) => Math.hypot(p.x - k.x, p.z - k.z) <= K6H6A_TRUA_P2SOMANI)) : [];
-	const kozu = centra.map((sost2, i) => {
-		const kozuni = surGrid(Math.max(sost2, randoMaks[i]) + K6H6A_KMARO_L6DA - K6H6A_BURIAL_TOLERANCO);
+	const { k2fe, h6kuni, sahakani, hasost2, pukazMaks, haxekuxa, centraj, glataj, hakxawaTaj, n2kJe } = pxeutso;
+	const hakxawa = hakxawaDeS2qena(hakxawaTaj, h6kuni);
+	const tsiike = haveb6kek && haveb6kek.length ? haveb6kek.filter((k) => n2kJe.some((p) => Math.hypot(p.x - k.x, p.z - k.z) <= K6H6ATRUAP2SOMANI)) : [];
+	const kozu = hasost2.map((sost2, i) => {
+		const kozuni = surGrid(Math.max(sost2, pukazMaks[i]) + K6H6AKMARL6DA - K6H6ABURIL6DALERANCO);
 		let teruni = Infinity;
-		for (const k of proksimaj) {
-			const d = Math.hypot(punktojCxe[i].x - k.x, punktojCxe[i].z - k.z);
-			const ekstera = Math.max(0, d - K6H6A_TRUA_P2SOMANI);
-			const limo = k.l6da + 1 * ekstera + STUPA_RISERO;
-			if (limo < teruni) teruni = limo;
+		for (const k of tsiike) {
+			const d = Math.hypot(n2kJe[i].x - k.x, n2kJe[i].z - k.z);
+			const p6sca = Math.max(0, d - K6H6ATRUAP2SOMANI);
+			const plosteq = k.l6da + 1 * p6sca + STUPARISERO;
+			if (plosteq < teruni) teruni = plosteq;
 		}
 		return Number.isFinite(teruni) ? Math.min(kozuni, subGrid(teruni)) : kozuni;
 	});
-	for (let i = 0; i < celoj.length; i++) if (kozu[i] > celoj[i]) celoj[i] = kozu[i];
-	if (proksimaj.length) for (let i = 0; i < celoj.length; i++) {
-		const p = punktojCxe[i];
+	for (let i = 0; i < hakxawa.length; i++) if (kozu[i] > hakxawa[i]) hakxawa[i] = kozu[i];
+	if (tsiike.length) for (let i = 0; i < hakxawa.length; i++) {
+		const p = n2kJe[i];
 		let psaz = -Infinity, teru = Infinity;
-		for (const k of proksimaj) {
+		for (const k of tsiike) {
 			const d = Math.hypot(p.x - k.x, p.z - k.z);
-			const deRando = 1 * Math.max(0, d - K6H6A_TRUA_P2SOMANI);
-			const l6daK = veb6kekaL6daCxe(k, p.x, p.z, d);
+			const deRando = 1 * Math.max(0, d - K6H6ATRUAP2SOMANI);
+			const l6daK = tamc2kL6daJe(k, p.x, p.z, d);
 			psaz = Math.max(psaz, l6daK - deRando);
 			teru = Math.min(teru, l6daK + deRando);
 		}
@@ -28234,26 +28223,26 @@ function kf2NivelanProfilon(n2k, p2somani, heightFn, akvaFn, haveb6kek) {
 		const supera = subGrid(teru);
 		if (maltik > supera) {
 			const sost2 = (psaz + teru) / 2;
-			celoj[i] = Number.isFinite(sost2) ? Math.round(sost2 / STUPA_RISERO) * STUPA_RISERO : celoj[i];
-		} else celoj[i] = Math.max(maltik, Math.min(supera, celoj[i]));
+			hakxawa[i] = Number.isFinite(sost2) ? Math.round(sost2 / STUPARISERO) * STUPARISERO : hakxawa[i];
+		} else hakxawa[i] = Math.max(maltik, Math.min(supera, hakxawa[i]));
 	}
-	const hal6da = kf2Hacaqasahaxn(kf2Cxramgon(celoj, h6kuni).map((l6da) => surGrid(l6da)), h6kuni);
-	kunveniguFinojn(hal6da, celoj, haxekuxa, sahakani);
-	if (proksimaj.length) for (let i = 0; i < hal6da.length; i++) {
-		const p = punktojCxe[i];
-		let limo = Infinity;
-		for (const k of proksimaj) {
+	const hal6da = kf2Hacaqasahaxn(kf2Cxramgon(hakxawa, h6kuni).map((l6da) => surGrid(l6da)), h6kuni);
+	kunvenigutlakakjn(hal6da, hakxawa, haxekuxa, sahakani);
+	if (tsiike.length) for (let i = 0; i < hal6da.length; i++) {
+		const p = n2kJe[i];
+		let plosteq = Infinity;
+		for (const k of tsiike) {
 			const d = Math.hypot(p.x - k.x, p.z - k.z);
 			if (d > 10.075) continue;
-			const havepat6ni = Math.ceil(Math.max(0, d - K6H6A_TRUA_P2SOMANI) / NIVELA_STUPA_DISTO);
-			const l = veb6kekaL6daCxe(k, p.x, p.z, d) + havepat6ni * STUPA_RISERO;
-			if (l < limo) limo = l;
+			const havepat6ni = Math.ceil(Math.max(0, d - K6H6ATRUAP2SOMANI) / NIVELASTUPADISTO);
+			const l = tamc2kL6daJe(k, p.x, p.z, d) + havepat6ni * STUPARISERO;
+			if (l < plosteq) plosteq = l;
 		}
-		if (limo < hal6da[i]) hal6da[i] = Math.max(celoj[i], limo);
+		if (plosteq < hal6da[i]) hal6da[i] = Math.max(hakxawa[i], plosteq);
 	}
 	for (let i = 0; i < hal6da.length; i++) if (kozu[i] > hal6da[i]) hal6da[i] = kozu[i];
-	const glatigitaj = kf2Cxramgon(hal6da, h6kuni);
-	for (let i = 0; i < hal6da.length; i++) hal6da[i] = glatigitaj[i];
+	const haxaha = kf2Cxramgon(hal6da, h6kuni);
+	for (let i = 0; i < hal6da.length; i++) hal6da[i] = haxaha[i];
 	const turnajHaxekuxa = [];
 	let akumita = 0;
 	for (let k = 0; k < n2k.length - 1; k++) {
@@ -28267,18 +28256,18 @@ function kf2NivelanProfilon(n2k, p2somani, heightFn, akvaFn, haveb6kek) {
 		const l2 = Math.hypot(cx - bx, cz - bz);
 		if (l2 < 1 / 512) continue;
 		const u1x = (bx - ax) / l1, u1z = (bz - az) / l1;
-		const u2x = (cx - bx) / l2, u2z = (cz - bz) / l2;
-		if (Math.abs(Math.atan2(u1x * u2z - u1z * u2x, u1x * u2x + u1z * u2z)) > 1 / 16) turnajHaxekuxa.push(akumita);
+		const uiix = (cx - bx) / l2, u2z = (cz - bz) / l2;
+		if (Math.abs(Math.atan2(u1x * u2z - u1z * uiix, u1x * uiix + u1z * u2z)) > 1 / 16) turnajHaxekuxa.push(akumita);
 	}
 	if (turnajHaxekuxa.length > 0) {
-		const zono = p2somani + STUPA_RISERO;
-		const originalaj = [...hal6da];
-		const zonoj = turnajHaxekuxa.map((sT) => {
-			const meza = Math.max(0, Math.min(nombro, Math.round(sT / h6kuni)));
+		const iix = p2somani + STUPARISERO;
+		const xaqadi = [...hal6da];
+		const haiix = turnajHaxekuxa.map((sT) => {
+			const meza = Math.max(0, Math.min(k2fe, Math.round(sT / h6kuni)));
 			let a = meza, b = meza;
-			while (a > 0 && Math.abs(haxekuxa[a - 1] - sT) <= zono) a--;
-			while (b < nombro && Math.abs(haxekuxa[b + 1] - sT) <= zono) b++;
-			let vem2 = originalaj[meza];
+			while (a > 0 && Math.abs(haxekuxa[a - 1] - sT) <= iix) a--;
+			while (b < k2fe && Math.abs(haxekuxa[b + 1] - sT) <= iix) b++;
+			let vem2 = xaqadi[meza];
 			for (let i = a; i <= b; i++) vem2 = Math.max(vem2, kozu[i]);
 			return {
 				a,
@@ -28288,62 +28277,62 @@ function kf2NivelanProfilon(n2k, p2somani, heightFn, akvaFn, haveb6kek) {
 		});
 		for (let i = 0; i < hal6da.length; i++) {
 			let psaz = -Infinity, teru = Infinity;
-			for (const z of zonoj) {
-				const marĝo = (i < z.a ? z.a - i : i > z.b ? i - z.b : 0) * STUPA_RISERO;
+			for (const z of haiix) {
+				const marĝo = (i < z.a ? z.a - i : i > z.b ? i - z.b : 0) * STUPARISERO;
 				psaz = Math.max(psaz, z.vem2 - marĝo);
 				teru = Math.min(teru, z.vem2 + marĝo);
 			}
-			hal6da[i] = psaz <= teru ? Math.max(psaz, Math.min(teru, originalaj[i])) : originalaj[i];
+			hal6da[i] = psaz <= teru ? Math.max(psaz, Math.min(teru, xaqadi[i])) : xaqadi[i];
 		}
 	}
-	if (proksimaj.length) for (let i = 0; i < hal6da.length; i++) {
-		const p = punktojCxe[i];
-		let kmaM2m2 = Infinity, tap2 = NaN;
-		for (const k of proksimaj) {
+	if (tsiike.length) for (let i = 0; i < hal6da.length; i++) {
+		const p = n2kJe[i];
+		let kmaMalgpukaz = Infinity, tap2 = NaN;
+		for (const k of tsiike) {
 			const d = Math.hypot(p.x - k.x, p.z - k.z);
-			if (d <= 2.075 && d < kmaM2m2) {
-				kmaM2m2 = d;
+			if (d <= 2.075 && d < kmaMalgpukaz) {
+				kmaMalgpukaz = d;
 				tap2 = k.l6da;
 			}
 		}
 		if (Number.isFinite(tap2)) hal6da[i] = tap2;
 	}
-	const l6daCxe = (s) => {
-		const i = Math.max(0, Math.min(nombro, Math.round(s / h6kuni)));
+	const l6daJe = (s) => {
+		const i = Math.max(0, Math.min(k2fe, Math.round(s / h6kuni)));
 		return hal6da[i];
 	};
 	return {
 		hal6da,
-		celoj,
+		hakxawa,
 		haxekuxa,
 		sahakani,
 		centraj,
 		glataj,
-		l6daCxe
+		l6daJe
 	};
 }
-// eskekoj/medio/hak6h6/veb6kek-havem2.ts
-const veb6kekajHavem2 = /* @__PURE__ */ new Map();
+// ../../skek2/qatsiike/hak6h6/veb6kek-havem2.ts
+const tamc2kHavem2 = /* @__PURE__ */ new Map();
 function tap2L6daDeVeb6kek(ca3aq) {
-	return veb6kekajHavem2.get(ca3aq)?.l6da;
+	return tamc2kHavem2.get(ca3aq)?.l6da;
 }
-// eskekoj/medio/hak6h6/hapa12.ts
-const DUOBLA_PI = Math.PI * 2;
-const ANGULA_TOLERO = 1 / 512;
+// ../../skek2/qatsiike/hak6h6/hapa12.ts
+const DUOBLAPI = Math.PI * 2;
+const ANGULATOLERO = 1 / 512;
 function normAng(tafkaq) {
-	const r = tafkaq % DUOBLA_PI;
-	return r < 0 ? r + DUOBLA_PI : r;
+	const r = tafkaq % DUOBLAPI;
+	return r < 0 ? r + DUOBLAPI : r;
 }
 function samaAng(a, b) {
 	const d = Math.abs(normAng(a) - normAng(b));
-	return Math.min(d, DUOBLA_PI - d) < ANGULA_TOLERO;
+	return Math.min(d, DUOBLAPI - d) < ANGULATOLERO;
 }
-function hakneceElDirektoj(hac2w2q, p2somani) {
+function hakneceElHac2w2q(hac2w2q, p2somani) {
 	const rez = [];
-	const ekstera = p2somani + K6H6A_BORDA_SEFINI;
+	const p6sca = p2somani + K6H6ABORDASEFINI;
 	for (const [dx, dz] of hac2w2q) {
 		const sahakani = Math.hypot(dx, dz);
-		if (sahakani < ANGULA_TOLERO) continue;
+		if (sahakani < ANGULATOLERO) continue;
 		const ux = dx / sahakani, uz = dz / sahakani;
 		const ang = normAng(Math.atan2(uz, ux));
 		if (rez.some((b) => samaAng(b.ang, ang))) continue;
@@ -28354,196 +28343,196 @@ function hakneceElDirektoj(hac2w2q, p2somani) {
 			nx: -uz,
 			nz: ux,
 			p2somani,
-			ekstera
+			p6sca
 		});
 	}
 	rez.sort((a, b) => a.ang - b.ang);
 	return rez;
 }
-function hakneceElPukxeitaj(pukxea, rotacio, p2somani) {
-	const kos = Math.cos(rotacio), sin = Math.sin(rotacio);
+function hakneceElHanece3e(pukxea, s2sabo, p2somani) {
+	const kos = Math.cos(s2sabo), sin = Math.sin(s2sabo);
 	const lokaj = [];
 	if (pukxea[0] !== 1) lokaj.push([1, 0]);
 	if (pukxea[0] !== -1) lokaj.push([-1, 0]);
 	if (pukxea[1] !== 1) lokaj.push([0, 1]);
 	if (pukxea[1] !== -1) lokaj.push([0, -1]);
-	return hakneceElDirektoj(lokaj.map(([lx, lz]) => [kos * lx - sin * lz, sin * lx + kos * lz]), p2somani);
+	return hakneceElHac2w2q(lokaj.map(([lx, lz]) => [kos * lx - sin * lz, sin * lx + kos * lz]), p2somani);
 }
-function kf2Haknece(hac2w2q, pukxea, rotacio, p2somani = K6H6A_DIORITA_P2SOMANI) {
-	const haknece = hakneceElDirektoj(hac2w2q, p2somani);
+function kf2Haknece(hac2w2q, pukxea, s2sabo, p2somani = K6H6ADIORITAP2SOMANI) {
+	const haknece = hakneceElHac2w2q(hac2w2q, p2somani);
 	if (haknece.length) return haknece;
-	return hakneceElPukxeitaj(pukxea ?? [0, 0], rotacio, p2somani);
+	return hakneceElHanece3e(pukxea ?? [0, 0], s2sabo, p2somani);
 }
-function veb6kekaTap2L6da(x, z, knece, heightFn) {
+function tamc2kTap2L6da(x, z, knece, heightFn) {
 	const hac2w2q = knece.map((b) => [b.ux, b.uz]);
-	const randaj = veb6kekajBrakL6daj(x, z, hac2w2q, knece.map((b) => b.p2somani), heightFn).filter(Number.isFinite);
-	const randaSupro = randaj.length ? Math.max(...randaj) : -Infinity;
-	return Math.max(surGrid(k6h6SuproDeVeb6kek(x, z, hac2w2q, K6H6A_EKSTERA_P2SOMANI, heightFn).hateru - K6H6A_KMARO_L6DA), randaSupro);
+	const hapukaz = tamc2kBrakHal6da(x, z, hac2w2q, knece.map((b) => b.p2somani), heightFn).filter(Number.isFinite);
+	const pukazTeru = hapukaz.length ? Math.max(...hapukaz) : -Infinity;
+	return Math.max(surGrid(k6h6TeruDeVeb6kek(x, z, hac2w2q, K6H6AEKSTERAP2SOMANI, heightFn).hateru - K6H6AKMARL6DA), pukazTeru);
 }
-function veb6kekaTap2Vem2(x, z, knece, heightFn) {
+function tamc2kTap2Vem2(x, z, knece, heightFn) {
 	const hac2w2q = knece.map((b) => [b.ux, b.uz]);
 	const hap2somani = knece.map((b) => b.p2somani);
-	return kf2Tap2Vem2n(hac2w2q, hap2somani, veb6kekajBrakL6daj(x, z, hac2w2q, hap2somani, heightFn).map((l6da) => Number.isFinite(l6da) ? l6da : NaN), veb6kekaTap2L6da(x, z, knece, heightFn));
+	return kf2Tap2Vem2n(hac2w2q, hap2somani, tamc2kBrakHal6da(x, z, hac2w2q, hap2somani, heightFn).map((l6da) => Number.isFinite(l6da) ? l6da : NaN), tamc2kTap2L6da(x, z, knece, heightFn));
 }
-// hacaht2/vecax2l/p6kpu.ts
+// p6kpu.ts
 function tsekeVeraTsasa(x, z) {
-	return l6da(x, z) < akvaVem2(x, z) - 1 / 128;
+	return l6da(x, z) < tsasaVem2(x, z) - 1 / 128;
 }
-function akvaFino(x, z) {
-	return tsekeVeraTsasa(x, z) ? akvaVem2(x, z) + K6H6A_AKVA_KLARANCO : -Infinity;
+function tsasatlakak(x, z) {
+	return tsekeVeraTsasa(x, z) ? tsasaVem2(x, z) + K6H6AAKVAKLARANCO : -Infinity;
 }
-function k6h6Supro(x, z, sefini) {
-	return k6h6Supro$1(x, z, sefini, l6da);
+function k6h6Teru(x, z, sefini) {
+	return k6h6Teru$1(x, z, sefini, l6da);
 }
 function pontaFinL6da(x, z, sefini, haveb6kek) {
-	let kmaProksima = null;
+	let kmaTsiike = null;
 	let kmaC2na = Infinity;
 	for (const k of haveb6kek) {
 		const d = Math.hypot(k.x - x, k.z - z);
 		if (d < kmaC2na) {
 			kmaC2na = d;
-			kmaProksima = k;
+			kmaTsiike = k;
 		}
 	}
-	if (kmaProksima && kmaC2na < 2.075) return k6h6SuproDeVeb6kek(kmaProksima.x, kmaProksima.z, kmaProksima.direktaj, K6H6A_EKSTERA_P2SOMANI, l6da).hateru;
-	return k6h6Supro(x, z, sefini);
+	if (kmaTsiike && kmaC2na < 2.075) return k6h6TeruDeVeb6kek(kmaTsiike.x, kmaTsiike.z, kmaTsiike.c2w2qa, K6H6AEKSTERAP2SOMANI, l6da).hateru;
+	return k6h6Teru(x, z, sefini);
 }
-function kf2Tap2nFunkcion(k6h6L6da, mapoj) {
+function kf2Tap2nFunkcion(k6h6L6da, bal2) {
 	const memoro = /* @__PURE__ */ new Map();
-	const vem2Cxe = (x, z) => {
+	const vem2Je = (x, z) => {
 		const ca3aq = x + "," + z;
 		let vem2 = memoro.get(ca3aq);
 		if (vem2 === void 0) {
-			vem2 = veb6kekaTap2Vem2(x, z, kf2Haknece(mapoj.hac2w2q.get(ca3aq) ?? [], mapoj.pukxeitaj.get(ca3aq), mapoj.rotacioj.get(ca3aq) ?? 0, mapoj.hap2somani.get(ca3aq)), k6h6L6da);
+			vem2 = tamc2kTap2Vem2(x, z, kf2Haknece(bal2.hac2w2q.get(ca3aq) ?? [], bal2.hapukxe.get(ca3aq), bal2.s2sabo.get(ca3aq) ?? 0, bal2.hap2somani.get(ca3aq)), k6h6L6da);
 			memoro.set(ca3aq, vem2);
 		}
 		return vem2;
 	};
-	const pa12Cxe = (x, z) => {
+	const pa12Je = (x, z) => {
 		const ca3aq = x + "," + z;
 		const registrita = tap2L6daDeVeb6kek(ca3aq);
 		if (registrita !== void 0) return registrita;
-		return veb6kekaTap2L6da(x, z, kf2Haknece(mapoj.hac2w2q.get(ca3aq) ?? [], mapoj.pukxeitaj.get(ca3aq), mapoj.rotacioj.get(ca3aq) ?? 0, mapoj.hap2somani.get(ca3aq)), k6h6L6da);
+		return tamc2kTap2L6da(x, z, kf2Haknece(bal2.hac2w2q.get(ca3aq) ?? [], bal2.hapukxe.get(ca3aq), bal2.s2sabo.get(ca3aq) ?? 0, bal2.hap2somani.get(ca3aq)), k6h6L6da);
 	};
 	return {
-		pa12Cxe,
-		vem2Cxe
+		pa12Je,
+		vem2Je
 	};
 }
-function kf2Vecax2lanMondon(kunKradaj = true) {
+function kf2Vecax2lanNala(kunKradaj = true) {
 	const qena = new Scene();
-	const hak6h6 = aktivajHak6h6().filter((v) => v.n2k.length >= 2);
-	const haqakaj2 = aktivajHaqakaj2();
-	const kradajHaveb6kek = [];
-	const kradajPunktoj = [];
-	const kradajRetajHak6h6 = [];
-	const kradajPukxeitaj = /* @__PURE__ */ new Map();
+	const hak6h6 = tikHak6h6().filter((v) => v.n2k.length >= 2);
+	const haqakaj2 = tikHaqakaj2();
+	const qox2n2kHaveb6kek = [];
+	const qox2n2kHan2k = [];
+	const qox2n2kHacaxlefkakaiHak6h6 = [];
+	const qox2n2kHanece3e = /* @__PURE__ */ new Map();
 	if (kunKradaj) {
-		const oro = kf2KuhalPukek(14201946);
-		const hakaxte = aktivajHakaxte().length ? aktivajHakaxte() : [{
+		const oro = kf2KuhalPukek(14200920);
+		const hakaxte = tikHakaxte().length ? tikHakaxte() : [{
 			ksaka: "Geles",
-			arangxaGrando: 3,
-			blokaGrando: "unu",
+			ptaluPal6: 3,
+			k6liqPal6: "vakox2qita",
 			ofsX: 0,
 			ofsZ: 0
 		}];
 		for (const u of hakaxte) {
-			const kaxte = vepaqKradanKaxten(qena, {
-				arangxaGrando: u.arangxaGrando,
-				blokaGrando: u.blokaGrando,
-				keuxfhxeso: false,
+			const kaxte = vepaqQox2n2kKaxten(qena, {
+				ptaluPal6: u.ptaluPal6,
+				k6liqPal6: u.k6liqPal6,
+				kekufxeso: false,
 				hahufwuk2: false
-			}, [u.ofsX, u.ofsZ], oro, u.aldonajHak6liq ?? []);
-			kradajHaveb6kek.push(...kaxte.veb6kekajPunktoj);
-			for (const d of kaxte.k6h6Difinoj) {
-				kradajPunktoj.push(d.pts);
-				kradajRetajHak6h6.push({
+			}, [u.ofsX, u.ofsZ], oro, u.tlunakHak6liq ?? []);
+			qox2n2kHaveb6kek.push(...kaxte.tamc2kHan2k);
+			for (const d of kaxte.kas2kantaHavop2ni) {
+				qox2n2kHan2k.push(d.pts);
+				qox2n2kHacaxlefkakaiHak6h6.push({
 					n2k: d.pts,
 					sefini: 2 * d.w
 				});
 			}
-			for (const [ca3aq, f] of kaxte.veb6kekajPukxeitaj) kradajPukxeitaj.set(ca3aq, f);
+			for (const [ca3aq, f] of kaxte.tamc2kHanece3e) qox2n2kHanece3e.set(ca3aq, f);
 		}
 	}
-	const landoj = haqakaj2.map((d) => {
-		const r = d.rotacio ?? 0;
+	const hat6lima = haqakaj2.map((d) => {
+		const r = d.s2sabo ?? 0;
 		return {
-			x: d.x + Math.sin(r) * (d.profundo / 2),
-			z: d.z + Math.cos(r) * (d.profundo / 2)
+			x: d.x + Math.sin(r) * (d.jufu / 2),
+			z: d.z + Math.cos(r) * (d.jufu / 2)
 		};
 	});
 	const antauxaj = troviK6h6RetajnHaveb6kekn(hak6h6.map((v) => ({
 		n2k: v.n2k,
 		sefini: v.sefini
 	})), haqakaj2);
-	const celojGluaj = [...kradajHaveb6kek, ...antauxaj.map((k) => [k.x, k.z])];
-	const gluitaj = hak6h6.map((v, i) => gluiK6h6Finon(v.n2k, celojGluaj, landoj, [...kradajPunktoj, ...hak6h6.filter((_, j) => j !== i).map((o) => o.n2k)]));
+	const hakxawaGluaj = [...qox2n2kHaveb6kek, ...antauxaj.map((k) => [k.x, k.z])];
+	const hascac6 = hak6h6.map((v, i) => gluiK6h6tlakakn(v.n2k, hakxawaGluaj, hat6lima, [...qox2n2kHan2k, ...hak6h6.filter((_, j) => j !== i).map((o) => o.n2k)]));
 	const haveb6kek = troviK6h6RetajnHaveb6kekn(hak6h6.map((v, i) => ({
-		n2k: gluitaj[i],
+		n2k: hascac6[i],
 		sefini: v.sefini
 	})), haqakaj2);
-	const k21eHaveb6kek = [...kradajHaveb6kek, ...haveb6kek.map((k) => [k.x, k.z])];
-	const bazaK6h6L6da = kf2BazanK6h6L6da(l6da);
-	const derivitajHaknece = veb6kekajHakneceElHak6h6(k21eHaveb6kek, [...kradajRetajHak6h6, ...hak6h6.map((v, i) => ({
-		n2k: gluitaj[i],
+	const k21eHaveb6kek = [...qox2n2kHaveb6kek, ...haveb6kek.map((k) => [k.x, k.z])];
+	const kozunuK6h6L6da = kf2BazanK6h6L6dan(l6da);
+	const haksan2Haknece = tamc2kHakneceElHak6h6(k21eHaveb6kek, [...qox2n2kHacaxlefkakaiHak6h6, ...hak6h6.map((v, i) => ({
+		n2k: hascac6[i],
 		sefini: v.sefini
 	}))]);
 	for (const k of haveb6kek) {
 		const ca3aq = k.x + "," + k.z;
-		const ca1ara = derivitajHaknece.get(ca3aq) ?? [];
-		for (const d of k.direktaj) if (!ca1ara.some((u) => u[0] * d[0] + u[1] * d[1] > 1 - 1 / 512)) ca1ara.push(d);
-		derivitajHaknece.set(ca3aq, ca1ara);
-		k.direktaj = ca1ara;
+		const ca1ara = haksan2Haknece.get(ca3aq) ?? [];
+		for (const d of k.c2w2qa) if (!ca1ara.some((u) => u[0] * d[0] + u[1] * d[1] > 1 - 1 / 512)) ca1ara.push(d);
+		haksan2Haknece.set(ca3aq, ca1ara);
+		k.c2w2qa = ca1ara;
 	}
-	const veb6kekajDuonoj = new Map(haveb6kek.map((k) => [k.x + "," + k.z, k.p2somani]));
-	const k6h6L6da = kf2K6h6L6da(l6da, k21eHaveb6kek.map(([x, z]) => ({
+	const tamc2kHap2somani = new Map(haveb6kek.map((k) => [k.x + "," + k.z, k.p2somani]));
+	const k6h6L6da = kf2K6h6L6dan(l6da, k21eHaveb6kek.map(([x, z]) => ({
 		x,
 		z,
-		direktaj: derivitajHaknece.get(x + "," + z) ?? [],
-		p2somani: veb6kekajDuonoj.get(x + "," + z) ?? .875
-	})), akvaFino);
-	const mapoj = {
-		pukxeitaj: new Map([...kradajPukxeitaj, ...haveb6kek.map((k) => [k.x + "," + k.z, k.pukxeitaj])]),
-		rotacioj: new Map(haveb6kek.map((k) => [k.x + "," + k.z, k.rotacio])),
-		hac2w2q: new Map(derivitajHaknece),
+		c2w2qa: haksan2Haknece.get(x + "," + z) ?? [],
+		p2somani: tamc2kHap2somani.get(x + "," + z) ?? .875
+	})), tsasatlakak);
+	const bal2 = {
+		hapukxe: new Map([...qox2n2kHanece3e, ...haveb6kek.map((k) => [k.x + "," + k.z, k.hapukxe])]),
+		s2sabo: new Map(haveb6kek.map((k) => [k.x + "," + k.z, k.s2sabo])),
+		hac2w2q: new Map(haksan2Haknece),
 		hap2somani: new Map(haveb6kek.map((k) => [k.x + "," + k.z, k.p2somani]))
 	};
 	for (const v of hak6h6) {
 		if (v.n2k.length < 2) continue;
-		for (const p of [v.n2k[0], v.n2k[v.n2k.length - 1]]) mapoj.pukxeitaj.delete(p[0] + "," + p[1]);
+		for (const p of [v.n2k[0], v.n2k[v.n2k.length - 1]]) bal2.hapukxe.delete(p[0] + "," + p[1]);
 	}
-	const { pa12Cxe } = kf2Tap2nFunkcion(k6h6L6da, mapoj);
-	const ankroj = k21eHaveb6kek.map(([x, z]) => ({
+	const { pa12Je } = kf2Tap2nFunkcion(k6h6L6da, bal2);
+	const hacakukkaj2sai = k21eHaveb6kek.map(([x, z]) => ({
 		x,
 		z,
-		l6da: pa12Cxe(x, z)
+		l6da: pa12Je(x, z)
 	}));
-	const larghoDe = (i) => {
+	const sefiniDe = (i) => {
 		const v = hak6h6[i];
 		return v.c2kanuSefini ?? v.sefini;
 	};
-	const profiloDe = (i) => kf2NivelanProfilon(gluitaj[i], k6h6LarghoDuono(larghoDe(i)), k6h6L6da, akvaFino, ankroj);
+	const s2qenaDe = (i) => kf2NivelanS2qena(hascac6[i], k6h6SefiniP2somani(sefiniDe(i)), k6h6L6da, tsasatlakak, hacakukkaj2sai);
 	return {
 		qena,
 		hak6h6,
-		gluitaj,
+		hascac6,
 		haveb6kek,
-		veb6kekajPunktoj: k21eHaveb6kek,
-		ankroj,
+		tamc2kHan2k: k21eHaveb6kek,
+		hacakukkaj2sai,
 		k6h6L6da,
-		bazaK6h6L6da,
-		pa12Cxe,
-		larghoDe,
-		profiloDe,
-		mapoj
+		kozunuK6h6L6da,
+		pa12Je,
+		sefiniDe,
+		s2qenaDe,
+		bal2
 	};
 }
-function distoAlVeb6kek(veb6kekajPunktoj, x, z) {
-	let kma = Infinity;
-	for (const [kx, kz] of veb6kekajPunktoj) kma = Math.min(kma, Math.hypot(kx - x, kz - z));
-	return kma;
+function distoAlVeb6kek(tamc2kHan2k, x, z) {
+	let plosteq = Infinity;
+	for (const [kx, kz] of tamc2kHan2k) plosteq = Math.min(plosteq, Math.hypot(kx - x, kz - z));
+	return plosteq;
 }
-function punktoCxe(n2k, s, eps = 8 ** -9) {
+function n2kJe(n2k, s, eps = 8 ** -9) {
 	let akum = 0;
 	for (let k = 0; k < n2k.length - 1; k++) {
 		const [x1, z1] = n2k[k], [x2, z2] = n2k[k + 1];
@@ -28563,4 +28552,4 @@ function punktoCxe(n2k, s, eps = 8 ** -9) {
 		z: q[1]
 	};
 }
-export { akvaFino, distoAlVeb6kek, k6h6Supro, kf2Vecax2lanMondon, pontaFinL6da, punktoCxe, tsekeVeraTsasa };
+export { distoAlVeb6kek, k6h6Teru, kf2Vecax2lanNala, n2kJe, pontaFinL6da, tsasatlakak, tsekeVeraTsasa };

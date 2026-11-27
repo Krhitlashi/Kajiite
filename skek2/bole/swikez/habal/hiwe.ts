@@ -55,12 +55,12 @@ export function hiwe(ctx: AudioContext, out: AudioNode, t: number, dur: number, 
     [ 0o13/0o20, 0o22/0o1000 ],
     [ 0o35/0o20, 0o11/0o1000 ],
   ];
-  for ( const [ hz, amplekso ] of manaj ) {
+  for ( const [ hz, pal6 ] of manaj ) {
     const m = ctx.createOscillator();
     m.type = "sine";
     m.frequency.value = hz * vap6zukani(0o2/0o10);
     const mg = ctx.createGain();
-    mg.gain.value = amplekso * vap6zukani(0o2/0o100);
+    mg.gain.value = pal6 * vap6zukani(0o2/0o100);
     m.connect(mg);
     mg.connect(trem.gain);
     m.start(t);

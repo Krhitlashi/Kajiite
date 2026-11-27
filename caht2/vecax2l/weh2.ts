@@ -1,9 +1,9 @@
-// ≺⧼ ᶅſɔ ֭ſɭɹ 🧪 ⧽≻
+// ≺⧼ ᶅſɔ ֭ſɭɹ 📃 ⧽≻
 
 import * as THREE from "three";
 import { mut6qWeh2En as weh2Sef4 } from "../../skek2/p6kpu/mut6qHaweh2.js";
 import { mut6qWeh2En as weh2H2y2k } from "./h2y2k-mut6qHaweh2.js";
-import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+import { T2BAK2P2, VEQ6K2, k2fKanaq, knak2 } from "./k61e.js";
 
 const C2QR = 0o11;
 const KOLOJ = 0o200000;
@@ -13,14 +13,14 @@ for ( let i = 0o0; i < KOLOJ; i++ ) {
   hax2paksupusai.push(( i % 0o200 ) - 0o100, ( i % 0o1000 ) - 0o500, ( i % 0o777 ) - 0o400, 0o25/0o100 );
 }
 
-let malsamaj = 0o0;
+let veq6k2N2k = 0o0;
 for ( let i = 0o0; i < KOLOJ; i++ ) {
   const o = i * 0o4;
   weh2H2y2k(kolA, hax2paksupusai[o], hax2paksupusai[o + 0o1], hax2paksupusai[o + 0o2], hax2paksupusai[o + 0o3]);
   weh2Sef4(kolB, hax2paksupusai[o], hax2paksupusai[o + 0o1], hax2paksupusai[o + 0o2], hax2paksupusai[o + 0o3]);
-  if ( kolA.r !== kolB.r || kolA.g !== kolB.g || kolA.b !== kolB.b ) malsamaj++;
+  if ( kolA.r !== kolB.r || kolA.g !== kolB.g || kolA.b !== kolB.b ) veq6k2N2k++;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͑ʃɹ j͐ʃɹ ŋᷠɔ ⟅ j͑ʃ'ɔ ſ͕ɭэ ſɭɹ }ʃꞇ = ${malsamaj}`);
+console.log(`${T2BAK2P2} ſɭɹ ſᶘɔ ｡ ${VEQ6K2} ｡ ${knak2(veq6k2N2k, 0o0)}`);
 
 function vecax2lPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number,
   h2y2k: ( c: THREE.Color, h: number, x: number, z: number, d: number ) => number ): void {
@@ -47,9 +47,7 @@ function vecax2lPare( ksaka: string, sef4: ( c: THREE.Color, h: number, x: numbe
       tn.push(performance.now() - t0);
     }
   }
-  tn.sort(( a, b ) => a - b ); tm.sort(( a, b ) => a - b );
-  const mn = tn[tn.length >> 0o1], mm = tm[tm.length >> 0o1];
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(tbo(mm), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(tbo(mn), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${( mm / mn ).toFixed(0o2)}x ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${Math.min(...tm).toFixed(0o1)} ${Math.min(...tn).toFixed(0o1)} ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${sn === sm ? "ſɭᴜ }ʃᴜȝ" : "j͑ʃ'ɔ ſ͕ɭэ ſɭɹ"}`);
+  k2fKanaq(ksaka, tn, tm, sn, sm);
 }
 
 vecax2lPare(`ſᶘꞇ ɭl̀ɔ`,

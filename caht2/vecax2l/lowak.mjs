@@ -1257,7 +1257,7 @@ var Vector2 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector2} A reference to this vector.
 	*/
@@ -2821,7 +2821,7 @@ var Vector3 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector3} A reference to this vector.
 	*/
@@ -4980,7 +4980,7 @@ var Vector4 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector4} A reference to this vector.
 	*/
@@ -7545,7 +7545,7 @@ const _colorKeywords = {
 	"darkgreen": 25600,
 	"darkgrey": 11119017,
 	"darkkhaki": 12433259,
-	"darsupgenta": 9109643,
+	"darkmagenta": 9109643,
 	"darkolivegreen": 5597999,
 	"darkorange": 16747520,
 	"darkorchid": 10040012,
@@ -10246,26 +10246,26 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// kantaoj/tom6nu/interpolo.ts
-function glata(t) {
+// ../../kanta/k2fe/fkabe.ts
+function xaha(t) {
 	return t * t * (3 - 2 * t);
 }
 function katmullRom(p0, p1, p2, p3, t) {
 	const t2 = t * t, t3 = t2 * t;
 	return 1 / 2 * (2 * p1 + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
 }
-function fiksuKradon(v, n) {
+function fiksuQox2n2k(v, n) {
 	const n1 = n - 1;
 	return v < 0 ? 0 : v > n1 ? n1 : v;
 }
-function bikubaPx01o(krado, n, fx, fz) {
+function bikubaPx01o(qox2n2k, n, fx, fz) {
 	const i0 = Math.floor(fx), j0 = Math.floor(fz);
 	const u = fx - i0, v = fz - j0;
-	const c0 = fiksuKradon(i0 - 1, n), c1 = fiksuKradon(i0, n);
-	const c2 = fiksuKradon(i0 + 1, n), c3 = fiksuKradon(i0 + 2, n);
-	const r0 = fiksuKradon(j0 - 1, n) * n, r1 = fiksuKradon(j0, n) * n;
-	const r2 = fiksuKradon(j0 + 1, n) * n, r3 = fiksuKradon(j0 + 2, n) * n;
-	return katmullRom(katmullRom(krado[r0 + c0], krado[r0 + c1], krado[r0 + c2], krado[r0 + c3], u), katmullRom(krado[r1 + c0], krado[r1 + c1], krado[r1 + c2], krado[r1 + c3], u), katmullRom(krado[r2 + c0], krado[r2 + c1], krado[r2 + c2], krado[r2 + c3], u), katmullRom(krado[r3 + c0], krado[r3 + c1], krado[r3 + c2], krado[r3 + c3], u), v);
+	const c0 = fiksuQox2n2k(i0 - 1, n), c1 = fiksuQox2n2k(i0, n);
+	const c2 = fiksuQox2n2k(i0 + 1, n), c3 = fiksuQox2n2k(i0 + 2, n);
+	const r0 = fiksuQox2n2k(j0 - 1, n) * n, r1 = fiksuQox2n2k(j0, n) * n;
+	const r2 = fiksuQox2n2k(j0 + 1, n) * n, r3 = fiksuQox2n2k(j0 + 2, n) * n;
+	return katmullRom(katmullRom(qox2n2k[r0 + c0], qox2n2k[r0 + c1], qox2n2k[r0 + c2], qox2n2k[r0 + c3], u), katmullRom(qox2n2k[r1 + c0], qox2n2k[r1 + c1], qox2n2k[r1 + c2], qox2n2k[r1 + c3], u), katmullRom(qox2n2k[r2 + c0], qox2n2k[r2 + c1], qox2n2k[r2 + c2], qox2n2k[r2 + c3], u), katmullRom(qox2n2k[r3 + c0], qox2n2k[r3 + c1], qox2n2k[r3 + c2], qox2n2k[r3 + c3], u), v);
 }
 new Int8Array([
 	-1,
@@ -10287,22 +10287,22 @@ new Int8Array([
 	1,
 	1
 ]);
-function px01oDulineara(krado, n, vepat6ni, origino, x, z) {
-	const fx = (x - origino[0]) / vepat6ni, fz = (z - origino[1]) / vepat6ni;
+function px01oX2pa2(qox2n2k, n, vepat6ni, tsiq, x, z) {
+	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
 	const i0 = Math.floor(fx), j0 = Math.floor(fz);
 	if (i0 < 0 || j0 < 0 || i0 + 1 >= n || j0 + 1 >= n) return 0;
 	const u = fx - i0, v = fz - j0;
-	const a = krado[j0 * n + i0], b = krado[j0 * n + i0 + 1];
-	const c = krado[(j0 + 1) * n + i0], d = krado[(j0 + 1) * n + i0 + 1];
+	const a = qox2n2k[j0 * n + i0], b = qox2n2k[j0 * n + i0 + 1];
+	const c = qox2n2k[(j0 + 1) * n + i0], d = qox2n2k[(j0 + 1) * n + i0 + 1];
 	return a * (1 - u) * (1 - v) + b * u * (1 - v) + c * (1 - u) * v + d * u * v;
 }
-function px01oBikuba(krado, n, vepat6ni, origino, x, z) {
-	const fx = (x - origino[0]) / vepat6ni, fz = (z - origino[1]) / vepat6ni;
-	return Math.max(0, bikubaPx01o(krado, n, fx, fz));
+function px01oBikuba(qox2n2k, n, vepat6ni, tsiq, x, z) {
+	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
+	return Math.max(0, bikubaPx01o(qox2n2k, n, fx, fz));
 }
-// kantaoj/mut6q-havop2/geles/tsasa.ts
-const SKULPTA_AKVA_NIVELO = -288 / 64;
-// eskekoj/tom6nu/haweh2.ts
+// ../../kanta/mut6q-havop2/geles/tsasa.ts
+const SKULPTAAKVANIVELO = -288 / 64;
+// ../../skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -10314,17 +10314,17 @@ function veb6qaiWeh2Ruva(weh2) {
 function veb6qaiWeh2Kek(kek) {
 	return kek & 248;
 }
-function veb6qaiW2d2(alfo) {
-	const cacaja = Math.round(Math.max(0, Math.min(1, alfo)) * 255);
+function veb6qaiW2d2(cento) {
+	const cacaja = Math.round(Math.max(0, Math.min(1, cento)) * 255);
 	if (cacaja <= 0) return 0;
 	if (cacaja >= 255) return 1;
 	return veb6qaiWeh2Kek(cacaja) / 255;
 }
 function veb6qaiCss(css) {
 	const s2banani = css.trim();
-	const kongruo = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
-	if (kongruo) {
-		const hakek = kongruo[1].split(",").map((ero) => ero.trim());
+	const kpapa = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
+	if (kpapa) {
+		const hakek = kpapa[1].split(",").map((kek) => kek.trim());
 		return `rgba(${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[0])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[1])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[2])))))},${hakek[3] === void 0 ? 1 : veb6qaiW2d2(Number(hakek[3]))})`;
 	}
 	const h6 = /^#([0-9a-f]{6})$/i.exec(s2banani);
@@ -10332,8 +10332,8 @@ function veb6qaiCss(css) {
 	const h8 = /^#([0-9a-f]{6})([0-9a-f]{2})$/i.exec(s2banani);
 	if (h8) {
 		const weh2 = veb6qaiWeh2(parseInt(h8[1], 16));
-		const alfo = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
-		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${alfo})`;
+		const cento = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
+		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${cento})`;
 	}
 	const h3 = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(s2banani);
 	if (h3) {
@@ -10347,12 +10347,12 @@ function veb6qaiCss(css) {
 function kf2Veb6qaiKs2bu() {
 	if (typeof CanvasGradient === "undefined") return;
 	const kozunuSkek = CanvasGradient.prototype;
-	if (kozunuSkek.__veb6qai) return;
+	if (kozunuSkek.veb6qai) return;
 	const xaqadi = kozunuSkek.addColorStop;
 	kozunuSkek.addColorStop = function(raqa, weh2) {
 		xaqadi.call(this, raqa, veb6qaiCss(weh2));
 	};
-	kozunuSkek.__veb6qai = true;
+	kozunuSkek.veb6qai = true;
 }
 kf2Veb6qaiKs2bu();
 function hunanuWeh2(weh2, n = 1) {
@@ -10361,144 +10361,170 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// eskekoj/tom6nu/kozuhaweh2.ts
-function bruoKrado(xi, zi) {
+// ../../skek2/p6kpu/mut6qHaweh2.ts
+function xetoh2Qox2n2k(xi, zi) {
 	let n = xi * 2683120 + zi * 2676968 | 0;
 	n = (n ^ n >>> 13) * 4759592;
 	return ((n ^ n >>> 16) >>> 0) / 4294967296;
 }
-function bruo2D(x, z) {
+function xetoh2D(x, z) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;
-	const a = bruoKrado(ix, iz), b = bruoKrado(ix + 1, iz);
-	const c = bruoKrado(ix, iz + 1), d = bruoKrado(ix + 1, iz + 1);
-	const u = glata(fx);
-	const v = glata(fz);
+	const a = xetoh2Qox2n2k(ix, iz), b = xetoh2Qox2n2k(ix + 1, iz);
+	const c = xetoh2Qox2n2k(ix, iz + 1), d = xetoh2Qox2n2k(ix + 1, iz + 1);
+	const u = xaha(fx);
+	const v = xaha(fz);
 	return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 }
-const KOZUA_HAWEH2 = {
+const T6LIMAHAWEH2 = {
 	fe1afA: new Color(16424),
 	fe1afB: new Color(4223064),
 	nex2caFe1af: new Color(3178600),
 	t6keq: new Color(6842464),
-	t6keqOmbro: new Color(hunanuWeh2(6842464, 3)),
-	profunda: new Color(2109496),
-	malfe1af: new Color(3168320),
+	t6keqHunanu: new Color(hunanuWeh2(6842464, 3)),
+	jufu: new Color(2109496),
+	tlutsu: new Color(3168320),
 	qacacu: new Color(3172432),
-	silto: new Color(3702888),
+	tlutsubaz2: new Color(3702888),
 	c23u: new Color(4753528),
 	fas: new Color(10524792),
 	camutsa: new Color(3688520),
-	nego: new Color(14739696),
-	glacio: new Color(11059408),
+	xana: new Color(14739696),
+	kzi3a: new Color(11059408),
 	k6h6T6lima: new Color(3688496),
-	k6h6Malbaz2: new Color(5261368),
-	k6h6Roko: new Color(5789784),
-	k6h6Bazo: new Color(3160120)
+	k6h6K6k: new Color(5261368),
+	k6h6T6keq: new Color(5789784),
+	k6h6Kozunu: new Color(3160120)
 };
-const TSASA_NIVELO = SKULPTA_AKVA_NIVELO;
-function ombraKkaxte(haga) {
+const TSASAVEM2 = SKULPTAAKVANIVELO;
+function hunanuKkaxte(haga) {
 	return Math.max(0, Math.min(1, (haga - 1 / 8) / (6 / 8)));
 }
-function fiksu01(v) {
+function qacepu01(v) {
 	return v < 0 ? 0 : v > 1 ? 1 : v;
 }
 new Color(11059368), new Color(11581608), new Color(4743248), new Color(12634296), new Color(7901312), new Color(10004632);
 new Color().setRGB(36 / 64, 40 / 64, 38 / 64);
-function kozuaWeh2En(celo, h, x, z, haga, vem2Fn) {
-	const P = KOZUA_HAWEH2;
-	const makulo = 2 * bruo2D(x / 45, z / 45) - 1;
-	const makulo2 = 2 * bruo2D(x / 11, z / 11) - 1;
-	const makulo3 = 2 * bruo2D(x / 3, z / 3) - 1;
-	const malsekeco = 5 / 8 + 12 / 64 * makulo + 8 / 64 * makulo2 + 3 / 64 * makulo3;
+function mut6qWeh2En(natakatomasai, h, x, z, haga, vem2Fn) {
+	const P = T6LIMAHAWEH2;
+	const xet7 = 2 * xetoh2D(x / 45, z / 45) - 1;
+	const xet72 = 2 * xetoh2D(x / 11, z / 11) - 1;
+	const xet73 = 2 * xetoh2D(x / 3, z / 3) - 1;
+	const tsasaF = 5 / 8 + 12 / 64 * xet7 + 8 / 64 * xet72 + 3 / 64 * xet73;
 	let r = P.fe1afA.r, g = P.fe1afA.g, b = P.fe1afA.b;
-	let f = fiksu01(malsekeco);
+	let f = qacepu01(tsasaF);
 	r += (P.fe1afB.r - r) * f;
 	g += (P.fe1afB.g - g) * f;
 	b += (P.fe1afB.b - b) * f;
-	f = fiksu01((h - 8) / 22) * 4 / 8;
+	f = qacepu01((h - 8) / 22) * 4 / 8;
 	r += (P.nex2caFe1af.r - r) * f;
 	g += (P.nex2caFe1af.g - g) * f;
 	b += (P.nex2caFe1af.b - b) * f;
-	const hunanu = ombraKkaxte(haga);
+	const hunanu = hunanuKkaxte(haga);
 	f = hunanu * 14 / 64;
-	r += (P.t6keqOmbro.r - r) * f;
-	g += (P.t6keqOmbro.g - g) * f;
-	b += (P.t6keqOmbro.b - b) * f;
-	f = Math.max(fiksu01((haga - 41 / 64) / (25 / 64)), fiksu01((h - 22) / 20) * 7 / 8);
+	r += (P.t6keqHunanu.r - r) * f;
+	g += (P.t6keqHunanu.g - g) * f;
+	b += (P.t6keqHunanu.b - b) * f;
+	f = Math.max(qacepu01((haga - 41 / 64) / (25 / 64)), qacepu01((h - 22) / 20) * 7 / 8);
 	r += (P.t6keq.r - r) * f;
 	g += (P.t6keq.g - g) * f;
 	b += (P.t6keq.b - b) * f;
-	const negoF = fiksu01((h - 36) / 12);
+	const negoF = qacepu01((h - 36) / 12);
 	if (negoF > 0) {
-		f = negoF * (1 - fiksu01((haga - 56 / 64) / (40 / 64)));
-		r += (P.nego.r - r) * f;
-		g += (P.nego.g - g) * f;
-		b += (P.nego.b - b) * f;
+		f = negoF * (1 - qacepu01((haga - 56 / 64) / (40 / 64)));
+		r += (P.xana.r - r) * f;
+		g += (P.xana.g - g) * f;
+		b += (P.xana.b - b) * f;
 		f = negoF * hunanu * 14 / 64;
-		r += (P.glacio.r - r) * f;
-		g += (P.glacio.g - g) * f;
-		b += (P.glacio.b - b) * f;
+		r += (P.kzi3a.r - r) * f;
+		g += (P.kzi3a.g - g) * f;
+		b += (P.kzi3a.b - b) * f;
 	}
-	const bordaBruo = (bruo2D(x / 8, z / 8) - 4 / 8) * 4 / 8 + (bruo2D(x / 32, z / 32) - 4 / 8) * 2 / 8;
-	const kma = h - (vem2Fn ? vem2Fn(x, z) : TSASA_NIVELO);
-	const plateau = 1 - fiksu01((haga - 21 / 64) / (37 / 64));
-	if (kma > 0) {
-		f = fiksu01((9 / 8 - kma + bordaBruo) / (9 / 8)) * plateau * 7 / 8;
+	const pukazXetoh2 = (xetoh2D(x / 8, z / 8) - 4 / 8) * 4 / 8 + (xetoh2D(x / 32, z / 32) - 4 / 8) * 2 / 8;
+	const teru = h - (vem2Fn ? vem2Fn(x, z) : TSASAVEM2);
+	const qun2 = 1 - qacepu01((haga - 21 / 64) / (37 / 64));
+	if (teru > 0) {
+		f = qacepu01((9 / 8 - teru + pukazXetoh2) / (9 / 8)) * qun2 * 7 / 8;
 		r += (P.fas.r - r) * f;
 		g += (P.fas.g - g) * f;
 		b += (P.fas.b - b) * f;
-		const c23uF = fiksu01((6 / 8 - kma + bordaBruo) / (6 / 8));
-		const granulo = fiksu01((bruo2D(x / 2, z / 2) - 37 / 64) * 12 / 8);
-		f = Math.min(1, c23uF * granulo * 14 / 8);
+		const c23uF = qacepu01((6 / 8 - teru + pukazXetoh2) / (6 / 8));
+		const baskek2 = qacepu01((xetoh2D(x / 2, z / 2) - 37 / 64) * 12 / 8);
+		f = Math.min(1, c23uF * baskek2 * 14 / 8);
 		r += (P.c23u.r - r) * f;
 		g += (P.c23u.g - g) * f;
 		b += (P.c23u.b - b) * f;
-		f = fiksu01((5 / 8 - kma + bordaBruo) / (5 / 8)) * 3 / 8 * plateau;
+		f = qacepu01((5 / 8 - teru + pukazXetoh2) / (5 / 8)) * 3 / 8 * qun2;
 		r += (P.qacacu.r - r) * f;
 		g += (P.qacacu.g - g) * f;
 		b += (P.qacacu.b - b) * f;
-		f = fiksu01((14 / 8 - kma + bordaBruo) / (14 / 8)) * 21 / 64;
-		r += (P.malfe1af.r - r) * f;
-		g += (P.malfe1af.g - g) * f;
-		b += (P.malfe1af.b - b) * f;
+		f = qacepu01((14 / 8 - teru + pukazXetoh2) / (14 / 8)) * 21 / 64;
+		r += (P.tlutsu.r - r) * f;
+		g += (P.tlutsu.g - g) * f;
+		b += (P.tlutsu.b - b) * f;
 	} else {
-		const prof = Math.max(0, -kma + bordaBruo);
-		const sedimento = fiksu01((1 - haga) / (10 / 8));
-		f = fiksu01((5 / 8 - prof) / (5 / 8)) * 5 / 8;
+		const prof = Math.max(0, -teru + pukazXetoh2);
+		const oztaq = qacepu01((1 - haga) / (10 / 8));
+		f = qacepu01((5 / 8 - prof) / (5 / 8)) * 5 / 8;
 		r += (P.fas.r - r) * f;
 		g += (P.fas.g - g) * f;
 		b += (P.fas.b - b) * f;
-		f = Math.min(1, prof) * (1 - sedimento) * 5 / 8;
+		f = Math.min(1, prof) * (1 - oztaq) * 5 / 8;
 		r += (P.camutsa.r - r) * f;
 		g += (P.camutsa.g - g) * f;
 		b += (P.camutsa.b - b) * f;
-		const siltaF = fiksu01(prof / (10 / 8)) * sedimento;
-		r += (P.silto.r - r) * siltaF;
-		g += (P.silto.g - g) * siltaF;
-		b += (P.silto.b - b) * siltaF;
+		const siltaF = qacepu01(prof / (10 / 8)) * oztaq;
+		r += (P.tlutsubaz2.r - r) * siltaF;
+		g += (P.tlutsubaz2.g - g) * siltaF;
+		b += (P.tlutsubaz2.b - b) * siltaF;
 		if (siltaF > 0) {
-			const c23u = bruo2D(x / 4, z / 4);
+			const c23u = xetoh2D(x / 4, z / 4);
 			f = siltaF * Math.max(0, c23u - 45 / 64) * 6 / 8;
 			r += (P.c23u.r - r) * f;
 			g += (P.c23u.g - g) * f;
 			b += (P.c23u.b - b) * f;
 		}
-		f = fiksu01((prof - 1) / (14 / 8)) * sedimento;
+		f = qacepu01((prof - 1) / (14 / 8)) * oztaq;
 		r += (P.camutsa.r - r) * f;
 		g += (P.camutsa.g - g) * f;
 		b += (P.camutsa.b - b) * f;
-		f = fiksu01((prof - 3) / (18 / 8));
-		r += (P.profunda.r - r) * f;
-		g += (P.profunda.g - g) * f;
-		b += (P.profunda.b - b) * f;
+		f = qacepu01((prof - 3) / (18 / 8));
+		r += (P.jufu.r - r) * f;
+		g += (P.jufu.g - g) * f;
+		b += (P.jufu.b - b) * f;
 	}
-	celo.r = r;
-	celo.g = g;
-	celo.b = b;
-	return celo;
+	natakatomasai.r = r;
+	natakatomasai.g = g;
+	natakatomasai.b = b;
+	return natakatomasai;
 }
-// hacaht2/vecax2l/lowak.ts
+const HEKEBAR6Q = 9192631770 / 4294967296 / 1e3;
+function tbo(bar6q) {
+	return bar6q * HEKEBAR6Q;
+}
+const KNAK2FECAJASAI = "ɔıɿцэꞟɩƨ";
+function knak2fecajasai(k2fe, kuxa = 2) {
+	const neni = k2fe < 0;
+	const k2feSa = 8 ** kuxa;
+	const xekuxa = Math.round(Math.abs(k2fe) * k2feSa);
+	const k2feXa = Math.floor(xekuxa / k2feSa);
+	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
+	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
+}
+// k61e.ts
+const T2BAK2P2 = "( ɭʃɹ ʃᴜ ſɭɹ ſןɹ )";
+const KMAM2M2STIH2 = "ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ j͑ʃƨꞇ ֭ſɭɹ";
+const NLAKANI = "ȏoͩſ̀ȷᴜƽ ꞁȷ̀ᴜ }ʃꞇ";
+function knak2(n2k, kefn2k = 2) {
+	return knak2fecajasai(n2k, kefn2k);
+}
+function heKef(n2k) {
+	return `${knak2fecajasai(tbo(n2k), 6)} He`;
+}
+function k2fKmaNlakani(ksaka, kmaXobe, nlakani, kefn2k = 24) {
+	console.log(`${T2BAK2P2} ${ksaka.padEnd(kefn2k)} ｡ ${KMAM2M2STIH2} ｡ ${heKef(kmaXobe)} ｡ ${NLAKANI} ｡ ${knak2(nlakani)}`);
+}
+// lowak.ts
 function vecax2l(ksaka, hatom6, f) {
 	let kmaXobe = Infinity;
 	let tlunakani = 0;
@@ -10508,32 +10534,32 @@ function vecax2l(ksaka, hatom6, f) {
 		const dt = performance.now() - t0;
 		if (dt < kmaXobe) kmaXobe = dt;
 	}
-	console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(24)} ${kmaXobe.toFixed(2)}ms  ${(hatom6 / kmaXobe / 512).toFixed(1)} Mops  sum=${tlunakani.toFixed(2)}`);
+	k2fKmaNlakani(ksaka, kmaXobe, tlunakani, 24);
 }
 const N = 192;
 const K = /* @__PURE__ */ new Float32Array(36864);
 for (let i = 0; i < K.length; i++) K[i] = i % 31 / 32;
-const ORIGINO = [-384, -384];
-vecax2l("bruo2D", 524288, () => {
+const Tsiq = [-384, -384];
+vecax2l("xetoh2D", 524288, () => {
 	let s = 0;
-	for (let i = 0; i < 524288; i++) s += bruo2D(i * .03125, i * .015625);
+	for (let i = 0; i < 524288; i++) s += xetoh2D(i * (1 / 32), i * (1 / 64));
 	return s;
 });
 vecax2l("px01oBikuba", 262144, () => {
 	let s = 0;
-	for (let i = 0; i < 262144; i++) s += px01oBikuba(K, N, 4, ORIGINO, i % 512 - 320, i % 511 - 256);
+	for (let i = 0; i < 262144; i++) s += px01oBikuba(K, N, 4, Tsiq, i % 512 - 320, i % 511 - 256);
 	return s;
 });
-vecax2l("px01oDulineara", 262144, () => {
+vecax2l("px01oX2pa2", 262144, () => {
 	let s = 0;
-	for (let i = 0; i < 262144; i++) s += px01oDulineara(K, N, 4, ORIGINO, i % 512 - 320, i % 511 - 256);
+	for (let i = 0; i < 262144; i++) s += px01oX2pa2(K, N, 4, Tsiq, i % 512 - 320, i % 511 - 256);
 	return s;
 });
 const weh2 = new Color();
-vecax2l("kozuaWeh2En", 65536, () => {
+vecax2l("mut6qWeh2En", 65536, () => {
 	let s = 0;
 	for (let i = 0; i < 65536; i++) {
-		kozuaWeh2En(weh2, i % 128 - 64, i % 512 - 320, i % 511 - 256, .25);
+		mut6qWeh2En(weh2, i % 128 - 64, i % 512 - 320, i % 511 - 256, 1 / 4);
 		s += weh2.r;
 	}
 	return s;

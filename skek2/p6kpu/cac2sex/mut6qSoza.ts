@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ŋᷠw ɭʃэ ſ͕ɭɔ˞ɜ ſɭ,ᴜ 📃 ⧽≻
 import * as THREE from "three";
-import { k2fKonturanQoxan, kf2P2t6zoCac2sex, neregulaK6h6, p2somani } from "./mafezi.js";
+import { k2fKonturanQoxan, kf2P2t6zoCac2sex, neregulaK6h6, p2somani } from "./pukek.js";
 import { kf2Sakxo } from "../caq2q.js";
 
 export const kf2KozuanCac2sex = p2somani((): THREE.CanvasTexture =>
@@ -22,4 +22,4 @@ export const kf2KozuanCac2sex = p2somani((): THREE.CanvasTexture =>
         neregulaK6h6(x, y, r, 0o4 + ( ( sakxo() * 0o3 ) | 0o0 ), 0o15/0o100, sakxo() * Math.PI * 0o2),
         hakozonu[( i + 0o1 ) % hakozonu.length], 0o6, 0o2);
     }
-  }, [ 0o1, 0o1 ], { g2b2: THREE.ClampToEdgeWrapping, anisotropio: 0o4 }));
+  }, [ 0o1, 0o1 ], { g2b2: THREE.ClampToEdgeWrapping, peq2: 0o4 }));

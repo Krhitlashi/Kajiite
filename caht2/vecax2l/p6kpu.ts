@@ -1,4 +1,4 @@
-// ≺⧼ ı],ɹ ı],ɹȝ 🧪 ⧽≻
+// ≺⧼ ſןэ ſɭɘw 📃 ⧽≻
 
 import * as THREE from "three";
 import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";

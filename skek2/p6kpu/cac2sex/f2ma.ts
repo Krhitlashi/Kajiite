@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { hunanu } from "../haweh2.js";
 import { kf2Sakxo } from "../caq2q.js";
-import { k2fKonturanQoxan, neregulaK6h6, p2somani } from "./mafezi.js";
+import { k2fKonturanQoxan, neregulaK6h6, p2somani } from "./pukek.js";
 
 export function pentriLikenanMakulon(kuns2bana: CanvasRenderingContext2D, s: number): void {
   kuns2bana.clearRect(0o0, 0o0, s, s);

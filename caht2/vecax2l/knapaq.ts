@@ -1,4 +1,4 @@
-// ≺⧼ ſɭc̗ᴜ ſןᴜȝ 🧪 ⧽≻
+// ≺⧼ ſɭc̗ᴜ ſןᴜȝ 📃 ⧽≻
 
 import * as THREE from "three";
 import { bokTavolajnQoxaKefoujn } from "../../skek2/hapaq/satalaj-hapaq.js";
@@ -27,7 +27,7 @@ function vecax2lZacen( kek: THREE.Object3D ): Vecax2l {
 
 function raporti( ksaka: string, zace: THREE.Object3D ): Vecax2l {
   const vecax2l = vecax2lZacen(zace);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | ſɟɔ ɭʃɹ ${knak2fecajasai(vecax2l.hakekuxa, 0o0)} | ſ͕ɭɜ ɭʃɹ ı],ɔ ${knak2fecajasai(vecax2l.haqotiixe, 0o0)} | ſןᴜ j͐ʃэ ${knak2fecajasai(vecax2l.vecax2l, 0o0)}`);
+  console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | ſɟɔ ɭʃɹ ${knak2fecajasai(vecax2l.hakekuxa, 0o0)} | ſ͕ɭɜ ɭʃɹ ı],ɔ ${knak2fecajasai(vecax2l.haqotiixe, 0o0)} | ſןᴜ j͐ʃэ ${knak2fecajasai(vecax2l.vecax2l, 0o0)}`);
   return vecax2l;
 }
 

@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɔ ſןɜ ʞ ſᶘᴜʞ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2P2t6zoCac2sex } from "./mafezi.js";
+import { kf2P2t6zoCac2sex } from "./pukek.js";
 
 export function kf2KavalErbanCac2sex(tok2q: boolean): THREE.CanvasTexture {
   const w = 0o200, h = 0o100;

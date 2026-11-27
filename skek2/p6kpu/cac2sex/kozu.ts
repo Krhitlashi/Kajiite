@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { tsijeWeh2, hunanuWeh2, veb6qaiRgba } from "../haweh2.js";
 import { kf2SakxoKlasika } from "../caq2q.js";
-import { baz2SexiaK6h6 } from "./mafezi.js";
+import { baz2SexiaK6h6 } from "./pukek.js";
 
 function k2fTom6( ka5ik: number, tom6Puf: number, slaf: number, tafkaq0: number ): Path2D {
   const qoxa = new Path2D();

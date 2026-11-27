@@ -1,4 +1,4 @@
-// ≺⧼ ſ̀ȷɜ ֭ſɭƽɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ 🧪 ⧽≻
+// ≺⧼ ſ̀ȷɜ ֭ſɭƽɹ }ʃꞇ ſɭˬɹ j͑ʃᴜꞇ 📃 ⧽≻
 
 import { kf2Rultemon } from "../../kanta/tahaq/tlohk2nikziisai.js";
 import { tbo, knak2fecajasai, HEKE } from "../../kanta/k2fe/s2cax2l.js";
@@ -98,7 +98,7 @@ function raporti( hakagani: Hakagani ): { h2y2k: Tseuni; sef4: Tseuni } {
   const sef4TahaqHaf = sef4.hafParto / sef4.haTahaqHe;
   const ve3aqS2bana = ( hafŜqanu < 0o0 ? "-ꞙɭ" : "ꞙɭ" )
     + Math.abs(Math.round(hafŜqanu)).toString(0o10) + "%";
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${hakagani.ksaka} | ſɭw ſᶘɜ ʌ j͑ʃᴜ ı],ɔ ${knak2fecajasai(h2y2k.haTahaqHe)}/He ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${knak2fecajasai(h2y2k.p6zukani)} | ſɭw ſᶘɜ ʌ j͑ʃɔ ſȷэⅎ ${knak2fecajasai(sef4.haTahaqHe)}/He ｡ ſɭэ ᶗ‹ ${knak2fecajasai(0o1 / sef4.celaTahaqSapse1i)}/He ｡ j͑ʃƨꞇʞ ʌ ſɭэ }ʃᴜ ${knak2fecajasai(sef4.celaTahaqSapse1i, 0o3)} He ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${knak2fecajasai(sef4.p6zukani)} | j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ${knak2fecajasai(h2y2kTahaqHaf, 0o3)} → ${knak2fecajasai(sef4TahaqHaf, 0o3)} He | ſ͕ɭᴜƣ̋ ꞁȷ̀ɜ ı],ɔ ŋᷠɜ ${knak2fecajasai(h2y2k.hafParto)} → ${knak2fecajasai(sef4.hafParto)} | j͑ʃ'ɔ ſ̀ȷᴜȝ ${ve3aqS2bana} | ſɟɹ ɭʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ${knak2fecajasai(h2y2k.haciitaHe)} → ${knak2fecajasai(sef4.haciitaHe)}`);
+  console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ${hakagani.ksaka} | ſɭw ſᶘɜ ʌ j͑ʃᴜ ı],ɔ ${knak2fecajasai(h2y2k.haTahaqHe)}/He ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${knak2fecajasai(h2y2k.p6zukani)} | ſɭw ſᶘɜ ʌ ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ ʌ j͑ʃƨꞇ ֭ſɭɹ ${knak2fecajasai(sef4.haTahaqHe)}/He ｡ ſɭэ ᶗ‹ ${knak2fecajasai(0o1 / sef4.celaTahaqSapse1i)}/He ｡ j͑ʃƨꞇʞ ʌ ſɭэ }ʃᴜ ${knak2fecajasai(sef4.celaTahaqSapse1i, 0o3)} He ｡ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ ${knak2fecajasai(sef4.p6zukani)} | j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ${knak2fecajasai(h2y2kTahaqHaf, 0o3)} → ${knak2fecajasai(sef4TahaqHaf, 0o3)} He | ſ͕ɭᴜƣ̋ ꞁȷ̀ɜ ı],ɔ ŋᷠɜ ${knak2fecajasai(h2y2k.hafParto)} → ${knak2fecajasai(sef4.hafParto)} | j͑ʃ'ɔ ſ̀ȷᴜȝ ${ve3aqS2bana} | ſɟɹ ɭʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ${knak2fecajasai(h2y2k.haciitaHe)} → ${knak2fecajasai(sef4.haciitaHe)}`);
   return { h2y2k, sef4 };
 }
 
@@ -125,7 +125,7 @@ const malpotenca = raporti({ ksaka: "ı],ᴜ ſ͕ȷᴜ j͑ʃᴜꞇ ʌ ſןᴜ j�
 cel2nu( malpotenca.sef4.p6zukani < malpotenca.h2y2k.p6zukani,
   "ı],ᴜ ſ͕ȷᴜ j͑ʃᴜꞇ ʌ ſןᴜ j͐ʃэ ŋᷠɹ ｡ j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ j͑ʃ'ɔ ŋᷠɹ ʌ ɭl̀ᴜȝ ſןᴜ ɭʃɔ" );
 cel2nu( malpotenca.sef4.haTahaqHe > malpotenca.h2y2k.haTahaqHe,
-  "ſɭw ſᶘɜ ʌ j͑ʃɔ ſȷэⅎ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ jɟɜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ" );
+  "ſɭw ſᶘɜ ʌ ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ ʌ j͑ʃƨꞇ ֭ſɭɹ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ jɟɜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ" );
 
 const tridek = raporti({ ksaka: "ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ", kf2TahaqSapse1i: tbo(0o1750 / 0o36), kozunuHaf: tbo(0o24), malmultekosta: true });
 cel2nu( tridek.sef4.p6zukani === 0o1, "ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ ｡ ſןɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭэ }ʃᴜ ʌ ſɟᴜ ſȷᴜɔ˞ ʌ j͑ʃƨꞇʞ" );
@@ -150,4 +150,4 @@ for ( let i = 0o0; i < 0o200; i++ ) interrompo.bildigu(i * ( HEKE / 0o74 ));
 interrompo.bildigu(0o200000);
 cel2nu( interrompo.p6zukani === 0o1, "j͑ʃ'ɔ ſɟᴜ ı],ɹͷ̗ ʌ j͑ʃƨꞇʞ ɭl̀ᴜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ʌ ſɭw ſᶘɜ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" );
 
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭw ſᶘɜ ʌ ſɭɹ ſᶘɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ");
+console.log("( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſɭw ſᶘɜ ʌ ſɭɹ ſᶘɔ ｡ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ ｡ ſןɔ");

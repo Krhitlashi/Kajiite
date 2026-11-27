@@ -1,4 +1,4 @@
-// ≺⧼ ſᶘᴜ j͑ʃᴜ 🧪 ⧽≻
+// ≺⧼ ſᶘᴜ j͑ʃᴜ 📃 ⧽≻
 
 import * as THREE from "three";
 import { vepaqKnat6keqanuitanTsasa } from "../../skek2/qatsiike/tsasa.js";
@@ -38,7 +38,7 @@ function komparu( a: LasKek2, b: LasKek2 ): boolean {
 
 const h2y2k = kuri("h2y2k");
 const sef4 = kuri("sef4");
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${komparu(h2y2k, sef4)} ſᶘᴜ j͑ʃᴜ = ${sef4.vop2kekai.hatsasa} ſɭɹ ſןᴜ = ${sef4.vop2kekai.haqar6xe}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſɭᴜ }ʃᴜȝ ꞁȷ̀ᴜ }ʃꞇ = ${komparu(h2y2k, sef4)} ſᶘᴜ j͑ʃᴜ = ${sef4.vop2kekai.hatsasa} ſɭɹ ſןᴜ = ${sef4.vop2kekai.haqar6xe}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
@@ -53,7 +53,7 @@ for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
   if ( dH2y2k < minM ) minM = dH2y2k;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘᴜ j͑ʃᴜ ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(tbo(minM), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(tbo(minN), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${(minM / minN).toFixed(0o2)}x`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘᴜ j͑ʃᴜ ｡ ſɭˬɹ }ʃꞇ = ${knak2fecajasai(tbo(minM), 0o6)} He ſɭɔ˞ɜƴ ꞁȷ̀ᴜ }ʃꞇ = ${knak2fecajasai(tbo(minN), 0o6)} He j͑ʃɔ ֭ſɭɔ }ʃw = ${(minM / minN).toFixed(0o2)}x`);
 
 const qena = new THREE.Scene();
 const tsasaCakamaha = vepaqKnat6keqanuitanTsasa(qena, 0o0, 0o0, 0o2, 0o2, 0o2,
@@ -63,4 +63,4 @@ const tsasaHavecax2l = tsasaCakamaha.mesh.geometry.getIndex()!;
 if ( tsasaHavecax2l.count !== 0o30 ) {
   throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſᶘᴜ j͑ʃᴜ ʌ j͑ʃɜ j͑ʃƨɹ ${tsasaHavecax2l.count} ｡ ꞙɭɔ ʌ ꞙɭцɔ`);
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘᴜ j͑ʃᴜ ſɭɹ ſןᴜ=ꞙɭэ/ꞙɭıı ſ͕ɭɜ ɭʃɹ ı],ɔ = ${tsasaHavecax2l.count / 0o3} ✅`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſᶘᴜ j͑ʃᴜ ſɭɹ ſןᴜ=ꞙɭэ/ꞙɭıı ſ͕ɭɜ ɭʃɹ ı],ɔ = ${tsasaHavecax2l.count / 0o3} ✅`);

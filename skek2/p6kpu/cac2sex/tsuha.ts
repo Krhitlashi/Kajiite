@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſᶘw ֭ſɭᴜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./mafezi.js";
+import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 export const kf2LederanCac2sex = p2somani((): THREE.CanvasTexture => {
   const s = 0o400;
@@ -56,5 +56,5 @@ export const kf2LederanCac2sex = p2somani((): THREE.CanvasTexture => {
         k.stroke();
       });
     }
-  }, [ 0o2, 0o2 ], { anisotropio: 0o4 });
+  }, [ 0o2, 0o2 ], { peq2: 0o4 });
 });

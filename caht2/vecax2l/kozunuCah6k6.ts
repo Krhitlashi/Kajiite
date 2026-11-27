@@ -1,4 +1,4 @@
-// ≺⧼ ſɭɜ ſɭ,w }ʃw ſɟᴜ ֭ſɭэ ſɭэ 🧪 ⧽≻
+// ≺⧼ ſɭɜ ſɭ,w }ʃw ſɟᴜ ֭ſɭэ ſɭэ 📃 ⧽≻
 
 import { katmullRom } from "../../kanta/k2fe/fkabe.js";
 

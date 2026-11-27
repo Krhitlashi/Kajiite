@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ꞁȷ̀ᴜ j͑ʃʞᴜ ɔ˞ j͑ʃƨɹ ſɟɔ j͐ʃɹ j͑ʃᴜꞇ 📃 ⧽≻
 
 import * as THREE from "three";
-import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./mafezi.js";
+import { k2fVas2flofajnF2m2jn, k2fWrapan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 export interface AsfaSost2cel2saiSiitsii {
   y: number; l6da: number; sago: number; xafanitapu: number; cikloj: [ number, number ];

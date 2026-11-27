@@ -1,4 +1,4 @@
-// ≺⧼ ɭl̀ᴜ ſ͕ɭɜ 🧪 ⧽≻
+// ≺⧼ ɭl̀ᴜ ſ͕ɭɜ 📃 ⧽≻
 
 import * as THREE from "three";
 import { xetoh2D, mut6qWeh2En, mut6qK6h6Weh2En }
@@ -231,7 +231,7 @@ const jaqoRuva = jaqoRuvaKozunu();
 const h2y2kj = vek2fe("h2y2k", jaqoRuva);
 const sef4 = vek2fe("sef4", jaqoRuva);
 const sumoM = kamasumo(h2y2kj), sumoN = kamasumo(sef4);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſȷɔ j͑ʃᴜꞇ ʌ j͑ʃᴜ ı],ɔ }ʃꞇ = ${sumoM} ſɭɹ ſȷɔ j͑ʃᴜꞇ ʌ j͑ʃɔ ſȷэⅎ = ${sumoN} ${sumoM === sumoN ? "ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ"}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſɭɹ ſȷɔ j͑ʃᴜꞇ ʌ ſȷƽᴜ ɭʃᴜ ʌ j͑ʃƨꞇ ֭ſɭɹ = ${sumoM} ſɭɹ ſȷɔ j͑ʃᴜꞇ ʌ ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ ʌ j͑ʃƨꞇ ֭ſɭɹ = ${sumoN} ${sumoM === sumoN ? "ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ"}`);
 
 let minM = Infinity, minN = Infinity;
 for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
@@ -246,7 +246,7 @@ for ( let r = 0o0; r < NOMBRODAJXUROJ; r++ ) {
   if ( dH2y2k < minM ) minM = dH2y2k;
   if ( dSef4 < minN ) minN = dSef4;
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(tbo(minM), 0o6)} He ｡ j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(tbo(minN), 0o6)} He ｡ j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(minM / minN).toFixed(0o2)}x`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) c2q ｡ ſȷƽᴜ ɭʃᴜ ʌ j͑ʃƨꞇ ֭ſɭɹ = ${knak2fecajasai(tbo(minM), 0o6)} He ｡ ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ ʌ j͑ʃƨꞇ ֭ſɭɹ = ${knak2fecajasai(tbo(minN), 0o6)} He ｡ ſɭᴜ j͐ʃᴜ }ʃꞇ = ${(minM / minN).toFixed(0o2)}x`);
 
 let h2y2kjHakekuxa = 0o0, sef4jHakekuxa = 0o0, h2y2kjTrianguloj = 0o0, sef4jTrianguloj = 0o0;
 for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
@@ -258,4 +258,4 @@ for ( const [ sl, sd ] of [ [ 0o2000, 0o100 ], [ 0o2000, 0o60 ] ] as const ) {
 }
 const h2y2kjHacacaja = h2y2kjHakekuxa * 0o40 + h2y2kjTrianguloj * 0o14;
 const sef4jHacacaja = sef4jHakekuxa * 0o40 + sef4jTrianguloj * 0o14;
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſןͷ̗ɜ j͑ʃƨɔȝ = ${h2y2kjHakekuxa} → ${sef4jHakekuxa} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ = ${h2y2kjTrianguloj} → ${sef4jTrianguloj} ｡ ſןᴜ j͐ʃэ = ${( h2y2kjHacacaja / 0o4000000 ).toFixed(0o2)} → ${( sef4jHacacaja / 0o4000000 ).toFixed(0o2)} MiB ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ = ${( ( h2y2kjHacacaja - sef4jHacacaja ) / 0o4000000 ).toFixed(0o2)} MiB`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſןͷ̗ɜ j͑ʃƨɔȝ = ${h2y2kjHakekuxa} → ${sef4jHakekuxa} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ = ${h2y2kjTrianguloj} → ${sef4jTrianguloj} ｡ ſןᴜ j͐ʃэ = ${( h2y2kjHacacaja / 0o4000000 ).toFixed(0o2)} → ${( sef4jHacacaja / 0o4000000 ).toFixed(0o2)} MiB ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ = ${( ( h2y2kjHacacaja - sef4jHacacaja ) / 0o4000000 ).toFixed(0o2)} MiB`);

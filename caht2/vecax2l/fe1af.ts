@@ -1,4 +1,4 @@
-// ≺⧼ ſȷɔ ſᶘᴜʞ 🧪 ⧽≻
+// ≺⧼ ſȷɔ ſᶘᴜʞ 📃 ⧽≻
 
 import * as THREE from "three";
 import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/gazono.js";
@@ -15,10 +15,10 @@ const neniam = (): boolean => false;
 const realaTu5ekomani = [ ...VALAJBIOMOJ, ...EBENAJAJBIOMOJ ];
 const qun2Tu5ekomani: readonly never[] = [];
 
-const amplekso = SKULPTAN * SKULPTAPASO;
-const hacax2l = Math.ceil(amplekso / 0o100);
+const pal6 = SKULPTAN * SKULPTAPASO;
+const hacax2l = Math.ceil(pal6 / 0o100);
 const qox2n2k = Math.round(0o100 / 0o2);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſןᴜ j͐ʃэ = ${amplekso} ｡ ɭʃɜ }ʃᴜ = ${SKULPTAPASO} ｡ ſɭɹ ſןᴜ = ${hacax2l * hacax2l * qox2n2k * qox2n2k}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſןᴜ j͐ʃэ = ${pal6} ｡ ɭʃɜ }ʃᴜ = ${SKULPTAPASO} ｡ ſɭɹ ſןᴜ = ${hacax2l * hacax2l * qox2n2k * qox2n2k}`);
 
 async function kuri( tu5ekomani: readonly never[] | readonly string[] ): Promise<THREE.Scene> {
   const qena = new THREE.Scene();
@@ -39,16 +39,16 @@ async function vecax2l( qaksaka: string, tu5ekomani: readonly never[] | readonly
     hatufo = 0o0;
     for ( const c of qena.children ) hatufo += ( c as THREE.InstancedMesh ).count;
   }
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${qaksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ｡ ſɭw ʃᴜ = ${hacakamaha} ｡ ſȷɔ ſᶘᴜʞ = ${hatufo}`);
+  console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ${qaksaka.padEnd(0o30)} ${knak2fecajasai(tbo(kmaXobe), 0o6)} He ｡ ſɭw ʃᴜ = ${hacakamaha} ｡ ſȷɔ ſᶘᴜʞ = ${hatufo}`);
 }
 
 await vecax2l("jɐ ɭʃᴜ ( ſןɔ ʌ ſȷɔ ſᶘᴜʞ )", qun2Tu5ekomani);
 await vecax2l("ſɭɹ ſᶘɔ", realaTu5ekomani);
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) tsasaVem2=${tsasaVem2(0o0, 0o0).toFixed(0o3)}`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) tsasaVem2=${tsasaVem2(0o0, 0o0).toFixed(0o3)}`);
 const pukekA = kf2HerbanPukekn();
 const pukekB = kf2HerbanPukekn();
 if ( pukekA.map !== pukekB.map ) throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) j͐ʃƽɜ ʌ ſȷɔ ſᶘᴜʞ ｡ ſןɔ ʌ ſɟw ɭʃᴜ");
-console.log("( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) j͐ʃƽɜ ʌ ſȷɔ ſᶘᴜʞ ｡ ſɟw ɭʃᴜ ｡ ſɭɹ ſᶘɔ ✅");
+console.log("( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) j͐ʃƽɜ ʌ ſȷɔ ſᶘᴜʞ ｡ ſɟw ɭʃᴜ ｡ ſɭɹ ſᶘɔ ✅");
 const l2haKxa = kf2HerbanKxa(0o1, 0o1/0o10, 0o1/0o10, 0o1/0o10, 0o0,
   new THREE.Color(0x408058), 0o1, 0o4/0o10, 0o5, true);
 const senFundaKxa = kf2HerbanKxa(0o1, 0o1/0o10, 0o1/0o10, 0o1/0o10, 0o0,
@@ -61,4 +61,4 @@ const normalojB = senFundaKxa.getAttribute("normal").array;
 if ( normalojA.length !== normalojB.length || normalojA.some(( v, i ) => v !== normalojB[i]) ) {
   throw new Error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ſɟɹ ᶅſɹȝ ʌ ſȷɔ ſᶘᴜʞ ｡ j͑ʃ'ᴜ ı],ᴜ ſȷᴜ");
 }
-console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ſȷɔ ſᶘᴜʞ ${l2haKxa.getIndex()!.count / 0o3} → ${senFundaKxa.getIndex()!.count / 0o3} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ ｡ ſɟɹ ᶅſɹȝ ｡ ſɭɹ ſᶘɔ ✅`);
+console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ſȷɔ ſᶘᴜʞ ${l2haKxa.getIndex()!.count / 0o3} → ${senFundaKxa.getIndex()!.count / 0o3} ｡ ſ͕ɭɜ ɭʃɹ ı],ɔ ｡ ſɟɹ ᶅſɹȝ ｡ ſɭɹ ſᶘɔ ✅`);

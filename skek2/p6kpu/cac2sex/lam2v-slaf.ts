@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͐ʃᴜ ŋᷠɹ j͑ʃ'ɔ˞ͷ̗ʞ 📃 ⧽≻
 import * as THREE from "three";
 import { hunanu } from "../haweh2.js";
-import { k2fKonturanQoxan, kf2P2t6zoCac2sex, p2somani } from "./mafezi.js";
+import { k2fKonturanQoxan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 function kf2Kxa(): Path2D {
   const kxa = new Path2D();
@@ -56,5 +56,5 @@ export const kf2Lam2vnSlafCac2sex = p2somani((): THREE.CanvasTexture => {
     kuns2bana.clip(kxa);
     k2fRipojn(kuns2bana, kozuni);
     kuns2bana.restore();
-  }, [ 0o1, 0o1 ], { g2b2: THREE.ClampToEdgeWrapping, anisotropio: 0o4 });
+  }, [ 0o1, 0o1 ], { g2b2: THREE.ClampToEdgeWrapping, peq2: 0o4 });
 });

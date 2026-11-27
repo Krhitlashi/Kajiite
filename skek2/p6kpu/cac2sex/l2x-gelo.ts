@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͐ʃɹ ı],ɴ j͐ʃɜ 📃 ⧽≻
 
-import { kf2P2t6zoCac2sex } from "./mafezi.js";
+import { kf2P2t6zoCac2sex } from "./pukek.js";
 import { veb6qaiW2d2 } from "../haweh2.js";
 import * as THREE from "three";
 

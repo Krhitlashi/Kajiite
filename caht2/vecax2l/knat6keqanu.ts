@@ -1,4 +1,4 @@
-// ≺⧼ ſɭc̗ᴜ ɭʃэ ſɭɔ ſ͕ɭᴜ }ʃw 🧪 ⧽≻
+// ≺⧼ ſɭc̗ᴜ ɭʃэ ſɭɔ ſ͕ɭᴜ }ʃw 📃 ⧽≻
 
 import { tikHak6h6 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
 import { l6da } from "../../kanta/nala/mut6qSoza.js";

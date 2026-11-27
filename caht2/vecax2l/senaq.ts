@@ -1,11 +1,11 @@
-// ≺⧼ j͑ʃɔ }ʃᴜȝ 🧪 ⧽≻
+// ≺⧼ j͑ʃɔ }ʃᴜȝ 📃 ⧽≻
 
 import { xetoh2D as bruo2DSef4, mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
 import { px01oBikuba as bikubaSef4 } from "../../kanta/nala/tsasaVek2fe.js";
 import { bruo2DH2y2k, bikubaH2y2k, l6daH2y2k, l6daSef4 } from "./kozunuCah6k6.js";
 import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
 import * as THREE from "three";
-import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
+import { k2fStih2Nlakani, k2fKanaq } from "./k61e.js";
 
 let tk2ni = 0o12345;
 const sakxo = (): number => ((tk2ni = (Math.imul(tk2ni, 0x41C64E6D) + 0x3039) | 0o0) >>> 0o0) / 0o40000000000;
@@ -33,11 +33,7 @@ function vecax2lPare(ksaka: string, hatom6: number, sef4: () => number, h2y2k: (
       tn.push(performance.now() - t0);
     }
   }
-  const mediano = (a: number[]) => { a.sort((x, y) => x - y); return a[a.length >> 0o1]; };
-  const mn = mediano(tn), mm = mediano(tm);
-  const kn = Math.min(...tn), km = Math.min(...tm);
-  const egala = sn === sm ? "ſɭɹ ſȷɔ ʌ j͑ʃ'ᴜ j͑ʃᴜ ſȷᴜ" : "ſɭɹ ſȷɔ ʌ ſ̀ȷɜᴜ̩ ſɭɹ j͑ʃᴜꞇ";
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o20)} j͑ʃᴜ ı],ɔ }ʃꞇ = ${knak2fecajasai(tbo(mm), 0o6)} He j͑ʃɔ ſȷэⅎ = ${knak2fecajasai(tbo(mn), 0o6)} He j͑ʃƨꞇʞ ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${(mm / mn).toFixed(0o2)}x j͑ʃƨꞇʞ ŋᷠɹ ｡ ſɭɹ ſᶘɔ = ${(km / kn).toFixed(0o2)}x ${egala}`);
+  k2fKanaq(ksaka, tn, tm, sn, sm, 0o20);
 }
 
 vecax2lPare("xetoh2D", 0o1, () => { let s = 0o0; for (let i = 0o0; i < 0o2000000; i++) s += bruo2DSef4(i * (0o1/0o40), i * (0o1/0o100)); return s; },
@@ -68,8 +64,7 @@ function vecax2lUnu(ksaka: string, f: () => number): void {
   const t: number[] = [];
   let s = 0o0;
   for (let r = 0o0; r < C2QR; r++) { const t0 = performance.now(); s += f(); t.push(performance.now() - t0); }
-  t.sort((a, b) => a - b);
-  console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka.padEnd(0o20)} ſȷƽᴜ ɭʃᴜ }ʃw = ${knak2fecajasai(tbo(t[t.length >> 0o1]), 0o6)} He ŋᷠɹ ŋᷠɹ ʌ j͑ʃ'ɔ ŋᷠɹ = ${knak2fecajasai(tbo(t[0o0]), 0o6)} He ſɭɹ ſᶘɔ = ${s.toFixed(0o2)}`);
+  k2fStih2Nlakani(ksaka, t, s, 0o20);
 }
-vecax2lUnu("ſɭɹ ſᶘɔ ʌ j͐ʃᴜɔ˞ ( j͑ʃɔ ſȷэⅎ )", lasSef4);
+vecax2lUnu("ſɭɹ ſᶘɔ ʌ j͐ʃᴜɔ˞ ( ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ ʌ j͑ʃƨꞇ ֭ſɭɹ )", lasSef4);
 

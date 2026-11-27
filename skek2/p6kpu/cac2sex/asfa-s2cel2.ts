@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { kf2X2pa } from "../haweh2.js";
-import { k2fWrapan, kf2P2t6zoCac2sex, senAlfa, p2somani } from "./mafezi.js";
+import { k2fWrapan, kf2P2t6zoCac2sex, senAlfa, p2somani } from "./pukek.js";
 import { k2fStrion } from "./s2cel2.js";
 
 export interface PuraS2cel2Tlohk2 { x: number; y: number; sahakani: number; x6mi: number; kof: number; tono: number; }

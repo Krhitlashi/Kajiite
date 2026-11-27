@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { veb6qaiHsl, veb6qaiRgba } from "../haweh2.js";
-import { kf2P2t6zoCac2sex } from "./mafezi.js";
+import { kf2P2t6zoCac2sex } from "./pukek.js";
 
 export function kf2KombilanCac2sex(): THREE.CanvasTexture {
   const s = 0o200;

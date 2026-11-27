@@ -1,4 +1,4 @@
-// ≺⧼ ֭ſɭɹ ſ͕ȷɹ ſɭc̭ ɭʃэ ſ͕ɭᴜ̩ᴜ ᶅſɔ ֭ſɭɹ 🧪 ⧽≻
+// ≺⧼ ֭ſɭɹ ſ͕ȷɹƽ ʌ ŋᷠw ɭʃэ ſ͕ɭᴜ̩ᴜ ᶅſɔ ֭ſɭɹ 📃 ⧽≻
 
 import * as THREE from "three";
 import { SKULPTAAKVANIVELO } from "../../kanta/mut6q-havop2/kxe.js";

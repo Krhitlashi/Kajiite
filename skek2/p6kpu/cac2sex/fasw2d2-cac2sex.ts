@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ ᴜ̭ ſɟɹ j͑ʃɔᶗ‹ 📃 ⧽≻
 
-import { kf2P2t6zoCac2sex } from "./mafezi.js";
+import { kf2P2t6zoCac2sex } from "./pukek.js";
 import * as THREE from "three";
 
 let fasw2d2Cac2sexKozuni: THREE.CanvasTexture | null = null;
@@ -15,5 +15,5 @@ export function fasw2d2Cac2sex(): THREE.CanvasTexture {
       k.fillStyle = "rgba(255,255,255,0.85)";
       k.beginPath(); k.arc(x - r * 0o2/0o10, y - r * 0o2/0o10, r * 0o5/0o10, 0o0, Math.PI * 0o2); k.fill();
     }
-  }, [ 0o2, 0o1 ], { anisotropio: 0o4 });
+  }, [ 0o2, 0o1 ], { peq2: 0o4 });
 }

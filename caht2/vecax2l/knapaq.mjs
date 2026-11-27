@@ -1393,7 +1393,7 @@ var Vector2 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector2} A reference to this vector.
 	*/
@@ -2957,7 +2957,7 @@ var Vector3 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector3} A reference to this vector.
 	*/
@@ -5116,7 +5116,7 @@ var Vector4 = class {
 	}
 	/**
 	* Sets each component of this vector to a pseudo-random value between `0` and
-	* `1`, excveqapahakaning `1`.
+	* `1`, excluding `1`.
 	*
 	* @return {Vector4} A reference to this vector.
 	*/
@@ -7712,7 +7712,7 @@ const _colorKeywords = {
 	"darkgreen": 25600,
 	"darkgrey": 11119017,
 	"darkkhaki": 12433259,
-	"darsupgenta": 9109643,
+	"darkmagenta": 9109643,
 	"darkolivegreen": 5597999,
 	"darkorange": 16747520,
 	"darkorchid": 10040012,
@@ -8955,7 +8955,7 @@ var Box3 = class {
 	}
 	/**
 	* Computes the world-axis-aligned bounding box for the given 3D object
-	* (incveqapahakaning its children), accounting for the object's, and children's,
+	* (including its children), accounting for the object's, and children's,
 	* world transforms. The function may result in a larger box than strictly necessary.
 	*
 	* Note: To compute the correct bounding box, make sure the given 3D object
@@ -12781,7 +12781,7 @@ var MeshBasicMaterial = class extends Material {
 	*
 	* @param {Object} [parameters] - An object with one or more properties
 	* defining the material's appearance. Any property of the material
-	* (incveqapahakaning any property from inherited materials) can be passed
+	* (including any property from inherited materials) can be passed
 	* in here. Color values can be passed any type of value accepted
 	* by {@link Color#set}.
 	*/
@@ -16585,7 +16585,7 @@ var MeshStandardMaterial = class extends Material {
 	*
 	* @param {Object} [parameters] - An object with one or more properties
 	* defining the material's appearance. Any property of the material
-	* (incveqapahakaning any property from inherited materials) can be passed
+	* (including any property from inherited materials) can be passed
 	* in here. Color values can be passed any type of value accepted
 	* by {@link Color#set}.
 	*/
@@ -19090,8 +19090,8 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// eskekoj/tom6nu/kunfandajxoj.ts
-function kunfandiGeometriojn(geos) {
+// ../../skek2/p6kpu/hakox2q.ts
+function vakox2qQoxaKefoujn(geos) {
 	if (geos.length === 0) return new BufferGeometry();
 	let tv = 0, ti = 0;
 	for (const g of geos) {
@@ -19099,11 +19099,11 @@ function kunfandiGeometriojn(geos) {
 		ti += g.index ? g.index.count : g.getAttribute("position").count;
 	}
 	const raqa = new Float32Array(tv * 3);
-	const normo = new Float32Array(tv * 3);
+	const xiix2q = new Float32Array(tv * 3);
 	const uv = new Float32Array(tv * 2);
 	const uv1 = new Float32Array(tv * 2);
-	const nek2resai = new Float32Array(tv * 4);
-	const kovrilo = new Float32Array(tv);
+	const tlunak = new Float32Array(tv * 4);
+	const k6liq = new Float32Array(tv);
 	const idxArr = tv > 65535 ? new Uint32Array(ti) : new Uint16Array(ti);
 	let vo = 0, io = 0;
 	for (const g of geos) {
@@ -19112,18 +19112,18 @@ function kunfandiGeometriojn(geos) {
 		const u = g.getAttribute("uv");
 		const u1 = g.getAttribute("uv1");
 		const ek = g.getAttribute("aKonturaEkstra");
-		const kov = g.getAttribute("aKonturaKovrilo");
+		const kov = g.getAttribute("aKonturaK6liq");
 		const c = p.count;
 		raqa.set(p.array, vo * 3);
-		if (n) normo.set(n.array, vo * 3);
+		if (n) xiix2q.set(n.array, vo * 3);
 		if (u) uv.set(u.array, vo * 2);
 		if (u1) uv1.set(u1.array, vo * 2);
-		if (ek) nek2resai.set(ek.array, vo * 4);
-		if (kov) kovrilo.set(kov.array, vo);
-		const indico = g.index;
-		if (indico) {
-			for (let i = 0; i < indico.array.length; i++) idxArr[io + i] = indico.array[i] + vo;
-			io += indico.array.length;
+		if (ek) tlunak.set(ek.array, vo * 4);
+		if (kov) k6liq.set(kov.array, vo);
+		const vecax2l = g.index;
+		if (vecax2l) {
+			for (let i = 0; i < vecax2l.array.length; i++) idxArr[io + i] = vecax2l.array[i] + vo;
+			io += vecax2l.array.length;
 		} else {
 			for (let i = 0; i < c; i++) idxArr[io + i] = i + vo;
 			io += c;
@@ -19132,55 +19132,55 @@ function kunfandiGeometriojn(geos) {
 	}
 	const out = new BufferGeometry();
 	out.setAttribute("position", new BufferAttribute(raqa, 3));
-	out.setAttribute("normal", new BufferAttribute(normo, 3));
+	out.setAttribute("normal", new BufferAttribute(xiix2q, 3));
 	out.setAttribute("uv", new BufferAttribute(uv, 2));
 	out.setAttribute("uv1", new BufferAttribute(uv1, 2));
-	out.setAttribute("aKonturaEkstra", new BufferAttribute(nek2resai, 4));
-	out.setAttribute("aKonturaKovrilo", new BufferAttribute(kovrilo, 1));
+	out.setAttribute("aKonturaEkstra", new BufferAttribute(tlunak, 4));
+	out.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
 	out.setIndex(new BufferAttribute(idxArr, 1));
 	return out;
 }
-function kunfandiKajVeldoiGeometriojn(geos) {
+function vakox2qKajVeldoi(geos) {
 	if (geos.length === 0) return new BufferGeometry();
-	const unu = kunfandiGeometriojn(geos);
-	const raqa = unu.getAttribute("position");
-	const idxArr = unu.getIndex().array;
+	const vakox2qita = vakox2qQoxaKefoujn(geos);
+	const raqa = vakox2qita.getAttribute("position");
+	const idxArr = vakox2qita.getIndex().array;
 	const tv = raqa.count;
 	const p6zukani = 4096;
-	const mapo = /* @__PURE__ */ new Map();
-	const sef4Indekso = new Uint32Array(tv);
+	const bal2 = /* @__PURE__ */ new Map();
+	const sef4Vecax2l = new Uint32Array(tv);
 	let nv = 0;
 	for (let i = 0; i < tv; i++) {
-		const sxlosilo = Math.round(raqa.getX(i) * p6zukani) + "," + Math.round(raqa.getY(i) * p6zukani) + "," + Math.round(raqa.getZ(i) * p6zukani);
-		const trovita = mapo.get(sxlosilo);
-		if (trovita !== void 0) sef4Indekso[i] = trovita;
+		const ca3aq = Math.round(raqa.getX(i) * p6zukani) + "," + Math.round(raqa.getY(i) * p6zukani) + "," + Math.round(raqa.getZ(i) * p6zukani);
+		const kawake = bal2.get(ca3aq);
+		if (kawake !== void 0) sef4Vecax2l[i] = kawake;
 		else {
-			mapo.set(sxlosilo, nv);
-			sef4Indekso[i] = nv;
+			bal2.set(ca3aq, nv);
+			sef4Vecax2l[i] = nv;
 			nv++;
 		}
 	}
-	const veldita = new Float32Array(nv * 3);
-	const tsiqUv = unu.getAttribute("uv");
+	const veb6kekita = new Float32Array(nv * 3);
+	const tsiqUv = vakox2qita.getAttribute("uv");
 	const velditaUv = tsiqUv ? new Float32Array(nv * 2) : null;
 	for (let i = 0; i < tv; i++) {
-		veldita[sef4Indekso[i] * 3] = raqa.getX(i);
-		veldita[sef4Indekso[i] * 3 + 1] = raqa.getY(i);
-		veldita[sef4Indekso[i] * 3 + 2] = raqa.getZ(i);
+		veb6kekita[sef4Vecax2l[i] * 3] = raqa.getX(i);
+		veb6kekita[sef4Vecax2l[i] * 3 + 1] = raqa.getY(i);
+		veb6kekita[sef4Vecax2l[i] * 3 + 2] = raqa.getZ(i);
 		if (velditaUv && tsiqUv) {
-			velditaUv[sef4Indekso[i] * 2] = tsiqUv.getX(i);
-			velditaUv[sef4Indekso[i] * 2 + 1] = tsiqUv.getY(i);
+			velditaUv[sef4Vecax2l[i] * 2] = tsiqUv.getX(i);
+			velditaUv[sef4Vecax2l[i] * 2 + 1] = tsiqUv.getY(i);
 		}
 	}
-	for (let i = 0; i < idxArr.length; i++) idxArr[i] = sef4Indekso[idxArr[i]];
+	for (let i = 0; i < idxArr.length; i++) idxArr[i] = sef4Vecax2l[idxArr[i]];
 	const out = new BufferGeometry();
-	out.setAttribute("position", new BufferAttribute(veldita, 3));
+	out.setAttribute("position", new BufferAttribute(veb6kekita, 3));
 	if (velditaUv) out.setAttribute("uv", new BufferAttribute(velditaUv, 2));
 	out.setIndex(new BufferAttribute(idxArr, 1));
 	out.computeVertexNormals();
 	return out;
 }
-// eskekoj/tom6nu/haweh2.ts
+// ../../skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -19198,17 +19198,17 @@ function veb6qaiWeh2Skek(weh2) {
 function veb6qaiWeh2Kek(kek) {
 	return kek & 248;
 }
-function veb6qaiW2d2(alfo) {
-	const cacaja = Math.round(Math.max(0, Math.min(1, alfo)) * 255);
+function veb6qaiW2d2(cento) {
+	const cacaja = Math.round(Math.max(0, Math.min(1, cento)) * 255);
 	if (cacaja <= 0) return 0;
 	if (cacaja >= 255) return 1;
 	return veb6qaiWeh2Kek(cacaja) / 255;
 }
 function veb6qaiCss(css) {
 	const s2banani = css.trim();
-	const kongruo = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
-	if (kongruo) {
-		const hakek = kongruo[1].split(",").map((ero) => ero.trim());
+	const kpapa = /^rgba?\(([^)]+)\)$/i.exec(s2banani);
+	if (kpapa) {
+		const hakek = kpapa[1].split(",").map((kek) => kek.trim());
 		return `rgba(${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[0])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[1])))))},${veb6qaiWeh2Kek(Math.max(0, Math.min(255, Math.round(Number(hakek[2])))))},${hakek[3] === void 0 ? 1 : veb6qaiW2d2(Number(hakek[3]))})`;
 	}
 	const h6 = /^#([0-9a-f]{6})$/i.exec(s2banani);
@@ -19216,8 +19216,8 @@ function veb6qaiCss(css) {
 	const h8 = /^#([0-9a-f]{6})([0-9a-f]{2})$/i.exec(s2banani);
 	if (h8) {
 		const weh2 = veb6qaiWeh2(parseInt(h8[1], 16));
-		const alfo = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
-		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${alfo})`;
+		const cento = veb6qaiW2d2(parseInt(h8[2], 16) / 255);
+		return `rgba(${weh2 >> 16 & 255},${weh2 >> 8 & 255},${weh2 & 255},${cento})`;
 	}
 	const h3 = /^#([0-9a-f])([0-9a-f])([0-9a-f])$/i.exec(s2banani);
 	if (h3) {
@@ -19231,16 +19231,16 @@ function veb6qaiCss(css) {
 function kf2Veb6qaiKs2bu() {
 	if (typeof CanvasGradient === "undefined") return;
 	const kozunuSkek = CanvasGradient.prototype;
-	if (kozunuSkek.__veb6qai) return;
+	if (kozunuSkek.veb6qai) return;
 	const xaqadi = kozunuSkek.addColorStop;
 	kozunuSkek.addColorStop = function(raqa, weh2) {
 		xaqadi.call(this, raqa, veb6qaiCss(weh2));
 	};
-	kozunuSkek.__veb6qai = true;
+	kozunuSkek.veb6qai = true;
 }
 kf2Veb6qaiKs2bu();
 kf2Veb6qaiKs2bu();
-// eskekoj/tom6nu/haqoxa.ts
+// ../../skek2/p6kpu/haqoxa.ts
 function kf2Cawez2Qoxa(w, h) {
 	const s = new Shape();
 	const hw = w / 2, r = h / 2;
@@ -19252,29 +19252,29 @@ function kf2Cawez2Qoxa(w, h) {
 	s.closePath();
 	return s;
 }
-function kf2SexiQoxa(w, h, pukazPal6, pintoKanto, pintoSupro) {
+function kf2SexiQoxa(w, h, pukazPal6, cet2Vek2fe, cet2Teru) {
 	const s = new Shape();
 	const hw = w / 2, r = h / 2;
 	const R = r + pukazPal6, teru = h + pukazPal6, psaz = -pukazPal6;
 	const d = R * Math.SQRT1_2;
 	const tap2 = (hw - r) * 3 / 8;
-	const svingo = (r - d + pukazPal6 + pintoKanto) * 1 / 2;
+	const cab6ka = (r - d + pukazPal6 + cet2Vek2fe) * 1 / 2;
 	s.moveTo(hw - r, psaz);
 	s.absarc(hw - r, r, R, -Math.PI / 2, -Math.PI / 4, false);
-	s.bezierCurveTo(hw - r + d + svingo * Math.SQRT1_2, r - d + svingo * Math.SQRT1_2, hw + pukazPal6 + pintoKanto - svingo, r, hw + pukazPal6 + pintoKanto, r);
-	s.bezierCurveTo(hw + pukazPal6 + pintoKanto - svingo, r, hw - r + d + svingo * Math.SQRT1_2, r + d - svingo * Math.SQRT1_2, hw - r + d, r + d);
+	s.bezierCurveTo(hw - r + d + cab6ka * Math.SQRT1_2, r - d + cab6ka * Math.SQRT1_2, hw + pukazPal6 + cet2Vek2fe - cab6ka, r, hw + pukazPal6 + cet2Vek2fe, r);
+	s.bezierCurveTo(hw + pukazPal6 + cet2Vek2fe - cab6ka, r, hw - r + d + cab6ka * Math.SQRT1_2, r + d - cab6ka * Math.SQRT1_2, hw - r + d, r + d);
 	s.absarc(hw - r, r, R, Math.PI / 4, Math.PI / 2, false);
 	s.lineTo(tap2, teru);
-	s.bezierCurveTo(tap2 * 1 / 2, teru, 0, teru + pintoSupro * 1 / 2, 0, teru + pintoSupro);
-	s.bezierCurveTo(0, teru + pintoSupro * 1 / 2, -tap2 * 1 / 2, teru, -tap2, teru);
+	s.bezierCurveTo(tap2 * 1 / 2, teru, 0, teru + cet2Teru * 1 / 2, 0, teru + cet2Teru);
+	s.bezierCurveTo(0, teru + cet2Teru * 1 / 2, -tap2 * 1 / 2, teru, -tap2, teru);
 	s.lineTo(-hw + r, teru);
 	s.absarc(-hw + r, r, R, Math.PI / 2, Math.PI * 3 / 4, false);
-	s.bezierCurveTo(-hw + r - d - svingo * Math.SQRT1_2, r + d - svingo * Math.SQRT1_2, -hw - pukazPal6 - pintoKanto + svingo, r, -hw - pukazPal6 - pintoKanto, r);
-	s.bezierCurveTo(-hw - pukazPal6 - pintoKanto + svingo, r, -hw + r - d - svingo * Math.SQRT1_2, r - d + svingo * Math.SQRT1_2, -hw + r - d, r - d);
+	s.bezierCurveTo(-hw + r - d - cab6ka * Math.SQRT1_2, r + d - cab6ka * Math.SQRT1_2, -hw - pukazPal6 - cet2Vek2fe + cab6ka, r, -hw - pukazPal6 - cet2Vek2fe, r);
+	s.bezierCurveTo(-hw - pukazPal6 - cet2Vek2fe + cab6ka, r, -hw + r - d - cab6ka * Math.SQRT1_2, r - d + cab6ka * Math.SQRT1_2, -hw + r - d, r - d);
 	s.absarc(-hw + r, r, R, Math.PI * 5 / 4, Math.PI * 3 / 2, false);
 	s.lineTo(-tap2, psaz);
-	s.bezierCurveTo(-tap2 * 1 / 2, psaz, 0, psaz - pintoSupro * 1 / 2, 0, psaz - pintoSupro);
-	s.bezierCurveTo(0, psaz - pintoSupro * 1 / 2, tap2 * 1 / 2, psaz, tap2, psaz);
+	s.bezierCurveTo(-tap2 * 1 / 2, psaz, 0, psaz - cet2Teru * 1 / 2, 0, psaz - cet2Teru);
+	s.bezierCurveTo(0, psaz - cet2Teru * 1 / 2, tap2 * 1 / 2, psaz, tap2, psaz);
 	s.closePath();
 	return s;
 }
@@ -19314,7 +19314,7 @@ function kf2CibeKen2qQoxa(w, d, r) {
 	s.closePath();
 	return s;
 }
-function kf2X2x2qQan2k(qoxa) {
+function kf2Xiix2qQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv) return qoxa;
 	let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
@@ -19335,13 +19335,13 @@ function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
 	qoxa.setAttribute("uv1", uv.clone());
-	const p6kpu = qoxa.getAttribute("normal");
+	const xiix2q = qoxa.getAttribute("normal");
 	const bal2 = /* @__PURE__ */ new Map();
 	for (let i = 0; i < uv.count; i++) {
 		let kl = 0;
-		if (p6kpu) {
-			const ax = Math.abs(p6kpu.getX(i)), ay = Math.abs(p6kpu.getY(i)), az = Math.abs(p6kpu.getZ(i));
-			kl = ay >= ax && ay >= az ? p6kpu.getY(i) > 0 ? 1 : 2 : ax >= az ? p6kpu.getX(i) > 0 ? 3 : 4 : p6kpu.getZ(i) > 0 ? 5 : 6;
+		if (xiix2q) {
+			const ax = Math.abs(xiix2q.getX(i)), ay = Math.abs(xiix2q.getY(i)), az = Math.abs(xiix2q.getZ(i));
+			kl = ay >= ax && ay >= az ? xiix2q.getY(i) > 0 ? 1 : 2 : ax >= az ? xiix2q.getX(i) > 0 ? 3 : 4 : xiix2q.getZ(i) > 0 ? 5 : 6;
 		}
 		let ca1ara = bal2.get(kl);
 		if (!ca1ara) bal2.set(kl, ca1ara = []);
@@ -19367,10 +19367,10 @@ function sax0baPukazQan2kS2qena(qoxa, s2qena) {
 	sax0baPukazQan2k(qoxa);
 	if (s2qena.length < 2) return qoxa;
 	const xekuxa = qoxa.getAttribute("position");
-	const p6kpu = qoxa.getAttribute("normal");
+	const xiix2q = qoxa.getAttribute("normal");
 	const uv = qoxa.getAttribute("uv");
 	for (let i = 0; i < uv.count; i++) {
-		if (p6kpu && Math.abs(p6kpu.getZ(i)) < 511 / 512) continue;
+		if (xiix2q && Math.abs(xiix2q.getZ(i)) < 511 / 512) continue;
 		const y = xekuxa.getY(i);
 		let psaz = s2qena[0], teru = s2qena[s2qena.length - 1];
 		for (let k = 1; k < s2qena.length; k++) if (y <= s2qena[k][0]) {
@@ -19386,38 +19386,38 @@ function sax0baPukazQan2kS2qena(qoxa, s2qena) {
 	uv.needsUpdate = true;
 	return qoxa;
 }
-function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
+function kf2F2kQan2k(qoxa, rB, rT, namaVek2fe = false, k6liqPal6 = [0, 0]) {
 	const g = qoxa.index ? qoxa.toNonIndexed() : qoxa;
 	const xekuxa = g.getAttribute("position");
-	const p6kpu = g.getAttribute("normal");
+	const xiix2q = g.getAttribute("normal");
 	const uv = g.getAttribute("uv");
 	const psazQan2k = uv.clone();
 	g.setAttribute("uv1", psazQan2k);
 	const k6liq = new Float32Array(xekuxa.count);
-	const p2somaniSuba = rB * Math.SQRT1_2, p2somaniTik = rT * Math.SQRT1_2;
+	const p2somaniSuba = rB * Math.SQRT1_2, p2somaniTeru = rT * Math.SQRT1_2;
 	const tafkaqKek = Math.PI / 2, caxomani = Math.PI / 4;
-	const pinta = rT < 1 / 4096 && !namaKanto;
-	const nek2resai = new Float32Array(xekuxa.count * 4);
+	const pinta = rT < 1 / 4096 && !namaVek2fe;
+	const tlunak = new Float32Array(xekuxa.count * 4);
 	for (let i = 0; i < xekuxa.count; i += 3) {
-		const sozasai = Math.abs(p6kpu.getY(i)) > 7 / 8;
+		const sozasai = Math.abs(xiix2q.getY(i)) > 7 / 8;
 		let cx = 0, cz = 0;
 		for (let k = 0; k < 3; k++) {
 			cx += xekuxa.getX(i + k);
 			cz += xekuxa.getZ(i + k);
 		}
 		const sost2 = Math.floor((Math.atan2(cx, cz) + caxomani) / tafkaqKek) * tafkaqKek;
-		let pintoK = 0;
+		let cet2K = 0;
 		if (pinta && !sozasai) {
-			for (let k = 1; k < 3; k++) if (xekuxa.getY(i + k) > xekuxa.getY(i + pintoK)) pintoK = k;
+			for (let k = 1; k < 3; k++) if (xekuxa.getY(i + k) > xekuxa.getY(i + cet2K)) cet2K = k;
 		}
 		for (let k = 0; k < 3; k++) {
 			const j = i + k, x = xekuxa.getX(j);
 			xekuxa.getY(j);
 			const z = xekuxa.getZ(j);
-			if (sozasai && !namaKanto) {
-				const p2somani = p6kpu.getY(i) > 0 ? p2somaniTik : p2somaniSuba;
+			if (sozasai && !namaVek2fe) {
+				const p2somani = xiix2q.getY(i) > 0 ? p2somaniTeru : p2somaniSuba;
 				const d = p2somani > 1 / 4096 ? p2somani : 1;
-				const k6liqPal6Kek = p6kpu.getY(i) > 0 ? k6liqPal6[0] : k6liqPal6[1];
+				const k6liqPal6Kek = xiix2q.getY(i) > 0 ? k6liqPal6[0] : k6liqPal6[1];
 				k6liq[j] = k6liqPal6Kek > 0 ? Math.min(1, k6liqPal6Kek) : -1;
 				const hafeX = x * Math.cos(sost2) - z * Math.sin(sost2);
 				const hafeZ = x * Math.sin(sost2) + z * Math.cos(sost2);
@@ -19428,11 +19428,11 @@ function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 				const dAng = Math.atan2(Math.sin(ang), Math.cos(ang));
 				uv.setXY(j, Math.min(1, Math.max(0, (dAng + caxomani) / tafkaqKek)), uv.getY(j));
 				if (pinta && !sozasai) {
-					const b = k === pintoK ? [
+					const b = k === cet2K ? [
 						0,
 						0,
 						1
-					] : k === (pintoK + 1) % 3 ? [
+					] : k === (cet2K + 1) % 3 ? [
 						1,
 						0,
 						0
@@ -19441,17 +19441,17 @@ function kf2F2kQan2k(qoxa, rB, rT, namaKanto = false, k6liqPal6 = [0, 0]) {
 						1,
 						0
 					];
-					nek2resai[j * 4] = b[0];
-					nek2resai[j * 4 + 1] = b[1];
-					nek2resai[j * 4 + 2] = b[2];
+					tlunak[j * 4] = b[0];
+					tlunak[j * 4 + 1] = b[1];
+					tlunak[j * 4 + 2] = b[2];
 				}
 			}
 		}
 	}
 	uv.needsUpdate = true;
 	psazQan2k.needsUpdate = true;
-	g.setAttribute("aKonturaEkstra", new BufferAttribute(nek2resai, 4));
-	g.setAttribute("aKonturaKovrilo", new BufferAttribute(k6liq, 1));
+	g.setAttribute("aKonturaEkstra", new BufferAttribute(tlunak, 4));
+	g.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
 	return g;
 }
 new MeshStandardMaterial({
@@ -19459,7 +19459,7 @@ new MeshStandardMaterial({
 	metalness: 3 / 4,
 	roughness: 3 / 8
 });
-// node_modules/three/examples/jsm/math/ConvexHull.js
+// ../../node_modules/three/examples/jsm/math/ConvexHull.js
 const Visible = 0;
 const Deleted = 1;
 const _v1 = new Vector3();
@@ -19503,7 +19503,7 @@ var ConvexHull = class {
 		return this;
 	}
 	/**
-	* Computes the convex hull of the given 3D object (incveqapahakaning its descendants),
+	* Computes the convex hull of the given 3D object (including its descendants),
 	* accounting for the world transforms of both the 3D object and its descendants.
 	*
 	* @param {Object3D} object - The 3D object to compute the convex hull for.
@@ -20406,7 +20406,7 @@ var VertexList = class {
 		return this.head === null;
 	}
 };
-// node_modules/three/examples/jsm/geometries/ConvexGeometry.js
+// ../../node_modules/three/examples/jsm/geometries/ConvexGeometry.js
 /**
 * This class can be used to generate a convex hull for a given array of 3D points.
 * The average time complexity for this task is considered to be O(nlog(n)).
@@ -20446,31 +20446,31 @@ var ConvexGeometry = class extends BufferGeometry {
 		this.setAttribute("normal", new Float32BufferAttribute(normals, 3));
 	}
 };
-// eskekoj/hapaq/satalaj/haqoxa.ts
-const MURA_KLINO = 5 / 16;
-const SANKTEJA_BAZPA12_KROMO = 58 / 64;
-const SANKTEJA_BAZPA12_L6DA = 1 / 8;
-function rondigitaTrah6poQoxa(blokoLargho, tw, h, rb, rt) {
-	const s = new Shape(), sl = (blokoLargho / 2 - tw / 2) / h;
-	s.moveTo(-blokoLargho / 2 + rb, 0);
-	s.lineTo(blokoLargho / 2 - rb, 0);
-	s.quadraticCurveTo(blokoLargho / 2, 0, blokoLargho / 2 - sl * rt, rt);
+// ../../skek2/hapaq/satalaj/haqoxa.ts
+const MURAKLINO = 5 / 16;
+const SANKTEJABAZPA12KROMO = 58 / 64;
+const SANKTEJABAZPA12L6DA = 1 / 8;
+function rondigitaTrah6poQoxa(k6liqSefini, tw, h, rb, rt) {
+	const s = new Shape(), sl = (k6liqSefini / 2 - tw / 2) / h;
+	s.moveTo(-k6liqSefini / 2 + rb, 0);
+	s.lineTo(k6liqSefini / 2 - rb, 0);
+	s.quadraticCurveTo(k6liqSefini / 2, 0, k6liqSefini / 2 - sl * rt, rt);
 	s.lineTo(tw / 2 + sl * rt, h - rt);
 	s.quadraticCurveTo(tw / 2, h, tw / 2 - rt, h);
 	s.lineTo(-tw / 2 + rt, h);
 	s.quadraticCurveTo(-tw / 2, h, -tw / 2 - sl * rt, h - rt);
-	s.lineTo(-blokoLargho / 2 + sl * rb, rb);
-	s.quadraticCurveTo(-blokoLargho / 2, 0, -blokoLargho / 2 + rb, 0);
+	s.lineTo(-k6liqSefini / 2 + sl * rb, rb);
+	s.quadraticCurveTo(-k6liqSefini / 2, 0, -k6liqSefini / 2 + rb, 0);
 	return s;
 }
-function kf2KlinoTavolon(hwB, hdB, hwT, hdT, l6da, kovrajSkaloj = [0, 0]) {
+function kf2S2saboTavolon(hwB, hdB, hwT, hdT, l6da, kovrajP6zukj = [0, 0]) {
 	const rB = Math.max(1 / 16, Math.hypot(hwB, hdB));
 	const rT = Math.max(1 / 16, Math.hypot(hwT, hdT));
 	const g = new CylinderGeometry(rT, rB, l6da, 4, 1);
 	g.rotateY(Math.PI / 4);
-	return kf2F2kQan2k(g, rB, rT, false, kovrajSkaloj);
+	return kf2F2kQan2k(g, rB, rT, false, kovrajP6zukj);
 }
-function diamantajDuonoj(s, rc = 1 / 16) {
+function diamantajHap2somani(s, rc = 1 / 16) {
 	const d = s * Math.SQRT1_2;
 	const kvar = [
 		[d, -d],
@@ -20482,22 +20482,22 @@ function diamantajDuonoj(s, rc = 1 / 16) {
 	const n2k = [];
 	for (let j = 0; j < kvar.length; j++) {
 		const a = kvar[j];
-		const antauxa = kvar[(j + kvar.length - 1) % kvar.length];
-		const panaa = kvar[(j + 1) % kvar.length];
-		const u = new Vector2(a[0] - antauxa[0], a[1] - antauxa[1]).normalize();
-		const v = new Vector2(panaa[0] - a[0], panaa[1] - a[1]).normalize();
+		const ne3ak2 = kvar[(j + kvar.length - 1) % kvar.length];
+		const ksoz = kvar[(j + 1) % kvar.length];
+		const u = new Vector2(a[0] - ne3ak2[0], a[1] - ne3ak2[1]).normalize();
+		const v = new Vector2(ksoz[0] - a[0], ksoz[1] - a[1]).normalize();
 		const sost2 = [a[0] + rc * (v.x - u.x), a[1] + rc * (v.y - u.y)];
-		const saxeaAngulo = Math.atan2(-v.y, -v.x);
+		const saxeaTafkaq = Math.atan2(-v.y, -v.x);
 		for (let k = 0; k <= ARKOJ; k++) {
-			const tafkaq = saxeaAngulo - k / ARKOJ * Math.PI / 2;
+			const tafkaq = saxeaTafkaq - k / ARKOJ * Math.PI / 2;
 			n2k.push([sost2[0] + rc * Math.cos(tafkaq), sost2[1] + rc * Math.sin(tafkaq)]);
 		}
-		const longeco = new Vector2(panaa[0] - a[0], panaa[1] - a[1]).length() - 2 * rc;
-		for (let k = 1; k <= FLATAJ; k++) n2k.push([a[0] + v.x * rc + v.x * longeco * k / 2, a[1] + v.y * rc + v.y * longeco * k / 2]);
+		const sahakani = new Vector2(ksoz[0] - a[0], ksoz[1] - a[1]).length() - 2 * rc;
+		for (let k = 1; k <= FLATAJ; k++) n2k.push([a[0] + v.x * rc + v.x * sahakani * k / 2, a[1] + v.y * rc + v.y * sahakani * k / 2]);
 	}
 	return n2k;
 }
-// eskekoj/hapaq/satalaj/enirejo.ts
+// ../../skek2/hapaq/satalaj/c2h2.ts
 function kf2JoqanKkaxten(qoxa, z, sampoj = 16) {
 	const putho = new CurvePath();
 	const n2k = [];
@@ -20512,139 +20512,139 @@ function kf2JoqanKkaxten(qoxa, z, sampoj = 16) {
 	for (let i = 0; i < n2k.length - 1; i++) putho.add(new LineCurve3(n2k[i], n2k[i + 1]));
 	return putho;
 }
-const BLOKA_LARGHO = 155 / 64;
-const TW = BLOKA_LARGHO * 37 / 64;
+const BLOKALARGHO = 155 / 64;
+const TW = BLOKALARGHO * 37 / 64;
 const EH = 9 / 4;
-const PORD_DIKECO = 7 / 64;
-const PORD_BEVELO = 1 / 32;
-const PORD_DIKECO_TUTA = .171875;
-const PORD_Z = -1 / 64;
+const PORDDIKECO = 7 / 64;
+const PORDBEVELO = 1 / 32;
+const PORDDIKECOTUTA = .171875;
+const PORDZ = -1 / 64;
 let enirejajKashmemoro = null;
-function bokEnirejajnGeometriojn() {
+function bokEnirejajnQoxaKefoujn() {
 	if (enirejajKashmemoro) return enirejajKashmemoro;
 	const pordaC2q = 1 / 4;
-	const shape = rondigitaTrah6poQoxa(BLOKA_LARGHO, TW, EH, pordaC2q, pordaC2q);
+	const shape = rondigitaTrah6poQoxa(BLOKALARGHO, TW, EH, pordaC2q, pordaC2q);
 	const kev = new ExtrudeGeometry(shape, {
-		depth: PORD_DIKECO,
+		depth: PORDDIKECO,
 		bevelEnabled: true,
-		bevelSize: PORD_BEVELO,
-		bevelThickness: PORD_BEVELO,
+		bevelSize: PORDBEVELO,
+		bevelThickness: PORDBEVELO,
 		bevelSegments: 2,
 		curveSegments: 16
 	});
-	sax0baPukazQan2kS2qena(kev, [[0, BLOKA_LARGHO], [EH, TW]]);
+	sax0baPukazQan2kS2qena(kev, [[0, BLOKALARGHO], [EH, TW]]);
 	enirejajKashmemoro = {
 		kev,
-		joqa: new TubeGeometry(kf2JoqanKkaxten(shape, .0390625), 32, PORD_DIKECO_TUTA / 2, 8, true)
+		joqa: new TubeGeometry(kf2JoqanKkaxten(shape, .0390625), 32, PORDDIKECOTUTA / 2, 8, true)
 	};
 	return enirejajKashmemoro;
 }
-function kf2Hakula(tieroL6da) {
-	const bazaX = BLOKA_LARGHO / 2;
-	const tikX = TW / 2;
-	const nagetaDikeco = 1 / 16;
+function kf2Hakula(b6k61oL6da) {
+	const kozunuX = BLOKALARGHO / 2;
+	const teruX = TW / 2;
+	const nagetaKof = 1 / 16;
 	const zMebl = .0390625;
-	const tafkaq = tieroL6da > 0 ? -Math.atan(MURA_KLINO / tieroL6da) : 0;
+	const tafkaq = b6k61oL6da > 0 ? -Math.atan(MURAKLINO / b6k61oL6da) : 0;
 	const kos = Math.cos(tafkaq), sin = Math.sin(tafkaq);
-	const celZ = SANKTEJA_BAZPA12_KROMO / 2;
-	const celY = kos * SANKTEJA_BAZPA12_L6DA + sin * celZ;
-	const lokaCelZ = -sin * SANKTEJA_BAZPA12_L6DA + kos * celZ;
+	const celZ = SANKTEJABAZPA12KROMO / 2;
+	const celY = kos * SANKTEJABAZPA12L6DA + sin * celZ;
+	const lokaCelZ = -sin * SANKTEJABAZPA12L6DA + kos * celZ;
 	const hakula = [];
 	for (const sX of [-1, 1]) {
-		const maltik = new Vector3(sX * bazaX, 0, zMebl);
-		const teru = new Vector3(sX * tikX, EH, zMebl);
-		const ekstera = new Vector3(sX * bazaX, celY, lokaCelZ);
+		const maltik = new Vector3(sX * kozunuX, 0, zMebl);
+		const teru = new Vector3(sX * teruX, EH, zMebl);
+		const p6sca = new Vector3(sX * kozunuX, celY, lokaCelZ);
 		const unuo = teru.clone().sub(maltik).normalize();
-		const normalo = new Vector3().crossVectors(unuo, new Vector3(0, 0, 1)).normalize();
+		const p6kpu = new Vector3().crossVectors(unuo, new Vector3(0, 0, 1)).normalize();
 		const n2k = [];
 		for (const p of [
 			maltik,
 			teru,
-			ekstera
+			p6sca
 		]) {
-			n2k.push(p.clone().addScaledVector(normalo, -.0625 / 2));
-			n2k.push(p.clone().addScaledVector(normalo, nagetaDikeco / 2));
+			n2k.push(p.clone().addScaledVector(p6kpu, -.0625 / 2));
+			n2k.push(p.clone().addScaledVector(p6kpu, nagetaKof / 2));
 		}
-		const geometrio = new ConvexGeometry(n2k);
-		const np = geometrio.getAttribute("position");
+		const zace = new ConvexGeometry(n2k);
+		const np = zace.getAttribute("position");
 		const ek = new Float32Array(np.count * 4);
-		const kovrilo = new Float32Array(np.count);
+		const k6liq = new Float32Array(np.count);
 		const hatafkaq = [
 			maltik,
 			teru,
-			ekstera
+			p6sca
 		];
 		for (let i = 0; i < np.count; i++) {
 			const n2k = new Vector3().fromBufferAttribute(np, i);
-			let kmaProksima = 0, kmaM2m2 = Infinity;
+			let kmaTsiike = 0, kmaMalgpukaz = Infinity;
 			for (let a = 0; a < hatafkaq.length; a++) {
 				const d = n2k.distanceToSquared(hatafkaq[a]);
-				if (d < kmaM2m2) {
-					kmaM2m2 = d;
-					kmaProksima = a;
+				if (d < kmaMalgpukaz) {
+					kmaMalgpukaz = d;
+					kmaTsiike = a;
 				}
 			}
-			ek[i * 4 + kmaProksima] = 1;
+			ek[i * 4 + kmaTsiike] = 1;
 		}
-		geometrio.setAttribute("aKonturaEkstra", new BufferAttribute(ek, 4));
-		geometrio.setAttribute("aKonturaKovrilo", new BufferAttribute(kovrilo, 1));
-		hakula.push(sax0baPukazQan2k(geometrio));
+		zace.setAttribute("aKonturaEkstra", new BufferAttribute(ek, 4));
+		zace.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
+		hakula.push(sax0baPukazQan2k(zace));
 	}
 	return hakula;
 }
-function aldoniEnirejon(group, d, joqaPukek, eniraPukek, flankoj = 1, tieroL6da = 0, hakula = false) {
-	const geo = bokEnirejajnGeometriojn();
-	const pordGrupo = new Group();
-	const klinGrupo = new Group();
-	klinGrupo.position.set(0, 0, d / 2);
-	pordGrupo.add(klinGrupo);
+function tlunakEnirejon(group, d, joqaPukek, eniraPukek, vek2fe = 1, b6k61oL6da = 0, hakula = false) {
+	const geo = bokEnirejajnQoxaKefoujn();
+	const pordHate = new Group();
+	const klinHate = new Group();
+	klinHate.position.set(0, 0, d / 2);
+	pordHate.add(klinHate);
 	const enirejo = new Mesh(geo.kev, eniraPukek);
-	enirejo.position.set(0, 0, PORD_Z);
-	klinGrupo.add(enirejo);
-	klinGrupo.add(new Mesh(geo.joqa, joqaPukek));
-	if (tieroL6da > 0) klinGrupo.rotation.x = -Math.atan(MURA_KLINO / tieroL6da);
-	if (hakula) for (const g of kf2Hakula(tieroL6da)) {
+	enirejo.position.set(0, 0, PORDZ);
+	klinHate.add(enirejo);
+	klinHate.add(new Mesh(geo.joqa, joqaPukek));
+	if (b6k61oL6da > 0) klinHate.rotation.x = -Math.atan(MURAKLINO / b6k61oL6da);
+	if (hakula) for (const g of kf2Hakula(b6k61oL6da)) {
 		const nageto = new Mesh(g, joqaPukek);
 		nageto.name = "porda-nageto";
 		nageto.castShadow = nageto.receiveShadow = true;
-		klinGrupo.add(nageto);
+		klinHate.add(nageto);
 	}
-	for (let i = 0; i < flankoj; i++) {
-		const kopio = i === 0 ? pordGrupo : pordGrupo.clone();
+	for (let i = 0; i < vek2fe; i++) {
+		const kopio = i === 0 ? pordHate : pordHate.clone();
 		kopio.rotation.y = i * Math.PI / 2;
 		group.add(kopio);
 	}
 }
-// eskekoj/hapaq/satalaj/hacah6k6.ts
+// ../../skek2/hapaq/satalaj/cah6k6.ts
 const fenProud = 1 / 64;
 const joqaRondigo = 1 / 16;
-function fenestraSubFaco(facaRadiuso, klino, fenL6da, tieroL6da, psaz = false) {
-	const klinaAngulo = Math.atan(klino / tieroL6da);
-	return facaRadiuso + (psaz ? -1 : 1) * klino * fenL6da / (2 * tieroL6da) + fenProud / Math.cos(klinaAngulo);
+function fenestraSubFaco(facaKa5ik, s2sabo, fenL6da, b6k61oL6da, psaz = false) {
+	const klinaTafkaq = Math.atan(s2sabo / b6k61oL6da);
+	return facaKa5ik + (psaz ? -1 : 1) * s2sabo * fenL6da / (2 * b6k61oL6da) + fenProud / Math.cos(klinaTafkaq);
 }
-function fenestraLargho(facaRadiuso, fenL6da, margxeno) {
-	if (margxeno !== void 0) return facaRadiuso * 2 - margxeno * 2;
-	return Math.min(facaRadiuso * 2 - 3 / 8, facaRadiuso * 4 / 3 + 1 / 4, fenL6da * 9);
+function fenestraSefini(facaKa5ik, fenL6da, pukazBendo) {
+	if (pukazBendo !== void 0) return facaKa5ik * 2 - pukazBendo * 2;
+	return Math.min(facaKa5ik * 2 - 3 / 8, facaKa5ik * 4 / 3 + 1 / 4, fenL6da * 9);
 }
 const fenestrajKashmemoroj = /* @__PURE__ */ new Map();
-function fenestrajGeometrioj(ww, fenL6da, facaRadiuso, tieroL6da, vertikala) {
-	const ca3aq = `${ww}|${fenL6da}|${facaRadiuso}|${tieroL6da}|${vertikala ? 1 : 0}`;
-	const trovita = fenestrajKashmemoroj.get(ca3aq);
-	if (trovita) return trovita;
+function fenestrajHavecax2lani(ww, fenL6da, facaKa5ik, b6k61oL6da, vertikala) {
+	const ca3aq = `${ww}|${fenL6da}|${facaKa5ik}|${b6k61oL6da}|${vertikala ? 1 : 0}`;
+	const kawake = fenestrajKashmemoroj.get(ca3aq);
+	if (kawake) return kawake;
 	const vitro = new ShapeGeometry(kf2Cawez2Qoxa(ww, fenL6da), 16);
 	if (vertikala) {
 		vitro.rotateZ(Math.PI / 2);
 		vitro.translate(fenL6da / 2, ww / 2, 0);
 	}
-	const joqaLargho = 1 / 8, joqaDikeco = 1 / 16;
-	const liberoSahak = vertikala ? (tieroL6da - ww) * 1 / 2 : facaRadiuso - ww * 1 / 2;
-	const liberoC2na = vertikala ? facaRadiuso - fenL6da * 1 / 2 : (tieroL6da - fenL6da) * 1 / 2;
-	const pintoTik = fenL6da * 1 / 2;
-	const sexi = veb6qaiPukaz(kf2SexiQoxa(ww, fenL6da, joqaLargho, Math.max(0, Math.min(pintoTik, liberoSahak - joqaLargho - 1 / 64)), Math.max(0, Math.min(pintoTik, liberoC2na - joqaLargho - 1 / 64))).getPoints(8), joqaRondigo);
+	const joqaSefini = 1 / 8, joqaKof = 1 / 16;
+	const liberoSahakani = vertikala ? (b6k61oL6da - ww) * 1 / 2 : facaKa5ik - ww * 1 / 2;
+	const liberoC2na = vertikala ? facaKa5ik - fenL6da * 1 / 2 : (b6k61oL6da - fenL6da) * 1 / 2;
+	const cet2Tik = fenL6da * 1 / 2;
+	const sexi = veb6qaiPukaz(kf2SexiQoxa(ww, fenL6da, joqaSefini, Math.max(0, Math.min(cet2Tik, liberoSahakani - joqaSefini - 1 / 64)), Math.max(0, Math.min(cet2Tik, liberoC2na - joqaSefini - 1 / 64))).getPoints(8), joqaRondigo);
 	const truo = kf2Cawez2Qoxa(ww - 1 / 64, fenL6da - 1 / 64).getPoints(8);
 	sexi.holes.push(new Path(truo.reverse()));
 	const joqa = new ExtrudeGeometry(sexi, {
-		depth: joqaDikeco,
+		depth: joqaKof,
 		bevelEnabled: false,
 		curveSegments: 4
 	});
@@ -20653,35 +20653,35 @@ function fenestrajGeometrioj(ww, fenL6da, facaRadiuso, tieroL6da, vertikala) {
 		joqa.translate(fenL6da / 2, ww / 2, 0);
 	}
 	const sef4 = {
-		vitro: kf2X2x2qQan2k(vitro),
-		joqa: kf2X2x2qQan2k(joqa)
+		vitro: kf2Xiix2qQan2k(vitro),
+		joqa: kf2Xiix2qQan2k(joqa)
 	};
 	fenestrajKashmemoroj.set(ca3aq, sef4);
 	return sef4;
 }
-function aldoniPilolCah6k6(group, joqaPukek, fenestraPukek, facoIndekso, yCentro, facaRadiuso, klino, tieroL6da, fenL6da, psaz = false, margxeno, vertikala = false) {
-	const klinaAngulo = Math.atan(klino / tieroL6da);
-	const ww = vertikala ? fenL6da * 2 : fenestraLargho(facaRadiuso, fenL6da, margxeno);
+function tlunakPilolCah6k6(group, joqaPukek, fenestraPukek, facoVecax2l, ySost2, facaKa5ik, s2sabo, b6k61oL6da, fenL6da, psaz = false, pukazBendo, vertikala = false) {
+	const klinaTafkaq = Math.atan(s2sabo / b6k61oL6da);
+	const ww = vertikala ? fenL6da * 2 : fenestraSefini(facaKa5ik, fenL6da, pukazBendo);
 	const fenL6daTuta = vertikala ? ww : fenL6da;
 	const faco = new Group();
-	faco.rotation.y = facoIndekso * Math.PI / 2;
+	faco.rotation.y = facoVecax2l * Math.PI / 2;
 	const monto = new Group();
-	monto.position.set(0, yCentro - fenL6daTuta / 2, fenestraSubFaco(facaRadiuso, klino, fenL6daTuta, tieroL6da, psaz));
-	monto.rotation.x = psaz ? klinaAngulo : -klinaAngulo;
+	monto.position.set(0, ySost2 - fenL6daTuta / 2, fenestraSubFaco(facaKa5ik, s2sabo, fenL6daTuta, b6k61oL6da, psaz));
+	monto.rotation.x = psaz ? klinaTafkaq : -klinaTafkaq;
 	faco.add(monto);
-	const { vitro, joqa } = fenestrajGeometrioj(ww, fenL6da, facaRadiuso, tieroL6da, vertikala);
+	const { vitro, joqa } = fenestrajHavecax2lani(ww, fenL6da, facaKa5ik, b6k61oL6da, vertikala);
 	const fen = new Mesh(vitro, fenestraPukek);
 	monto.add(fen);
 	monto.add(new Mesh(joqa, joqaPukek));
 	group.add(faco);
 	return fen;
 }
-// eskekoj/hapaq/satalaj/hac2nu.ts
-const RANDO_LARGHO = 1 / 8;
-const RANDO_L6DA = 1 / 32;
-function kf2TavolanRandanGeometrion(hw, hd, y, klino, l6da = RANDO_L6DA) {
-	const qoxa = kf2CibeKen2qQoxa((hw - klino) * 2 + RANDO_LARGHO, (hd - klino) * 2 + RANDO_LARGHO, 3 / 16);
-	const truo = kf2CibeKen2qQoxa((hw - klino) * 2 - RANDO_LARGHO, (hd - klino) * 2 - RANDO_LARGHO, Math.max(1 / 16, .0625)).getPoints(32);
+// ../../skek2/hapaq/satalaj/hac2nu.ts
+const RANDOLARGHO = 1 / 8;
+const RANDOL6DA = 1 / 32;
+function kf2TanekanPukazanQoxaKefoun(hw, hd, y, s2sabo, l6da = RANDOL6DA) {
+	const qoxa = kf2CibeKen2qQoxa((hw - s2sabo) * 2 + RANDOLARGHO, (hd - s2sabo) * 2 + RANDOLARGHO, 3 / 16);
+	const truo = kf2CibeKen2qQoxa((hw - s2sabo) * 2 - RANDOLARGHO, (hd - s2sabo) * 2 - RANDOLARGHO, Math.max(1 / 16, .0625)).getPoints(32);
 	qoxa.holes.push(new Path(truo.reverse()));
 	const geo = new ExtrudeGeometry(qoxa, {
 		depth: l6da,
@@ -20692,9 +20692,9 @@ function kf2TavolanRandanGeometrion(hw, hd, y, klino, l6da = RANDO_L6DA) {
 	const haxekuxa = geo.getAttribute("position");
 	const nor = geo.getAttribute("normal");
 	const uv = geo.getAttribute("uv");
-	const ekstra = new Float32Array(haxekuxa.count * 4);
-	const outerX = hw - klino + RANDO_LARGHO / 2, innerX = hw - klino - RANDO_LARGHO / 2;
-	const outerZ = hd - klino + RANDO_LARGHO / 2, innerZ = hd - klino - RANDO_LARGHO / 2;
+	const nek2resai = new Float32Array(haxekuxa.count * 4);
+	const outerX = hw - s2sabo + RANDOLARGHO / 2, innerX = hw - s2sabo - RANDOLARGHO / 2;
+	const outerZ = hd - s2sabo + RANDOLARGHO / 2, innerZ = hd - s2sabo - RANDOLARGHO / 2;
 	for (let i = 0; i < haxekuxa.count; i++) {
 		const vx = haxekuxa.getX(i), vy = haxekuxa.getY(i), vz = haxekuxa.getZ(i);
 		const flanke = Math.abs(nor.getY(i)) > 7 / 8;
@@ -20703,41 +20703,41 @@ function kf2TavolanRandanGeometrion(hw, hd, y, klino, l6da = RANDO_L6DA) {
 		if (ax >= az) {
 			fx = Math.sign(vx) || 1;
 			u = vz / (2 * outerZ) + 1 / 2;
-			v = flanke ? (Math.abs(vx) - innerX) / RANDO_LARGHO : vy / l6da;
+			v = flanke ? (Math.abs(vx) - innerX) / RANDOLARGHO : vy / l6da;
 		} else {
 			fz = Math.sign(vz) || 1;
 			u = vx / (2 * outerX) + 1 / 2;
-			v = flanke ? (Math.abs(vz) - innerZ) / RANDO_LARGHO : vy / l6da;
+			v = flanke ? (Math.abs(vz) - innerZ) / RANDOLARGHO : vy / l6da;
 		}
 		uv.setXY(i, Math.min(1, Math.max(0, u)), Math.min(1, Math.max(0, v)));
 		if (flanke) {
-			ekstra[i * 4] = fx;
-			ekstra[i * 4 + 2] = fz;
-			ekstra[i * 4 + 3] = 1;
+			nek2resai[i * 4] = fx;
+			nek2resai[i * 4 + 2] = fz;
+			nek2resai[i * 4 + 3] = 1;
 		}
 	}
 	uv.needsUpdate = true;
-	geo.setAttribute("aKonturaEkstra", new BufferAttribute(ekstra, 4));
+	geo.setAttribute("aKonturaEkstra", new BufferAttribute(nek2resai, 4));
 	geo.translate(0, y, 0);
 	return geo;
 }
-function aldoniTavolanRandon(geos, hw, hd, y, klino, tieroL6da) {
+function tlunakTavolanRandon(geos, hw, hd, y, s2sabo, b6k61oL6da) {
 	const lipoL6da = 1 / 40;
-	geos.push(kf2TavolanRandanGeometrion(hw, hd, y + tieroL6da - RANDO_L6DA, klino));
-	geos.push(kf2TavolanRandanGeometrion(hw, hd, y + tieroL6da, klino, lipoL6da));
+	geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da - RANDOL6DA, s2sabo));
+	geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da, s2sabo, lipoL6da));
 }
-// eskekoj/hapaq/satalaj/cel2nu.ts
+// ../../skek2/hapaq/satalaj/cel2nu.ts
 function kf2Pilierhajoqan(curve, has2nasce, H) {
 	const tangents = [], moj = [], Loj = [], Woj = [];
-	const V = new Vector3(), antauxaV = new Vector3().copy(H);
-	const U = new Vector3(), antauxaU = new Vector3();
+	const V = new Vector3(), ne3ak2V = new Vector3().copy(H);
+	const U = new Vector3(), ne3ak2U = new Vector3();
 	const L = new Vector3();
 	for (let i = 0; i <= has2nasce; i++) {
 		const ta = curve.getTangentAt(i / has2nasce).normalize();
 		const m = ta;
 		V.copy(H).addScaledVector(m, -H.dot(m));
-		if (V.lengthSq() < 8 ** -9) V.copy(antauxaV).addScaledVector(m, -antauxaV.dot(m));
-		if (V.lengthSq() < 8 ** -9) V.copy(antauxaU);
+		if (V.lengthSq() < 8 ** -9) V.copy(ne3ak2V).addScaledVector(m, -ne3ak2V.dot(m));
+		if (V.lengthSq() < 8 ** -9) V.copy(ne3ak2U);
 		V.normalize();
 		U.crossVectors(m, V).normalize();
 		L.addVectors(V, U).multiplyScalar(Math.SQRT1_2);
@@ -20746,8 +20746,8 @@ function kf2Pilierhajoqan(curve, has2nasce, H) {
 		moj.push(m);
 		Loj.push(L.clone());
 		Woj.push(W);
-		antauxaV.copy(V);
-		antauxaU.copy(U);
+		ne3ak2V.copy(V);
+		ne3ak2U.copy(U);
 	}
 	return {
 		tangents,
@@ -20756,8 +20756,8 @@ function kf2Pilierhajoqan(curve, has2nasce, H) {
 		Woj
 	};
 }
-function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaSkalo = 1, finialaLargho = 1, tipLongeco = 0) {
-	const hap2somani = diamantajDuonoj(s);
+function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaP6zuk = 1, finialaSefini = 1, tipSahakani = 0) {
+	const hap2somani = diamantajHap2somani(s);
 	const RINGO = hap2somani.length;
 	const c2q = has2nasce + 1;
 	const n2k = Array.from({ length: c2q }, (_, i) => curve.getPointAt(i / (c2q - 1)));
@@ -20766,17 +20766,17 @@ function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaS
 	const poFaco = RINGO / 4;
 	for (let i = 0; i < c2q; i++) {
 		let p = n2k[i];
-		if (i === has2nasce && tipLongeco > 0) p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipLongeco);
+		if (i === has2nasce && tipSahakani > 0) p = p.clone().addScaledVector(curve.getTangentAt(1).normalize(), -tipSahakani);
 		const L = hajoqa.Loj[i], W = hajoqa.Woj[i];
 		const konturo = hap2somani;
 		const t = i / (c2q - 1);
 		const u = talonoS0 > 0 ? Math.max(0, Math.min(1, (t - talonoS0) / (1 - talonoS0))) : 0;
-		const glata = u * u * (3 - 2 * u);
-		const p6zukani = talonoS0 > 0 ? 1 - (1 - finialaSkalo) * glata : 1;
-		const largxaSkalo = talonoS0 > 0 ? 1 - (1 - finialaLargho) * glata : 1;
+		const xaha = u * u * (3 - 2 * u);
+		const p6zukani = talonoS0 > 0 ? 1 - (1 - finialaP6zuk) * xaha : 1;
+		const largxaP6zuk = talonoS0 > 0 ? 1 - (1 - finialaSefini) * xaha : 1;
 		for (let j = 0; j < konturo.length; j++) {
 			const [a, c] = konturo[j];
-			vertoj.push(p.x + L.x * a * p6zukani + W.x * c * largxaSkalo, p.y + L.y * a * p6zukani + W.y * c * largxaSkalo, p.z + L.z * a * p6zukani + W.z * c * largxaSkalo);
+			vertoj.push(p.x + L.x * a * p6zukani + W.x * c * largxaP6zuk, p.y + L.y * a * p6zukani + W.y * c * largxaP6zuk, p.z + L.z * a * p6zukani + W.z * c * largxaP6zuk);
 			qan2k.push(j % poFaco / poFaco, i / (c2q - 1));
 		}
 	}
@@ -20795,32 +20795,32 @@ function kf2DiamantanSvingon(curve, has2nasce, s, hajoqa, talonoS0 = 0, finialaS
 	g.computeVertexNormals();
 	return g;
 }
-function kf2RondigitanDiamantanKapon(p, ta, n, b, s, sahakSkalo, largxaSkalo, renversita = false) {
+function kf2RondigitanDiamantanKapon(p, ta, n, b, s, sahakaniP6zuk, largxaP6zuk, renversita = false) {
 	const qoxa = new Shape();
-	const n2k = diamantajDuonoj(s);
+	const n2k = diamantajHap2somani(s);
 	const konturo = renversita ? [...n2k].reverse() : n2k;
-	qoxa.moveTo(konturo[0][0] * sahakSkalo, konturo[0][1] * largxaSkalo);
-	for (const [a, c] of konturo.slice(1)) qoxa.lineTo(a * sahakSkalo, c * largxaSkalo);
+	qoxa.moveTo(konturo[0][0] * sahakaniP6zuk, konturo[0][1] * largxaP6zuk);
+	for (const [a, c] of konturo.slice(1)) qoxa.lineTo(a * sahakaniP6zuk, c * largxaP6zuk);
 	qoxa.closePath();
 	const teruni = new ShapeGeometry(qoxa);
 	teruni.applyMatrix4(new Matrix4().makeBasis(n, b, ta));
 	teruni.translate(p.x, p.y, p.z);
-	return kf2X2x2qQan2k(teruni);
+	return kf2Xiix2qQan2k(teruni);
 }
-function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf = true, fora = 65 / 512) {
+function tlunakJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, s2sabo = 0, slaf = true, fora = 65 / 512) {
 	const out = 7 / 16;
 	const foraSub = 21 / 128;
-	const cXT = cX - sX * klino, cZT = cZ - sZ * klino;
-	const tieroL6da = yT - yB;
+	const cXT = cX - sX * s2sabo, cZT = cZ - sZ * s2sabo;
+	const b6k61oL6da = yT - yB;
 	const kf2TalonanKkaxte = () => {
 		const yA = upward ? yB : yT;
 		const yS = upward ? yT - 1 / 4 : yB + 1 / 4;
 		const yF = upward ? yT + 3 / 8 : yB - 3 / 8;
-		const linia = (tieroL6da - 1 / 64) / tieroL6da;
-		const suproX = cX + sX * (fora - klino * linia);
-		const suproZ = cZ + sZ * (fora - klino * linia);
+		const linia = (b6k61oL6da - 1 / 64) / b6k61oL6da;
+		const teruX = cX + sX * (fora - s2sabo * linia);
+		const teruZ = cZ + sZ * (fora - s2sabo * linia);
 		const p0 = new Vector3(cX + sX * fora, yA, cZ + sZ * fora);
-		const p1 = new Vector3(suproX, yS, suproZ);
+		const p1 = new Vector3(teruX, yS, teruZ);
 		const p2 = new Vector3(cXT + sX * out, yF, cZT + sZ * out);
 		const c2w2q = new Vector3(p1.x - p0.x, p1.y - p0.y, p1.z - p0.z).normalize();
 		const hoko = new CubicBezierCurve3(p1, p1.clone().addScaledVector(c2w2q, 3 / 16), new Vector3(p2.x - sX * 3 / 16, p2.y + (upward ? -1 / 32 : 1 / 32), p2.z - sZ * 3 / 16), p2);
@@ -20828,10 +20828,10 @@ function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf 
 		putho.add(new LineCurve3(p0, p1));
 		putho.add(hoko);
 		const shaftLen = p0.distanceTo(p1);
-		const tutaKkaxteLongeco = putho.getLength();
+		const tutaKkaxteSahakani = putho.getLength();
 		return {
 			curve: putho,
-			talonoS0: tutaKkaxteLongeco > 0 ? Math.min(7 / 8, shaftLen / tutaKkaxteLongeco) : 0
+			talonoS0: tutaKkaxteSahakani > 0 ? Math.min(7 / 8, shaftLen / tutaKkaxteSahakani) : 0
 		};
 	};
 	const subtera = new QuadraticBezierCurve3(new Vector3(cX + sX * foraSub, yT - 1 / 64, cZ + sZ * foraSub), new Vector3(cXT + sX * foraSub, yB + 13 / 32, cZT + sZ * foraSub), new Vector3(cXT + sX * out, yB - 3 / 8, cZT + sZ * out));
@@ -20844,21 +20844,21 @@ function aldoniJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, klino = 0, slaf 
 	const hajoqa = kf2Pilierhajoqan(curve, SEG, H);
 	const hakek = [];
 	if (upward || slaf) {
-		const finialaSkalo = 1 / 8, finialaLargho = 1 / 8;
-		hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa, talonoS0, finialaSkalo, finialaLargho, 1 / 64));
-		const bazaKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1);
-		const finaKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(1).clone().addScaledVector(hajoqa.tangents[SEG], -1 / 64), hajoqa.tangents[SEG], hajoqa.Loj[SEG], hajoqa.Woj[SEG], s, finialaSkalo, finialaLargho, true);
-		geos.push(kunfandiKajVeldoiGeometriojn(hakek));
-		geos.push(bazaKapo, finaKapo);
+		const finialaP6zuk = 1 / 8, finialaSefini = 1 / 8;
+		hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa, talonoS0, finialaP6zuk, finialaSefini, 1 / 64));
+		const kozunuKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1);
+		const tlakakKapo = kf2RondigitanDiamantanKapon(curve.getPointAt(1).clone().addScaledVector(hajoqa.tangents[SEG], -1 / 64), hajoqa.tangents[SEG], hajoqa.Loj[SEG], hajoqa.Woj[SEG], s, finialaP6zuk, finialaSefini, true);
+		geos.push(vakox2qKajVeldoi(hakek));
+		geos.push(kozunuKapo, tlakakKapo);
 	} else {
 		hakek.push(kf2DiamantanSvingon(curve, SEG, s, hajoqa));
 		hakek.push(kf2RondigitanDiamantanKapon(curve.getPointAt(0), hajoqa.tangents[0], hajoqa.Loj[0], hajoqa.Woj[0], s, 1, 1));
 		hakek.push(kf2RondigitanDiamantanKapon(curve.getPointAt(1), hajoqa.tangents[SEG], hajoqa.Loj[SEG], hajoqa.Woj[SEG], s, 1, 1, true));
 	}
-	if (!(upward || slaf)) geos.push(kunfandiKajVeldoiGeometriojn(hakek));
+	if (!(upward || slaf)) geos.push(vakox2qKajVeldoi(hakek));
 }
-// kantaoj/lingvo/sonaj-reguloj.ts
-const SAXEAĴ = [
+// ../../kanta/gawe/boleS2kanta.ts
+const GAWEKIIFBAL2 = [
 	[
 		"ᶅſ",
 		"w",
@@ -21040,7 +21040,7 @@ const SAXEAĴ = [
 		"pɪ̈sɛ"
 	]
 ];
-const INTERNAĴ = [
+const C2H2BAL2 = [
 	[
 		"п́",
 		"w",
@@ -21267,7 +21267,7 @@ const INTERNAĴ = [
 		"ə"
 	]
 ];
-const NUMERA = {
+const KNAK2FE = {
 	ts: "1",
 	ii: "2",
 	tl: "3",
@@ -21277,29 +21277,29 @@ const NUMERA = {
 	ou: "7",
 	eu: "0"
 };
-const NUMERA_REV = {};
-for (const [v, k] of Object.entries(NUMERA)) NUMERA_REV[k] = v;
-const ĈIUJ_IPA = Array.from(new Set([...SAXEAĴ, ...INTERNAĴ].map(([, , ipa]) => ipa).filter(Boolean))).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
-const ĈIUJ_GK = Array.from(new Set([...SAXEAĴ, ...INTERNAĴ].map(([gk]) => gk).filter(Boolean))).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
-function avideKongruigi(s2banani, tokenaListo) {
-	const esxaq = [];
-	let i = 0;
-	while (i < s2banani.length) {
-		let trovita = false;
-		for (const t of tokenaListo) if (s2banani.startsWith(t, i)) {
-			esxaq.push(t);
-			i += t.length;
-			trovita = true;
+const NEKALAKNAK2FE = {};
+for (const [s2bana, k2fe] of Object.entries(KNAK2FE)) NEKALAKNAK2FE[k2fe] = s2bana;
+const KAK2IPA = Array.from(new Set([...GAWEKIIFBAL2, ...C2H2BAL2].map(([, , ipa]) => ipa).filter(Boolean))).sort((kekXaqa, kekP2sa) => kekP2sa.length - kekXaqa.length || (kekXaqa < kekP2sa ? -1 : 1));
+const KAK2GK = Array.from(new Set([...GAWEKIIFBAL2, ...C2H2BAL2].map(([gk]) => gk).filter(Boolean))).sort((kekXaqa, kekP2sa) => kekP2sa.length - kekXaqa.length || (kekXaqa < kekP2sa ? -1 : 1));
+function kaltokS2bana(s2banani, kekS2kanta) {
+	const kekCatsara = [];
+	let kek = 0;
+	while (kek < s2banani.length) {
+		let b6kewe = false;
+		for (const s2banaKek of kekS2kanta) if (s2banani.startsWith(s2banaKek, kek)) {
+			kekCatsara.push(s2banaKek);
+			kek += s2banaKek.length;
+			b6kewe = true;
 			break;
 		}
-		if (!trovita) {
-			esxaq.push(s2banani[i]);
-			i++;
+		if (!b6kewe) {
+			kekCatsara.push(s2banani[kek]);
+			kek++;
 		}
 	}
-	return esxaq;
+	return kekCatsara;
 }
-const MAPO_EO = {
+const BAL2EO = {
 	"ⱱ̥": "v",
 	"p": "p",
 	"ɸ": "f",
@@ -21346,7 +21346,7 @@ const MAPO_EO = {
 	"ɑ̃": "an",
 	"pɪ̈sɛ": "puse"
 };
-const MAPO_EN = {
+const BAL2EN = {
 	"ⱱ̥": "w",
 	"p": "p",
 	"ɸ": "h",
@@ -21393,9 +21393,9 @@ const MAPO_EN = {
 	"ɑ̃": "an",
 	"pɪ̈sɛ": "pisseh"
 };
-const LINGVAJ_MAPOJ = {
-	eo: MAPO_EO,
-	en: MAPO_EN,
+const GAWEBAL2OJ = {
+	eo: BAL2EO,
+	en: BAL2EN,
 	ja: {
 		"ⱱ̥": "ワ",
 		"p": "プ",
@@ -21491,7 +21491,7 @@ const LINGVAJ_MAPOJ = {
 		"pɪ̈sɛ": "ពឺសេ"
 	}
 };
-const JA_GOJŪON = {
+const JAGOJŪON = {
 	k: {
 		a: "カ",
 		i: "キ",
@@ -21553,7 +21553,7 @@ const JA_GOJŪON = {
 		ɤ: "ポ"
 	}
 };
-const JA_KONSONANTAJ_RULEROJ = {
+const JAKETUX2PA = {
 	k: ["gojūon", "k"],
 	c: ["yōon", "チ"],
 	t: ["gojūon", "t"],
@@ -21577,10 +21577,10 @@ const JA_KONSONANTAJ_RULEROJ = {
 	ɲ̥: ["yōon", "ニ"],
 	tɬ: ["tɬ", "ト"]
 };
-function katakanaX2pa(rulo) {
-	const [pudal, kozuni] = rulo;
+function katakanaX2pa(roll) {
+	const [pudal, kozuni] = roll;
 	let x2pa;
-	if (pudal === "gojūon") x2pa = { ...JA_GOJŪON[kozuni] };
+	if (pudal === "gojūon") x2pa = { ...JAGOJŪON[kozuni] };
 	else if (pudal === "yōon") x2pa = {
 		a: kozuni + "ャ",
 		i: kozuni,
@@ -21609,10 +21609,10 @@ function katakanaX2pa(rulo) {
 	x2pa["ɑ"] = x2pa["a"] + "ー";
 	return x2pa;
 }
-const JA_KV_KOMBOJ = {};
-for (const [kon, rulo] of Object.entries(JA_KONSONANTAJ_RULEROJ)) for (const [vokalo, kana] of Object.entries(katakanaX2pa(rulo))) JA_KV_KOMBOJ[kon + vokalo] = kana;
-const _JA_IPA = Array.from(/* @__PURE__ */ new Set([...ĈIUJ_IPA, ...Object.keys(JA_KV_KOMBOJ)])).sort((a, b) => b.length - a.length || (a < b ? -1 : 1));
-const ANGLAJ_VOKALOJ = /* @__PURE__ */ new Set([
+const JAKKANABAL2 = {};
+for (const [ketu, roll] of Object.entries(JAKETUX2PA)) for (const [waja, kana] of Object.entries(katakanaX2pa(roll))) JAKKANABAL2[ketu + waja] = kana;
+const JAKIPA = Array.from(/* @__PURE__ */ new Set([...KAK2IPA, ...Object.keys(JAKKANABAL2)])).sort((kekXaqa, kekP2sa) => kekP2sa.length - kekXaqa.length || (kekXaqa < kekP2sa ? -1 : 1));
+const ENWAJAOJ = /* @__PURE__ */ new Set([
 	"i",
 	"ɛ",
 	"a",
@@ -21624,7 +21624,7 @@ const ANGLAJ_VOKALOJ = /* @__PURE__ */ new Set([
 	"ɤ̃",
 	"ɑ̃"
 ]);
-const ANGLAJ_MALFAVORAJ = /* @__PURE__ */ new Set([
+const ENMALWAJAOJ = /* @__PURE__ */ new Set([
 	"ɪ̈",
 	"ɛ",
 	"ə",
@@ -21632,163 +21632,157 @@ const ANGLAJ_MALFAVORAJ = /* @__PURE__ */ new Set([
 	"ɤ̃",
 	"ɑ̃"
 ]);
-const ANGLAJ_GHACAMUTSA = /* @__PURE__ */ new Set(["ɟ̥̆", "ⱱ̥"]);
-function duobligi(konsono) {
-	return konsono[0] + konsono;
+const ENMALP2SANI = /* @__PURE__ */ new Set(["ɟ̥̆", "ⱱ̥"]);
+function p2sani(ketu) {
+	return ketu[0] + ketu;
 }
-/** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ⟅ ſɭɹ ꞇɔʊ , ſɭэ ſɭᴜ , 📃 ⟩ */
-function anglaKonverti(ipaaS2bana) {
-	const esxaq = avideKongruigi(ipaaS2bana, ĈIUJ_IPA);
-	const n = esxaq.length;
-	const eligo = esxaq.map((t) => MAPO_EN[t] ?? t);
-	for (let i = 0; i < n - 2; i++) if (ANGLAJ_MALFAVORAJ.has(esxaq[i]) && !ANGLAJ_VOKALOJ.has(esxaq[i + 1]) && ANGLAJ_VOKALOJ.has(esxaq[i + 2])) {
-		if (!ANGLAJ_GHACAMUTSA.has(esxaq[i + 1])) eligo[i + 1] = duobligi(eligo[i + 1]);
+function ipaAlEn(ipaaS2bana) {
+	const kekCatsara = kaltokS2bana(ipaaS2bana, KAK2IPA);
+	const vem2 = kekCatsara.length;
+	const s2banaKekCatsara = kekCatsara.map((s2banaKek) => BAL2EN[s2banaKek] ?? s2banaKek);
+	for (let kek = 0; kek < vem2 - 2; kek++) if (ENMALWAJAOJ.has(kekCatsara[kek]) && !ENWAJAOJ.has(kekCatsara[kek + 1]) && ENWAJAOJ.has(kekCatsara[kek + 2])) {
+		if (!ENMALP2SANI.has(kekCatsara[kek + 1])) s2banaKekCatsara[kek + 1] = p2sani(s2banaKekCatsara[kek + 1]);
 	}
-	for (let i = 0; i < n; i++) {
-		const t = esxaq[i];
-		const lakso = t === "ɪ̈" || t === "ə" || t === "ɛ";
-		if (!lakso && t !== "i") continue;
-		let j = i + 1;
-		while (j < n && !ANGLAJ_VOKALOJ.has(esxaq[j])) j++;
-		const runLargho = j - i - 1;
-		const finaKon = j >= n && runLargho > 0;
-		const unuaKon = runLargho > 0 ? esxaq[i + 1] : null;
-		const unuaSpel = runLargho > 0 ? eligo[i + 1] : "";
+	for (let kek = 0; kek < vem2; kek++) {
+		const s2banaKek = kekCatsara[kek];
+		const lakso = s2banaKek === "ɪ̈" || s2banaKek === "ə" || s2banaKek === "ɛ";
+		if (!lakso && s2banaKek !== "i") continue;
+		let kek2 = kek + 1;
+		while (kek2 < vem2 && !ENWAJAOJ.has(kekCatsara[kek2])) kek2++;
+		const runSefini = kek2 - kek - 1;
+		const tlakakKon = kek2 >= vem2 && runSefini > 0;
+		const xaqadiKon = runSefini > 0 ? kekCatsara[kek + 1] : null;
+		const xaqadiBole = runSefini > 0 ? s2banaKekCatsara[kek + 1] : "";
 		if (lakso) {
-			const mark = t === "ɪ̈" ? "ih" : t === "ə" ? "uh" : "eh";
-			const c2na = t === "ɪ̈" ? "i" : t === "ə" ? "u" : "e";
-			if (finaKon && unuaKon === "k") {
-				eligo[i] = c2na;
-				eligo[i + 1] = "ck";
-			} else if (finaKon && unuaKon === "ŋ̥") eligo[i] = mark;
-			else if (finaKon) eligo[i] = c2na;
-			else if (unuaSpel.length >= 2) eligo[i] = c2na;
-			else eligo[i] = mark;
-		} else if (finaKon && unuaKon === "k") eligo[i] = "ee";
-		else if (finaKon && unuaKon === "ŋ̥") eligo[i] = "i";
-		else if (finaKon) eligo[i] = "ee";
-		else if (runLargho === 1) eligo[i] = "e";
-		else eligo[i] = "i";
+			const p2zuka = s2banaKek === "ɪ̈" ? "ih" : s2banaKek === "ə" ? "uh" : "eh";
+			const c2na = s2banaKek === "ɪ̈" ? "i" : s2banaKek === "ə" ? "u" : "e";
+			if (tlakakKon && xaqadiKon === "k") {
+				s2banaKekCatsara[kek] = c2na;
+				s2banaKekCatsara[kek + 1] = "ck";
+			} else if (tlakakKon && xaqadiKon === "ŋ̥") s2banaKekCatsara[kek] = p2zuka;
+			else if (tlakakKon) s2banaKekCatsara[kek] = c2na;
+			else if (xaqadiBole.length >= 2) s2banaKekCatsara[kek] = c2na;
+			else s2banaKekCatsara[kek] = p2zuka;
+		} else if (tlakakKon && xaqadiKon === "k") s2banaKekCatsara[kek] = "ee";
+		else if (tlakakKon && xaqadiKon === "ŋ̥") s2banaKekCatsara[kek] = "i";
+		else if (tlakakKon) s2banaKekCatsara[kek] = "ee";
+		else if (runSefini === 1) s2banaKekCatsara[kek] = "e";
+		else s2banaKekCatsara[kek] = "i";
 	}
-	return eligo.join("");
+	return s2banaKekCatsara.join("");
 }
-/** ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſȷwɔ˞ , ſɭэ ſᶘɹ , ꞙɭɿ , */
-function ipaAlLingvo(ipaaS2bana, lingvaKodo) {
-	if (lingvaKodo === "en") return anglaKonverti(ipaaS2bana);
-	const lingvaMapo = { ...LINGVAJ_MAPOJ[lingvaKodo] ?? {} };
-	let tokenaListo = ĈIUJ_IPA;
-	if (lingvaKodo === "ja") {
-		Object.assign(lingvaMapo, JA_KV_KOMBOJ);
-		tokenaListo = _JA_IPA;
+function ipaAlGawe(ipaaS2bana, lingvaS2kanta) {
+	if (lingvaS2kanta === "en") return ipaAlEn(ipaaS2bana);
+	const lingvaBal2 = { ...GAWEBAL2OJ[lingvaS2kanta] ?? {} };
+	let kekS2kanta = KAK2IPA;
+	if (lingvaS2kanta === "ja") {
+		Object.assign(lingvaBal2, JAKKANABAL2);
+		kekS2kanta = JAKIPA;
 	}
-	const esxaq = avideKongruigi(ipaaS2bana, tokenaListo);
-	const eligo = esxaq.map((t) => lingvaMapo[t] ?? t);
-	if (lingvaKodo === "km" && esxaq.length && ANGLAJ_VOKALOJ.has(esxaq[0])) eligo.unshift("អ");
-	return eligo.join("");
+	const kekCatsara = kaltokS2bana(ipaaS2bana, kekS2kanta);
+	const s2banaKekCatsara = kekCatsara.map((s2banaKek) => lingvaBal2[s2banaKek] ?? s2banaKek);
+	if (lingvaS2kanta === "km" && kekCatsara.length && ENWAJAOJ.has(kekCatsara[0])) s2banaKekCatsara.unshift("អ");
+	return s2banaKekCatsara.join("");
 }
-/**
-* ſȷwɔ˞ , ſɭɜ ſɭᴜ , ſɭɹ ꞇɔʊ , ⟅ ſɭэ ſɭᴜ , ſɭɹ ꞇɔʊ , 📃 ⟩
-* ſɭэ ſɭw , ſןɔ˞ᴜƴ , ꞙɭɿ , ⟅ ſɭэ ſɭw , ſɭэ ſᶘɹ , ꞙɭɔ , 📃 ⟩
-*/
 function gkAlIpa(gkaS2bana) {
-	const densigita = gkaS2bana.replace(/\s+/g, "");
-	const ludo = {};
-	for (const [gk, , ipa] of [...SAXEAĴ, ...INTERNAĴ]) ludo[gk] = ipa;
-	return avideKongruigi(densigita, ĈIUJ_GK).map((gk) => ludo[gk] ?? gk).join("");
+	const qun2S2bana = gkaS2bana.replace(/\s+/g, "");
+	const gkIpaBal2 = {};
+	for (const [gk, , ipa] of [...GAWEKIIFBAL2, ...C2H2BAL2]) gkIpaBal2[gk] = ipa;
+	return kaltokS2bana(qun2S2bana, KAK2GK).map((gk) => gkIpaBal2[gk] ?? gk).join("");
 }
-// kantaoj/fasado/vula.ts
-const statoj = /* @__PURE__ */ new Map();
-const h6w6oj = /* @__PURE__ */ new Map();
-let nunId = null;
-let antauaId = null;
-function kf2Staton(id, onH6w6i, jeVasaka) {
-	const jam = statoj.get(id);
-	if (jam) {
-		if (onH6w6i) h6w6oj.get(id).push(onH6w6i);
-		return jam;
+// ../../kanta/s2cel2f/vula.ts
+const s2k61oBal2 = /* @__PURE__ */ new Map();
+const h6w6iCa1ara = /* @__PURE__ */ new Map();
+let stih2Id = null;
+let tlakakaiId = null;
+function kf2S2k61o(id, onH6w6i, jeVasaka) {
+	const kxe = s2k61oBal2.get(id);
+	if (kxe) {
+		if (onH6w6i) h6w6iCa1ara.get(id).push(onH6w6i);
+		return kxe;
 	}
-	const elemento = document.getElementById(id);
-	if (!elemento) throw new Error("mankas menuo : " + id);
-	h6w6oj.set(id, onH6w6i ? [onH6w6i] : []);
-	function kobei() {
-		if (!elemento.classList.contains("laqazi")) return;
-		elemento.classList.remove("laqazi");
-		if (nunId === id) nunId = null;
+	const kfe = document.getElementById(id);
+	if (!kfe) throw new Error("j͑ʃɹ ɭʃɜ }ʃᴜ ʌ }ʃɹ ɭʃᴜ }ʃw ｡ " + id);
+	h6w6iCa1ara.set(id, onH6w6i ? [onH6w6i] : []);
+	function kobe() {
+		if (!kfe.classList.contains("laqazi")) return;
+		kfe.classList.remove("laqazi");
+		if (stih2Id === id) stih2Id = null;
 		jeVasaka?.();
 	}
-	const stato = {
+	const s2k61o = {
 		h6w6i() {
-			if (elemento.classList.contains("laqazi")) return;
-			const antaua = nunId;
-			if (antaua && antaua !== id) {
-				antauaId = antaua;
-				statoj.get(antaua)?.kobei();
-			} else antauaId = null;
-			nunId = id;
-			elemento.classList.add("laqazi");
+			if (kfe.classList.contains("laqazi")) return;
+			const z2hakai = stih2Id;
+			if (z2hakai && z2hakai !== id) {
+				tlakakaiId = z2hakai;
+				s2k61oBal2.get(z2hakai)?.kobe();
+			} else tlakakaiId = null;
+			stih2Id = id;
+			kfe.classList.add("laqazi");
 			jeVasaka?.();
-			for (const f of h6w6oj.get(id)) f();
+			for (const f of h6w6iCa1ara.get(id)) f();
 		},
 		pukxei() {
-			if (!elemento.classList.contains("laqazi")) return;
-			const celo = antauaId && antauaId !== id ? antauaId : null;
-			elemento.classList.remove("laqazi");
-			if (nunId === id) nunId = null;
-			antauaId = null;
+			if (!kfe.classList.contains("laqazi")) return;
+			const ca12na = tlakakaiId && tlakakaiId !== id ? tlakakaiId : null;
+			kfe.classList.remove("laqazi");
+			if (stih2Id === id) stih2Id = null;
+			tlakakaiId = null;
 			jeVasaka?.();
-			if (celo) statoj.get(celo)?.h6w6i();
+			if (ca12na) s2k61oBal2.get(ca12na)?.h6w6i();
 		},
-		kobei,
-		tsekeH6w6ita: () => elemento.classList.contains("laqazi")
+		kobe,
+		tsekeH6w6ita: () => kfe.classList.contains("laqazi")
 	};
-	statoj.set(id, stato);
-	document.getElementById(id + "Reeniri")?.addEventListener("click", () => stato.pukxei());
-	elemento.addEventListener("click", (e) => {
-		if (e.target === elemento) stato.pukxei();
+	s2k61oBal2.set(id, s2k61o);
+	document.getElementById(id + "Reeniri")?.addEventListener("click", () => s2k61o.pukxei());
+	kfe.addEventListener("click", (e) => {
+		if (e.target === kfe) s2k61o.pukxei();
 	});
-	return stato;
+	return s2k61o;
 }
-// kantaoj/lingvo/baskakefani.ts
+// ../../kanta/gawe/baskakefani.ts
 const skakefani = {
 	aih: {
-		"titoloAranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
-		"titoloKaxte": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
-		"subtitoloKaxte": "j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞ ⟅ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ſɭᴜ ı],ƨɔ",
+		"hate2Aranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
+		"hate2Kaxte": "ſɭᴜ ɭl̀ɹ ɭʃɔ",
+		"ksakat2xaKaxte": "j͐ʃɜ ɭʃᴜ ʌ ꞁȷ̀ɹ ֭ſɭɹɔ˞ ⟅ j͐ʃᴜ ŋᷠɹⰱ ꞁȷ̀ᴜꞇ ʌ ſɭᴜ ı],ƨɔ",
 		"eniri": "ſɭw ſ̀ȷᴜ",
-		"butonoPromeni": "ſɭᴜ ɭʃᴜ",
-		"butonoOrbiti": "֭ſɭɹ j͑ʃɔ",
-		"butonoHasoqte": "ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ",
-		"butonoHelpo": "ſȷɔ ſɭ,ꞇ",
-		"titoloTeksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
-		"subtitoloTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
-		"titoloSxargxo": "}ʃᴜ j͐ʃᴜ",
-		"sxargxoSubskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ ⟅",
-		"sxargxoSatalo": "j͑ʃ'ɔ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ ⟅",
-		"sxargxoNebulo": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
+		"catsiinaPromeni": "ſɭᴜ ɭʃᴜ",
+		"catsiinaOrbiti": "֭ſɭɹ j͑ʃɔ",
+		"catsiinaHasoqte": "ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ",
+		"catsiinaHelpo": "ſȷɔ ſɭ,ꞇ",
+		"hate2Teksilo": "ſɟᴜ j͑ʃ'ᴜ ı],ͷ̗ɔʞ",
+		"ksakat2xaTeksilo": "j͑ʃᴜ ֭ſɭᴜƽ ʌ ſɭ,ɹ ſ̀ȷɔ ⟅ ſɟɹ }ʃᴜ ʌ ɭʃᴜ ŋᷠᴜ v j͑ʃɜȝ ɭʃɔ j͑ʃᴜꞇ ⟅ ſ͔ɭɔ j͐ʃɔɔ˞ ʌ ᶅſɔ ֭ſɭɹ ｡ ɭʃɜƽ v ֭ſɭᴜ ı],ɔ j͑ʃᴜꞇ ⟅",
+		"hate2Sxargxo": "}ʃᴜ j͐ʃᴜ",
+		"b6tem2Subskribo": "ſɭᶗ‹ɔ ʌ j͑ʃ'ɔ ſןᴜȝ ⟅",
+		"b6tem2Satalo": "j͑ʃ'ɔ ſןᴜȝ ʌ ꞁȷ̀ɔ j͑ʃᴜ ɭʃᴜͷ̗ ſɭᴜͷ̗ ⟅",
+		"b6tem2Nebulo": "j͐ʃᴜɔ˞ ʌ j͐ʃɜ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ֭ſɭᴜ ⟅",
 		"kompasoNordo": "j͐ʃᴜȝ",
 		"kamaOrbito": "֭ſɭɹ j͑ʃɔ",
-		"klavoTreni": "ʃэ ɭʃɔȝ",
+		"catlaqTreni": "ʃэ ɭʃɔȝ",
 		"kamaPromeno": "ſɭᴜ ɭʃᴜ",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "j͑ʃᴜ ֭ſɭᴜᶗ‹",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "ſןw",
-		"klavoSl6da": "ſɭɘэ v ſ͕ɭw }ʃɹ j͑ʃᴜꞇ",
+		"catlaqSl6da": "ſɭɘэ v ſ͕ɭw }ʃɹ j͑ʃᴜꞇ",
 		"kamaEniri": "ſɭw ſ̀ȷᴜ ʌ ſןᴜȝ",
-		"klavoEniri": "E",
-		"kamaMapo": "ʃᴜ j͐ʃɹ",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "ʃᴜ j͐ʃɹ",
+		"catlaqBal2": "M",
 		"kamaEliri": "j͑ʃwc̗ ɭʃᴜ",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "j͑ʃ'ɔ ſȷᴜͷ̗ ʌ ſᶘᴜ j͐ʃɹ",
-		"klavoKlako": "ſןɔ",
+		"catlaqKlako": "ſןɔ",
 		"kamaKanuo": "j͑ʃ'ɔ ſɭᴜ ɭl̀ɹ",
 		"agoGusti": "ſ͔ɭɔȝ",
 		"agoKuxi": "ſȷɔ˞ᴜ ɭʃᴜ",
 		"agoLevi": "j͑ʃᴜ ʃɜƽ",
-		"titoloMapo": "ʃᴜ j͐ʃɹ",
-		"titoloHak6h6": "ſɭэ ֭ſɭэ",
-		"subtitoloHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
+		"hate2Bal2": "ʃᴜ j͐ʃɹ",
+		"hate2Hak6h6": "ſɭэ ֭ſɭэ",
+		"ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
 		"caxlefkakaiP2d2": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 		"caxlefkakaiSunta": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 		"manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ",
@@ -21817,12 +21811,12 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "j͑ʃᴜ ı],ᴜ ɽ͑ʃ'ᴜȝ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ ⟅",
 		"vepaqPriskriboTuro": "ᶅſw ſɭɹ ʌ ſןᴜȝ ⟅",
 		"vepaqPriskriboSanktejo": "j͑ʃɜ j͑ʃƨɹ ⟅",
-		"kartoHavem2": "ɭʃᴜ }ʃɔƽ",
-		"kartoDiamanto": "ɭʃэᴜ̩ ſɭɹ",
-		"kartoJes": "ſɭɹ ֭ſɭɹ",
-		"kartoNe": "ſɟɔ ֭ſɭɹ",
-		"kartoVepaqHunaq": "֭ſɭᴜ ı],ɔ",
-		"kartoXekuxa": "ɽ͑ʃ'ᴜ ſ͕ɭᴜ",
+		"thalaHavem2": "ɭʃᴜ }ʃɔƽ",
+		"thalaDiamanto": "ɭʃэᴜ̩ ſɭɹ",
+		"thalaJes": "ſɭɹ ֭ſɭɹ",
+		"thalaNe": "ſɟɔ ֭ſɭɹ",
+		"thalaVepaqHunaq": "֭ſɭᴜ ı],ɔ",
+		"thalaXekuxa": "ɽ͑ʃ'ᴜ ſ͕ɭᴜ",
 		"vepaqNomo0": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ꞇ ŋᷠᴜ }ʃɹ",
 		"vepaqNomo1": "ſɭᴜ ſןɹ",
 		"vepaqNomo2": "ſɭᴜ ᶅſw ſɭɹ",
@@ -21857,18 +21851,18 @@ const skakefani = {
 		"vepaqNomo31": "ſɭᴜɘ ꞁȷ̀ᴜ ſɟɔ",
 		"vepaqNomo32": "ſɭᴜ ɭ(ᴜͷ̗",
 		"vepaqNomo33": "ſɭᴜ ſɭˬᴜ j͑ʃɔ ı],ᴜƴ",
-		"titoloInqoxa": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
-		"subtitoloInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
-		"ariaInqoxaButono": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
-		"ariaPukxeiButono": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
-		"taboPaqj": "ſןᴜȝ",
-		"taboMangxajxoj": "ŋᷠɜⅎᶗ‹",
-		"taboHapudal": "ɭ(ᴜͷ̗",
-		"grupoPaga": "ſןᴜ ſ͔ɭᴜ",
-		"pudalL2xkupukai": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
-		"pudalPriskriboL2xkupukai": "j͐ʃᴜ ֭ſɭᴜƽ ʌ j͐ʃɹᶗ‹",
-		"pudalL2xcaxlefai": "j͐ʃɹᶗ‹ ſɟᴜ ı],ͷ̗ɔʞ ꞁȷ̀ᴜꞇ",
-		"pudalPriskriboL2xcaxlefai": "ı],ɔ ſɭw ı],ᴜ ʌ j͐ʃɹᶗ‹",
+		"hate2Inqoxa": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
+		"ksakat2xaInqoxa": "ſןᴜȝ ｡ ŋᷠɜⅎᶗ‹ ｡ ɭ(ᴜͷ̗ ⟅",
+		"ariaInqoxaCatsiina": "ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ",
+		"ariaPukxeiCatsiina": "}ʃɔƣ̋ ꞁȷ̀ᴜ ſ̀ȷɔ",
+		"cax2lPaqj": "ſןᴜȝ",
+		"cax2lMangxajxoj": "ŋᷠɜⅎᶗ‹",
+		"cax2lHapudal": "ɭ(ᴜͷ̗",
+		"hatePaga": "ſןᴜ ſ͔ɭᴜ",
+		"pudalLiixkupukai": "j͐ʃɹᶗ‹ ſɭw ſןwƽ ꞁȷ̀ᴜꞇ",
+		"pudalPriskriboLiixkupukai": "j͐ʃᴜ ֭ſɭᴜƽ ʌ j͐ʃɹᶗ‹",
+		"pudalLiixcaxlefai": "j͐ʃɹᶗ‹ ſɟᴜ ı],ͷ̗ɔʞ ꞁȷ̀ᴜꞇ",
+		"pudalPriskriboLiixcaxlefai": "ı],ɔ ſɭw ı],ᴜ ʌ j͐ʃɹᶗ‹",
 		"pudalPleŭrobrakia": "j͐ʃɹᶗ‹ j͐ʃᴜ ſןw ֭ſɭᴜ j͑ʃᴜꞇ",
 		"pudalPriskriboPleŭrobrakia": "j͑ʃɹ j͐ʃɹᶗ‹",
 		"pudalTq2wa": "ſ͕ɭᴜ ɭʃɹ ᶅſᴜ",
@@ -21877,7 +21871,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "j͑ʃɹ ɭʃɜͷ̗ ı],w",
 		"pudalNeĝotemek": "ɭʃɔ ŋᷠɔƽ",
 		"pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
-		"grupoPlanto": "ı],ᴜ ſ̀ȷɔ",
+		"hatePlanto": "ı],ᴜ ſ̀ȷɔ",
 		"pudalBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
 		"pudalPriskriboBetulo": "j͑ʃ'ɔ ſ͔ɭэ ʌ ſɭɔ ֭ſɭw ʌ ſɟɔ ⟅",
 		"pudalLariko": "ɭʃᴜ ſɭɔ˞ᴜͷ̗",
@@ -21900,22 +21894,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "ſȷɹʞ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
 		"pudalCakeo": "ſᶘᴜ ſɭɔ",
 		"pudalPriskriboCakeo": "ı],ɔ ſɭᴜȝ ꞁȷ̀ᴜͷ̗ ʌ ſ̀ȷᴜ ſןɹ j͑ʃᴜꞇ ʌ }ʃᴜ ɽ͑ʃ'ɹ j͑ʃᴜ ʌ ı],ᴜ ſ̀ȷɔ ⟅",
-		"taboVestoj": "j͑ʃɜȝ ɭʃɔ",
-		"vestoWeh2Lhant": "j͐ʃᴜ̩ᴜ",
-		"vestoWeh2Hearth": "ſ̀ȷwɔ˞",
-		"vestoWeh2Mist": "ſ͔ɭэ",
-		"vestoWeh2Ember": "ᶅſɔ j͐ʃᴜ",
-		"vestoWeh2Azure": "ſɟɹ j͑ʃɹƽ",
-		"vestoWeh2Violet": "ſᶘꞇ }ʃɔ",
-		"vestoWeh2Gilt": "ſɟꞇ",
-		"vestoWeh2Rose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
-		"vestoWeh2Obsidian": "֭ſɭw }ʃᴜ",
-		"vestoWeh2Cyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
-		"taboHararo": "ſᶘᴜȝ",
-		"tsaqSekcio": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
+		"cax2lHasoqte": "j͑ʃɜȝ ɭʃɔ",
+		"soqteWeh2Lhant": "j͐ʃᴜ̩ᴜ",
+		"soqteWeh2Hearth": "ſ̀ȷwɔ˞",
+		"soqteWeh2Mist": "ſ͔ɭэ",
+		"soqteWeh2Ember": "ᶅſɔ j͐ʃᴜ",
+		"soqteWeh2Azure": "ſɟɹ j͑ʃɹƽ",
+		"soqteWeh2Violet": "ſᶘꞇ }ʃɔ",
+		"soqteWeh2Gilt": "ſɟꞇ",
+		"soqteWeh2Rose": "ᶅſɔ j͐ʃᴜ ſ͔ɭэ",
+		"soqteWeh2Obsidian": "֭ſɭw }ʃᴜ",
+		"soqteWeh2Cyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
+		"cax2lHararo": "ſᶘᴜȝ",
+		"tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
 		"tsaqPsazai": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
-		"tsaqSahak": "j͑ʃᴜʞ",
-		"harWeh2Sekcio": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
+		"tsaqSahakani": "j͑ʃᴜʞ",
+		"harWeh2Qaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
 		"harWeh2Bruna": "ſ̀ȷwɔ˞",
 		"harWeh2Hunasai": "֭ſɭw }ʃᴜ j͑ʃᴜꞇ",
 		"harWeh2Ruĝeta": "ᶅſɔ j͐ʃᴜ ſ̀ȷwɔ˞",
@@ -21923,17 +21917,17 @@ const skakefani = {
 		"harWeh2Blonda": "ſɟꞇ",
 		"harWeh2Griza": "֭ſɭwƽ",
 		"muziko": "j͑ʃп́ꞇ ſɭɔƴ",
-		"muzikTrako0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
-		"muzikTrako1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
-		"muzikTrako2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
-		"muzikTrako3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
-		"muzikTrako4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-		"muzikTrako5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-		"muzikTrako6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
-		"muzikTrako7": "ſɭɘᴜ ֭ſɭᴜ",
-		"ariaKrepuskoButono": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
+		"muzikT2bakobesai0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
+		"muzikT2bakobesai1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
+		"muzikT2bakobesai2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
+		"muzikT2bakobesai3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
+		"muzikT2bakobesai4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+		"muzikT2bakobesai5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+		"muzikT2bakobesai6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
+		"muzikT2bakobesai7": "ſɭɘᴜ ֭ſɭᴜ",
+		"ariaKrepuskoCatsiina": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
 		"ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
-		"ariaVet6limaButono": "ſ͕ɭɹ ſᶘɜ",
+		"ariaVet6limaCatsiina": "ſ͕ɭɹ ſᶘɜ",
 		"vet6limaNebula": "ŋᷠᴜ ֭ſɭᴜ",
 		"vet6limaPluva": "֭ſɭᴜ ɭʃᴜ",
 		"vet6limaHajla": "ſɭᴜ ɭʃᴜƽ",
@@ -21941,64 +21935,63 @@ const skakefani = {
 		"webglNeSubtenata": "ſ͕ȷɜ ſɭɹ ɽ͑ʃ'ɔ ʌ WebGL ⟅",
 		"webglDetalo": "ɭʃɔ ſ͕ɭᴜƴ ʌ WebGL ⟅ j͑ʃɹ j͐ʃɹ ŋᷠꞇ ʌ ſɟᴜ ֭ſɭᴜ ſȷᴜ v ſɭɹ ſןɹ ⟅",
 		"webglReprovi": "ɭʃɜ ŋᷠэ",
-		"ariaEniriMondon": "ſɭw ſ̀ȷᴜ ʌ ſ͕ɭᴜ ſᶘɔ j͐ʃɹ ⟅",
-		"saxeiMondo": "ſᶘɔ ſɭɔ ʌ ſɭʞɹ ʌ ſɭᴜͷ̗ ʌ ſ͕ɭɹȝ ʌ }ʃᴜ j͐ʃᴜ",
-		"mondTitolo": "}ʃᴜ j͐ʃᴜ",
-		"mondNomo": "}ʃᴜ j͐ʃᴜ",
+		"ariaEniriNala": "ſɭw ſ̀ȷᴜ ʌ ſ͕ɭᴜ ſᶘɔ j͐ʃɹ ⟅",
+		"saxeiNala": "ſᶘɔ ſɭɔ ʌ ſɭʞɹ ʌ ſɭᴜͷ̗ ʌ ſ͕ɭɹȝ ʌ }ʃᴜ j͐ʃᴜ",
+		"mondKsaka": "}ʃᴜ j͐ʃᴜ",
 		"mondSxono": "ɽ͑ʃ'w j͑ʃ'ᴜ",
-		"butonoKf2Mondon": "ſɭʞɹ",
-		"mondSavitaListo": "j͐ʃэ j͑ʃ'ɔ ſ̀ȷᴜȝ ꞁȷ̀ᴜꞇ ʌ }ʃᴜ j͐ʃᴜ",
+		"catsiinaKf2Nala": "ſɭʞɹ",
+		"mondSavitaCatsara": "j͐ʃэ j͑ʃ'ɔ ſ̀ȷᴜȝ ꞁȷ̀ᴜꞇ ʌ }ʃᴜ j͐ʃᴜ",
 		"mondQun2": "ſ͕ɭw }ʃɹ ʌ }ʃᴜ j͐ʃᴜ",
-		"ariaMondoRestauri": "ſɭᴜ j͐ʃᴜ",
-		"ariaMondoH2li": "֭ſɭɹͷ̗",
-		"ariaMondoDuobligi": "ſןw ſɟw ɭʃᴜ",
-		"butonoVetlaqiEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
-		"titoloHaku1o": "ſɭw ſᶘɜ",
-		"subtitoloHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
-		"butonoSono": "ʃɔ",
-		"butonoBruo": "ſȷᴜ ŋᷠᴜʞ",
-		"ariaLingvoButono": "ſ͔ɭᴜ ᶅſɔ",
-		"titoloLingvo": "ſ͔ɭᴜ ᶅſɔ"
+		"ariaNalaRestauri": "ſɭᴜ j͐ʃᴜ",
+		"ariaNalaH2li": "֭ſɭɹͷ̗",
+		"ariaNalaDuobligi": "ſןw ſɟw ɭʃᴜ",
+		"catsiinaVetlaqiEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
+		"hate2Haku1o": "ſɭw ſᶘɜ",
+		"ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
+		"catsiinaSono": "ʃɔ",
+		"catsiinaBruo": "ſȷᴜ ŋᷠᴜʞ",
+		"ariaGaweCatsiina": "ſ͔ɭᴜ ᶅſɔ",
+		"hate2Gawe": "ſ͔ɭᴜ ᶅſɔ"
 	},
 	eo: {
-		"titoloAranis": "Araniso",
-		"titoloKaxte": "Kajteo",
-		"subtitoloKaxte": "Ĥusa Lotao, Lamuza Kajteo",
+		"hate2Aranis": "Araniso",
+		"hate2Kaxte": "Kajteo",
+		"ksakat2xaKaxte": "Ĥusa Lotao, Lamuza Kajteo",
 		"eniri": "Eniri",
-		"butonoPromeni": "PROMENI",
-		"butonoOrbiti": "ORBITI",
-		"butonoHasoqte": "VESTARO",
-		"butonoHelpo": "Helpo",
-		"titoloTeksilo": "Teksilo",
-		"subtitoloTeksilo": "Sahakj ĉemizoj, c2naj manikoj, geles kaj akcenta.",
-		"titoloSxargxo": "Mondo",
-		"sxargxoSubskribo": "Ŝargado.",
-		"sxargxoSatalo": "Vepaqdo de satalaĵoj.",
-		"sxargxoNebulo": "Nebulo fluas tra la lota.",
+		"catsiinaPromeni": "PROMENI",
+		"catsiinaOrbiti": "ORBITI",
+		"catsiinaHasoqte": "VESTARO",
+		"catsiinaHelpo": "Helpo",
+		"hate2Teksilo": "Teksilo",
+		"ksakat2xaTeksilo": "Sahakj ĉemizoj, c2naj manikoj, main kaj akcenta.",
+		"hate2Sxargxo": "Nala",
+		"b6tem2Subskribo": "Ŝargado.",
+		"b6tem2Satalo": "Vepaqdo de satalaĵoj.",
+		"b6tem2Nebulo": "Nebulo fluas tra la valo.",
 		"kompasoNordo": "N",
 		"kamaOrbito": "Orbito",
-		"klavoTreni": "Treni",
+		"catlaqTreni": "Treni",
 		"kamaPromeno": "Promeni",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "Kuri",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "Salti",
-		"klavoSl6da": "Spaco",
+		"catlaqSl6da": "Spaco",
 		"kamaEniri": "Eniri paqn",
-		"klavoEniri": "E",
-		"kamaMapo": "Mapo",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "Bal2",
+		"catlaqBal2": "M",
 		"kamaEliri": "Eliri",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "Vefal notojn",
-		"klavoKlako": "Alklaki",
+		"catlaqKlako": "Alklaki",
 		"kamaKanuo": "Direkti",
 		"agoGusti": "Gusti",
 		"agoKuxi": "Kuŝi",
 		"agoLevi": "Leviĝi",
-		"titoloMapo": "Mapo",
-		"titoloHak6h6": "Hak6h6",
-		"subtitoloHelpo": "Urbaj notoj",
+		"hate2Bal2": "Bal2",
+		"hate2Hak6h6": "Hak6h6",
+		"ksakat2xaHelpo": "Urbaj hatsalii",
 		"caxlefkakaiP2d2": "Iu aliĝis.",
 		"caxlefkakaiSunta": "Iu foriris.",
 		"manĝPuss0": "Pusŝlefo-bero",
@@ -22008,78 +22001,78 @@ const skakefani = {
 		"manĝTla0Gusto": "Vinagro, lakto, mento kaj ŝaŭmtsasa.",
 		"manĝTla1Gusto": "Vinagro, kapsiko, juzuo, mento kaj ŝaŭmtsasa.",
 		"manĝTla2Gusto": "Vinagro, lam2v suko, mento kaj bergamota teo.",
-		"manĝPuss0Gusto": "Malvarmeta, akva krispo kun sukereta postgusto.",
+		"manĝPuss0Gusto": "Malvarmeta, tsasa krispo kun sukereta postgusto.",
 		"vepaqPriskriboKap2": "Kap2.",
 		"vepaqPriskriboGeqqa": "Restoracio.",
 		"vepaqPriskriboKasafeo": "Kunvenejo.",
-		"vepaqPriskriboStacioxipo": "Stacio.",
+		"vepaqPriskriboStacioxipo": "Ka5asexaz.",
 		"vepaqPriskriboTuro": "Nubskrapulo.",
-		"vepaqPriskriboSanktejo": "Centro.",
-		"kartoHavem2": "Tavoloj",
-		"kartoDiamanto": "Diamanto",
-		"kartoJes": "Jes",
-		"kartoNe": "Ne",
-		"kartoVepaqHunaq": "Hunaq",
-		"kartoXekuxa": "Xekuxa",
-		"titoloInqoxa": "Arazopuo",
-		"subtitoloInqoxa": "Vepaqĵoj, m7x, hapudal",
-		"ariaInqoxaButono": "Inhaqoxa",
-		"ariaPukxeiButono": "Pukxei",
-		"taboPaqj": "Vepaqĵoj",
-		"taboMangxajxoj": "Manĝaĵoj",
-		"taboHapudal": "Hapudal",
-		"grupoPaga": "Paga",
-		"pudalL2xkupukai": "Beroo",
-		"pudalPriskriboL2xkupukai": "Longforma kombomeduzo kun ok kombohax2pa.",
-		"pudalL2xcaxlefai": "L2xcaxlefaio",
-		"pudalPriskriboL2xcaxlefai": "C2q kombomeduzo kun kvar w6qaj loboj.",
+		"vepaqPriskriboSanktejo": "Sost2.",
+		"thalaHavem2": "Tavoloj",
+		"thalaDiamanto": "Diamanto",
+		"thalaJes": "Jes",
+		"thalaNe": "Ne",
+		"thalaVepaqHunaq": "Hunaq",
+		"thalaXekuxa": "Xekuxa",
+		"hate2Inqoxa": "Arazopuo",
+		"ksakat2xaInqoxa": "Vepaqĵoj, m7x, hapudal",
+		"ariaInqoxaCatsiina": "Inhaqoxa",
+		"ariaPukxeiCatsiina": "Pukxei",
+		"cax2lPaqj": "Vepaqĵoj",
+		"cax2lMangxajxoj": "Manĝaĵoj",
+		"cax2lHapudal": "Hapudal",
+		"hatePaga": "Paga",
+		"pudalLiixkupukai": "Beroo",
+		"pudalPriskriboLiixkupukai": "Longforma kombomeduzo kun ok kombohax2pa.",
+		"pudalLiixcaxlefai": "Liixcaxlefaio",
+		"pudalPriskriboLiixcaxlefai": "C2q kombomeduzo kun kvar w6qaj hal6ksabosai.",
 		"pudalPleŭrobrakia": "Pleŭrobrakio",
-		"pudalPriskriboPleŭrobrakia": "M2m2 c2q kombomeduzo kun du sahakj palpoj.",
+		"pudalPriskriboPleŭrobrakia": "Malgpukaz c2q kombomeduzo kun du sahakj palpoj.",
 		"pudalTq2wa": "Tq2wa",
 		"pudalPriskriboTq2wa": "Preskaŭ travidebla fiŝo sen hemoglobino.",
 		"pudalTolxu": "Tolxu",
 		"pudalPriskriboTolxu": "Eta mararaneo kun ok longegaj kruroj.",
 		"pudalNeĝotemek": "Neĝotemek",
-		"pudalPriskriboNeĝotemek": "Pura g2j6 marbirdo glitanta super la lago kaj la rivero.",
-		"grupoPlanto": "Planto",
+		"pudalPriskriboNeĝotemek": "Pura g2j6 marbirdo glitanta super la s2xuru kaj la k6si.",
+		"hatePlanto": "Planto",
 		"pudalBetulo": "Betulo",
 		"pudalPriskriboBetulo": "Cel2 kun g2j6 ligno.",
 		"pudalLariko": "Alpa taksal",
-		"pudalPriskriboLariko": "La alpa taksal ( Larix lyallii ), m2m2 alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
+		"pudalPriskriboLariko": "La alpa taksal ( Larix lyallii ), malgpukaz alpina konifero, kiu perdas siajn pinglojn aŭtune kaj orflaviĝas.",
 		"pudalTlexlefhxakai": "Ĥŝakŝlefo",
 		"pudalPriskriboTlexlefhxakai": "Asfa laktukcel2 kun kkaxtej slafj. Uzata por fari vinagron.",
 		"pudalTlexlefp2sai": "Pusŝlefo",
-		"pudalPriskriboTlexlefp2sai": "Fern-puf2 asfa laktukplanto kun travideblaj manĝeblaj beroj.",
+		"pudalPriskriboTlexlefp2sai": "Fern-pal6 asfa laktukplanto kun travideblaj manĝeblaj beroj.",
 		"pudalXabe": "Xabe",
-		"pudalPriskriboXabe": "Lha planto sur la arbara grundo.",
+		"pudalPriskriboXabe": "Lha xa3e sur la arbara mut6q.",
 		"pudalAsfaXabe": "Ŝafiŝlefo",
 		"pudalPriskriboAsfaXabe": "Alta asfa xabe de la ekstera qacel2.",
 		"pudalF2ma": "F2ma",
 		"pudalPriskriboF2ma": "Algoj kaj fungo. Umaseo.",
 		"pudalFe1af": "Fe1af",
-		"pudalPriskriboFe1af": "Fe1af simila al ciankolora planto.",
+		"pudalPriskriboFe1af": "Fe1af simila al ciankolora xa3e.",
 		"pudalC6x": "C6x",
-		"pudalPriskriboC6x": "Monteto, kiu fakte estas planto.",
+		"pudalPriskriboC6x": "Monteto, kiu fakte estas xa3e.",
 		"pudalCetkuo": "Cetkuo",
 		"pudalPriskriboCetkuo": "Lanuga equiseto praelta.",
 		"pudalCakeo": "Cakeo",
 		"pudalPriskriboCakeo": "Equisetum telmateia kiel osta nar2sa.",
-		"taboVestoj": "Vestoj",
-		"vestoWeh2Lhant": "Lha",
-		"vestoWeh2Hearth": "Bruna",
-		"vestoWeh2Mist": "G2j6",
-		"vestoWeh2Ember": "Ruĝa",
-		"vestoWeh2Azure": "Blua",
-		"vestoWeh2Violet": "Asfa",
-		"vestoWeh2Gilt": "Flava",
-		"vestoWeh2Rose": "Roza",
-		"vestoWeh2Obsidian": "Hunasai",
-		"vestoWeh2Cyan": "Cejana",
-		"taboHararo": "Hararo",
-		"tsaqSekcio": "Harhahaxe",
+		"cax2lHasoqte": "Hasoqte",
+		"soqteWeh2Lhant": "Lha",
+		"soqteWeh2Hearth": "Bruna",
+		"soqteWeh2Mist": "G2j6",
+		"soqteWeh2Ember": "Ruĝa",
+		"soqteWeh2Azure": "Blua",
+		"soqteWeh2Violet": "Asfa",
+		"soqteWeh2Gilt": "Flava",
+		"soqteWeh2Rose": "Roza",
+		"soqteWeh2Obsidian": "Hunasai",
+		"soqteWeh2Cyan": "Cejana",
+		"cax2lHararo": "Hararo",
+		"tsaqQaroxema": "Harstiloj",
 		"tsaqPsazai": "C2na",
-		"tsaqSahak": "Sahak",
-		"harWeh2Sekcio": "Har-haweh2",
+		"tsaqSahakani": "Sahakani",
+		"harWeh2Qaroxema": "Har-haweh2",
 		"harWeh2Bruna": "Bruna",
 		"harWeh2Hunasai": "Hunasai",
 		"harWeh2Ruĝeta": "Ruĝeta",
@@ -22087,74 +22080,73 @@ const skakefani = {
 		"harWeh2Blonda": "Blonda",
 		"harWeh2Griza": "Griza",
 		"muziko": "Muziko",
-		"ariaKrepuskoButono": "Krepusko",
+		"ariaKrepuskoCatsiina": "Krepusko",
 		"ariaKrepuskoKama": "Krepuska vem2",
-		"ariaVet6limaButono": "Vet6lima",
+		"ariaVet6limaCatsiina": "Vetero",
 		"vet6limaNebula": "Nebula",
 		"vet6limaPluva": "Pluva",
 		"vet6limaHajla": "Hajla",
 		"vet6limaNega": "Neĝa",
 		"webglNeSubtenata": "Via retumilo ne subtenas WebGL. Ĝisdatigu vian retumilon por sperti la l2han sperton.",
-		"webglDetalo": "Kajteo postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kamau viajn GPU-haku1o.",
+		"webglDetalo": "Kajteo postulas WebGL por funkcii. Ĝisdatigu vian retumilon aŭ kamau viajn GPU-hacatsaran.",
 		"webglReprovi": "Reprovi",
-		"ariaEniriMondon": "Eniri la mondon.",
-		"saxeiMondo": "Kf2 aŭ ŝargi mondon",
-		"mondTitolo": "Hanala",
-		"mondNomo": "Mondo",
-		"mondSxono": "Semo",
-		"butonoKf2Mondon": "Kf2",
-		"mondSavitaListo": "Vetlaqitaj hanala",
+		"ariaEniriNala": "Eniri la nala.",
+		"saxeiNala": "Kf2 aŭ ŝargi nala",
+		"mondKsaka": "Hanala",
+		"mondSxono": "Ruva",
+		"catsiinaKf2Nala": "Kf2",
+		"mondSavitaCatsara": "Vetlaqitaj hanala",
 		"mondQun2": "Ankoraŭ neniuj vetlaqitaj hanala",
-		"ariaMondoRestauri": "Daŭrigi",
-		"ariaMondoH2li": "H2li",
-		"ariaMondoDuobligi": "Duobligi",
-		"butonoVetlaqiEliri": "Vetlaqi kaj eliri el la mondo.",
-		"titoloHaku1o": "Haku1o",
-		"subtitoloHaku1o": "Lingvo, sono, muziko, hasoqte.",
-		"butonoSono": "Sono",
-		"butonoBruo": "Fona famaf",
-		"ariaLingvoButono": "Lingvo",
-		"titoloLingvo": "Lingvo"
+		"ariaNalaRestauri": "Daŭrigi",
+		"ariaNalaH2li": "H2li",
+		"ariaNalaDuobligi": "Duobligi",
+		"catsiinaVetlaqiEliri": "Vetlaqi kaj eliri el la nala.",
+		"hate2Haku1o": "Hacatsara",
+		"ksakat2xaHaku1o": "Gawe, bole, muziko, vestaro.",
+		"catsiinaSono": "Bole",
+		"catsiinaBruo": "Fona famaf",
+		"ariaGaweCatsiina": "Gawe",
+		"hate2Gawe": "Gawe"
 	},
 	en: {
-		"titoloAranis": "Aranis",
-		"titoloKaxte": "Kajiite",
-		"subtitoloKaxte": "Khiss Lhota, Lhammithai Kayitteh",
+		"hate2Aranis": "Aranis",
+		"hate2Kaxte": "Kajiite",
+		"ksakat2xaKaxte": "Khiss Lhota, Lhammithai Kayitteh",
 		"eniri": "Enter",
-		"butonoPromeni": "Walk",
-		"butonoOrbiti": "Orbit",
-		"butonoHasoqte": "Wardrobe",
-		"butonoHelpo": "Help",
-		"titoloTeksilo": "Loom",
-		"subtitoloTeksilo": "Long shirts, Short sleeves, Main and accent.",
-		"titoloSxargxo": "World",
-		"sxargxoSubskribo": "Loading.",
-		"sxargxoSatalo": "Constructing satals.",
-		"sxargxoNebulo": "Mist flows through the valley.",
+		"catsiinaPromeni": "Walk",
+		"catsiinaOrbiti": "Orbit",
+		"catsiinaHasoqte": "Wardrobe",
+		"catsiinaHelpo": "Help",
+		"hate2Teksilo": "Loom",
+		"ksakat2xaTeksilo": "Long shirts, Short sleeves, Geles and accent.",
+		"hate2Sxargxo": "World",
+		"b6tem2Subskribo": "Loading.",
+		"b6tem2Satalo": "Constructing satals.",
+		"b6tem2Nebulo": "Mist flows through the valley.",
 		"kompasoNordo": "N",
 		"kamaOrbito": "Orbit",
-		"klavoTreni": "Drag",
+		"catlaqTreni": "Drag",
 		"kamaPromeno": "Walk",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "Run",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "Jump",
-		"klavoSl6da": "Space",
+		"catlaqSl6da": "Space",
 		"kamaEniri": "Enter building",
-		"klavoEniri": "E",
-		"kamaMapo": "Map",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "Map",
+		"catlaqBal2": "M",
 		"kamaEliri": "Exit",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "Read notes",
-		"klavoKlako": "Click",
+		"catlaqKlako": "Click",
 		"kamaKanuo": "Steer",
 		"agoGusti": "Eat",
 		"agoKuxi": "Lie down",
 		"agoLevi": "Get up",
-		"titoloMapo": "Map",
-		"titoloHak6h6": "Paths",
-		"subtitoloHelpo": "City notes",
+		"hate2Bal2": "Map",
+		"hate2Hak6h6": "Paths",
+		"ksakat2xaHelpo": "City notes",
 		"caxlefkakaiP2d2": "Someone joined.",
 		"caxlefkakaiSunta": "Someone left.",
 		"manĝPuss0": "Shlef Piisu berry",
@@ -22171,24 +22163,24 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "Station.",
 		"vepaqPriskriboTuro": "Skyscraper.",
 		"vepaqPriskriboSanktejo": "Center building.",
-		"kartoHavem2": "Layers",
-		"kartoDiamanto": "Diamond",
-		"kartoJes": "Yes",
-		"kartoNe": "No",
-		"kartoVepaqHunaq": "Type",
-		"kartoXekuxa": "Position",
-		"titoloInqoxa": "Aravopii",
-		"subtitoloInqoxa": "Buildings, Food, Species",
-		"ariaInqoxaButono": "Information",
-		"ariaPukxeiButono": "Close",
-		"taboPaqj": "Buildings",
-		"taboMangxajxoj": "Food",
-		"taboHapudal": "Species",
-		"grupoPaga": "Animal",
-		"pudalL2xkupukai": "L2xkupukai",
-		"pudalPriskriboL2xkupukai": "An esahakte comb jelly with eight comb rows.",
-		"pudalL2xcaxlefai": "L2xcaxlefai",
-		"pudalPriskriboL2xcaxlefai": "A round comb jelly with four oral lobes.",
+		"thalaHavem2": "Layers",
+		"thalaDiamanto": "Diamond",
+		"thalaJes": "Yes",
+		"thalaNe": "No",
+		"thalaVepaqHunaq": "Type",
+		"thalaXekuxa": "Position",
+		"hate2Inqoxa": "Aravopii",
+		"ksakat2xaInqoxa": "Buildings, Food, Species",
+		"ariaInqoxaCatsiina": "Information",
+		"ariaPukxeiCatsiina": "Close",
+		"cax2lPaqj": "Buildings",
+		"cax2lMangxajxoj": "Food",
+		"cax2lHapudal": "Species",
+		"hatePaga": "Animal",
+		"pudalLiixkupukai": "Liixkupukai",
+		"pudalPriskriboLiixkupukai": "An esahakte comb jelly with eight comb rows.",
+		"pudalLiixcaxlefai": "Liixcaxlefai",
+		"pudalPriskriboLiixcaxlefai": "A round comb jelly with four oral lobes.",
 		"pudalPleŭrobrakia": "Pleurobrachia",
 		"pudalPriskriboPleŭrobrakia": "A small round comb jelly with two long palps.",
 		"pudalTq2wa": "Icefish",
@@ -22197,7 +22189,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "A tiny sea spider with eight long legs.",
 		"pudalNeĝotemek": "Snow petrel",
 		"pudalPriskriboNeĝotemek": "A pure white seabird gliding over the lake and the river.",
-		"grupoPlanto": "Plant",
+		"hatePlanto": "Plant",
 		"pudalBetulo": "Birch",
 		"pudalPriskriboBetulo": "A tree with white wood.",
 		"pudalLariko": "Alpine larch",
@@ -22220,22 +22212,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "Fluffy equisetum praeltum.",
 		"pudalCakeo": "Tsakeh",
 		"pudalPriskriboCakeo": "Equisetum telmateia like a boney tail.",
-		"taboVestoj": "Clothing",
-		"vestoWeh2Lhant": "Green",
-		"vestoWeh2Hearth": "Brown",
-		"vestoWeh2Mist": "White",
-		"vestoWeh2Ember": "Red",
-		"vestoWeh2Azure": "Blue",
-		"vestoWeh2Violet": "Purple",
-		"vestoWeh2Gilt": "Yellow",
-		"vestoWeh2Rose": "Pink",
-		"vestoWeh2Obsidian": "Black",
-		"vestoWeh2Cyan": "Cyan",
-		"taboHararo": "Hair",
-		"tsaqSekcio": "Hair styles",
+		"cax2lHasoqte": "Clothing",
+		"soqteWeh2Lhant": "Green",
+		"soqteWeh2Hearth": "Brown",
+		"soqteWeh2Mist": "White",
+		"soqteWeh2Ember": "Red",
+		"soqteWeh2Azure": "Blue",
+		"soqteWeh2Violet": "Purple",
+		"soqteWeh2Gilt": "Yellow",
+		"soqteWeh2Rose": "Pink",
+		"soqteWeh2Obsidian": "Black",
+		"soqteWeh2Cyan": "Cyan",
+		"cax2lHararo": "Hair",
+		"tsaqQaroxema": "Hair styles",
 		"tsaqPsazai": "Short",
-		"tsaqSahak": "Long",
-		"harWeh2Sekcio": "Hair colors",
+		"tsaqSahakani": "Long",
+		"harWeh2Qaroxema": "Hair colors",
 		"harWeh2Bruna": "Brown",
 		"harWeh2Hunasai": "Black",
 		"harWeh2Ruĝeta": "Auburn",
@@ -22243,9 +22235,9 @@ const skakefani = {
 		"harWeh2Blonda": "Blonde",
 		"harWeh2Griza": "Gray",
 		"muziko": "Music",
-		"ariaKrepuskoButono": "Dusk",
+		"ariaKrepuskoCatsiina": "Dusk",
 		"ariaKrepuskoKama": "Dusk level",
-		"ariaVet6limaButono": "Weather",
+		"ariaVet6limaCatsiina": "Weather",
 		"vet6limaNebula": "Foggy",
 		"vet6limaPluva": "Rainy",
 		"vet6limaHajla": "Hail",
@@ -22253,64 +22245,63 @@ const skakefani = {
 		"webglNeSubtenata": "Your browser does not support WebGL. Update your browser for the full experience.",
 		"webglDetalo": "Kajiite requires WebGL to run. Please update your browser or check your GPU settings.",
 		"webglReprovi": "Retry",
-		"ariaEniriMondon": "Enter the main world.",
-		"saxeiMondo": "Generate or load a world",
-		"mondTitolo": "Worlds",
-		"mondNomo": "World",
+		"ariaEniriNala": "Enter the main world.",
+		"saxeiNala": "Generate or load a world",
+		"mondKsaka": "Worlds",
 		"mondSxono": "Seed",
-		"butonoKf2Mondon": "Generate",
-		"mondSavitaListo": "Saved worlds",
+		"catsiinaKf2Nala": "Generate",
+		"mondSavitaCatsara": "Saved worlds",
 		"mondQun2": "No saved worlds yet",
-		"ariaMondoRestauri": "Resume",
-		"ariaMondoH2li": "Delete",
-		"ariaMondoDuobligi": "Duplicate",
-		"butonoVetlaqiEliri": "Save and exit world.",
-		"titoloHaku1o": "Settings",
-		"subtitoloHaku1o": "Language, sound, music, wardrobe.",
-		"butonoSono": "Sound",
-		"butonoBruo": "Background noise",
-		"ariaLingvoButono": "Language",
-		"titoloLingvo": "Language"
+		"ariaNalaRestauri": "Resume",
+		"ariaNalaH2li": "Delete",
+		"ariaNalaDuobligi": "Duplicate",
+		"catsiinaVetlaqiEliri": "Save and exit world.",
+		"hate2Haku1o": "Settings",
+		"ksakat2xaHaku1o": "Language, sound, music, wardrobe.",
+		"catsiinaSono": "Sound",
+		"catsiinaBruo": "Background noise",
+		"ariaGaweCatsiina": "Language",
+		"hate2Gawe": "Language"
 	},
 	ja: {
-		"titoloAranis": "アラニス",
-		"titoloKaxte": "カユウテ",
-		"subtitoloKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
+		"hate2Aranis": "アラニス",
+		"hate2Kaxte": "カユウテ",
+		"ksakat2xaKaxte": "ロタ・ウホウス、ラムウスア・カシテ",
 		"eniri": "入る",
-		"butonoPromeni": "歩く",
-		"butonoOrbiti": "周回",
-		"butonoHasoqte": "ワードローブ",
-		"butonoHelpo": "ヘルプ",
-		"titoloTeksilo": "ザ・ルーム",
-		"subtitoloTeksilo": "長いシャツ、短い袖、メインとアクセント。",
-		"titoloSxargxo": "ワールド",
-		"sxargxoSubskribo": "建設中。",
-		"sxargxoSatalo": "サタルを建設中。",
-		"sxargxoNebulo": "霧が谷を流れる。",
+		"catsiinaPromeni": "歩く",
+		"catsiinaOrbiti": "周回",
+		"catsiinaHasoqte": "ワードローブ",
+		"catsiinaHelpo": "ヘルプ",
+		"hate2Teksilo": "ザ・ルーム",
+		"ksakat2xaTeksilo": "長いシャツ、短い袖、メインとアクセント。",
+		"hate2Sxargxo": "ワールド",
+		"b6tem2Subskribo": "建設中。",
+		"b6tem2Satalo": "サタルを建設中。",
+		"b6tem2Nebulo": "霧が谷を流れる。",
 		"kompasoNordo": "北",
 		"kamaOrbito": "周回",
-		"klavoTreni": "ドラッグ",
+		"catlaqTreni": "ドラッグ",
 		"kamaPromeno": "歩く",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "走る",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "ジャンプ",
-		"klavoSl6da": "Space",
+		"catlaqSl6da": "Space",
 		"kamaEniri": "建物に入る",
-		"klavoEniri": "E",
-		"kamaMapo": "地図",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "地図",
+		"catlaqBal2": "M",
 		"kamaEliri": "出る",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "尖塔のノートを読む",
-		"klavoKlako": "クリック",
+		"catlaqKlako": "クリック",
 		"kamaKanuo": "操縦",
 		"agoGusti": "味見",
 		"agoKuxi": "横になる",
 		"agoLevi": "起きる",
-		"titoloMapo": "地図",
-		"titoloHak6h6": "道",
-		"subtitoloHelpo": "街のノート",
+		"hate2Bal2": "地図",
+		"hate2Hak6h6": "道",
+		"ksakat2xaHelpo": "街のノート",
 		"caxlefkakaiP2d2": "誰かが加わりました。",
 		"caxlefkakaiSunta": "誰かが去りました。",
 		"manĝPuss0": "ピクセトレシレフプウスア",
@@ -22333,24 +22324,24 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "駅。",
 		"vepaqPriskriboTuro": "超高層建築。",
 		"vepaqPriskriboSanktejo": "中心。",
-		"kartoHavem2": "階層",
-		"kartoDiamanto": "ダイヤ",
-		"kartoJes": "有",
-		"kartoNe": "無",
-		"kartoVepaqHunaq": "種類",
-		"kartoXekuxa": "位置",
-		"titoloInqoxa": "情報",
-		"subtitoloInqoxa": "建物、食べ物、種族",
-		"ariaInqoxaButono": "情報を開く",
-		"ariaPukxeiButono": "閉じる",
-		"taboPaqj": "建物",
-		"taboMangxajxoj": "食べ物",
-		"taboHapudal": "種族",
-		"grupoPaga": "動物",
-		"pudalL2xkupukai": "ベロー",
-		"pudalPriskriboL2xkupukai": "細長い有櫛動物。八列の櫛を持つ。",
-		"pudalL2xcaxlefai": "ネミオプシス",
-		"pudalPriskriboL2xcaxlefai": "四つの口葉を持つ丸い有櫛動物。",
+		"thalaHavem2": "階層",
+		"thalaDiamanto": "ダイヤ",
+		"thalaJes": "有",
+		"thalaNe": "無",
+		"thalaVepaqHunaq": "種類",
+		"thalaXekuxa": "位置",
+		"hate2Inqoxa": "情報",
+		"ksakat2xaInqoxa": "建物、食べ物、種族",
+		"ariaInqoxaCatsiina": "情報を開く",
+		"ariaPukxeiCatsiina": "閉じる",
+		"cax2lPaqj": "建物",
+		"cax2lMangxajxoj": "食べ物",
+		"cax2lHapudal": "種族",
+		"hatePaga": "動物",
+		"pudalLiixkupukai": "ベロー",
+		"pudalPriskriboLiixkupukai": "細長い有櫛動物。八列の櫛を持つ。",
+		"pudalLiixcaxlefai": "ネミオプシス",
+		"pudalPriskriboLiixcaxlefai": "四つの口葉を持つ丸い有櫛動物。",
 		"pudalPleŭrobrakia": "プレウロブラキア",
 		"pudalPriskriboPleŭrobrakia": "二本の長い触手を持つ小さな丸い有櫛動物。",
 		"pudalTq2wa": "氷魚",
@@ -22359,7 +22350,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "八本の長い脚を持つ小さなウミグモ。",
 		"pudalNeĝotemek": "ユキドリ",
 		"pudalPriskriboNeĝotemek": "湖と川の上を滑空する真っ白な海鳥。",
-		"grupoPlanto": "植物",
+		"hatePlanto": "植物",
 		"pudalBetulo": "カバノキ",
 		"pudalPriskriboBetulo": "白い木材を持つ木。",
 		"pudalLariko": "アルプスカラマツ",
@@ -22382,22 +22373,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "ふわふわしたトクサ（Equisetum praeltum）。",
 		"pudalCakeo": "ツァケ",
 		"pudalPriskriboCakeo": "骨のような尾を持つトクサ（Equisetum telmateia）。",
-		"taboVestoj": "服",
-		"vestoWeh2Lhant": "緑",
-		"vestoWeh2Hearth": "茶色",
-		"vestoWeh2Mist": "白",
-		"vestoWeh2Ember": "赤",
-		"vestoWeh2Azure": "青",
-		"vestoWeh2Violet": "紫",
-		"vestoWeh2Gilt": "黄",
-		"vestoWeh2Rose": "桃色",
-		"vestoWeh2Obsidian": "黒",
-		"vestoWeh2Cyan": "シアン",
-		"taboHararo": "髪",
-		"tsaqSekcio": "髪型",
+		"cax2lHasoqte": "服",
+		"soqteWeh2Lhant": "緑",
+		"soqteWeh2Hearth": "茶色",
+		"soqteWeh2Mist": "白",
+		"soqteWeh2Ember": "赤",
+		"soqteWeh2Azure": "青",
+		"soqteWeh2Violet": "紫",
+		"soqteWeh2Gilt": "黄",
+		"soqteWeh2Rose": "桃色",
+		"soqteWeh2Obsidian": "黒",
+		"soqteWeh2Cyan": "シアン",
+		"cax2lHararo": "髪",
+		"tsaqQaroxema": "髪型",
 		"tsaqPsazai": "ショート",
-		"tsaqSahak": "ロング",
-		"harWeh2Sekcio": "髪の色",
+		"tsaqSahakani": "ロング",
+		"harWeh2Qaroxema": "髪の色",
 		"harWeh2Bruna": "茶色",
 		"harWeh2Hunasai": "黒",
 		"harWeh2Ruĝeta": "赤茶",
@@ -22405,9 +22396,9 @@ const skakefani = {
 		"harWeh2Blonda": "金髪",
 		"harWeh2Griza": "グレー",
 		"muziko": "音楽",
-		"ariaKrepuskoButono": "夕暮れモードを切り替え",
+		"ariaKrepuskoCatsiina": "夕暮れモードを切り替え",
 		"ariaKrepuskoKama": "夕暮れのレベル",
-		"ariaVet6limaButono": "天気",
+		"ariaVet6limaCatsiina": "天気",
 		"vet6limaNebula": "霧",
 		"vet6limaPluva": "雨",
 		"vet6limaHajla": "雹",
@@ -22415,64 +22406,63 @@ const skakefani = {
 		"webglNeSubtenata": "お使いのブラウザはWebGLをサポートしていません。ブラウザを更新してください。",
 		"webglDetalo": "カジーテはWebGLが必要です。ブラウザを更新するか、GPU設定を確認してください。",
 		"webglReprovi": "再試行",
-		"ariaEniriMondon": "メインワールドに入る。",
-		"saxeiMondo": "ワールドを作成または読み込む",
-		"mondTitolo": "ワールド",
-		"mondNomo": "ワールド",
+		"ariaEniriNala": "メインワールドに入る。",
+		"saxeiNala": "ワールドを作成または読み込む",
+		"mondKsaka": "ワールド",
 		"mondSxono": "シード",
-		"butonoKf2Mondon": "作成",
-		"mondSavitaListo": "保存済みワールド",
+		"catsiinaKf2Nala": "作成",
+		"mondSavitaCatsara": "保存済みワールド",
 		"mondQun2": "保存されたワールドはまだありません",
-		"ariaMondoRestauri": "再開",
-		"ariaMondoH2li": "削除",
-		"ariaMondoDuobligi": "複製",
-		"butonoVetlaqiEliri": "保存してワールドから出る。",
-		"titoloHaku1o": "設定",
-		"subtitoloHaku1o": "言語、音、音楽、ワードローブ。",
-		"butonoSono": "音",
-		"butonoBruo": "背景ノイズ",
-		"ariaLingvoButono": "言語",
-		"titoloLingvo": "言語"
+		"ariaNalaRestauri": "再開",
+		"ariaNalaH2li": "削除",
+		"ariaNalaDuobligi": "複製",
+		"catsiinaVetlaqiEliri": "保存してワールドから出る。",
+		"hate2Haku1o": "設定",
+		"ksakat2xaHaku1o": "言語、音、音楽、ワードローブ。",
+		"catsiinaSono": "音",
+		"catsiinaBruo": "背景ノイズ",
+		"ariaGaweCatsiina": "言語",
+		"hate2Gawe": "言語"
 	},
 	km: {
-		"titoloAranis": "អារានីស",
-		"titoloKaxte": "កាយិតេ",
-		"subtitoloKaxte": "លុតា-អិហិស, លាមិថឺ-កាឆតេ",
+		"hate2Aranis": "អារានីស",
+		"hate2Kaxte": "កាយិតេ",
+		"ksakat2xaKaxte": "លុតា-អិហិស, លាមិថឺ-កាឆតេ",
 		"eniri": "ចូល",
-		"butonoPromeni": "ដើរ",
-		"butonoOrbiti": "ទស្សនា",
-		"butonoHasoqte": "សម្លៀកបំពាក់",
-		"butonoHelpo": "ជំនួយ",
-		"titoloTeksilo": "តម្បាញ",
-		"subtitoloTeksilo": "អាវវែង, ដៃខ្លី, ពណ៌ចម្បង និង ពណ៌បន្ទាប់។",
-		"titoloSxargxo": "ពិភពលោក",
-		"sxargxoSubskribo": "កំពុងសាងសង់។",
-		"sxargxoSatalo": "ហ្សីហ្គូរ៉ាត់កំពុងឡើង។",
-		"sxargxoNebulo": "អ័ព្ទហូរកាត់ជ្រលង។",
+		"catsiinaPromeni": "ដើរ",
+		"catsiinaOrbiti": "ទស្សនា",
+		"catsiinaHasoqte": "សម្លៀកបំពាក់",
+		"catsiinaHelpo": "ជំនួយ",
+		"hate2Teksilo": "តម្បាញ",
+		"ksakat2xaTeksilo": "អាវវែង, ដៃខ្លី, ពណ៌ចម្បង និង ពណ៌បន្ទាប់។",
+		"hate2Sxargxo": "ពិភពលោក",
+		"b6tem2Subskribo": "កំពុងសាងសង់។",
+		"b6tem2Satalo": "ហ្សីហ្គូរ៉ាត់កំពុងឡើង។",
+		"b6tem2Nebulo": "អ័ព្ទហូរកាត់ជ្រលង។",
 		"kompasoNordo": "ជ",
 		"kamaOrbito": "ទស្សនា",
-		"klavoTreni": "អូស",
+		"catlaqTreni": "អូស",
 		"kamaPromeno": "ដើរ",
-		"klavoPromeno": "WASD",
+		"catlaqPromeno": "WASD",
 		"kamaMovado": "រត់",
-		"klavoKuro": "Shift",
+		"catlaqKuro": "Shift",
 		"kamaSl6da": "លោត",
-		"klavoSl6da": "Space",
+		"catlaqSl6da": "Space",
 		"kamaEniri": "ចូលអាគារ",
-		"klavoEniri": "E",
-		"kamaMapo": "ផែនទី",
-		"klavoMapo": "M",
+		"catlaqEniri": "E",
+		"kamaBal2": "ផែនទី",
+		"catlaqBal2": "M",
 		"kamaEliri": "ចេញ",
-		"klavoEliri": "Esc",
+		"catlaqEliri": "Esc",
 		"kamaSpajroj": "អានកំណត់ត្រានៅប៉ម",
-		"klavoKlako": "ចុច",
+		"catlaqKlako": "ចុច",
 		"kamaKanuo": "បញ្ជា",
 		"agoGusti": "ភ្លក់",
 		"agoKuxi": "ដេក",
 		"agoLevi": "ក្រោក",
-		"titoloMapo": "ផែនទី",
-		"titoloHak6h6": "ផ្លូវ",
-		"subtitoloHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
+		"hate2Bal2": "ផែនទី",
+		"hate2Hak6h6": "ផ្លូវ",
+		"ksakat2xaHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
 		"caxlefkakaiP2d2": "នរណាម្នាក់បានចូលរួម។",
 		"caxlefkakaiSunta": "នរណាម្នាក់បានចាកចេញ។",
 		"manĝPuss0": "ពីកសេត្លេឆលេផពិសឺ",
@@ -22495,24 +22485,24 @@ const skakefani = {
 		"vepaqPriskriboStacioxipo": "ស្ថានីយ។",
 		"vepaqPriskriboTuro": "អគារខ្ពស់។",
 		"vepaqPriskriboSanktejo": "មជ្ឈមណ្ឌល។",
-		"kartoHavem2": "ជាន់",
-		"kartoDiamanto": "ពេជ្រ",
-		"kartoJes": "បាទ",
-		"kartoNe": "ទេ",
-		"kartoVepaqHunaq": "ប្រភេទ",
-		"kartoXekuxa": "ទីតាំង",
-		"titoloInqoxa": "ព័ត៌មាន",
-		"subtitoloInqoxa": "អាគារ, អាហារ, ប្រភេទ",
-		"ariaInqoxaButono": "បើកព័ត៌មាន",
-		"ariaPukxeiButono": "បិទ",
-		"taboPaqj": "អាគារ",
-		"taboMangxajxoj": "អាហារ",
-		"taboHapudal": "ប្រភេទ",
-		"grupoPaga": "សត្វ",
-		"pudalL2xkupukai": "បេរ៉ូ",
-		"pudalPriskriboL2xkupukai": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
-		"pudalL2xcaxlefai": "នេមីអូបស៊ីស",
-		"pudalPriskriboL2xcaxlefai": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
+		"thalaHavem2": "ជាន់",
+		"thalaDiamanto": "ពេជ្រ",
+		"thalaJes": "បាទ",
+		"thalaNe": "ទេ",
+		"thalaVepaqHunaq": "ប្រភេទ",
+		"thalaXekuxa": "ទីតាំង",
+		"hate2Inqoxa": "ព័ត៌មាន",
+		"ksakat2xaInqoxa": "អាគារ, អាហារ, ប្រភេទ",
+		"ariaInqoxaCatsiina": "បើកព័ត៌មាន",
+		"ariaPukxeiCatsiina": "បិទ",
+		"cax2lPaqj": "អាគារ",
+		"cax2lMangxajxoj": "អាហារ",
+		"cax2lHapudal": "ប្រភេទ",
+		"hatePaga": "សត្វ",
+		"pudalLiixkupukai": "បេរ៉ូ",
+		"pudalPriskriboLiixkupukai": "ចាហួយសិតរាងវែង មានជួរសិតប្រាំបី។",
+		"pudalLiixcaxlefai": "នេមីអូបស៊ីស",
+		"pudalPriskriboLiixcaxlefai": "ចាហួយសិតរាងមូល មានកំពូលមាត់បួន។",
 		"pudalPleŭrobrakia": "ប្លឿរ៉ូប្រាគីអា",
 		"pudalPriskriboPleŭrobrakia": "ចាហួយសិតមូលតូច មានអង់តែនវែងពីរ។",
 		"pudalTq2wa": "ត្រីទឹកកក",
@@ -22521,7 +22511,7 @@ const skakefani = {
 		"pudalPriskriboTolxu": "ពីងពាងសមុទ្រតូច មានជើងវែងប្រាំបី។",
 		"pudalNeĝotemek": "បក្សីព្រិល",
 		"pudalPriskriboNeĝotemek": "សត្វសមុទ្រពណ៌សសុទ្ធ ហើរពីលើបឹង និងទន្លេ។",
-		"grupoPlanto": "រុក្ខជាតិ",
+		"hatePlanto": "រុក្ខជាតិ",
 		"pudalBetulo": "លាមិថ",
 		"pudalPriskriboBetulo": "ដើមឈើដែលមានឈើពណ៌ស។",
 		"pudalLariko": "តាកសាល",
@@ -22544,22 +22534,22 @@ const skakefani = {
 		"pudalPriskriboCetkuo": "រុក្ខជាតិឡើងសំបកទន់ ( Equisetum praeltum )។",
 		"pudalCakeo": "ត្សាកេ",
 		"pudalPriskriboCakeo": "រុក្ខជាតិដូចជាកន្ទុយឆ្អឹង ( Equisetum telmateia )។",
-		"taboVestoj": "សម្លៀកបំពាក់",
-		"vestoWeh2Lhant": "ពណ៌បៃតង",
-		"vestoWeh2Hearth": "ពណ៌ត្នោត",
-		"vestoWeh2Mist": "ពណ៌ស",
-		"vestoWeh2Ember": "ពណ៌ក្រហម",
-		"vestoWeh2Azure": "ពណ៌ខៀវ",
-		"vestoWeh2Violet": "ពណ៌ស្វាយ",
-		"vestoWeh2Gilt": "ពណ៌លឿង",
-		"vestoWeh2Rose": "ពណ៌ផ្កាឈូក",
-		"vestoWeh2Obsidian": "ពណ៌ខ្មៅ",
-		"vestoWeh2Cyan": "ពណ៌ស៊ីអាន",
-		"taboHararo": "សក់",
-		"tsaqSekcio": "ម៉ូដសក់",
+		"cax2lHasoqte": "សម្លៀកបំពាក់",
+		"soqteWeh2Lhant": "ពណ៌បៃតង",
+		"soqteWeh2Hearth": "ពណ៌ត្នោត",
+		"soqteWeh2Mist": "ពណ៌ស",
+		"soqteWeh2Ember": "ពណ៌ក្រហម",
+		"soqteWeh2Azure": "ពណ៌ខៀវ",
+		"soqteWeh2Violet": "ពណ៌ស្វាយ",
+		"soqteWeh2Gilt": "ពណ៌លឿង",
+		"soqteWeh2Rose": "ពណ៌ផ្កាឈូក",
+		"soqteWeh2Obsidian": "ពណ៌ខ្មៅ",
+		"soqteWeh2Cyan": "ពណ៌ស៊ីអាន",
+		"cax2lHararo": "សក់",
+		"tsaqQaroxema": "ម៉ូដសក់",
 		"tsaqPsazai": "ខ្លី",
-		"tsaqSahak": "វែង",
-		"harWeh2Sekcio": "ពណ៌សក់",
+		"tsaqSahakani": "វែង",
+		"harWeh2Qaroxema": "ពណ៌សក់",
 		"harWeh2Bruna": "ត្នោត",
 		"harWeh2Hunasai": "ខ្មៅ",
 		"harWeh2Ruĝeta": "ក្រហមឆ្អៅ",
@@ -22567,9 +22557,9 @@ const skakefani = {
 		"harWeh2Blonda": "ទង់ដែង",
 		"harWeh2Griza": "ប្រផេះ",
 		"muziko": "តន្ត្រី",
-		"ariaKrepuskoButono": "ប្តូររបៀបព្រលប់",
+		"ariaKrepuskoCatsiina": "ប្តូររបៀបព្រលប់",
 		"ariaKrepuskoKama": "កម្រិតព្រលប់",
-		"ariaVet6limaButono": "អាកាសធាតុ",
+		"ariaVet6limaCatsiina": "អាកាសធាតុ",
 		"vet6limaNebula": "អ័ព្ទ",
 		"vet6limaPluva": "ភ្លៀង",
 		"vet6limaHajla": "ព្រិលកក",
@@ -22577,35 +22567,34 @@ const skakefani = {
 		"webglNeSubtenata": "កម្មវិធីរុករករបស់អ្នកមិនគាំទ្រ WebGL ទេ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នកសម្រាប់បទពិសោធន៍ពេញលេញ។",
 		"webglDetalo": "កាជីតេ ត្រូវការ WebGL ដើម្បីដំណើរការ។ សូមធ្វើបច្ចុប្បន្នភាពកម្មវិធីរុករករបស់អ្នក ឬពិនិត្យការកំណត់ GPU របស់អ្នក។",
 		"webglReprovi": "ព្យាយាមម្តងទៀត",
-		"ariaEniriMondon": "ចូលពិភពលោកចម្បង។",
-		"saxeiMondo": "បង្កើត ឬ ផ្ទុកពិភពលោក",
-		"mondTitolo": "ពិភពលោក",
-		"mondNomo": "ពិភពលោក",
+		"ariaEniriNala": "ចូលពិភពលោកចម្បង។",
+		"saxeiNala": "បង្កើត ឬ ផ្ទុកពិភពលោក",
+		"mondKsaka": "ពិភពលោក",
 		"mondSxono": "ពូជ",
-		"butonoKf2Mondon": "បង្កើត",
-		"mondSavitaListo": "ពិភពលោកដែលបានរក្ទក់",
+		"catsiinaKf2Nala": "បង្កើត",
+		"mondSavitaCatsara": "ពិភពលោកដែលបានរក្ទក់",
 		"mondQun2": "មិនទាន់មានពិភពលោកដែលបានរក្ទក់ទេ",
-		"ariaMondoRestauri": "បន្ត",
-		"ariaMondoH2li": "លុប",
-		"ariaMondoDuobligi": "ចម្លង",
-		"butonoVetlaqiEliri": "រក្ទក់ និង ចេញពីពិភពលោក។",
-		"titoloHaku1o": "ការកំណត់",
-		"subtitoloHaku1o": "ភាសា, សំឡេង, តន្ត្រី, សម្លៀកបំពាក់។",
-		"butonoSono": "សំឡេង",
-		"butonoBruo": "សំឡេងផ្ទៃខាងក្រោយ",
-		"ariaLingvoButono": "ភាសា",
-		"titoloLingvo": "ភាសា"
+		"ariaNalaRestauri": "បន្ត",
+		"ariaNalaH2li": "លុប",
+		"ariaNalaDuobligi": "ចម្លង",
+		"catsiinaVetlaqiEliri": "រក្ទក់ និង ចេញពីពិភពលោក។",
+		"hate2Haku1o": "ការកំណត់",
+		"ksakat2xaHaku1o": "ភាសា, សំឡេង, តន្ត្រី, សម្លៀកបំពាក់។",
+		"catsiinaSono": "សំឡេង",
+		"catsiinaBruo": "សំឡេងផ្ទៃខាងក្រោយ",
+		"ariaGaweCatsiina": "ភាសា",
+		"hate2Gawe": "ភាសា"
 	}
 };
-const LINGK6H6 = [
+const Hagawe = [
 	"aih",
 	"eo",
 	"en",
 	"ja",
 	"km"
 ];
-let aktivaLingvo = "aih";
-const SPECIFIKAJ_PLANTNOMOJ = /* @__PURE__ */ new Set([
+let tikGawe = "aih";
+const G6ZXA3EKSKAOJ = /* @__PURE__ */ new Set([
 	"pudalBetulo",
 	"pudalLariko",
 	"pudalTlexlefhxakai",
@@ -22618,7 +22607,7 @@ const SPECIFIKAJ_PLANTNOMOJ = /* @__PURE__ */ new Set([
 	"pudalCetkuo",
 	"pudalCakeo"
 ]);
-const KONSTRUAJ_NOMOJ = /* @__PURE__ */ new Set([
+const VEPAQKSKAOJ = /* @__PURE__ */ new Set([
 	"vepaqHunaqKap2",
 	"vepaqHunaqGeqqa",
 	"vepaqHunaqKasafeo",
@@ -22626,230 +22615,231 @@ const KONSTRUAJ_NOMOJ = /* @__PURE__ */ new Set([
 	"vepaqHunaqTuro",
 	"vepaqHunaqSanktejo"
 ]);
-function deriviNomon(ca3aq) {
-	if (aktivaLingvo === "aih") return null;
-	if (!/^(vepaqNomo|muzikTrako|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !SPECIFIKAJ_PLANTNOMOJ.has(ca3aq) && !KONSTRUAJ_NOMOJ.has(ca3aq)) return null;
+function ksan2Ksaka(ca3aq) {
+	if (tikGawe === "aih") return null;
+	if (!/^(vepaqKsaka|muzikT2bakobesai|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !G6ZXA3EKSKAOJ.has(ca3aq) && !VEPAQKSKAOJ.has(ca3aq)) return null;
 	const aihQoxa = skakefani.aih[ca3aq];
 	if (!aihQoxa) return null;
-	const ksaka = aihQoxa.split("•").map((p) => ipaAlLingvo(gkAlIpa(p.trim()), aktivaLingvo)).join(" • ");
+	const ksaka = aihQoxa.split("•").map((p) => ipaAlGawe(gkAlIpa(p.trim()), tikGawe)).join(" • ");
 	if (!ksaka) return null;
 	return ksaka.charAt(0).toUpperCase() + ksaka.slice(1);
 }
-function traduki(ca3aq) {
-	const rekta = (skakefani[aktivaLingvo] || skakefani.eo)[ca3aq];
-	if (rekta !== void 0 && rekta !== "") return rekta;
-	const derivita = deriviNomon(ca3aq);
-	if (derivita) return derivita;
-	return rekta || ca3aq;
+function skakef(ca3aq) {
+	const xaqadiS2bana = (skakefani[tikGawe] || skakefani.eo)[ca3aq];
+	if (xaqadiS2bana !== void 0 && xaqadiS2bana !== "") return xaqadiS2bana;
+	const tboKsaka = ksan2Ksaka(ca3aq);
+	if (tboKsaka) return tboKsaka;
+	return xaqadiS2bana || ca3aq;
 }
-function aplikiSkakefanon(lingvo) {
-	aktivaLingvo = lingvo;
-	document.documentElement.lang = lingvo;
-	if (lingvo === "aih") document.body.classList.remove("tapufal");
+function k2reiGawe(gawe) {
+	tikGawe = gawe;
+	document.documentElement.lang = gawe;
+	if (gawe === "aih") document.body.classList.remove("tapufal");
 	else {
 		document.body.classList.remove("cepufal");
 		document.body.classList.add("tapufal");
 	}
-	document.querySelectorAll("[data-oskakefani]").forEach((el) => {
-		const ca3aq = el.getAttribute("data-oskakefani");
+	document.querySelectorAll("[data-oskakefani]").forEach((kek) => {
+		const ca3aq = kek.getAttribute("data-oskakefani");
 		if (ca3aq) {
-			const traduko = traduki(ca3aq);
-			if (traduko !== ca3aq) el.textContent = traduko;
+			const tboS2bana = skakef(ca3aq);
+			if (tboS2bana !== ca3aq) kek.textContent = tboS2bana;
 		}
 	});
-	document.querySelectorAll("[data-oskakefani-aria]").forEach((el) => {
-		const ca3aq = el.getAttribute("data-oskakefani-aria");
+	document.querySelectorAll("[data-oskakefani-aria]").forEach((kek) => {
+		const ca3aq = kek.getAttribute("data-oskakefani-aria");
 		if (ca3aq) {
-			const traduko = traduki(ca3aq);
-			if (traduko !== ca3aq) el.setAttribute("aria-label", traduko);
+			const tboS2bana = skakef(ca3aq);
+			if (tboS2bana !== ca3aq) kek.setAttribute("aria-label", tboS2bana);
 		}
 	});
-	document.querySelectorAll("[data-oskakefani-aria=\"ariaLingvoButono\"]").forEach((el) => {
-		el.textContent = lingvo.toUpperCase();
+	document.querySelectorAll("[data-oskakefani-aria=\"ariaGaweCatsiina\"]").forEach((kek) => {
+		kek.textContent = gawe.toUpperCase();
 	});
 	try {
-		localStorage.setItem("aranis-lingvo", lingvo);
+		localStorage.setItem("aranis-gawe", gawe);
 	} catch {}
 	try {
 		const ruva = new URL(window.location.href);
-		if (lingvo === "aih") ruva.searchParams.delete("lang");
-		else ruva.searchParams.set("lang", lingvo);
+		if (gawe === "aih") ruva.searchParams.delete("lang");
+		else ruva.searchParams.set("lang", gawe);
 		window.history.replaceState(null, "", ruva.toString());
 	} catch {}
-	if (lingvo !== "aih") document.querySelectorAll("a").forEach((cel) => {
-		const href = cel.href;
+	if (gawe !== "aih") document.querySelectorAll("a").forEach((k6h6) => {
+		const href = k6h6.href;
 		if (!href || href.startsWith("#")) return;
 		try {
-			const celRuva = new URL(decodeURIComponent(href), window.location.href);
-			celRuva.searchParams.set("lang", lingvo);
-			cel.href = celRuva.toString();
+			const k6h6Ruva = new URL(decodeURIComponent(href), window.location.href);
+			k6h6Ruva.searchParams.set("lang", gawe);
+			k6h6.href = k6h6Ruva.toString();
 		} catch {}
 	});
-	aplikiVacepuSe();
+	k2reiVacepuSe();
 	window.dispatchEvent(new CustomEvent("lingvovasaka"));
 }
-function aplikiVacepuSe() {
-	if (aktivaLingvo !== "aih" || typeof vacepu !== "function") return;
+function k2reiVacepuSe() {
+	if (tikGawe !== "aih" || typeof vacepu !== "function") return;
 	try {
 		vacepu("aih");
 	} catch {}
 }
-function catsaraLingvon(lingvo) {
-	if (!LINGK6H6.includes(lingvo)) return;
-	aplikiSkakefanon(lingvo);
+function catsaraGawe(gawe) {
+	if (!Hagawe.includes(gawe)) return;
+	k2reiGawe(gawe);
 }
-let lingvPagho = null;
-let lingvPopUp = null;
-function markiAktivanLingvon() {
-	document.querySelectorAll("[data-lingvo]").forEach((el) => {
-		const lingvo = el.dataset.lingvo || "";
-		el.setAttribute("aria-pressed", String(lingvo === aktivaLingvo));
+let gaweVula = null;
+let gaweN2tanu = null;
+function s2tasCe3eGawe() {
+	document.querySelectorAll("[data-gawe]").forEach((kek) => {
+		const gawe = kek.dataset.gawe || "";
+		kek.setAttribute("aria-pressed", String(gawe === tikGawe));
 	});
 }
-function vetem2iLingvanListon(ujo) {
-	ujo.innerHTML = "";
-	for (const lingvo of LINGK6H6) {
-		const butono = document.createElement("button");
-		butono.dataset.lingvo = lingvo;
-		butono.textContent = lingvo.toUpperCase();
-		ujo.appendChild(butono);
+function k2reiGaweCatsara(kuba) {
+	kuba.innerHTML = "";
+	for (const gawe of Hagawe) {
+		const catsiina = document.createElement("button");
+		catsiina.dataset.gawe = gawe;
+		catsiina.textContent = gawe.toUpperCase();
+		kuba.appendChild(catsiina);
 	}
 }
-function sukf2qiLingvon(lingvo, pukxei) {
-	const sama = lingvo === aktivaLingvo;
-	catsaraLingvon(lingvo);
-	markiAktivanLingvon();
-	aplikiVacepuSe();
-	if (!sama) pukxei();
+function sukf2qiGawe(gawe, cal) {
+	const kant2 = gawe === tikGawe;
+	catsaraGawe(gawe);
+	s2tasCe3eGawe();
+	k2reiVacepuSe();
+	if (!kant2) cal();
 }
-function prepariLingvajnMenuojn() {
-	const paghaUjo = document.getElementById("lingvPaghoX2pa");
-	const popaUjo = document.getElementById("lingvPopUpX2pa");
-	if (paghaUjo) vetem2iLingvanListon(paghaUjo);
-	if (popaUjo) vetem2iLingvanListon(popaUjo);
-	lingvPagho = document.getElementById("lingvPagho") ? kf2Staton("lingvPagho", markiAktivanLingvon) : null;
-	lingvPopUp = document.getElementById("lingvPopUp") ? kf2Staton("lingvPopUp", markiAktivanLingvon) : null;
-	for (const ujo of [paghaUjo, popaUjo]) ujo?.addEventListener("click", (e) => {
-		const butono = e.target.closest("button[data-lingvo]");
-		if (!butono) return;
-		sukf2qiLingvon(butono.dataset.lingvo || "", () => {
-			if (ujo === popaUjo) lingvPopUp?.pukxei();
-			else lingvPagho?.pukxei();
+function sax0baGaweN2tanuon() {
+	const vulaKuba = document.getElementById("lingvPaghoVico");
+	const n2tanuKuba = document.getElementById("lingvPopUpVico");
+	if (vulaKuba) k2reiGaweCatsara(vulaKuba);
+	if (n2tanuKuba) k2reiGaweCatsara(n2tanuKuba);
+	gaweVula = document.getElementById("lingvPagho") ? kf2S2k61o("lingvPagho", s2tasCe3eGawe) : null;
+	gaweN2tanu = document.getElementById("lingvPopUp") ? kf2S2k61o("lingvPopUp", s2tasCe3eGawe) : null;
+	for (const kuba of [vulaKuba, n2tanuKuba]) kuba?.addEventListener("click", (cal) => {
+		const catsiina = cal.target.closest("button[data-gawe]");
+		if (!catsiina) return;
+		sukf2qiGawe(catsiina.dataset.gawe || "", () => {
+			if (kuba === n2tanuKuba) gaweN2tanu?.kobe();
+			else gaweVula?.kobe();
 		});
 	});
 }
-function detektiLingvon() {
+function b6keweGawe() {
 	try {
-		const parametro = new URLSearchParams(window.location.search).get("lang");
-		if (parametro && LINGK6H6.includes(parametro)) return parametro;
+		const s2karanu = new URLSearchParams(window.location.search).get("lang");
+		if (s2karanu && Hagawe.includes(s2karanu)) return s2karanu;
 	} catch {}
 	try {
-		const vetlaqita = localStorage.getItem("aranis-lingvo");
-		if (vetlaqita && LINGK6H6.includes(vetlaqita)) return vetlaqita;
+		const vetlaqita = localStorage.getItem("aranis-gawe");
+		if (vetlaqita && Hagawe.includes(vetlaqita)) return vetlaqita;
 	} catch {}
 	return "aih";
 }
-function inicializi() {
-	aplikiSkakefanon(detektiLingvon());
-	prepariLingvajnMenuojn();
-	document.getElementById("butLingvo")?.addEventListener("click", () => lingvPopUp?.h6w6i());
-	document.getElementById("butAgordLingvo")?.addEventListener("click", () => lingvPagho?.h6w6i());
-	markiAktivanLingvon();
-	window.addEventListener("popstate", () => aplikiSkakefanon(detektiLingvon()));
-	window.addEventListener("lingvovasaka", markiAktivanLingvon);
+function saxeGawe() {
+	k2reiGawe(b6keweGawe());
+	sax0baGaweN2tanuon();
+	document.getElementById("butGawe")?.addEventListener("click", () => gaweN2tanu?.h6w6i());
+	document.getElementById("butAgordGawe")?.addEventListener("click", () => gaweVula?.h6w6i());
+	s2tasCe3eGawe();
+	window.addEventListener("popstate", () => k2reiGawe(b6keweGawe()));
+	window.addEventListener("lingvovasaka", s2tasCe3eGawe);
 }
 if (typeof document !== "undefined") {
-	if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", inicializi);
-	else inicializi();
+	if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", saxeGawe);
+	else saxeGawe();
 }
-// eskekoj/hapaq/satalaj/fasw2d2.ts
-const SEXIEA_INKO_TAGE = new Color(12759855);
-new Color(15920806);
-veb6qaiWeh2Skek(new Color().copy(SEXIEA_INKO_TAGE));
+// ../../skek2/hapaq/satalaj/fasw2d2.ts
+const SEXIEAINKOTAGE = new Color(12628008);
+new Color(15788192);
+veb6qaiWeh2Skek(new Color().copy(SEXIEAINKOTAGE));
 new Color(16777215);
-// eskekoj/hapaq/satalaj-hapaq.ts
-function tavolajHavem2(w, d, tiers, tieroL6da) {
-	const tikLargho = Math.max(141 / 64, w * 19 / 64);
-	const tikProfundo = Math.max(2, d * 19 / 64);
-	const malpliiX = (w / 2 - tikLargho / 2) / Math.max(1, tiers - 1);
-	const malpliiZ = (d / 2 - tikProfundo / 2) / Math.max(1, tiers - 1);
+// ../../skek2/hapaq/satalaj-hapaq.ts
+function hatanekHavem2(w, d, tiers, b6k61oL6da) {
+	const teruSefini = Math.max(141 / 64, w * 19 / 64);
+	const teruProfundo = Math.max(2, d * 19 / 64);
+	const malpliiX = (w / 2 - teruSefini / 2) / Math.max(1, tiers - 1);
+	const malpliiZ = (d / 2 - teruProfundo / 2) / Math.max(1, tiers - 1);
 	const havem2 = [];
 	for (let i = 0; i < tiers; i++) havem2.push({
-		y: i * tieroL6da,
+		y: i * b6k61oL6da,
 		hw: w / 2 - i * malpliiX,
 		hd: d / 2 - i * malpliiZ
 	});
 	return havem2;
 }
-const tavolajKashmemoroj = /* @__PURE__ */ new Map();
-function tavolajGeometrioj(w, d, tiers, tieroL6da) {
-	const klino = MURA_KLINO;
-	const murajGeometrioj = [], joqajGeometrioj = [];
-	const havem2 = tavolajHavem2(w, d, tiers, tieroL6da);
+const hatanekKashmemoroj = /* @__PURE__ */ new Map();
+function hatanekHavecax2lani(w, d, tiers, b6k61oL6da) {
+	const s2sabo = MURAKLINO;
+	const murajHavecax2lani = [], joqajHavecax2lani = [];
+	const havem2 = hatanekHavem2(w, d, tiers, b6k61oL6da);
 	for (let i = 0; i < havem2.length; i++) {
 		const { y, hw, hd } = havem2[i];
 		const maltik = havem2[i - 1], teru = havem2[i + 1];
-		const tikKovrilo = teru ? Math.min(1, teru.hw / (hw - klino), teru.hd / (hd - klino)) : 0;
-		const subaKovrilo = maltik ? Math.min(1, (maltik.hw - klino) / hw, (maltik.hd - klino) / hd) : 0;
-		const tavolo = kf2KlinoTavolon(hw, hd, hw - klino, hd - klino, tieroL6da, [tikKovrilo, subaKovrilo]);
-		tavolo.translate(0, y + tieroL6da / 2, 0);
-		murajGeometrioj.push(tavolo);
-		for (const sX of [-1, 1]) for (const sZ of [-1, 1]) aldoniJoqanTubon(joqajGeometrioj, sX * hw, sZ * hd, y, y + tieroL6da, sX, sZ, true, klino);
-		aldoniTavolanRandon(joqajGeometrioj, hw, hd, y, klino, tieroL6da);
+		const teruK6liq = teru ? Math.min(1, teru.hw / (hw - s2sabo), teru.hd / (hd - s2sabo)) : 0;
+		const subaK6liq = maltik ? Math.min(1, (maltik.hw - s2sabo) / hw, (maltik.hd - s2sabo) / hd) : 0;
+		const tanek = kf2S2saboTavolon(hw, hd, hw - s2sabo, hd - s2sabo, b6k61oL6da, [teruK6liq, subaK6liq]);
+		tanek.translate(0, y + b6k61oL6da / 2, 0);
+		murajHavecax2lani.push(tanek);
+		for (const sX of [-1, 1]) for (const sZ of [-1, 1]) tlunakJoqanTubon(joqajHavecax2lani, sX * hw, sZ * hd, y, y + b6k61oL6da, sX, sZ, true, s2sabo);
+		tlunakTavolanRandon(joqajHavecax2lani, hw, hd, y, s2sabo, b6k61oL6da);
 	}
 	return {
-		hatu5ekani1el2sai: kunfandiGeometriojn(murajGeometrioj),
-		hajoqa: kunfandiGeometriojn(joqajGeometrioj)
+		hatu5ekani1el2sai: vakox2qQoxaKefoujn(murajHavecax2lani),
+		hajoqa: vakox2qQoxaKefoujn(joqajHavecax2lani)
 	};
 }
-function bokTavolajnGeometriojn(typeKey, w, d, tiers, tieroL6da) {
-	const ca3aq = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + tieroL6da;
-	let g = tavolajKashmemoroj.get(ca3aq);
+function bokTavolajnQoxaKefoujn(typeKey, w, d, tiers, b6k61oL6da) {
+	const ca3aq = typeKey + "|" + tiers + "|" + w + "|" + d + "|" + b6k61oL6da;
+	let g = hatanekKashmemoroj.get(ca3aq);
 	if (!g) {
-		g = tavolajGeometrioj(w, d, tiers, tieroL6da);
-		tavolajKashmemoroj.set(ca3aq, g);
+		g = hatanekHavecax2lani(w, d, tiers, b6k61oL6da);
+		hatanekKashmemoroj.set(ca3aq, g);
 	}
 	return g;
 }
-function alOkto(skek2, precizeco = 2) {
-	const negativa = skek2 < 0;
-	const faktoro = 8 ** precizeco;
-	const rondigita = Math.round(Math.abs(skek2) * faktoro);
-	const entiero = Math.floor(rondigita / faktoro);
-	const frakcio = precizeco === 0 ? "" : "." + (rondigita % faktoro).toString(8).padStart(precizeco, "0");
-	return (negativa ? "-" : "") + "ꞙɭ" + entiero.toString(8) + frakcio;
+const KNAK2FECAJASAI = "ɔıɿцэꞟɩƨ";
+function knak2fecajasai(k2fe, kuxa = 2) {
+	const neni = k2fe < 0;
+	const k2feSa = 8 ** kuxa;
+	const xekuxa = Math.round(Math.abs(k2fe) * k2feSa);
+	const k2feXa = Math.floor(xekuxa / k2feSa);
+	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
+	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
 }
-// hacaht2/vecax2l/arkitekturo.ts
-function vecax2lZacen(zace) {
+// knapaq.ts
+function vecax2lZacen(kek) {
 	const vecax2l = {
-		verticoj: 0,
-		trianguloj: 0,
-		geometrioj: 0
+		hakekuxa: 0,
+		haqotiixe: 0,
+		vecax2l: 0
 	};
-	zace.traverse((objekto) => {
-		const cakamaha = objekto;
+	kek.traverse((o) => {
+		const cakamaha = o;
 		if (!cakamaha.isMesh) return;
-		const geometrio = cakamaha.geometry;
-		vecax2l.verticoj += geometrio.getAttribute("position").count;
-		vecax2l.trianguloj += (geometrio.index?.count ?? geometrio.getAttribute("position").count) / 3;
-		vecax2l.geometrioj++;
+		const qox2 = cakamaha.geometry;
+		vecax2l.hakekuxa += qox2.getAttribute("position").count;
+		vecax2l.haqotiixe += (qox2.index?.count ?? qox2.getAttribute("position").count) / 3;
+		vecax2l.vecax2l++;
 	});
 	return vecax2l;
 }
 function raporti(ksaka, zace) {
 	const vecax2l = vecax2lZacen(zace);
-	console.log(`( ꞁȷ̀ɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | ſɟɔ ɭʃɹ ${alOkto(vecax2l.verticoj, 0)} | ſ͕ɭɜ ɭʃɹ ı],ɔ ${alOkto(vecax2l.trianguloj, 0)} | ſןᴜ j͐ʃэ ${alOkto(vecax2l.geometrioj, 0)}`);
+	console.log(`( ɭʃɹ ʃᴜ ſɭɹ ſןɹ ) ${ksaka} | ſɟɔ ɭʃɹ ${knak2fecajasai(vecax2l.hakekuxa, 0)} | ſ͕ɭɜ ɭʃɹ ı],ɔ ${knak2fecajasai(vecax2l.haqotiixe, 0)} | ſןᴜ j͐ʃэ ${knak2fecajasai(vecax2l.vecax2l, 0)}`);
 	return vecax2l;
 }
-const tavolaj = bokTavolajnGeometriojn("kap2", 8, 8, 4, 4);
-const tavolaGrupo = new Group();
-tavolaGrupo.add(new Mesh(tavolaj.hatu5ekani1el2sai, new MeshStandardMaterial()));
-tavolaGrupo.add(new Mesh(tavolaj.hajoqa, new MeshStandardMaterial()));
-raporti("ɭʃᴜ }ʃɔƽ ꞙɭэ", tavolaGrupo);
-const eniraGrupo = new Group();
-aldoniEnirejon(eniraGrupo, 8, new MeshStandardMaterial(), new MeshStandardMaterial());
-raporti("ſȷwɔ˞", eniraGrupo);
-const fenestraGrupo = new Group();
-aldoniPilolCah6k6(fenestraGrupo, new MeshStandardMaterial(), new MeshStandardMaterial(), 0, 0, 4, 1, 4, 1);
-raporti("ſɟᴜ ֭ſɭэ ſɭэ", fenestraGrupo);
+const hatanek = bokTavolajnQoxaKefoujn("kap2", 8, 8, 4, 4);
+const tavolaHate = new Group();
+tavolaHate.add(new Mesh(hatanek.hatu5ekani1el2sai, new MeshStandardMaterial()));
+tavolaHate.add(new Mesh(hatanek.hajoqa, new MeshStandardMaterial()));
+raporti("ɭʃᴜ }ʃɔƽ ꞙɭэ", tavolaHate);
+const eniraHate = new Group();
+tlunakEnirejon(eniraHate, 8, new MeshStandardMaterial(), new MeshStandardMaterial());
+raporti("ſȷwɔ˞", eniraHate);
+const fenestraHate = new Group();
+tlunakPilolCah6k6(fenestraHate, new MeshStandardMaterial(), new MeshStandardMaterial(), 0, 0, 4, 1, 4, 1);
+raporti("ſɟᴜ ֭ſɭэ ſɭэ", fenestraHate);
 export {};

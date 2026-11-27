@@ -2,7 +2,7 @@
 
 import * as THREE from "three";
 import { kf2Sakxo } from "../caq2q.js";
-import { k2fKonturanQoxan, kf2P2t6zoCac2sex, neregulaK6h6, p2somani } from "./mafezi.js";
+import { k2fKonturanQoxan, kf2P2t6zoCac2sex, neregulaK6h6, p2somani } from "./pukek.js";
 
 export const kf2ByssoidanLikenanCac2sex = p2somani((): THREE.CanvasTexture => {
   const s = 0o200;

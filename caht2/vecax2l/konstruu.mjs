@@ -1,13 +1,5 @@
-// ≺⧼ ſ͕ɭɜ ᶗ‹ , ſɭэ ɭʃᴜ 🛠️ ⧽≻
-// ⟨ ſ͕ɭɜ ᶗ‹ , ſɭэ ſɭᴜ , ꞙɭı ,
-// ſ͕ɭɜ ᶗ‹ , ſɭэ ſɭᴜ , ꞙɭı , 📃 ⟩
-//
-// ſɭэ ɭʃᴜ , ⟅
-//   node hacaht2/vecax2l/konstruu.mjs            # ſ͕ɭɜ ᶗ‹ , ꞙɭı ,
-//   node hacaht2/vecax2l/konstruu.mjs tsaletsa      # ſ͕ɭɜ ᶗ‹ , ꞙɭı ,
-//
-// ſɭэ ɭʃᴜ , ⟅
-//   node --import ./caht2/vecax2l/ceh2kap2.mjs hacaht2/vecax2l/tsaletsa.mjs hak6h6
+// ≺⧼ ſɭɜ }ʃɔ˞ƨƣ̋w ꞁȷ̀w 📃 ⧽≻
+
 import { readdirSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { dirname, join, resolve } from "node:path";
@@ -25,17 +17,17 @@ const hacaqavop2 = readdirSync(ĉiTie)
   .sort();
 
 if ( hacaqavop2.length === 0 ) {
-  console.error("ſןɔ ʌ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ｡ .ts ｡ ſɭʞɹ");
+  console.error("( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) .ts ｡ ſɭɜ j͑ʃɹ j͐ʃɹ ŋᷠɔ");
   process.exit(1);
 }
 
 let malsukcesoj = 0;
 for ( const nomo of hacaqavop2 ) {
-  const fonto = join(ĉiTie, ksaka + ".ts");
-  const celo = join(ĉiTie, ksaka + ".mjs");
+  const fonto = join(ĉiTie, nomo + ".ts");
+  const celo = join(ĉiTie, nomo + ".mjs");
 // ⟨ ſɭэ ɭʃᴜ , ꞙɭɿ , 📏 ⟩ , ſɭэ ɭʃᴜ , ꞙɭı ,
   const rezulto = spawnSync(process.execPath,
-    [ roldownCli, fonto, "-o", celo, "--format", "esm", "--kozunu", "node" ],
+    [ roldownCli, fonto, "-o", celo, "--format", "esm", "--platform", "node" ],
     { stdio: "pipe", encoding: "utf8" });
   if ( rezulto.status === 0 ) {
     console.log(`✓ ${nomo}`);

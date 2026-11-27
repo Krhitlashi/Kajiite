@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſᶘэ ſȷэ ᴜ̭ ſɟɹ j͑ʃɔᶗ‹ 📃 ⧽≻
 
-import { kf2P2t6zoCac2sex } from "./mafezi.js";
+import { kf2P2t6zoCac2sex } from "./pukek.js";
 import * as THREE from "three";
 
 let ts6f6Cac2sexKozuni: THREE.CanvasTexture | null = null;
@@ -20,5 +20,5 @@ export function ts6f6Cac2sex(): THREE.CanvasTexture {
       k.fillStyle = `rgba(255,255,255,${0o25/0o100 + Math.random() * 0o40/0o100})`;
       k.fillRect(Math.random() * 0o200, Math.random() * 0o200, 0o1, 0o1);
     }
-  }, [ 0o1, 0o1 ], { anisotropio: 0o4 });
+  }, [ 0o1, 0o1 ], { peq2: 0o4 });
 }

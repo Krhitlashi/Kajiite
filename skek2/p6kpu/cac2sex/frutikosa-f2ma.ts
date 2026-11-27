@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { hunanu } from "../haweh2.js";
 import { kf2Sakxo } from "../caq2q.js";
-import { k2fKonturanQoxan, kf2P2t6zoCac2sex, p2somani } from "./mafezi.js";
+import { k2fKonturanQoxan, kf2P2t6zoCac2sex, p2somani } from "./pukek.js";
 
 function trunketaK6h6(x: number, kozuni: number, l6da: number, kkaxte: number, kof: number): Path2D {
   const k6h6 = new Path2D();

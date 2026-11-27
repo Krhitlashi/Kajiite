@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ŋᷠᴜ ɽ͑ʃ'ͷ̗ᴜ ɽ͑ʃ'ᴜ ſɭɔ˞ᶗ‹ᴜ ƽ ɭʃꞇ ſɭͷ̗ɜ 📃 ⧽≻
 
-import { kf2P2t6zoCac2sex } from "./mafezi.js";
+import { kf2P2t6zoCac2sex } from "./pukek.js";
 import * as THREE from "three";
 
 export function kf2KutiklanCac2sex(): { weh2: THREE.CanvasTexture; reliefo: THREE.CanvasTexture } {

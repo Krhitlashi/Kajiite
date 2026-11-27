@@ -3,8 +3,8 @@ import * as THREE from "three";
 import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
 import { katmullRom } from "../../kanta/k2fe/fkabe.js";
-import { kf2GlacifisanHaŭtanCac2sex } from "../p6kpu/cac2sex/glacifisa-hauxto.js";
-import { kf2GlacifisanNaĝilanCac2sex } from "../p6kpu/cac2sex/glacifisa-nagxilo.js";
+import { kf2GlacifisanHaŭtanCac2sex } from "../p6kpu/cac2sex/5i3a-hauxto.js";
+import { kf2GlacifisanNaĝilanCac2sex } from "../p6kpu/cac2sex/5i3a-nagxilo.js";
 
 interface KazeKa5asexaz { z: number; rx: number; ry: number; }
 export
@@ -261,16 +261,16 @@ export function tlak2Tq2wan(b: Paga, t: number, dt: number): void {
   b.hate2.rotation.x = -Math.cos(t * 0o2 + b.phase * 0o3) * 0o4/0o100;
 
   const ondFazo = t * 0o15/0o10 + b.phase * 0o4;
-  const ampleksoj = [ 0o7/0o100, 0o17/0o100, 0o24/0o100 ];
+  const pal6j = [ 0o7/0o100, 0o17/0o100, 0o24/0o100 ];
   for ( let i = 0o0; i < b.has2nasce.length; i++ ) {
     const s2nasce = b.has2nasce[i];
     const xafanitapu = ondFazo - ( i + 0o1 ) * 0o12/0o10;
-    s2nasce.rotation.y = Math.sin(xafanitapu) * ampleksoj[i];
+    s2nasce.rotation.y = Math.sin(xafanitapu) * pal6j[i];
     s2nasce.rotation.z = Math.cos(xafanitapu) * 0o3/0o100 * ( i + 0o1 );
   }
   if ( b.nar2sa ) {
     const vostaFazo = ondFazo - 0o3;
-    b.nar2sa.rotation.y = Math.sin(vostaFazo) * ampleksoj[0o2];
+    b.nar2sa.rotation.y = Math.sin(vostaFazo) * pal6j[0o2];
     b.nar2sa.rotation.x = Math.cos(vostaFazo) * 0o5/0o100;
   }
 

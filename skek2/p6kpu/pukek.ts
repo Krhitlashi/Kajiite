@@ -3,9 +3,9 @@
 import * as THREE from "three";
 import { hunanuWeh2 } from "./haweh2.js";
 import { kf2T6hnaCac2sex } from "./cac2sex/t6hna.js";
-import { kf2T6hnaL6daCac2sex } from "./cac2sex/t6hna-bumpo.js";
+import { kf2T6hnaL6daCac2sex } from "./cac2sex/t6hna-tok.js";
 import { kf2T6g6Cac2sex } from "./cac2sex/t6g6.js";
-import { kf2T6g6L6daCac2sex } from "./cac2sex/t6g6-bumpo.js";
+import { kf2T6g6L6daCac2sex } from "./cac2sex/t6g6-tok.js";
 
 export function kf2T6g6Pukek(cac2sex?: THREE.Texture, envMapIntensity?: number): THREE.MeshStandardMaterial {
   const pukek = new THREE.MeshStandardMaterial({

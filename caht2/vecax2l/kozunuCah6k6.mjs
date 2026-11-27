@@ -1,9 +1,9 @@
-// kantaoj/tom6nu/interpolo.ts
+// ../../kanta/k2fe/fkabe.ts
 function katmullRom(p0, p1, p2, p3, t) {
 	const t2 = t * t, t3 = t2 * t;
 	return 1 / 2 * (2 * p1 + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t3);
 }
-// hacaht2/vecax2l/kozunuCah6k6.ts
+// kozunuCah6k6.ts
 function bruo2DH2y2k(x, z) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;
@@ -17,13 +17,13 @@ function bruo2DH2y2k(x, z) {
 	const v = fz * fz * (3 - 2 * fz);
 	return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
 }
-function bikubaH2y2k(krado, n, vepat6ni, origino, x, z) {
-	const fx = (x - origino[0]) / vepat6ni, fz = (z - origino[1]) / vepat6ni;
+function bikubaH2y2k(qox2n2k, n, vepat6ni, tsiq, x, z) {
+	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
 	const i0 = Math.floor(fx), j0 = Math.floor(fz);
 	const u = fx - i0, v = fz - j0;
 	const val = (i, j) => {
 		const ii = Math.max(0, Math.min(n - 1, i));
-		return krado[Math.max(0, Math.min(n - 1, j)) * n + ii];
+		return qox2n2k[Math.max(0, Math.min(n - 1, j)) * n + ii];
 	};
 	const x2pa = (j) => katmullRom(val(i0 - 1, j), val(i0, j), val(i0 + 1, j), val(i0 + 2, j), u);
 	return Math.max(0, katmullRom(x2pa(j0 - 1), x2pa(j0), x2pa(j0 + 1), x2pa(j0 + 2), v));

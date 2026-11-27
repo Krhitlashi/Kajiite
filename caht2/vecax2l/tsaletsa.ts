@@ -1,4 +1,4 @@
-// ≺⧼ ſᶘᴜ j͐ʃɔ ſᶘᴜ 🧪 ⧽≻
+// ≺⧼ ſᶘᴜ j͐ʃɔ ſᶘᴜ 📃 ⧽≻
 
 import { l6da } from "../../kanta/nala/mut6qSoza.js";
 import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
