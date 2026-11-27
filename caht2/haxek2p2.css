@@ -1,14 +1,10 @@
 /* ≺⧼ ֭ſɭᴜ ı],ɔ ſɭɹ ſןɹ 📃 ⧽≻ */
 
-#mapo, #mapo3d { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; }
+#mapo, #mapo3d, #bestoVido, #k6h6aVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; }
 
-#mapo3d { clip-path:inset(0 round var(--អិត្ភេ)); }
-
-#bestoVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }
+#mapo3d, #bestoVido, #k6h6aVido { clip-path:inset(0 round var(--អិត្ភេ)); }
 
 #oxemaniAntauxrigardo { inline-size:50%; aspect-ratio:1 / 1; align-self:center; border-radius:var(--អិត្ភេ); clip-path:inset(0 round var(--អិត្ភេ)); background:linear-gradient(180deg,#68a8d8,#a8d0e8 55%,#d8e8f0); }
-
-#k6h6aVido { inline-size:min(100%,80vh); aspect-ratio:1 / 1; align-self:center; clip-path:inset(0 round var(--អិត្ភេ)); }
 
 #rulo { inline-size:min(100%,72vh); aspect-ratio:16 / 9; align-self:center; touch-action:none; border-radius:var(--អិត្ភេ); border:var(--សាកព៏); clip-path:inset(0 round var(--អិត្ភេ)); }
 #rulo[data-ilo="sukf2qi"] { cursor:default; }

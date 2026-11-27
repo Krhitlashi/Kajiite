@@ -22,7 +22,7 @@ export default defineConfig({
       output: {
         codeSplitting: {
           groups: [
-            { name: "tri", test: /nodemodules[\\/]three/ },
+            { name: "tri", test: /node_modules[\\/]three/ },
           ],
         },
       },

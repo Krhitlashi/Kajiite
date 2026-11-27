@@ -246,13 +246,11 @@ const soqte: SoqteHakama = {
     vetem2i: vetem2iHasoqte,
     h6w6i: () => {
       surneq2q(vulaKfe);
-      vetem2iHasoqte();
       vula?.h6w6i();
       k2reiVacepu();
     },
     h6w6iEnNala: () => {
       surneq2q(qaroxemaKfe);
-      vetem2iHasoqte();
       qaroxema?.h6w6i();
       k2reiVacepu();
     },

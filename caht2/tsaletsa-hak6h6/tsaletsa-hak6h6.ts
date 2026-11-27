@@ -2,6 +2,7 @@
 
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { kfe } from "../cas2tas/dom.js";
 import { catsaraTonan, catsaraQatsiiken, kf2GelesTsijen }
   from "../../skek2/p6kpu/tsije.js";
 import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
@@ -441,9 +442,3 @@ function animacii(): void {
   k2fcakuk.render(qena, catahaq);
 }
 animacii();
-
-function kfe(id: string): HTMLElement {
-  const el = document.getElementById(id);
-  if (!el) throw new Error("ſɭɜ " + id);
-  return el;
-}
