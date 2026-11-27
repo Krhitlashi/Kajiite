@@ -1,6 +1,6 @@
 // ≺⧼ ı],ɔ ɭʃɜ ֭ſɭɹ 📃 ⧽≻
 
-import { xetoh2D } from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { xetoh2D } from "../../skek2/p6kpu/mut6q-haweh2.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 function bruo2DClosure(x: number, z: number): number {

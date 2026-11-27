@@ -1,12 +1,12 @@
 // ≺⧼ ſɟɹ ſɭᴜ }ʃw ʌ ſᶘᴜ j͐ʃɔ ſᶘᴜ 📃 ⧽≻
 
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
-import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
-import { PONTAKVAKLARANCO } from "../../skek2/qatsiike/qakaj2/c2kanu.js";
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6q-soza.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qa12ke/k6h6-caxlefkakai.js";
+import { PONTAKVAKLARANCO } from "../../skek2/qa12ke/qakaj2/c2kanu.js";
 import { tsekeVeraTsasa, pontaFinL6da, k6h6Teru } from "./p6kpu.js";
 import { vepaqPontanS2qena, havasAkvanTrunkon,
-  kf2PontanAkvanTeston } from "../../skek2/qatsiike/hak6h6/c2kanu-profilo.js";
+  kf2PontanAkvanTeston } from "../../skek2/qa12ke/hak6h6/c2kanu-s2qena.js";
 
 const HAKAS2KANTA = tikHak6h6();
 const HAQAKAJ2 = tikHaqakaj2();

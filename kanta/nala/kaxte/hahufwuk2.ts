@@ -1,6 +1,6 @@
-// ≺⧼ ſɟᴜ ſɟɹ ᶅſɹƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ֭ſɭᴜ ֭ſɭw ſȷп́w ſɭɹ 🏮 ⧽≻
+// ≺⧼ ſɟᴜ ſɟɹ ᶅſɹƽ ꞁȷ̀ᴜꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ֭ſɭᴜ ֭ſɭw ſȷп́w ſɭɹ 🏮 ⧽≻
 import { VepaqSpec } from "../../../skek2/hapaq/satalaj/hahunaq.js";
-import { l6da, tsasa, tsasaVem2 } from "../mut6qSoza.js";
+import { l6da, tsasa, tsasaVem2 } from "../mut6q-soza.js";
 
 export interface LampQar {
   x: number;

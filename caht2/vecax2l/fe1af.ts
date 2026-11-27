@@ -6,7 +6,7 @@ import { kf2HerbanPukekn } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import { kf2HerbanKxa } from "../../skek2/pudal/xa3e/fe1af/hakxa.js";
 import { VALAJBIOMOJ, EBENAJAJBIOMOJ }
   from "../../skek2/pudal/xa3e/habs2.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6q-soza.js";
 import { SKULPTAN, SKULPTAPASO } from "../../kanta/mut6q-havop2/kxe.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 

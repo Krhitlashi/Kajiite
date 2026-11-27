@@ -1,5 +1,5 @@
 // ≺⧼ ֭ſɭᴜ ʃɔ˞ɹ 🌍 ⧽≻
-import { type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+import { type Bs2 } from "../../../kanta/nala/mut6q-soza.js";
 
 export const VALAJBIOMOJ: readonly Bs2[] = [ "lota" ];
 export const EBENAJAJBIOMOJ: readonly Bs2[] = [ "qun2nu" ];

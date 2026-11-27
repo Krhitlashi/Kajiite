@@ -1,6 +1,6 @@
 // ≺⧼ ɭʃɔ ŋᷠɔƽ 🕊️ ⧽≻
 import * as THREE from "three";
-import { bs2 } from "../../kanta/nala/mut6qSoza.js";
+import { bs2 } from "../../kanta/nala/mut6q-soza.js";
 import { trovuBestajnZonojn } from "./keweani.js";
 import { vepaqPetrelanModelon } from "./temek-malneto.js";
 

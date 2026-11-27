@@ -1,7 +1,7 @@
 // ≺⧼ }ʃɔ ſ͕ɭɹȝ ꞁȷ̀ᴜ }ʃꞇ ʌ ɽ͑ʃ'ᴜ ſ͕ɭᴜ 🍽️ ⧽≻
 import * as THREE from "three";
 import { CAX2LTERU } from "../cax2loj.js";
-import { kf2Ts6f6n } from "./tsaafaa.js";
+import { kf2Ts6f6n } from "./16f6.js";
 import { kf2Fasw2d2n } from "./fasw2d2.js";
 import { FOKS, TLAS } from "./vop2.js";
 import type { MangxajxVop2 } from "./vop2.js";

@@ -6,7 +6,7 @@ import { kf2Fe1afnLikenanCac2sex } from "../../p6kpu/cac2sex/fe1af-f2ma.js";
 import { kf2LikenanCac2sex } from "../../p6kpu/cac2sex/f2ma.js";
 import { kf2LikenanBumpanCac2sex } from "../../p6kpu/cac2sex/f2ma-tok.js";
 import { kf2Bufezacen, vakox2qDuQoxaKefoujn, vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
-import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, spronaP2somani, type Cel2Raqa } from "./raqa.js";
 import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 

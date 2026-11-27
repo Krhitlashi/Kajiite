@@ -142,7 +142,7 @@ export const EO: Record<string, string> = {
   "harWeh2Blonda": "Blonda",
   "harWeh2Griza": "Griza",
 
-  "muziko": "Muziko",
+  "swikez": "Muziko",
 
   "ariaKrepuskoCatsiina": "Krepusko",
   "ariaKrepuskoKama": "Krepuska vem2",
@@ -171,7 +171,7 @@ export const EO: Record<string, string> = {
   "catsiinaVetlaqiEliri": "Vetlaqi kaj eliri el la nala.",
 
   "hate2Haku1o": "Hacatsara",
-  "ksakat2xaHaku1o": "Gawe, bole, muziko, vestaro.",
+  "ksakat2xaHaku1o": "Gawe, bole, swikez, vestaro.",
   "catsiinaSono": "Bole",
   "catsiinaBruo": "Fona famaf",
   "ariaGaweCatsiina": "Gawe",

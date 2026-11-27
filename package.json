@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "node hate/saxe.mjs",
     "caxlefkakai": "node hate/hate.js",
-    "vetlaqilo": "node hate/tlaq.mjs",
+    "vetlaqilo": "node hate/3aq.mjs",
     "build": "npx tsc-rs --noEmit && vite build"
   },
   "devDependencies": {

@@ -3,8 +3,8 @@ import * as THREE from "three";
 import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
 import type { Paga, PudalMalneto } from "./pudal-hahunaq.js";
 import { katmullRom } from "../../kanta/k2fe/fkabe.js";
-import { kf2GlacifisanHaŭtanCac2sex } from "../p6kpu/cac2sex/5i3a-kobe.js";
-import { kf2GlacifisanNaĝilanCac2sex } from "../p6kpu/cac2sex/5i3a-kaze.js";
+import { kf2Tq2waCeqCac2sex } from "../p6kpu/cac2sex/tq2wa-ceq.js";
+import { kf2Tq2waKulaCac2sex } from "../p6kpu/cac2sex/tq2wa-kula.js";
 
 interface KazeKa5asexaz { z: number; rx: number; ry: number; }
 export
@@ -92,12 +92,12 @@ function kf2Kacan(qoxa: THREE.Shape, pukek: THREE.Material,
   return kaca;
 }
 
-export function vepaqGlacifisanMalneton(): PudalMalneto {
+export function vepaqTq2waMalneton(): PudalMalneto {
   const hate2 = new THREE.Group();
 
   const korpaPukek = new THREE.MeshPhysicalMaterial({
     color: 0xa8c0c8,
-    map: kf2GlacifisanHaŭtanCac2sex({ sahakani: GLACIFISALONGO, kapoZ: GLACIFISAKAPOZ,
+    map: kf2Tq2waCeqCac2sex({ sahakani: GLACIFISALONGO, kapoZ: GLACIFISAKAPOZ,
       t2banuFlanko: GLACIFISAT2BANUFLANKO, t2banuZ: GLACIFISAT2BANUZ }),
     transparent: true,
     opacity: 0o15/0o20,
@@ -110,7 +110,7 @@ export function vepaqGlacifisanMalneton(): PudalMalneto {
     side: THREE.DoubleSide,
   });
   const naĝilaPukek = new THREE.MeshStandardMaterial({
-    color: 0x88a8b8, map: kf2GlacifisanNaĝilanCac2sex(),
+    color: 0x88a8b8, map: kf2Tq2waKulaCac2sex(),
     transparent: true, opacity: 0o13/0o20,
     depthWrite: false, side: THREE.DoubleSide, roughness: 0o5/0o10,
   });

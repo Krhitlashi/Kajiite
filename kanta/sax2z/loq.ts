@@ -2,8 +2,8 @@
 
 import { ka5ikH6kuni } from "../../skek2/p6kpu/mapqoxa.js";
 import type { Bal2Qoxa } from "../../skek2/p6kpu/mapqoxa.js";
-import { tsekeLaqazbolesai, sfx } from "../../skek2/bole/boleS2t2bakano.js";
-import { l6da, tsasa, tsasaVem2 } from "../nala/mut6qSoza.js";
+import { tsekeLaqazbolesai, sfx } from "../../skek2/bole/bole-s2t2bakano.js";
+import { l6da, tsasa, tsasaVem2 } from "../nala/mut6q-soza.js";
 import type { UrbaKanta } from "../nala/kaxte/hahunaq.js";
 import { paqKsaka, skakef } from "../gawe/baskakefani.js";
 import { catsaraPromenanCatahaqon, movoEniro } from "./kata.js";

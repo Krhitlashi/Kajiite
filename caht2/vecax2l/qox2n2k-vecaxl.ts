@@ -2,17 +2,17 @@
 
 import * as THREE from "three";
 import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
-import { l6da } from "../../kanta/nala/mut6qSoza.js";
-import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
-import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { vepaqIntersekcajnHapa12n } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
-import { kf2EksteranP2somani } from "../../skek2/qatsiike/hak6h6/has2nasce.js";
-import { kf2K6h6jnBendojn } from "../../skek2/qatsiike/hak6h6/habakaweKatoma.js";
+import { l6da } from "../../kanta/nala/mut6q-soza.js";
+import { kf2K6h6L6dan } from "../../skek2/qa12ke/hak6h6/l6da.js";
+import { kf2NivelanS2qena } from "../../skek2/qa12ke/hak6h6/havem2.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { vepaqIntersekcajnHapa12n } from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import { k6h6TeruDeVeb6kek } from "../../skek2/qa12ke/hak6h6/haqoxa.js";
+import { kf2EksteranP2somani } from "../../skek2/qa12ke/hak6h6/has2nasce.js";
+import { kf2K6h6jnBendojn } from "../../skek2/qa12ke/hak6h6/habakawe-katoma.js";
 import { kf2T6g6Pukek,
   kf2T6hnaPukek } from "../../skek2/p6kpu/pukek.js";
-import { K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI, surGrid } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI, surGrid } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 
 const qena = new THREE.Scene();
 const pukek = new THREE.MeshStandardMaterial();

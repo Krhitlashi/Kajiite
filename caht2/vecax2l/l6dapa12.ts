@@ -1,14 +1,14 @@
 // ≺⧼ j͐ʃэ ɭ(ᴜ ſןᴜ ſᶘɹ 📃 ⧽≻
 
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
-import { l6da } from "../../kanta/nala/mut6qSoza.js";
-import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
-import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
-import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
-import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
-import { k6h6SefiniP2somani } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
+import { l6da } from "../../kanta/nala/mut6q-soza.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qa12ke/k6h6-caxlefkakai.js";
+import { gluiK6h6tlakakn } from "../../skek2/qa12ke/hak6h6/scac6.js";
+import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qa12ke/hak6h6/l6da.js";
+import { kf2NivelanS2qena } from "../../skek2/qa12ke/hak6h6/havem2.js";
+import { k6h6SefiniP2somani } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { tsasatlakak } from "./p6kpu.js";
-import type { K6h6N2k } from "../../skek2/qatsiike/k6h6-caxlefkakai/hahunaq.js";
+import type { K6h6N2k } from "../../skek2/qa12ke/k6h6-caxlefkakai/hahunaq.js";
 
 const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
 const HAQAKAJ2 = tikHaqakaj2();

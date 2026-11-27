@@ -1,9 +1,9 @@
 // ≺⧼ ɭʃᴜ }ʃɔƽ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { kf2Qakaj2nQoxan } from "../../skek2/qatsiike/qakaj2/haqoxa.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import type { Kas2kantaDitlakak } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { kf2Qakaj2nQoxan } from "../../skek2/qa12ke/qakaj2/haqoxa.js";
 
 const DIORITO = 0xf80000, ANDEZITO = 0x0000f8;
 const TOLERO = 0o1 / 0o1000;

@@ -2,11 +2,11 @@
 
 import "./ceh2kap2.mjs";
 import * as THREE from "three";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
-import { STUPARISERO, K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import type { Kas2kantaDitlakak } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { kas2kantaHasoza } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { kf2NivelanS2qena } from "../../skek2/qa12ke/hak6h6/havem2.js";
+import { STUPARISERO, K6H6ATRUAP2SOMANI } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 
 let hatlohk2nik2p2 = 0o0;
 const t6g6 = new THREE.MeshStandardMaterial({ color: 0xf80000 });

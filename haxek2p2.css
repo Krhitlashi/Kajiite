@@ -120,11 +120,11 @@ html[lang="km"] #informo, html[lang="km"] #hasoqte, html[lang="km"] #lingvPopUp 
    box-sizing ｡ ciihii ｡ ariiba ｡
    ıɔɔ% ｡ 📃 ⟩ */
 #agordSonaQaroxema, #mondSxonoHate, #mondCatsara, .informQaroxema { inline-size:100%; box-sizing:border-box; }
-/* ⟪ ʃɜ j͐ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ 📃 ⟫ */
+/* ⟪ ʃɜ j͐ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ 📃 ⟫ */
 /* ⟨ j͑ʃᴜ ｡ ſɭɜ ｡ 📃 ⟩ */
 .agordQaroxema { display:flex; flex-direction:column; align-self:stretch; gap:var(--អារេងមិ); }
 .agordQaroxema .ksakap2sa { align-self:stretch; }
-/* ⟨ j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃᴜ ｡ 📃 ⟩ */
+/* ⟨ j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃᴜ ｡ 📃 ⟩ */
 #agordMuzikaQaroxema { padding:var(--អារេង); gap:var(--អារេងមិ); }
 #agordSonoVico, #agordTrakaVico { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--អារេងមិ); }
 #agordTrakaVico { grid-template-columns:repeat(4,minmax(0,1fr)); overflow:auto; }

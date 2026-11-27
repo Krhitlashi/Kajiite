@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭᴜ ֭ſɭw }ʃᴜȝ 📃 ⧽≻
 
 import * as THREE from "three";
-import type { CanaUnihaqoxa } from "../../../skek2/p6kpu/tsije.js";
+import type { CanaUnihaqoxa } from "../../../skek2/p6kpu/1ije.js";
 
 export type Vet6lima = "nebula" | "pluva" | "hajla" | "nega";
 

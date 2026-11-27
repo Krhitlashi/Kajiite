@@ -1,8 +1,8 @@
 // ≺⧼ ʃᴜ j͐ʃɹ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2Minimapon } from "../../kanta/tahaq/k6liqBal2.js";
-import type { Minimapo } from "../../kanta/tahaq/k6liqBal2.js";
+import { kf2Minimapon } from "../../kanta/tahaq/k6liq-bal2.js";
+import type { Minimapo } from "../../kanta/tahaq/k6liq-bal2.js";
 
 interface FiksaS2k61o {
   perdita: boolean;

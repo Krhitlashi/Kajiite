@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { vakox2qVop2kekai } from "../../skek2/p6kpu/hakox2q.js";
 import { kuqaDe, vidlimaVop2kekai } from "../tahaq/vidlimo.js";
 import { tbo, knak2fecajasai, HEKE } from "../k2fe/s2cax2l.js";
-import type { Rultif } from "../tahaq/tlohk2nikziisai.js";
+import type { Rultif } from "../tahaq/3ohk2ni52sai.js";
 
 const KAK2SEFINISOZASAI = 0o34;
 

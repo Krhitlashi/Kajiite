@@ -1,6 +1,6 @@
 // ≺⧼ ſȷɜ ŋᷠɹ ꞁȷ̀ᴜ }ʃꞇ ʌ ſɟᴜƽ ꞁȷ̀ᴜ }ʃꞇ ʌ ŋᷠw ɭʃэ ſ͕ɭƽc̗ ɭʃэ ſɭɔ ſ͕ɭᴜ }ʃw 🔨 ⧽≻
 
-import { kozonuL6da } from "../../kanta/nala/mut6qSoza.js";
+import { kozonuL6da } from "../../kanta/nala/mut6q-soza.js";
 
 import { bal2Vop2, bal2Qoxa, bal2Pal6, catsaraHacaqavop2,
   b6tem2Havop2nElS2kanta, b6tem2DosierajnTenhacaht2 } from "./mut6q-knat6keqanu/caqavop2.js";
@@ -28,14 +28,14 @@ const { SKULPTAHAKAS2KANTA, SKULPTAHAQAKAJ2 } = await bokModulon("hak6h6");
 
 import { kf2KuhalPukek, kf2Cah6k6Pukek, kf2T6g6Pukek } from "../../skek2/p6kpu/pukek.js";
 import { Nala, MONDOHALFO, REZ } from "./mut6q-knat6keqanu/havecax2l.js";
-import { catsaraTsanen, prerenderiKozunu, pentri } from "./mut6q-knat6keqanu/tsane.js";
+import { catsaraTsanen, prerenderiKozunu, pentri } from "./mut6q-knat6keqanu/1ane.js";
 
 import { catsaraTsasa, catsaraHatsiqn, catsaraSukf2qitanTsiqn, catsaraLasVem2,
   catsaraAkvanVem2n, catsaraTsasaTrenantan, hatsiq, sukf2qitaTsiq, tsiqTrenata, tsasaTseuni,
   tsasaS23ohk2sai, tsasaTrenanta, tsasaVem2Vem2, tsasaKavoInterp, mut6qL6da, tsekeTsasa, tsasaVem2En,
   tsasaVem2Tsiike, revek2feTsasa, tsasaVasakagxis, tsiqJeN2k, neq2qTsiqn, h2liTsiqn,
   saxeiFontanTrenon, sxangiFontanXekuxan, finiFontanTrenon, vasakaLasDeSukf2qita,
-  deriviHatsiqnElPentrita } from "./mut6q-knat6keqanu/tsasa.js";
+  deriviHatsiqnElPentrita } from "./mut6q-knat6keqanu/1asa.js";
 
 import { catsaraVidon, triaDimensia, tona3d, kagani3d, catahaq3d, hakama3d, mut6qMesh,
   qox2n2kGrupo3D, k6h6Grupo3D, oxemaniGrupo3D, bal23d,
@@ -59,7 +59,7 @@ import { catsaraHaqox2n2kn, catsaraDatumojn, catsaraSukf2qitanAldonanBlokon, hak
   sxangiK6h6Xekuxan, finiK6h6Trenon, vasakaKradanCelon, vidotajHaqox2n2k } from "./mut6q-knat6keqanu/haqox2n2k.js";
 
 import { catsaraLaqazendajnHakaxten, catsaraVidanRefresxon, catsaraVidecon,
-  tsekeKaxteLaqazata, tsekeVidebla, laqazendajHakaxte, laqazuKaxten, type VidaPudal } from "./mut6q-knat6keqanu/kix2Ka5ik.js";
+  tsekeKaxteLaqazata, tsekeVidebla, laqazendajHakaxte, laqazuKaxten, type VidaPudal } from "./mut6q-knat6keqanu/kix2-ka5ik.js";
 import * as THREE from "three";
 
 const Tona = SKULPTAPASO;
@@ -171,7 +171,7 @@ import { kfe, hakfe } from "../cas2tas/dom.js";
 
 import { l6daInterp, ka5ik, g2sa, siicatsiicanaAktiva, bs2Aktiva, pagaAktiva, pagaForvisxa,
   tsekeMovigi, siicatsiicanaApliki, siicatsiicanaTona, catsaraSiicatsiicana, catsaraBs2n, catsaraPagan,
-  catsaraPagaForvisxon, catsaraPenikojn } from "./mut6q-knat6keqanu/siicatsiicana.js";
+  catsaraPagaForvisxon, catsaraPenikojn } from "./mut6q-knat6keqanu/s2ca12cana.js";
 
 catsaraBildon2D({
   s2k61o: () => ( { cx: vidCX, cz: vidCZ, p6zukani: kix2P6zuk, kursoro, siicatsiicanaAktiva, tikCax2l } ),

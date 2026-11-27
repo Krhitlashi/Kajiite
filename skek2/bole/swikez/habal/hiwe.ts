@@ -1,7 +1,7 @@
 // ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ֭ſɭꞇ ᶅſɔ 🎵 ⧽≻
 
 import { noiseSrc, startNoise } from "./xetoh2.js";
-import { vap6zukani } from "./hakfeKx2keve.js";
+import { vap6zukani } from "./hakfe-kx2keve.js";
 
 const ETA = 0o1/0o20000;
 

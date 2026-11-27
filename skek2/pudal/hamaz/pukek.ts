@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſןw ſɭɔƽ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2LederanCac2sex } from "../../p6kpu/cac2sex/tsuha.js";
+import { kf2LederanCac2sex } from "../../p6kpu/cac2sex/1uha.js";
 import { kf2SxtofanBumpanCac2sex } from "../../p6kpu/cac2sex/lassiraq.js";
 import { type Soqte } from "../../hasoqte/hasoqte.js";
 import { vestaCac2sex } from "./kx2weh2ani.js";

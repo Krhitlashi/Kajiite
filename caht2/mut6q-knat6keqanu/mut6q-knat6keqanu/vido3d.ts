@@ -3,22 +3,22 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { catsaraTonan, catsaraQatsiiken, kf2GelesTsijen }
-  from "../../../skek2/p6kpu/tsije.js";
-import { kozonuL6da } from "../../../kanta/nala/mut6qSoza.js";
-import { hagek2fhagasai, mut6qK6h6Weh2En } from "../../../skek2/p6kpu/mut6qHaweh2.js";
+  from "../../../skek2/p6kpu/1ije.js";
+import { kozonuL6da } from "../../../kanta/nala/mut6q-soza.js";
+import { hagek2fhagasai, mut6qK6h6Weh2En } from "../../../skek2/p6kpu/mut6q-haweh2.js";
 import { surokQoxa, kf2QoxaZace, NALAPSAZY } from "../../../skek2/p6kpu/mapqoxa.js";
 import type { QoxaZace, Bal2Qoxa } from "../../../skek2/p6kpu/mapqoxa.js";
 import { REZ, mondoxAlPikselo, mondozAlPikselo } from "./havecax2l.js";
 import type { KradaRektangulo } from "./havecax2l.js";
 import { kfe } from "../../cas2tas/dom.js";
-import { tsekeVidebla } from "./kix2Ka5ik.js";
+import { tsekeVidebla } from "./kix2-ka5ik.js";
 import { kozuaWeh2, alneq2qBiomanNuancon, l6daKunDerivajoj,
-  revek2feDeklik6h6n, pentri } from "./tsane.js";
+  revek2feDeklik6h6n, pentri } from "./1ane.js";
 
 import { hatsiq, sukf2qitaTsiq, tsiqTrenata, tsasaTseuni, tsasaVem2De,
   mut6qL6da, tsiqJeN2k, neq2qTsiqn, h2liTsiqn, saxeiFontanTrenon,
   sxangiFontanXekuxan, finiFontanTrenon, s2tasTsasaS23ohk2sain,
-  catsaraTsasaTrenantan } from "./tsasa.js";
+  catsaraTsasaTrenantan } from "./1asa.js";
 
 export let triaDimensia = false;
 export let tona3d: THREE.WebGLRenderer | null = null;

@@ -11,7 +11,7 @@ import {
 import "./lafe.js";
 import { kf2S2k61o, pukxeiCa1arajnVulajn } from "./vula.js";
 import { bole } from "./bole.js";
-import { laqaziSargxanTlohk2nik2p2 } from "../tahaq/scena/tlohk2nik2p2.js";
+import { laqaziSargxanTlohk2nik2p2 } from "../tahaq/scena/3ohk2nik2p2.js";
 
 // ⟪ ſɭʞɔ }ʃꞇ 📃 ⟫
 const vulaSaxe = document.getElementById("saxeo")!;

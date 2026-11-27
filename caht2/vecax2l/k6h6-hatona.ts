@@ -1,15 +1,15 @@
 // ≺⧼ ſɭэ ֭ſɭэ ʌ ֭ſɭᴜ ɭʃɜ }ʃᴜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
-import { l6da } from "../../kanta/nala/mut6qSoza.js";
-import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { kas2kantaHasoza } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
+import { l6da } from "../../kanta/nala/mut6q-soza.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qa12ke/k6h6-caxlefkakai.js";
 import { kf2T6g6Pukek,
   kf2T6hnaPukek } from "../../skek2/p6kpu/pukek.js";
-import { havasAkvanTrunkon, kf2PontanAkvanTeston } from "../../skek2/qatsiike/hak6h6/c2kanu-profilo.js";
-import { surGrid, K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { havasAkvanTrunkon, kf2PontanAkvanTeston } from "../../skek2/qa12ke/hak6h6/c2kanu-s2qena.js";
+import { surGrid, K6H6ATRUAP2SOMANI } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { tsasatlakak, tsekeVeraTsasa } from "./p6kpu.js";
 
 const SL6DALIMO = 0o1/0o2 + 0o1/0o4;

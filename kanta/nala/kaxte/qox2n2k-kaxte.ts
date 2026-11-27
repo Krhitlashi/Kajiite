@@ -4,14 +4,14 @@ import * as THREE from "three";
 import { vakox2qMondajnHacakamaha } from "../../../skek2/p6kpu/hakox2q.js";
 import { vepaqSatalon } from "../../../skek2/hapaq/satalaj-hapaq.js";
 import { VepaqSpec, TIPAJNIVELOJ } from "../../../skek2/hapaq/satalaj/hahunaq.js";
-import type { Kas2kantaDitlakak } from "../../../skek2/qatsiike/hak6h6/hahunaq.js";
+import type { Kas2kantaDitlakak } from "../../../skek2/qa12ke/hak6h6/hahunaq.js";
 import { kf2Qox2n2k, hunaqDeK6liq } from "../qox2n2k/kxawa.js";
-import { qox2n2kSef4 } from "../qox2n2k/qox2n2kSef4.js";
+import { qox2n2kSef4 } from "../qox2n2k/qox2n2k-sef4.js";
 import { skaniK6h6nCaxlefkakai } from "../qox2n2k/s2t2bakano.js";
 import { k2reiHatik } from "../qox2n2k/teru.js";
 import type { Qox2n2kPtalu, K2paHunaq, Nek2resaiK6liq } from "../qox2n2k/hahunaq.js";
 import { vepaqKekufxeso, KekufxesoRaqa } from "../../../skek2/w2ta/kubes.js";
-import { k6siZ, l6da, tsasa } from "../mut6qSoza.js";
+import { k6siZ, l6da, tsasa } from "../mut6q-soza.js";
 import { kf2KvarLampAldonilon, kf2LampAldonilon, type LampQar } from "./hahufwuk2.js";
 
 export interface Qox2n2kKaxteTseuni {

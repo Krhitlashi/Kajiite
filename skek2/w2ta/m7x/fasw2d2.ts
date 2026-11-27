@@ -1,9 +1,9 @@
-// ≺⧼ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ 🥛 ⧽≻
+// ≺⧼ ſȷᴜɔ˞ ᶅſɹ ɭ(ɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ 🥛 ⧽≻
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { kf2SakxoKlasika } from "../../p6kpu/caq2q.js";
 import { fasw2d2Cac2sex } from "../../p6kpu/cac2sex/fasw2d2-cac2sex.js";
-import { kzusaqCac2sex } from "../../p6kpu/cac2sex/kzusaq-cac2sex.js";
+import { kzusaqCac2sex } from "../../p6kpu/cac2sex/5usaq-cac2sex.js";
 import { kox2qKek } from "./kox2qo.js";
 import { pukekon } from "./pukek.js";
 import type { MangxajxVop2 } from "./vop2.js";

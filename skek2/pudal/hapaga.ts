@@ -1,7 +1,7 @@
 // ≺⧼ ſןᴜ ſ͔ɭᴜ ʌ ֭ſɭᴜ ſןᴜ ſ͔ɭᴜ 🐾 ⧽≻
 
 import * as THREE from "three";
-import { l6da, tsasaVem2, bs2, tsekeEnS2xuru } from "../../kanta/nala/mut6qSoza.js";
+import { l6da, tsasaVem2, bs2, tsekeEnS2xuru } from "../../kanta/nala/mut6q-soza.js";
 import type { Paga, PagaKanta, PudalMalneto } from "./pudal-hahunaq.js";
 import { kf2KombovicanCac2sex } from "../p6kpu/cac2sex/s2cascana.js";
 import { trovuBestajnZonojn } from "./keweani.js";
@@ -9,7 +9,7 @@ import { vepaqMalneton as vepaqBeranMalneton, tlak2Beran } from "./l2xkupukai.js
 import { vepaqMalneton as vepaqMnemiopsanMalneton, tlak2Mnemiopsan } from "./l2xcaxlefai.js";
 import { vepaqMalneton as vepaqPleŭrobrakianMalneton,
   tlak2Pleŭrobrakian } from "./l2xlpuhasai.js";
-import { vepaqGlacifisanMalneton, tlak2Tq2wan } from "./tq2wa.js";
+import { vepaqTq2waMalneton, tlak2Tq2wan } from "./tq2wa.js";
 import { vepaqMarlaraksxanMalneton, tlak2Tolxun } from "./tolxu.js";
 import { tlak2Hatemekn, vepaqNeq2qnTemekn, vepaqHatemekn } from "./temek.js";
 import type { Temek, TemekKanta } from "./temek.js";
@@ -26,7 +26,7 @@ function tsasaMalnetoj(): PudalMalneto[] {
       vepaqBeranMalneton(cac2sex),
       vepaqMnemiopsanMalneton(cac2sex),
       vepaqPleŭrobrakianMalneton(cac2sex),
-      vepaqGlacifisanMalneton(),
+      vepaqTq2waMalneton(),
       vepaqMarlaraksxanMalneton(),
     ];
   }

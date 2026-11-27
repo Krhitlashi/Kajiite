@@ -50,7 +50,7 @@ export const AIH: Record<string, string> = {
 
   // ⟪ j͑ʃ'ɜ ſןɹ j͐ʃc̗ᴜ 📃 ⟫
   "hate2Hak6h6": "ſɭэ ֭ſɭэ",
-  "ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
+  "ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
 
   // ⟪ ſɭэ ſᶘɔ 📃 ⟫
   "caxlefkakaiP2d2": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
@@ -152,7 +152,7 @@ export const AIH: Record<string, string> = {
   "pudalTolxu": "ɭʃɜͷ̗ ı],w",
   "pudalPriskriboTolxu": "j͑ʃɹ ɭʃɜͷ̗ ı],w",
   "pudalNeĝotemek": "ɭʃɔ ŋᷠɔƽ",
-  "pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
+  "pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
 
   // ⟪ ı],ᴜ ſ̀ȷɔ 📃 ⟫
   "hatePlanto": "ı],ᴜ ſ̀ȷɔ",
@@ -163,7 +163,7 @@ export const AIH: Record<string, string> = {
   "pudalTlexlefhxakai": "ſ̀ȷɔ ı],ͷ̗ɔʞ v ֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ",
   "pudalPriskriboTlexlefhxakai": "֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ⟅ ꞁȷ̀ɜ j͑ʃ'ᴜ ſᶘᴜ ֭ſɭᴜͷ̗ ⟅",
   "pudalTlexlefp2sai": "ſ̀ȷɔ ı],ͷ̗ɔʞ v ſןɹɔ˞ ꞁȷ̀ᴜꞇ",
-  "pudalPriskriboTlexlefp2sai": "ŋᷠɜ ı],ᴜ ſ̀ȷɔ j͑ʃᴜꞇ j͑ʃ ʌ ı],ɔ ſɭᴜȝ ʌ ı],ᴜ ʃɔ ʌ j͑ʃп́ɔ ſןᴜ j͐ʃэ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ʌ ꞁȷ̀ɹ ſןꞇƽ ⟅",
+  "pudalPriskriboTlexlefp2sai": "ŋᷠɜ ı],ᴜ ſ̀ȷɔ j͑ʃᴜꞇ j͑ʃ ʌ ı],ɔ ſɭᴜȝ ʌ ı],ᴜ ʃɔ ʌ j͑ʃп́ɔ ſןᴜ j͐ʃэ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ʌ ꞁȷ̀ɹ ſןꞇƽ ⟅",
   "pudalXabe": "ı],ᴜ ʃɔ",
   "pudalPriskriboXabe": "j͐ʃᴜ̩ᴜ ʌ ı],ᴜ ſ̀ȷɔ ʌ ɭl̀э ſɭɜ ſɭ,w ⟅",
   "pudalAsfaXabe": "ſ̀ȷɔ ı],ͷ̗ɔʞ v ı],ᴜ ʃɔ j͑ʃᴜꞇ",
@@ -194,10 +194,10 @@ export const AIH: Record<string, string> = {
 
   // ⟪ ſᶘᴜȝ 📃 ⟫
   "cax2lHararo": "ſᶘᴜȝ",
-  "tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
+  "tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
   "tsaqPsazai": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
   "tsaqSahakani": "j͑ʃᴜʞ",
-  "harWeh2Qaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
+  "harWeh2Qaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
   "harWeh2Bruna": "ſ̀ȷwɔ˞",
   "harWeh2Hunasai": "֭ſɭw }ʃᴜ j͑ʃᴜꞇ",
   "harWeh2Ruĝeta": "ᶅſɔ j͐ʃᴜ ſ̀ȷwɔ˞",
@@ -206,19 +206,19 @@ export const AIH: Record<string, string> = {
   "harWeh2Griza": "֭ſɭwƽ",
 
   // ⟪ j͑ʃп́ꞇ ſɭɔƴ 📃 ⟫
-  "muziko": "j͑ʃп́ꞇ ſɭɔƴ",
-  "muzikT2bakobesai0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
-  "muzikT2bakobesai1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
-  "muzikT2bakobesai2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
-  "muzikT2bakobesai3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
-  "muzikT2bakobesai4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-  "muzikT2bakobesai5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-  "muzikT2bakobesai6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
-  "muzikT2bakobesai7": "ſɭɘᴜ ֭ſɭᴜ",
+  "swikez": "j͑ʃп́ꞇ ſɭɔƴ",
+  "muzikSwikez0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
+  "muzikSwikez1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
+  "muzikSwikez2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
+  "muzikSwikez3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
+  "muzikSwikez4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+  "muzikSwikez5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+  "muzikSwikez6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
+  "muzikSwikez7": "ſɭɘᴜ ֭ſɭᴜ",
 
   // ⟪ ſ͕ɭɹ ſᶘɜ 📃 ⟫
   "ariaKrepuskoCatsiina": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
-  "ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
+  "ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
   "ariaVet6limaCatsiina": "ſ͕ɭɹ ſᶘɜ",
   "vet6limaNebula": "ŋᷠᴜ ֭ſɭᴜ",
   "vet6limaPluva": "֭ſɭᴜ ɭʃᴜ",
@@ -246,7 +246,7 @@ export const AIH: Record<string, string> = {
 
   // ⟪ ſ͔ɭᴜ ᶅſɔ 📃 ⟫
   "hate2Haku1o": "ſɭw ſᶘɜ",
-  "ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
+  "ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
   "catsiinaSono": "ʃɔ",
   "catsiinaBruo": "ſȷᴜ ŋᷠᴜʞ",
   "ariaGaweCatsiina": "ſ͔ɭᴜ ᶅſɔ",

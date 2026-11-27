@@ -4,7 +4,7 @@ import { generiT6liman } from "../../kanta/nala/casacakakcasai.js";
 import { SKULPTAN, SKULPTAPASO, SKULPTAORIGINO, SKULPTAAKVANIVELO }
   from "../../kanta/mut6q-havop2/kxe.js";
 import { bsej2kuqQoxa } from "../../skek2/p6kpu/mapqoxa.js";
-import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2S2kanta.js";
+import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2-s2kanta.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const bal2 = kxeBal2();

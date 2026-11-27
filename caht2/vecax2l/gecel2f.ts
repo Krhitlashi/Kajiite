@@ -1,14 +1,14 @@
 // ≺⧼ ſ͔ɭɔ ſɟɔ j͐ʃɹʞ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
 import { vepaqIntersekcajnHapa12n, kf2Haknece, tamc2kTap2Vem2 }
-  from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { tap2L6daDeVeb6kek } from "../../skek2/qatsiike/hak6h6/veb6kek-havem2.js";
-import { kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
+  from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import { tap2L6daDeVeb6kek } from "../../skek2/qa12ke/hak6h6/veb6kek-havem2.js";
+import { kf2K6h6L6dan } from "../../skek2/qa12ke/hak6h6/l6da.js";
 import { STUPARISERO, K6H6AEKSTERAP2SOMANI }
-  from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
+  from "../../skek2/qa12ke/hak6h6/havecax2l.js";
+import type { Kas2kantaDitlakak } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
 
 const TOLERO = 0o1 / 0o200;
 

@@ -2,12 +2,12 @@
 
 import * as THREE from "three";
 import { xetoh2D, mut6qWeh2En, mut6qK6h6Weh2En }
-  from "../../skek2/p6kpu/mut6qHaweh2.js";
-import { l6da } from "../../kanta/nala/mut6qSoza.js";
+  from "../../skek2/p6kpu/mut6q-haweh2.js";
+import { l6da } from "../../kanta/nala/mut6q-soza.js";
 import { glataTona } from "../../kanta/k2fe/fkabe.js";
 import { ka5ikH6kuni, NALAPSAZY } from "../../skek2/p6kpu/mapqoxa.js";
-import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2S2kanta.js";
-import { jaqoRuvaKozunu } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2-s2kanta.js";
+import { jaqoRuvaKozunu } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const NOMBRODAJXUROJ = 0o11;

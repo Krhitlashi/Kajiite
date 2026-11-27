@@ -142,7 +142,7 @@ export const EN: Record<string, string> = {
   "harWeh2Blonda": "Blonde",
   "harWeh2Griza": "Gray",
 
-  "muziko": "Music",
+  "swikez": "Music",
 
   "ariaKrepuskoCatsiina": "Dusk",
   "ariaKrepuskoKama": "Dusk level",

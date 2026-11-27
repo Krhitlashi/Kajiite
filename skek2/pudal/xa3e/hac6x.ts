@@ -2,7 +2,7 @@
 import * as THREE from "three";
 import { kf2MuskanCac2sex } from "../../p6kpu/cac2sex/c6x.js";
 import { vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
-import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, type Cel2Raqa } from "./raqa.js";
 
 export function vepaqFlokanMuskanQoxaKefoun(): THREE.BufferGeometry {

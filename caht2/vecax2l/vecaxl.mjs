@@ -1,4 +1,4 @@
-// ../../kanta/nala/ruva.ts
+// kanta/nala/ruva.ts
 function subRuva(tk2ni, qar6xe) {
 	let h = tk2ni + Math.imul(qar6xe + 1, 2654435761) | 0;
 	h ^= h >>> 14;
@@ -6,14 +6,14 @@ function subRuva(tk2ni, qar6xe) {
 	h ^= h >>> 11;
 	return h >>> 0;
 }
-// ../../kanta/k2fe/fkabe.ts
+// kanta/k2fe/fkabe.ts
 function xaha(t) {
 	return t * t * (3 - 2 * t);
 }
 function glataTona(lo, hi, v) {
 	return xaha(Math.max(0, Math.min(1, (v - lo) / (hi - lo))));
 }
-// ../../kanta/nala/casacakakcasai.ts
+// kanta/nala/casacakakcasai.ts
 const KANALOKONTINENTO = 1;
 const KANALOJaqo = 2;
 const KANALOHAKHACAHT2 = 3;
@@ -212,11 +212,11 @@ function generiT6liman(tk2ni, n, vepat6ni, tsiq, vem2, enQoxa) {
 		jaqoRuvaKozunu: 83 / 64 + subRuva(tk2ni, KANALOMONTARASEMO) % 2048 / 2048 * 64
 	};
 }
-// ../../kanta/mut6q-havop2/geles/qox2n2k.ts
+// kanta/mut6q-havop2/geles/qox2n2k.ts
 const SKULPTAORIGINO = [-384, -384];
-// ../../kanta/mut6q-havop2/geles/tsasa.ts
+// kanta/mut6q-havop2/geles/1asa.ts
 const SKULPTAAKVANIVELO = -288 / 64;
-// ../../skek2/p6kpu/mapqoxa.ts
+// skek2/p6kpu/mapqoxa.ts
 const TAFKAQPAL6 = 3 / 8;
 function qoxaPal6(qoxa, pal6) {
 	return qoxa === "c2q" ? pal6 : pal6 * TAFKAQPAL6;
@@ -297,7 +297,7 @@ function h6kuniQoxa(qoxa, pal6, x, z) {
 function bsej2kuqQoxa(qoxa, pal6, x, z) {
 	return h6kuniQoxa(qoxa, pal6, x, z) <= 0;
 }
-// ../../kanta/mut6q-havop2/bal2.ts
+// kanta/mut6q-havop2/bal2.ts
 const Habal2 = [{
 	s2kanta: "geles",
 	ksaka: "Geles bal2",
@@ -305,7 +305,7 @@ const Habal2 = [{
 	qoxa: "c2q",
 	pal6: 384
 }];
-// ../../kanta/mut6q-havop2/bal2S2kanta.ts
+// kanta/mut6q-havop2/bal2-s2kanta.ts
 function kxeBal2() {
 	return Habal2.find((m) => m.kxe) ?? Habal2[0];
 }
@@ -322,7 +322,7 @@ function knak2fecajasai(k2fe, kuxa = 2) {
 	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
 	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
 }
-// vecaxl.ts
+// caht2/vecax2l/vecaxl.ts
 const bal2 = kxeBal2();
 const NOMBRODAJXUROJ = 9;
 let kamasumo = 0;

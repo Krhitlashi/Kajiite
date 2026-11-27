@@ -1,12 +1,12 @@
 // ≺⧼ ſᶘᴜ j͐ʃɔ ſᶘᴜ ʌ }ʃɹƽ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqC2kanu, PONTK6H6AKMAERPONO } from "../../skek2/qatsiike/qakaj2/c2kanu.js";
+import { vepaqC2kanu, PONTK6H6AKMAERPONO } from "../../skek2/qa12ke/qakaj2/c2kanu.js";
 import { tlunakEnirejon } from "../../skek2/hapaq/satalaj/c2h2.js";
 import { vepaqSatalon } from "../../skek2/hapaq/satalaj-hapaq.js";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { STUPARISERO, K6H6AKMARL6DA } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { kas2kantaHasoza } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { STUPARISERO, K6H6AKMARL6DA } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { SANKTEJABAZPA12L6DA, SANKTEJABAZPA12KROMO }
   from "../../skek2/hapaq/satalaj/haqoxa.js";
 

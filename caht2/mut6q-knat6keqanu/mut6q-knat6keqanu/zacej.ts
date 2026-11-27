@@ -1,32 +1,32 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭ,ᴜ ſɟɔᴎ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kozonuL6da } from "../../../kanta/nala/mut6qSoza.js";
+import { kozonuL6da } from "../../../kanta/nala/mut6q-soza.js";
 import { MONDOHALFO, REZ } from "./havecax2l.js";
-import { pentri } from "./tsane.js";
-import { tsasaVem2De, tsekeTsasaSoza } from "./tsasa.js";
+import { pentri } from "./1ane.js";
+import { tsasaVem2De, tsekeTsasaSoza } from "./1asa.js";
 import { triaDimensia, mut6qMesh, oxemaniGrupo3D, YTROIGO,
   tlak23DCakamahan, tlak23DnIlon } from "./vido3d.js";
 import { vepaqSatalon } from "../../../skek2/hapaq/satalaj-hapaq.js";
 import { TIPAJNIVELOJ } from "../../../skek2/hapaq/satalaj/hahunaq.js";
-import { vepaqHxeuxfojn } from "../../../skek2/hapaq/hxeuxfa/hahufwuk2.js";
+import { vepaqHxeuxfojn } from "../../../skek2/hapaq/hx0xfa/hahufwuk2.js";
 import { vepaqKekufxeso } from "../../../skek2/w2ta/kubes.js";
 import { vepaqKrasesxagxon } from "../../../skek2/hapaq/krasesxagxa-kosmosxipo.js";
 import { vepaqQacel2n } from "../../../skek2/pudal/xa3e/halam2v/qacel2.js";
 import { vepaqLarikon } from "../../../skek2/pudal/xa3e/hataksal.js";
-import { vepaqTlexlefhxakaijn } from "../../../skek2/pudal/xa3e/tlexlefhxakai.js";
-import { vepaqTlexlefp2saijn } from "../../../skek2/pudal/xa3e/tlexlefp2sai.js";
+import { vepaqTlexlefhxakaijn } from "../../../skek2/pudal/xa3e/3exlefhxakai.js";
+import { vepaqTlexlefp2saijn } from "../../../skek2/pudal/xa3e/3exlefp2sai.js";
 import { vepaqNeq2qnRokon } from "../../../skek2/pudal/xa3e/hat6keq.js";
 import { vepaqNeq2qnXaben } from "../../../skek2/pudal/xa3e/haxabe.js";
 import { vepaqNeq2qnPagan, vepaqNeq2qnTemekn } from "../../../skek2/pudal/hapaga.js";
 import { vepaqQoxa } from "../../../skek2/pudal/hamaz.js";
-import { kf2S2tani } from "../../../skek2/qatsiike/b6tem2Kas2kanta.js";
-import { vepaqPeriferiajnPlathaqoxan } from "../../../skek2/qatsiike/hak6h6/neteruPukaz.js";
+import { kf2S2tani } from "../../../skek2/qa12ke/b6tem2-kas2kanta.js";
+import { vepaqPeriferiajnPlathaqoxan } from "../../../skek2/qa12ke/hak6h6/neteru-pukaz.js";
 import { kf2T6hnaPukek } from "../../../skek2/p6kpu/pukek.js";
 import { vefalSoqte } from "../../../skek2/hasoqte/hasoqte.js";
 import { kfe, hakfe, xaqadi } from "../../cas2tas/dom.js";
 import { catsaraTonan, catsaraQatsiiken, kf2GelesTsijen }
-  from "../../../skek2/p6kpu/tsije.js";
+  from "../../../skek2/p6kpu/1ije.js";
 import type { Neq2qObjekto } from "../../../kanta/nala/kaxte/hahunaq.js";
 
 export let hazace: Neq2qObjekto[] = [];

@@ -10246,11 +10246,11 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// ../../kanta/k2fe/fkabe.ts
+// kanta/k2fe/fkabe.ts
 function xaha(t) {
 	return t * t * (3 - 2 * t);
 }
-// ../../skek2/p6kpu/haweh2.ts
+// skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -10309,7 +10309,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// ../../skek2/p6kpu/mut6qHaweh2.ts
+// skek2/p6kpu/mut6q-haweh2.ts
 function xetoh2Qox2n2k(xi, zi) {
 	let n = xi * 2683120 + zi * 2676968 | 0;
 	n = (n ^ n >>> 13) * 4759592;
@@ -10340,7 +10340,7 @@ function knak2fecajasai(k2fe, kuxa = 2) {
 	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
 	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
 }
-// xetoh2.ts
+// caht2/vecax2l/xetoh2.ts
 function bruo2DClosure(x, z) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;

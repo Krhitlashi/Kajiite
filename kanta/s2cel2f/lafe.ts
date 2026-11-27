@@ -4,7 +4,7 @@ import { ligiHavula } from "./mak2zaf.js";
 import {
   vetem2iMangxaCatsaraEn, vetem2iSpeciaCatsaraEn, vetem2iVepaqTipCatsaraEn,
 } from "./mak2zaf.js";
-import { kf2SoqteHakaman } from "./qatlaq.js";
+import { kf2SoqteHakaman } from "./qa3aq.js";
 import { kf2S2k61o } from "./vula.js";
 import { k2reiVacepu } from "./nesakf6ni.js";
 

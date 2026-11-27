@@ -1,4 +1,4 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ֭ſɭᴜ ı],ɹ ı],ɹȝ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ɭʃɜ ŋᷠэ }ʃw 🎵 ⧽≻
 
 import type { BoleEg2b2 } from "../habal/hahunaq.js";
 import { F } from "../habal/p6zuk.js";

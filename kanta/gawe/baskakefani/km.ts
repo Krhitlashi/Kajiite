@@ -148,7 +148,7 @@ export const KM: Record<string, string> = {
   "harWeh2Blonda": "ទង់ដែង",
   "harWeh2Griza": "ប្រផេះ",
 
-  "muziko": "តន្ត្រី",
+  "swikez": "តន្ត្រី",
 
   "ariaKrepuskoCatsiina": "ប្តូររបៀបព្រលប់",
   "ariaKrepuskoKama": "កម្រិតព្រលប់",

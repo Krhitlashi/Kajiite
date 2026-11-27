@@ -10246,13 +10246,13 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// ../../kanta/mut6q-havop2/geles/tsasa.ts
+// kanta/mut6q-havop2/geles/1asa.ts
 const SKULPTAAKVANIVELO = -288 / 64;
-// ../../kanta/k2fe/fkabe.ts
+// kanta/k2fe/fkabe.ts
 function xaha(t) {
 	return t * t * (3 - 2 * t);
 }
-// ../../skek2/p6kpu/haweh2.ts
+// skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -10311,7 +10311,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// ../../skek2/p6kpu/mut6qHaweh2.ts
+// skek2/p6kpu/mut6q-haweh2.ts
 function xetoh2Qox2n2k(xi, zi) {
 	let n = xi * 2683120 + zi * 2676968 | 0;
 	n = (n ^ n >>> 13) * 4759592;
@@ -10448,7 +10448,7 @@ function mut6qWeh2En$1(natakatomasai, h, x, z, haga, vem2Fn) {
 	natakatomasai.b = b;
 	return natakatomasai;
 }
-// h2y2k-mut6qHaweh2.ts
+// caht2/vecax2l/h2y2k-mut6q-haweh2.ts
 function xetoh2D(x, z) {
 	const ix = Math.floor(x), iz = Math.floor(z);
 	const fx = x - ix, fz = z - iz;
@@ -10546,7 +10546,7 @@ function knak2fecajasai(k2fe, kuxa = 2) {
 	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
 	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
 }
-// k61e.ts
+// caht2/vecax2l/k61e.ts
 const T2BAK2P2 = "( ɭʃɹ ʃᴜ ſɭɹ ſןɹ )";
 const FKATASTIH2 = "ſȷƽᴜ ɭʃᴜ j͑ʃƨꞇ ֭ſɭɹ";
 const KMAM2M2STIH2 = "ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ j͑ʃƨꞇ ֭ſɭɹ";
@@ -10569,7 +10569,7 @@ function k2fKanaq(ksaka, tifSef4, tifH2y2k, nlakaniSef4, nlakaniH2y2k, kefn2k = 
 	const kapo = kefn2k > 0 ? ksaka.padEnd(kefn2k) : ksaka;
 	console.log(`${T2BAK2P2} ${kapo} ｡ ${FKATASTIH2} ｡ ${heKef(fkataH2y2k)} ｡ ${KMAM2M2STIH2} ｡ ${heKef(fkataSef4)} ｡ ${KALANI} ｡ ${knak2(fkataH2y2k / fkataSef4)} ｡ ${SEHENI} ｡ ${knak2(kmam2m2H2y2k / kmam2m2Sef4)} ｡ ${kanaq}`);
 }
-// weh2.ts
+// caht2/vecax2l/weh2.ts
 const C2QR = 9;
 const KOLOJ = 65536;
 const kolA = new Color();

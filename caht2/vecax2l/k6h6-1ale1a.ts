@@ -5,8 +5,8 @@ import * as THREE from "three";
 import { vepaqKaxten } from "../../kanta/nala/kaxte.js";
 import { kf2T6g6Pukek, kf2T6hnaPukek,
   kf2Cah6k6Pukek, kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
-import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { rampaKuro, STUPAF2KKURO, K6H6ASTUPAF2K } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { kas2kantaHasoza } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { rampaKuro, STUPAF2KKURO, K6H6ASTUPAF2K } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 
 const DEKLIVOLIMO = 0o1 / K6H6ASTUPAF2K + 0o1 / 0o20;
 const KUROTOLERO = 0o1 / 0o40;

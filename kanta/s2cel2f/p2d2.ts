@@ -1,5 +1,5 @@
 // ≺⧼ ſןɹ ɭ(ɹ }ʃꞇ ʌ ſןɹ ɭ(ɹ 🎹 ⧽≻
-import { ts2na } from "./ts2na.js";
+import { ts2na } from "./12na.js";
 
 export interface P2d2Kanta {
   supknu(): "h2se" | "kata" | "c2h2";

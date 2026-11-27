@@ -6,7 +6,7 @@ import {
 } from "../../skek2/p6kpu/haweh2.js";
 import {
   FE1AFKEKHAWEH2, T6LIMAHAWEH2,
-} from "../../skek2/p6kpu/mut6qHaweh2.js";
+} from "../../skek2/p6kpu/mut6q-haweh2.js";
 
 let hatlohk2nik2p2 = 0o0;
 

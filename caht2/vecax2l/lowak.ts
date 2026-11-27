@@ -1,8 +1,8 @@
 // ≺⧼ j͐ʃɜ ᶅſᴜƽ 📃 ⧽≻
 
 import * as THREE from "three";
-import { px01oBikuba, px01oX2pa2 } from "../../kanta/nala/tsasaVek2fe.js";
-import { xetoh2D, mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
+import { px01oBikuba, px01oX2pa2 } from "../../kanta/nala/1asa-vek2fe.js";
+import { xetoh2D, mut6qWeh2En } from "../../skek2/p6kpu/mut6q-haweh2.js";
 import { k2fKmaNlakani } from "./k61e.js";
 
 function vecax2l(ksaka: string, hatom6: number, f: () => number): void {

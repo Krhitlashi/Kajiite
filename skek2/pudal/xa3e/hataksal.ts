@@ -5,7 +5,7 @@ import { kf2LarikanS2cel2nCac2sex } from "../../p6kpu/cac2sex/taksal-s2cel2.js";
 import { kf2LarikanS2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/baksal-s2cel2-tok.js";
 import { vakox2qSenIndekson } from "../../p6kpu/hakox2q.js";
 import { KRONAGEOMETRIARADIUSO, TAVOLAPROPORCIO, kronaKa5ikLarika } from "./hasoza.js";
-import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import type { Cel2Raqa } from "./raqa.js";
 import { kf2TrunkanQoxaKefoun } from "./hasost2cel2sai.js";
 import { hunanuWeh2 } from "../../p6kpu/haweh2.js";

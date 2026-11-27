@@ -1,6 +1,6 @@
 // ≺⧼ ſɭɔ ᶅſɔ ꞁȷ̀ᴜ }ʃꞇ 🔍 ⧽≻
-import { tsasa } from "../../kanta/nala/mut6qSoza.js";
-import { knat6keqanuPaga } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { tsasa } from "../../kanta/nala/mut6q-soza.js";
+import { knat6keqanuPaga } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
 import { SKULPTAPASO, SKULPTAN, SKULPTAORIGINO } from "../../kanta/mut6q-havop2/kxe.js";
 
 export function trovuBestajnZonojn(bito: number, nurTsasa: boolean): { x: number; z: number }[] {

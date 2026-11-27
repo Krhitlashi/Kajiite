@@ -10246,7 +10246,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// ../../kanta/k2fe/fkabe.ts
+// kanta/k2fe/fkabe.ts
 function xaha(t) {
 	return t * t * (3 - 2 * t);
 }
@@ -10300,9 +10300,9 @@ function px01oBikuba(qox2n2k, n, vepat6ni, tsiq, x, z) {
 	const fx = (x - tsiq[0]) / vepat6ni, fz = (z - tsiq[1]) / vepat6ni;
 	return Math.max(0, bikubaPx01o(qox2n2k, n, fx, fz));
 }
-// ../../kanta/mut6q-havop2/geles/tsasa.ts
+// kanta/mut6q-havop2/geles/1asa.ts
 const SKULPTAAKVANIVELO = -288 / 64;
-// ../../skek2/p6kpu/haweh2.ts
+// skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -10361,7 +10361,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// ../../skek2/p6kpu/mut6qHaweh2.ts
+// skek2/p6kpu/mut6q-haweh2.ts
 function xetoh2Qox2n2k(xi, zi) {
 	let n = xi * 2683120 + zi * 2676968 | 0;
 	n = (n ^ n >>> 13) * 4759592;
@@ -10511,7 +10511,7 @@ function knak2fecajasai(k2fe, kuxa = 2) {
 	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
 	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
 }
-// k61e.ts
+// caht2/vecax2l/k61e.ts
 const T2BAK2P2 = "( ɭʃɹ ʃᴜ ſɭɹ ſןɹ )";
 const KMAM2M2STIH2 = "ſɭc̭ᴜ ŋᷠɹ ŋᷠɹ j͑ʃƨꞇ ֭ſɭɹ";
 const NLAKANI = "ȏoͩſ̀ȷᴜƽ ꞁȷ̀ᴜ }ʃꞇ";
@@ -10524,7 +10524,7 @@ function heKef(n2k) {
 function k2fKmaNlakani(ksaka, kmaXobe, nlakani, kefn2k = 24) {
 	console.log(`${T2BAK2P2} ${ksaka.padEnd(kefn2k)} ｡ ${KMAM2M2STIH2} ｡ ${heKef(kmaXobe)} ｡ ${NLAKANI} ｡ ${knak2(nlakani)}`);
 }
-// lowak.ts
+// caht2/vecax2l/lowak.ts
 function vecax2l(ksaka, hatom6, f) {
 	let kmaXobe = Infinity;
 	let tlunakani = 0;

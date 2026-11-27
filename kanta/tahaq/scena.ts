@@ -1,27 +1,27 @@
 // ≺⧼ ſ͕ɭɔ }ʃᴜ ʌ j͑ʃᴜ̭ɔ }ʃᴜ 🎬 ⧽≻
 import * as THREE from "three";
-import { l6da, tsasaVem2, tsasaVem2Tsiike } from "../nala/mut6qSoza.js";
+import { l6da, tsasaVem2, tsasaVem2Tsiike } from "../nala/mut6q-soza.js";
 import { glataTona } from "../k2fe/fkabe.js";
 import { kf2T6g6Pukek, kf2T6hnaPukek, kf2Cah6k6Pukek, kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
 import { kf2GrundanCac2sex } from "../../skek2/p6kpu/cac2sex/kozu-cac2sex.js";
 import { kf2GrundanBumpanCac2sex } from "../../skek2/p6kpu/cac2sex/kozu-cac2sex-tok.js";
 import { kf2NebulTavolanCac2sex } from "../../skek2/p6kpu/cac2sex/f2m2sexazai-tanek.js";
-import { kf2KozuanCac2sex } from "../../skek2/p6kpu/cac2sex/mut6qSoza.js";
+import { kf2KozuanCac2sex } from "../../skek2/p6kpu/cac2sex/mut6q-soza.js";
 import { xetoh2D, hagek2fhagasai, mut6qWeh2En,
-  mut6qK6h6Weh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
+  mut6qK6h6Weh2En } from "../../skek2/p6kpu/mut6q-haweh2.js";
 import { surokQoxa, h6kuniQoxa, ka5ikH6kuni, kf2QoxaZace,
   NALAPSAZY } from "../../skek2/p6kpu/mapqoxa.js";
 import { veb6qaiWeh2Skek, veb6qaiW2d2 } from "../../skek2/p6kpu/haweh2.js";
 import { catsaraTonan, catsaraQatsiiken, kf2GelesTsijen }
-  from "../../skek2/p6kpu/tsije.js";
-import { kxeBal2 } from "../mut6q-havop2/bal2S2kanta.js";
-import { jaqoRuvaKozunu } from "../mut6q-havop2/tlohk2nikziisai.js";
+  from "../../skek2/p6kpu/1ije.js";
+import { kxeBal2 } from "../mut6q-havop2/bal2-s2kanta.js";
+import { jaqoRuvaKozunu } from "../mut6q-havop2/3ohk2ni52sai.js";
 import { tlak2SexieanVitron } from "../../skek2/hapaq/satalaj/fasw2d2.js";
-import { laqaziTlohk2nik2p2 } from "./scena/tlohk2nik2p2.js";
+import { laqaziTlohk2nik2p2 } from "./scena/3ohk2nik2p2.js";
 import { PLOSTEQRATIO, KAK2PIKSLA, HUNANUBAL2, HUNANUKAK2 } from "./scena/cak2p2.js";
 import { kf2Canan } from "./scena/cana.js";
-import { MAHAVEM2, kf2Haweh2Cax2lojn } from "./scena/haweh2Cax2loj.js";
-import { kf2Q21oBaskek2jn } from "./scena/q21oBaskek2.js";
+import { MAHAVEM2, kf2Haweh2Cax2lojn } from "./scena/haweh2-cax2loj.js";
+import { kf2Q21oBaskek2jn } from "./scena/q21o-baskek2.js";
 import type { ScenaKanta, Vet6lima } from "./scena/hahunaq.js";
 
 export function kf2Kagani(p2t6zo: HTMLCanvasElement, b6tem2Kuba: HTMLElement): ScenaKanta {

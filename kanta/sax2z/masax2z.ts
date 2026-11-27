@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ŋᷠᴜ j͑ʃᴜ ı],ɹƴ 📃 ⧽≻
 
 import * as THREE from "three";
-import type { S2tani } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
+import type { S2tani } from "../../skek2/qa12ke/b6tem2-kas2kanta.js";
 import type { VepaqSpec } from "../../skek2/hapaq/satalaj/hahunaq.js";
 import type { M7xEro } from "../../skek2/w2ta/m7x/hahunaq.js";
 

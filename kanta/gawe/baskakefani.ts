@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ʃᴜ j͑ʃƽᴜ ſɭɔ ſȷᴜ }ʃꞇ 📃 ⧽≻
 
-import { gkAlIpa, ipaAlGawe } from "./boleS2kanta.js";
+import { gkAlIpa, ipaAlGawe } from "./bole-s2kanta.js";
 import { kf2S2k61o } from "../s2cel2f/vula.js";
 import type { S2k61o } from "../s2cel2f/vula.js";
 import { TIPARO } from "../../skek2/hapaq/satalaj/hahunaq.js";
@@ -37,7 +37,7 @@ const VEPAQKSKAOJ = new Set([
 
 function ksan2Ksaka(ca3aq: string): string | null {
   if ( tikGawe === "aih" ) return null;
-  if ( !/^(vepaqKsaka|muzikT2bakobesai|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !G6ZXA3EKSKAOJ.has(ca3aq) && !VEPAQKSKAOJ.has(ca3aq) ) return null;
+  if ( !/^(vepaqKsaka|swikez|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !G6ZXA3EKSKAOJ.has(ca3aq) && !VEPAQKSKAOJ.has(ca3aq) ) return null;
   const aihQoxa = skakefani.aih[ca3aq];
   if ( !aihQoxa ) return null;
   const ksaka = aihQoxa

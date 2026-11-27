@@ -4,8 +4,8 @@ import { HATSAQHAXE } from "../hasoqte/hasoqte.js";
 import type { Soqte, TsaqHaxe } from "../hasoqte/hasoqte.js";
 
 export type { Soqte };
-import { figurajQoxaKefoujn } from "./hamaz/qoxaKefouj.js";
-import { HAROY, haraPukek, harWeh2, harWeh2A, harWeh2B, haranQoxaKefoun } from "./hamaz/tsaq.js";
+import { figurajQoxaKefoujn } from "./hamaz/qoxa-kef7j.js";
+import { HAROY, haraPukek, harWeh2, harWeh2A, harWeh2B, haranQoxaKefoun } from "./hamaz/1aq.js";
 import { ceqaPukek, ledajHapukek, ungaPukek, vestajHapukek } from "./hamaz/pukek.js";
 import { HL6DAGAMO, C2H2PIVOTOY, KOLOY, KUBUTOY, MALEOLOY, SASAY } from "./hamaz/havecax2l.js";
 import { T2BANUJSUKF2QOJ, PALPEBRADAURO, PALPEBRAPUKXEO, PALPEBRAINTERVALO, t2banuPukek } from "./hamaz/t2banu.js";

@@ -6,67 +6,67 @@ import { vepaqNeq2qnHatoxemani } from "./kaxte/neq2q.js";
 import { kf2KvarLampAldonilon, kf2LampAldonilon, type LampQar } from "./kaxte/hahufwuk2.js";
 import type { NebulaKanta, UrbaKanta, Knat6keqanuKuba, Knat6keqanuK6h6N2k } from "./kaxte/hahunaq.js";
 import { RiverData, vepaqK6si,
-  vepaqK6siNordan, vepaqS2xuru, vepaqKnat6keqanuitanTsasa } from "../../skek2/qatsiike/tsasa.js";
+  vepaqK6siNordan, vepaqS2xuru, vepaqKnat6keqanuitanTsasa } from "../../skek2/qa12ke/1asa.js";
 import { vepaqHapagan, vepaqHatemekn } from "../../skek2/pudal/hapaga.js";
-import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
+import type { Kas2kantaDitlakak } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
 import { superajElVop2 } from "./qox2n2k/teru.js";
-import { S2tani } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
+import { S2tani } from "../../skek2/qa12ke/b6tem2-kas2kanta.js";
 import type { Qoxa, Soqte } from "../../skek2/pudal/hamaz.js";
 import type { C2h2Kanta } from "../../skek2/hapaq/hac2h2/hahunaq.js";
 import { tsasa, l6da, k6siZ, K6SIP2SSEFINI, LAGOX, LAGORZ, K6SIW6QAX, k6siAkvaVem2, s2xuruZ, s2xuruVem2, s2xuruCabole,
-  tsasaVem2, k6siLaqRaqX, k6siLaqRaqVem2, K6SILAQRAQ1IQZ, K6SILAQRAQP2SSEFINI, K6SILAQRAQW6QAZ, skulptitaTsasa, knat6keqanuAkvaHaplosteq, tsasaMeshVem2, SKULPTAPASO, SKULPTAAKTIVA } from "./mut6qSoza.js";
+  tsasaVem2, k6siLaqRaqX, k6siLaqRaqVem2, K6SILAQRAQ1IQZ, K6SILAQRAQP2SSEFINI, K6SILAQRAQW6QAZ, skulptitaTsasa, knat6keqanuAkvaHaplosteq, tsasaMeshVem2, SKULPTAPASO, SKULPTAAKTIVA } from "./mut6q-soza.js";
 import { SKULPTAN, SKULPTAORIGINO } from "../mut6q-havop2/kxe.js";
-import { vepaqTlexlefhxakaijn } from "../../skek2/pudal/xa3e/tlexlefhxakai.js";
-import { vepaqTlexlefp2saijn } from "../../skek2/pudal/xa3e/tlexlefp2sai.js";
+import { vepaqTlexlefhxakaijn } from "../../skek2/pudal/xa3e/3exlefhxakai.js";
+import { vepaqTlexlefp2saijn } from "../../skek2/pudal/xa3e/3exlefp2sai.js";
 import { vepaqQacel2n } from "../../skek2/pudal/xa3e/halam2v/qacel2.js";
 import { vepaqLarikon } from "../../skek2/pudal/xa3e/hataksal.js";
 import { vepaqQoxa } from "../../skek2/pudal/hamaz.js";
 import { HASOQTE } from "../../skek2/hasoqte/hasoqte.js";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { ANGULATSALETSALIRO } from "../../skek2/qatsiike/hak6h6/habakaweKatoma.js";
-import { vepaqIntersekcajnHapa12n } from "../../skek2/qatsiike/hak6h6/hapa12.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { ANGULATSALETSALIRO } from "../../skek2/qa12ke/hak6h6/habakawe-katoma.js";
+import { vepaqIntersekcajnHapa12n } from "../../skek2/qa12ke/hak6h6/hapa12.js";
 import { kf2NebulanCac2sex } from "../../skek2/p6kpu/cac2sex/maha.js";
 import { kronaKa5ikLarika,
   kronaKa5ikHxsxaksxlefa } from "../../skek2/pudal/xa3e/hasoza.js";
 import { VALAJBIOMOJ, EBENAJAJBIOMOJ,
   MONTAJBIOMOJ, EKVIZETOBIOMOJ } from "../../skek2/pudal/xa3e/habs2.js";
 import { neq2qHacel2, neq2qMontajnHacel2,
-  neq2qTlexlefp2saijn, neq2qHacel2CxirkauS2xuru } from "../../skek2/pudal/xa3e/xa3eRaqa.js";
+  neq2qTlexlefp2saijn, neq2qHacel2CxirkauS2xuru } from "../../skek2/pudal/xa3e/xa3e-raqa.js";
 import { vepaqF2majn,
   vepaqTrunkajnF2majn } from "../../skek2/pudal/xa3e/haf2ma.js";
 import { vepaqMusxajnMontetojn } from "../../skek2/pudal/xa3e/hac6x.js";
 import { vepaqSotlakaknHasost2cel2sain } from "../../skek2/pudal/xa3e/so3akak-hasost2cel2sai.js";
-import { vepaqCetkuojn, vepaqCakeojn } from "../../skek2/pudal/xa3e/hatsake.js";
+import { vepaqCetkuojn, vepaqCakeojn } from "../../skek2/pudal/xa3e/ha1ake.js";
 import { vepaqFe1afn,
-  vepaqFe1afnCxirkauS2xuru } from "../../skek2/pudal/xa3e/fe1af/fetsafKek.js";
+  vepaqFe1afnCxirkauS2xuru } from "../../skek2/pudal/xa3e/fe1af/fe1af-kek.js";
 import { vepaqHerbanTavolon } from "../../skek2/pudal/xa3e/fe1af/fe1af.js";
-import { k6h6Teru, k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
+import { k6h6Teru, k6h6TeruDeVeb6kek } from "../../skek2/qa12ke/hak6h6/haqoxa.js";
 import { KEUXFHXESOKA5IK } from "../../skek2/w2ta/kubes.js";
 import {
   K6H6AAKVAKLARANCO, K6H6ADIORITAP2SOMANI, K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI,
-  K6H6AKMARL6DA, surGrid } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { vepaqPeriferiajnPlathaqoxan } from "../../skek2/qatsiike/hak6h6/neteruPukaz.js";
-import { vepaqQakaj2n } from "../../skek2/qatsiike/qakaj2.js";
-import { PONTFINAL6DA, PONTAKVAKLARANCO, vepaqC2kanu } from "../../skek2/qatsiike/qakaj2/c2kanu.js";
-import { kf2Qakaj2nStuparon } from "../../skek2/qatsiike/qakaj2/hatona.js";
+  K6H6AKMARL6DA, surGrid } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
+import { vepaqPeriferiajnPlathaqoxan } from "../../skek2/qa12ke/hak6h6/neteru-pukaz.js";
+import { vepaqQakaj2n } from "../../skek2/qa12ke/qakaj2.js";
+import { PONTFINAL6DA, PONTAKVAKLARANCO, vepaqC2kanu } from "../../skek2/qa12ke/qakaj2/c2kanu.js";
+import { kf2Qakaj2nStuparon } from "../../skek2/qa12ke/qakaj2/hatona.js";
 import { troviK6h6RetajnHaveb6kekn, tamc2kHakneceElHak6h6,
-  K6h6CaxlefkakaiK6h6, K6h6CaxlefkakaiVeb6kek } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
-import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
-import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
+  K6h6CaxlefkakaiK6h6, K6h6CaxlefkakaiVeb6kek } from "../../skek2/qa12ke/k6h6-caxlefkakai.js";
+import { gluiK6h6tlakakn } from "../../skek2/qa12ke/hak6h6/scac6.js";
+import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qa12ke/hak6h6/l6da.js";
 import { vepaqPontanS2qena, havasAkvanTrunkon, kf2PontanAkvanTeston,
-  type C2kanuT2bakobesai } from "../../skek2/qatsiike/hak6h6/c2kanu-profilo.js";
-import { kf2Haknece, tamc2kTap2L6da } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { qakaj2L6daJe } from "../../skek2/qatsiike/hak6h6/veb6kek-havem2.js";
+  type C2kanuT2bakobesai } from "../../skek2/qa12ke/hak6h6/c2kanu-s2qena.js";
+import { kf2Haknece, tamc2kTap2L6da } from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import { qakaj2L6daJe } from "../../skek2/qa12ke/hak6h6/veb6kek-havem2.js";
 import { surPosxtelefono } from "../tahaq/scena/cak2p2.js";
 import { knat6keqanuPaga, tikHakaxte, tikHak6h6, tikHaqakaj2,
-  tikHatoxemani, tsekeGeneritaSetlejo, mondiaHazardo } from "../mut6q-havop2/tlohk2nikziisai.js";
-import { vepaqHxeuxfojn } from "../../skek2/hapaq/hxeuxfa/hahufwuk2.js";
+  tikHatoxemani, tsekeGeneritaSetlejo, mondiaHazardo } from "../mut6q-havop2/3ohk2ni52sai.js";
+import { vepaqHxeuxfojn } from "../../skek2/hapaq/hx0xfa/hahufwuk2.js";
 import { vepaqXabejn } from "../../skek2/pudal/xa3e/haxabe.js";
 import { vepaqAsfajnPlantojn,
   vepaqAsfajnXabejn, vepaqAltajnAsfajnXabejn } from "../../skek2/pudal/xa3e/hasfa.js";
 import { vepaqLikenSxtonojn, vepaqBordajnSxtonojn } from "../../skek2/pudal/xa3e/hat6keq.js";
 import { vepaqMontajnSubkreskajxojn,
-  vepaqLaganSubkreskajxojn } from "../../skek2/pudal/xa3e/psazXa3e.js";
+  vepaqLaganSubkreskajxojn } from "../../skek2/pudal/xa3e/psaz-xa3e.js";
 import { vepaqMontajnHat6keqn } from "../../skek2/pudal/xa3e/hat6keq.js";
 import { kf2Tlexlefp2saijnPikjn } from "../../skek2/w2ta/m7x/pik.js";
 import { kf2InternanKanta } from "../../skek2/hapaq/hac2h2/kanta.js";

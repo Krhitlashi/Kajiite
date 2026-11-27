@@ -1,6 +1,6 @@
 import { strict } from "node:assert";
 import { test } from "node:test";
-// ../../skek2/p6kpu/kutso.ts
+// skek2/p6kpu/ku1o.ts
 function kf2Ku1o(ksaka) {
 	let hax2ni = null;
 	let ve3aqai = false;
@@ -39,7 +39,7 @@ function kf2Ku1o(ksaka) {
 	};
 }
 const { vefalKu1o, ve3aqKu1o } = kf2Ku1o("aranis-haku1o");
-// ../../skek2/p6kpu/caq2q.ts
+// skek2/p6kpu/caq2q.ts
 function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, tlunak) {
 	let skek = ruva >>> 0;
 	return () => {
@@ -55,7 +55,7 @@ function kf2Sakxo(ruva, tlunak = 1831565813) {
 function kf2SakxoKlasika(ruva, tlunak = 1831565813) {
 	return kf2SakxoRuva(ruva, 15, 61, tlunak);
 }
-// 3aqk2p2-1ale1a.ts
+// caht2/vecax2l/3aqk2p2-1ale1a.ts
 test("ku1o / persistence, caching, namespaces and unavailable storage", () => {
 	const xaqadi = Object.getOwnPropertyDescriptor(globalThis, "localStorage");
 	const hax2ni = /* @__PURE__ */ new Map();
@@ -79,10 +79,10 @@ test("ku1o / persistence, caching, namespaces and unavailable storage", () => {
 	try {
 		hax2ni.set("aranis-haku1o", JSON.stringify({
 			bolero: false,
-			t2bakobesai: 2
+			swikez: 2
 		}));
 		strict.equal(vefalKu1o("bolero", true), false);
-		strict.equal(vefalKu1o("t2bakobesai", -1), 2);
+		strict.equal(vefalKu1o("swikez", -1), 2);
 		strict.equal(legadoj, 1);
 		ve3aqKu1o("bolero", false);
 		strict.equal(skriboj, 0);
@@ -90,16 +90,16 @@ test("ku1o / persistence, caching, namespaces and unavailable storage", () => {
 		strict.equal(skriboj, 1);
 		strict.deepEqual(JSON.parse(hax2ni.get("aranis-haku1o")), {
 			bolero: true,
-			t2bakobesai: 2
+			swikez: 2
 		});
 		const xaqadi = kf2Ku1o("xaqadi");
 		const p2sadi = kf2Ku1o("p2sadi");
-		xaqadi.ve3aqKu1o("t2bakobesai", 3);
-		p2sadi.ve3aqKu1o("t2bakobesai", 4);
-		strict.equal(xaqadi.vefalKu1o("t2bakobesai", -1), 3);
-		strict.equal(p2sadi.vefalKu1o("t2bakobesai", -1), 4);
-		strict.equal(kf2Ku1o("xaqadi").vefalKu1o("t2bakobesai", -1), 3);
-		strict.equal(xaqadi.vefalKu1o("t2bakobesai", "apriora"), "apriora");
+		xaqadi.ve3aqKu1o("swikez", 3);
+		p2sadi.ve3aqKu1o("swikez", 4);
+		strict.equal(xaqadi.vefalKu1o("swikez", -1), 3);
+		strict.equal(p2sadi.vefalKu1o("swikez", -1), 4);
+		strict.equal(kf2Ku1o("xaqadi").vefalKu1o("swikez", -1), 3);
+		strict.equal(xaqadi.vefalKu1o("swikez", "apriora"), "apriora");
 		hax2ni.set("filtrita", "{\"xobe\":false,\"k2fe\":2,\"s2bana\":\"\",\"nula\":null,\"aro\":[],\"zace\":{},\"sentlakak\":1e999,\"proto\":\"propra\"}");
 		const filtrita = kf2Ku1o("filtrita");
 		strict.equal(filtrita.vefalKu1o("xobe", true), false);

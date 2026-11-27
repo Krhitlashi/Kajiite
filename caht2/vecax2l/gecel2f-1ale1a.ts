@@ -1,13 +1,13 @@
 // ≺⧼ ſ͔ɭɔ ſɟɔ j͐ʃɹʞ ʌ ſᶘᴜ j͐ʃɔ ſᶘᴜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { vepaqIntersekcajnHapa12n } from "../../skek2/qatsiike/hak6h6/hapa12.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { vepaqIntersekcajnHapa12n } from "../../skek2/qa12ke/hak6h6/hapa12.js";
 import { K6H6ADIORITAP2SOMANI, K6H6AEKSTERAP2SOMANI, K6H6ATRUAP2SOMANI }
-  from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+  from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { kf2Haknece, kf2Tap2jnPoligonojn,
-  type Knece } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
+  type Knece } from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import type { Kas2kantaDitlakak } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
 
 const d = (): number => 0o0;
 const t6g6 = new THREE.MeshStandardMaterial({ color: 0xd8d8d8 });

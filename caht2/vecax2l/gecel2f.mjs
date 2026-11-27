@@ -18779,7 +18779,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// ../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js
+// node_modules/three/examples/jsm/utils/BufferGeometryUtils.js
 /**
 * Merges a set of geometries into a single instance. All geometries must have compatible attributes.
 *
@@ -18941,7 +18941,7 @@ function mergeAttributes(attributes) {
 	if (gpuType !== void 0) result.gpuType = gpuType;
 	return result;
 }
-// ../../skek2/p6kpu/haqoxa.ts
+// skek2/p6kpu/haqoxa.ts
 function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
@@ -18974,7 +18974,7 @@ function sax0baPukazQan2k(qoxa) {
 	uv.needsUpdate = true;
 	return qoxa;
 }
-// ../../skek2/p6kpu/haweh2.ts
+// skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -19033,7 +19033,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// ../../skek2/p6kpu/caq2q.ts
+// skek2/p6kpu/caq2q.ts
 function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, tlunak) {
 	let skek = ruva >>> 0;
 	return () => {
@@ -19046,7 +19046,7 @@ function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, tlunak) {
 function kf2Sakxo(ruva, tlunak = 1831565813) {
 	return kf2SakxoRuva(ruva, 16, 64, tlunak);
 }
-// ../../skek2/p6kpu/cac2sex/mafezi.ts
+// skek2/p6kpu/cac2sex/pukek.ts
 const konturajKampoj = /* @__PURE__ */ new Map();
 function k2fKonturanCac2sex(kuns2bana, weh2Cax2lo, tk2ni, hakolumno = 4, hax2pa = 4, reliefo = false) {
 	const { width: sefini, height: l6da } = kuns2bana.canvas;
@@ -19175,10 +19175,10 @@ function kf2P2t6zoCac2sex(w, h, pentri, ripeto = [1, 1], haku1o = {}) {
 	if (haku1o.sRGB !== false) cac2sex.colorSpace = SRGBColorSpace;
 	cac2sex.wrapS = cac2sex.wrapT = haku1o.g2b2 ?? 1e3;
 	cac2sex.repeat.set(ripeto[0], ripeto[1]);
-	if (haku1o.anisotropio) cac2sex.anisotropy = haku1o.anisotropio;
+	if (haku1o.peq2) cac2sex.anisotropy = haku1o.peq2;
 	return cac2sex;
 }
-// ../../skek2/p6kpu/cac2sex/t6hna.ts
+// skek2/p6kpu/cac2sex/t6hna.ts
 const kf2T6hnaCac2sex = p2somani(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kuns2bana) => {
@@ -19189,10 +19189,10 @@ const kf2T6hnaCac2sex = p2somani(() => {
 		], 3307, 4, 6);
 	}, [3, 3], {
 		g2b2: RepeatWrapping,
-		anisotropio: 4
+		peq2: 4
 	});
 });
-// ../../skek2/p6kpu/cac2sex/t6g6.ts
+// skek2/p6kpu/cac2sex/t6g6.ts
 const kf2T6g6Cac2sex = p2somani(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kuns2bana) => {
@@ -19204,10 +19204,10 @@ const kf2T6g6Cac2sex = p2somani(() => {
 		], 2447, 6, 6);
 	}, [2, 2], {
 		g2b2: RepeatWrapping,
-		anisotropio: 4
+		peq2: 4
 	});
 });
-// ../../skek2/qatsiike/hak6h6/havecax2l.ts
+// skek2/qa12ke/hak6h6/havecax2l.ts
 const K6H6ASEFINI = 5 / 64;
 const K6H6AKMARL6DA = .09375;
 const K6H6ADIORITAP2SOMANI = 7 / 8;
@@ -19226,7 +19226,7 @@ function subGrid(l6da) {
 	return Math.floor(l6da / STUPARISERO + 8 ** -6) * STUPARISERO;
 }
 const K6H6ABURIL6DALERANCO = 1 / 16;
-// ../../skek2/qatsiike/hak6h6/habakaweKatoma.ts
+// skek2/qa12ke/hak6h6/habakawe-katoma.ts
 function kf2GeometriajnHabakaweKatoman() {
 	const haca1ara = /* @__PURE__ */ new Map();
 	return {
@@ -19320,7 +19320,7 @@ function kf2Hak6h6nHapukek(dioritaPukek, andezitaPukek, sost2F, sost2U, bordoF, 
 		bordaPukek
 	};
 }
-// ../../skek2/qatsiike/qakaj2/c2kanu.ts
+// skek2/qa12ke/qakaj2/c2kanu.ts
 const PONTKORPADIKECO = 6 / 8;
 const DUONAC2Q = Math.PI;
 function hakekaf2n2k(ka5ik, saxeni, gamo, havepat6ni = 32) {
@@ -19367,7 +19367,7 @@ function tlunakC2qjnKek(habakaweKatoma, hakek, teruPukek, bordaPukek, mut6qFn) {
 		}
 	}
 }
-// ../../skek2/qatsiike/hak6h6/haqoxa.ts
+// skek2/qa12ke/hak6h6/haqoxa.ts
 function k6h6TeruDeVeb6kek(x, z, hac2w2q, ka5ik, heightFn) {
 	let maks = heightFn(x, z), m2m2 = maks;
 	const konsideru = (px, pz, r) => {
@@ -19633,7 +19633,7 @@ function kf2SegmentQoxaKefoun(w, l, hateru, hapsaz, ofsetoX = 0) {
 	zace.computeVertexNormals();
 	return zace;
 }
-// ../../skek2/qatsiike/hak6h6/l6da.ts
+// skek2/qa12ke/hak6h6/l6da.ts
 const K6H6ATERARADII = [
 	1 / 2,
 	1,
@@ -19791,7 +19791,7 @@ function kf2K6h6L6dan(l6da, haveb6kek, tsasaFn) {
 		return l6da;
 	};
 }
-// ../../skek2/qatsiike/hak6h6/havem2.ts
+// skek2/qa12ke/hak6h6/havem2.ts
 const NIVELAPASO = STUPAF2KKURO;
 const NIVELASTUPADISTO = STUPAF2KKURO;
 const LAUXAJ = [
@@ -20175,7 +20175,7 @@ function kf2UnuformajnHacaqasahaxn(s2qena, hah6k6 = []) {
 	tlunakani(tlakakaitlakak, sahakani, vem2, vem2);
 	return hacaqasahax;
 }
-// ../../skek2/qatsiike/hak6h6/veb6kek-havem2.ts
+// skek2/qa12ke/hak6h6/veb6kek-havem2.ts
 function tamc2kCatlaq(x, z) {
 	return x + "," + z;
 }
@@ -20217,7 +20217,7 @@ function sukf2qiTap2nL6da(knece, rezervo) {
 	}
 	return Math.max(surGrid(sukf2qita), mut6q);
 }
-// ../../skek2/qatsiike/hak6h6/hapa12.ts
+// skek2/qa12ke/hak6h6/hapa12.ts
 const DUOBLAPI = Math.PI * 2;
 const ANGULATONA = 1 / 32;
 const ANGULATOLERO = 1 / 512;
@@ -20525,9 +20525,9 @@ function vepaqIntersekcajnHapa12n(qena, n2k, heightFn, dioritaPukek, andezitaPuk
 	}
 	habakaweKatoma.veb6kek(qena, false);
 }
-// ../../skek2/qatsiike/hak6h6/hahunaq.ts
+// skek2/qa12ke/hak6h6/hahunaq.ts
 const kas2kantaHasoza = [];
-// ../../skek2/qatsiike/hak6h6/has2nasce.ts
+// skek2/qa12ke/hak6h6/has2nasce.ts
 function hatafkaqDeTreado(l6daA, l6daB, ax, az, bx, bz, latX, latZ, mut6qFn, kofBaza) {
 	const hateru = [
 		l6daA,
@@ -20740,7 +20740,7 @@ function kf2EksteranP2somani(hasiitsii) {
 	}
 	return p2somani;
 }
-// ../../skek2/qatsiike/hak6h6.ts
+// skek2/qa12ke/hak6h6.ts
 const PROJEKTAMEMORO = /* @__PURE__ */ new WeakMap();
 function projekcioDe(n2k) {
 	const vetlaqita = PROJEKTAMEMORO.get(n2k);
@@ -21126,7 +21126,7 @@ function aldonuHapx01on(samples, aX, aZ, bX, bZ, altFn) {
 		samples.push(new Vector3(sx, altFn(sx, sz), sz));
 	}
 }
-// gecel2f.ts
+// caht2/vecax2l/gecel2f.ts
 const TOLERO = 1 / 128;
 const t6g6 = new MeshStandardMaterial({ color: 14540253 });
 const t6hna = new MeshStandardMaterial({ color: 10066329 });

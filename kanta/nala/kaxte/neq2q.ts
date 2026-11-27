@@ -8,12 +8,12 @@ import { PagaKanta, TemekKanta,
   vepaqNeq2qnPagan, vepaqNeq2qnTemekn } from "../../../skek2/pudal/hapaga.js";
 import { vepaqNeq2qnRokon } from "../../../skek2/pudal/xa3e/hat6keq.js";
 import { vepaqNeq2qnXaben } from "../../../skek2/pudal/xa3e/haxabe.js";
-import { vepaqTlexlefhxakaijn } from "../../../skek2/pudal/xa3e/tlexlefhxakai.js";
-import { vepaqTlexlefp2saijn } from "../../../skek2/pudal/xa3e/tlexlefp2sai.js";
+import { vepaqTlexlefhxakaijn } from "../../../skek2/pudal/xa3e/3exlefhxakai.js";
+import { vepaqTlexlefp2saijn } from "../../../skek2/pudal/xa3e/3exlefp2sai.js";
 import { vepaqQacel2n } from "../../../skek2/pudal/xa3e/halam2v/qacel2.js";
 import { vepaqLarikon } from "../../../skek2/pudal/xa3e/hataksal.js";
 import { vepaqKekufxeso } from "../../../skek2/w2ta/kubes.js";
-import { kf2S2tani, S2tani } from "../../../skek2/qatsiike/b6tem2Kas2kanta.js";
+import { kf2S2tani, S2tani } from "../../../skek2/qa12ke/b6tem2-kas2kanta.js";
 import { vepaqQoxa } from "../../../skek2/pudal/hamaz.js";
 import type { Qoxa } from "../../../skek2/pudal/hamaz.js";
 import { vepaqKrasesxagxon } from "../../../skek2/hapaq/krasesxagxa-kosmosxipo.js";

@@ -10,7 +10,7 @@ import { kf2Cah6k6Pukek } from "../p6kpu/pukek.js";
 import { weh2Ruva, veHuna } from "../p6kpu/haweh2.js";
 import { ksakaAih } from "../../kanta/gawe/baskakefani.js";
 import { kf2Mangxajxojn } from "../w2ta/m7x/raqa.js";
-import { tlunakF6f2n } from "../w2ta/m7x/tsasaG2b2.js";
+import { tlunakF6f2n } from "../w2ta/m7x/1asa-g2b2.js";
 import { tlunakMangxCax2l, KEHUWEH2 } from "../w2ta/cax2loj.js";
 import { k2fKekkozusai } from "../p6kpu/cac2sex/kozu.js";
 import { kf2RinganKozun, kf2Trah6ponPordTruon, GOLD, GOLDSOFT, GOLDWARM } from "./hac2h2/haqoxa.js";

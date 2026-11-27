@@ -11,7 +11,7 @@ function knak2fecajasai(k2fe, kuxa = 2) {
 	const okef = kuxa === 0 ? "" : "." + (xekuxa % k2feSa).toString(8).padStart(kuxa, "0").replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]);
 	return (neni ? "-" : "") + "ꞙɭ" + k2feXa.toString(8).replace(/[0-7]/g, (okef) => KNAK2FECAJASAI[Number(okef)]) + okef;
 }
-// k61e.ts
+// caht2/vecax2l/k61e.ts
 const T2BAK2P2 = "( ɭʃɹ ʃᴜ ſɭɹ ſןɹ )";
 const B6TENANI = "( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ )";
 const KEF3OHK2NI = "( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ )";

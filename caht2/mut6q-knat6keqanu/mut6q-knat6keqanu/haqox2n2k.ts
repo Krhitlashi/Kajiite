@@ -1,18 +1,18 @@
 // ≺⧼ ʃᴜ j͐ʃɹ ʌ ֭ſɭᴜ ſ͕ɭɜ ı],ɹ }ʃɹƽ 🗺️ ⧽≻
 
 import { MONDOHALFO } from "./havecax2l.js";
-import { tsasaTseuni, tsekeTsasa } from "./tsasa.js";
+import { tsasaTseuni, tsekeTsasa } from "./1asa.js";
 import { tona3d } from "./vido3d.js";
 import { vepaqTom6Qox2n2kn3D, vepaqTom6Hak6h6n3D } from "./qox2n2k3d.js";
 import { kf2Qox2n2kB6vakantan } from "../../../kanta/nala/qox2n2k/b6vakanta.js";
-import { validiQox2n2k } from "../../../kanta/nala/qox2n2k/senaqTsaletsa.js";
-import { tlunakK6h6n } from "../../../kanta/nala/qox2n2k/tlunakani.js";
+import { validiQox2n2k } from "../../../kanta/nala/qox2n2k/senaq-1ale1a.js";
+import { tlunakK6h6n } from "../../../kanta/nala/qox2n2k/3unakani.js";
 import { superajElVop2, hatikElVop2 } from "../../../kanta/nala/qox2n2k/teru.js";
 import type { Knat6keqanuKuba, Knat6keqanuK6h6N2k, Knat6keqanuTap2Qoxa } from "../../../kanta/nala/kaxte/hahunaq.js";
 import type { K2paHunaq, Qox2n2kB6vakanta } from "../../../kanta/nala/qox2n2k/hahunaq.js";
-import type { K6h6N2k } from "../../../skek2/qatsiike/k6h6-caxlefkakai.js";
+import type { K6h6N2k } from "../../../skek2/qa12ke/k6h6-caxlefkakai.js";
 import { kfe, hakfe } from "../../cas2tas/dom.js";
-import { catsaraLaqazendajnHakaxten, h2luKaxten, laqazendajHakaxte, refresxigiVidon, panauKaxten } from "./kix2Ka5ik.js";
+import { catsaraLaqazendajnHakaxten, h2luKaxten, laqazendajHakaxte, refresxigiVidon, panauKaxten } from "./kix2-ka5ik.js";
 import { k6h6P2somaniSefini as caxlefkakaiK6h6P2somaniSefini, k6h6Veb6kekaP2somani as caxlefkakaiK6h6Veb6kekaP2somani,
   k6h6Phaka as caxlefkakaiK6h6Projekcio,
   k6h6Vakox2q as caxlefkakaiK6h6Vakox2q,
@@ -20,7 +20,7 @@ import { k6h6P2somaniSefini as caxlefkakaiK6h6P2somaniSefini, k6h6Veb6kekaP2soma
   k6h6jHakox2qo as caxlefkakaiK6h6jHakox2qj,
   konektiQakaj2nAlK6h6 as caxlefkakaiKonektiQakaj2nAlK6h6,
   qakaj2LandaS2nasce as caxlefkakaiQakaj2LandaS2nasce,
-  QAKAJ2KOZUNUASEFINI } from "../../../skek2/qatsiike/k6h6-caxlefkakai.js";
+  QAKAJ2KOZUNUASEFINI } from "../../../skek2/qa12ke/k6h6-caxlefkakai.js";
 
 interface KradaLigo {
   vidCX: () => number;

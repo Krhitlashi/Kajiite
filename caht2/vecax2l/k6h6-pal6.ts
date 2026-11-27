@@ -1,7 +1,7 @@
 // ≺⧼ ſɭэ ֭ſɭэ ʌ ſןᴜ j͐ʃэ 📃 ⧽≻
 
-import { kf2Haknece, tamc2kTap2L6da } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { kf2Haknece, tamc2kTap2L6da } from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import { K6H6ATRUAP2SOMANI } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { kf2Vecax2lanNala, n2kJe } from "./p6kpu.js";
 
 const nala = kf2Vecax2lanNala();

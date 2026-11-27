@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { vakox2qDuQoxaKefoujn, vakox2qSenIndekson }
   from "../../skek2/p6kpu/hakox2q.js";
 import { kf2HerbanKxa } from "../../skek2/pudal/xa3e/fe1af/hakxa.js";
-import { kf2Xa3eHazardon } from "../../skek2/pudal/xa3e/sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "../../skek2/pudal/xa3e/sakxo-xa3e.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const NOMBRODAJXUROJ = 0o11;

@@ -3,10 +3,10 @@
 import * as THREE from "three";
 import { kf2RokenCac2sex } from "../../p6kpu/cac2sex/t6keq.js";
 import { kf2RokenBumpanCac2sex } from "../../p6kpu/cac2sex/t6keq-tok.js";
-import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import { jaqoHaga, spronaP2somani, type Cel2Raqa } from "./raqa.js";
 import { bs2, tsasa, tsasaVem2, SKULPTAN, SKULPTAPASO,
-  SKULPTAORIGINO, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+  SKULPTAORIGINO, type Bs2 } from "../../../kanta/nala/mut6q-soza.js";
 import { glataTona } from "../../../kanta/k2fe/fkabe.js";
 
 function vepaqRokQoxaKefoun(tk2ni = 0o1): THREE.BufferGeometry {

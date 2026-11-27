@@ -2,7 +2,7 @@
 
 import { subRuva } from "./ruva.js";
 import { xaha, glataTona } from "../k2fe/fkabe.js";
-import type { LasTsiq } from "./tsasaVek2fe.js";
+import type { LasTsiq } from "./1asa-vek2fe.js";
 
 const KANALOKONTINENTO = 0o1;
 const KANALOJaqo = 0o2;

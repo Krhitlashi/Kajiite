@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃ'ꞇ ɭ(ͷ̗ꞇ ŋᷠɜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { MAHAVEM2MIN, mahaH6kuni } from "./scena/haweh2Cax2loj.js";
+import { MAHAVEM2MIN, mahaH6kuni } from "./scena/haweh2-cax2loj.js";
 
 const C2TACA1ARA = 0o100;
 const PLOSTEQC2TA = 0o10;

@@ -2,8 +2,8 @@
 
 import { catsaraHatsiqn, catsaraSukf2qitanTsiqn, catsaraTsiqTrenatan,
   catsaraAkvanVem2n, s2tasTsasaS23ohk2sain, revek2feTsasa, hatsiq, sukf2qitaTsiq,
-  tsasaVem2Vem2 } from "./tsasa.js";
-import type { LasTsiq } from "./tsasa.js";
+  tsasaVem2Vem2 } from "./1asa.js";
+import type { LasTsiq } from "./1asa.js";
 import { catsaraHatoxemani, catsaraSukf2qitanOxemanin, tlak2ObjektoCatsara,
   vepaqTom6Hatoxemani, hazace, sukf2qitaOxemani } from "./zacej.js";
 import { catsaraHakaxten, catsaraHak6h6n, catsaraHaqakaj2n, catsaraSukf2qitanKaxten,

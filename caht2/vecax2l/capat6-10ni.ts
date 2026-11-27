@@ -1,15 +1,15 @@
 // ≺⧼ ſɟᴜ ſןᴜ ɭʃэ ʌ ſᶘɔⅎ }ʃꞇ 📃 ⧽≻
 
 import * as THREE from "three";
-import { vepaqQakaj2n } from "../../skek2/qatsiike/qakaj2.js";
-import { vek2feStupanNombron, kf2StuparanL6da, kf2StuparajnHan2kn } from "../../skek2/qatsiike/qakaj2/hatona.js";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { kas2kantaHasoza } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
-import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
-import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
+import { vepaqQakaj2n } from "../../skek2/qa12ke/qakaj2.js";
+import { vek2feStupanNombron, kf2StuparanL6da, kf2StuparajnHan2kn } from "../../skek2/qa12ke/qakaj2/hatona.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { kas2kantaHasoza } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
+import { tikHak6h6, tikHaqakaj2 } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6q-soza.js";
+import { troviK6h6RetajnHaveb6kekn } from "../../skek2/qa12ke/k6h6-caxlefkakai.js";
 import { kf2T6g6Pukek, kf2T6hnaPukek } from "../../skek2/p6kpu/pukek.js";
-import { surGrid, STUPARISERO, K6H6AKMARL6DA } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { surGrid, STUPARISERO, K6H6AKMARL6DA } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { pontaFinL6da } from "./p6kpu.js";
 
 const qena = new THREE.Scene();

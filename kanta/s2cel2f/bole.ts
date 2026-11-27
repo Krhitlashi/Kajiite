@@ -1,8 +1,8 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ʃɜ j͐ʃɔ 📃 ⧽≻
 
-import { tsiinanusabosaiLaqazbolesain, tsekeLaqazbolesai, tsiinanusabosaiBruon, tsekeBruo, autoSaxei, registriPostLaqazbolesai } from "../../skek2/bole/boleS2t2bakano.js";
-import { veqapahakani, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani } from "../../skek2/bole/swikez/cagaqi.js";
-import { HASWIKEZAI } from "../../skek2/bole/swikez/s2kanta.js";
+import { tsiinanusabosaiLaqazbolesain, tsekeLaqazbolesai, tsiinanusabosaiBruon, tsekeBruo, autoSaxei, registriPostLaqazbolesai } from "../../skek2/bole/bole-s2t2bakano.js";
+import { veqapahakani, b6tem2Swikez, cutluSwikez, tsekeVeqapahakani } from "../../skek2/bole/swikez/cagaqi.js";
+import { HASWIKEZ } from "../../skek2/bole/swikez/s2kanta.js";
 
 export interface Bole {
 
@@ -12,7 +12,7 @@ export interface Bole {
 }
 
 const BOLE_CA1ARA = "[data-sonkama]";
-const BOLE_CA1ARA2 = '[data-sonkama="bolero"],[data-sonkama="bruo"],[data-sonkama="t2bakobesai"]';
+const BOLE_CA1ARA2 = '[data-sonkama="bolero"],[data-sonkama="bruo"],[data-sonkama="swikez"]';
 
 let boleUnu: Bole | null = null;
 
@@ -29,12 +29,12 @@ function kf2Bole(): Bole {
   function k2fCa12na(): void {
     const bole1 = tsekeLaqazbolesai();
     const bole2 = tsekeBruo();
-    const bole3 = cutluT2bakobesai();
+    const bole3 = cutluSwikez();
     const veqapahakani = tsekeVeqapahakani();
     for ( const kfeni of ca1ara.keys() ) {
       kfeni.querySelectorAll<HTMLElement>(BOLE_CA1ARA2).forEach(el => {
         const okef = el.dataset.sonkama;
-        if ( okef === "t2bakobesai" ) kf2Ca12na(el, parseInt(el.dataset.t2bakobesai || "0") === bole3 && veqapahakani);
+        if ( okef === "swikez" ) kf2Ca12na(el, parseInt(el.dataset.swikez || "0") === bole3 && veqapahakani);
         else kf2Ca12na(el, okef === "bolero" ? bole1 : bole2);
       });
     }
@@ -42,12 +42,12 @@ function kf2Bole(): Bole {
 
   function bokKfeni( kfeni: HTMLElement, ceme?: ( okef: string ) => void ): void {
     if ( ca1ara.has(kfeni) ) return;
-    kfeni.querySelectorAll<HTMLElement>("[data-t2bakobesai-vico]").forEach(trakaVico => {
-      for ( const t2bakobesai of HASWIKEZAI.keys() ) {
+    kfeni.querySelectorAll<HTMLElement>("[data-swikez-vico]").forEach(trakaVico => {
+      for ( const swikez of HASWIKEZ.keys() ) {
         const catsiina = document.createElement("button");
-        catsiina.dataset.sonkama = "t2bakobesai";
-        catsiina.dataset.t2bakobesai = String(t2bakobesai);
-        catsiina.textContent = String(t2bakobesai + 0o1);
+        catsiina.dataset.sonkama = "swikez";
+        catsiina.dataset.swikez = String(swikez);
+        catsiina.textContent = String(swikez + 0o1);
         trakaVico.appendChild(catsiina);
       }
     });
@@ -60,10 +60,10 @@ function kf2Bole(): Bole {
         if ( !autoSaxei() ) tsiinanusabosaiLaqazbolesain();
       }
       else if ( okef === "bruo" ) { autoSaxei(); tsiinanusabosaiBruon(); }
-      else if ( okef === "t2bakobesai" ) {
+      else if ( okef === "swikez" ) {
         autoSaxei();
         const ludantaKxe = tsekeVeqapahakani();
-        b6tem2T2bakobesai(parseInt(ca12na.dataset.t2bakobesai || "0"));
+        b6tem2Swikez(parseInt(ca12na.dataset.swikez || "0"));
         if ( ludantaKxe || tsekeLaqazbolesai() ) veqapahakani();
       } else return;
       k2fCa12na();

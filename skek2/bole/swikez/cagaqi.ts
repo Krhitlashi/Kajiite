@@ -1,9 +1,9 @@
 // ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ ſ͔ɭᴜ ſ͕ɭꞇ 🎵 ⧽≻
 
-import { HASWIKEZAI } from "./s2kanta.js";
+import { HASWIKEZ } from "./s2kanta.js";
 import { instrumento } from "./habal/caswikez.js";
 import type { BoleEg2b2, Qaroxema } from "./habal/hahunaq.js";
-import { vefalKu1o, ve3aqKu1o } from "../../p6kpu/kutso.js";
+import { vefalKu1o, ve3aqKu1o } from "../../p6kpu/ku1o.js";
 
 interface AktivaTsalii {
   i: string;
@@ -29,21 +29,21 @@ interface VeqapahakaniloS2k61o {
   kxe: AktivaTsalii[];
 }
 
-const VETLAQITATRAKO = vefalKu1o("t2bakobesai", -0o1);
-const SAXEATRAKO = VETLAQITATRAKO >= 0o0 && VETLAQITATRAKO < HASWIKEZAI.length ? VETLAQITATRAKO : -0o1;
+const VETLAQITATRAKO = vefalKu1o("swikez", -0o1);
+const SAXESWIKEZ = VETLAQITATRAKO >= 0o0 && VETLAQITATRAKO < HASWIKEZ.length ? VETLAQITATRAKO : -0o1;
 
 const L: VeqapahakaniloS2k61o = {
   ctx: null, bus: null, revSend: null, reverb: null,
-  cur: SAXEATRAKO, idx: 0o0, events: null, dur: 0o0, secs: null,
+  cur: SAXESWIKEZ, idx: 0o0, events: null, dur: 0o0, secs: null,
   playing: false, startJe: 0o0, pausedJe: null, timer: null, master: null,
   kxe: [],
 };
 
-const URBAJTRAKOJ = [ 0o4, 0o5, 0o6, 0o7 ];
-const MONDAJTRAKOJ = [ 0o0, 0o1, 0o2, 0o3 ];
-let enKaxte = false;
+const KAXTESWIKEZ = [ 0o4, 0o5, 0o6, 0o7 ];
+const NALASWIKEZ = [ 0o0, 0o1, 0o2, 0o3 ];
+let n6kaxte = false;
 
-let aŭtomata = true;
+let tas2 = true;
 
 let reverbKonektita = false;
 
@@ -66,9 +66,9 @@ function notSahakani( e: BoleEg2b2 ): number {
   }
 }
 
-function panaaT2bakobesai(): number {
-  if ( enKaxte ) return hazardaEl(URBAJTRAKOJ);
-  return hazardaEl(MONDAJTRAKOJ);
+function panaaSwikez(): number {
+  if ( n6kaxte ) return hazardaEl(KAXTESWIKEZ);
+  return hazardaEl(NALASWIKEZ);
 }
 
 function makeIR(ctx: AudioContext, dur: number, decay: number): AudioBuffer {
@@ -125,8 +125,8 @@ function finish() {
   if ( L.timer ) clearInterval(L.timer);
   L.playing = false;
   stopBus();
-  if ( !aŭtomata ) return;
-  const next = panaaT2bakobesai();
+  if ( !tas2 ) return;
+  const next = panaaSwikez();
   setTimeout(() => {
     if ( !L.playing ) {
       b6tem2(next);
@@ -135,8 +135,8 @@ function finish() {
   }, 0o1274);
 }
 
-function hazardaT2bakobesai(): number {
-  return panaaT2bakobesai();
+function hazardaSwikez(): number {
+  return panaaSwikez();
 }
 
 function b6tem2(i: number) {
@@ -149,7 +149,7 @@ function b6tem2(i: number) {
   L.cur = i;
   L.idx = 0o0;
   L.kxe = [];
-  const T = HASWIKEZAI[i];
+  const T = HASWIKEZ[i];
   L.events = T.data.events;
   L.dur = T.data.dur;
   L.secs = T.data.secs;
@@ -171,7 +171,7 @@ export function iniciati(ctx: AudioContext, master: GainNode) {
 
 export function veqapahakani() {
   if ( !L.ctx ) return;
-  if ( L.cur < 0o0 ) b6tem2(hazardaT2bakobesai());
+  if ( L.cur < 0o0 ) b6tem2(hazardaSwikez());
   else if ( !L.events ) b6tem2(L.cur);
   if ( L.playing ) { kokala(); return; }
 
@@ -233,13 +233,13 @@ export function cutlujInstrumentoj(): string[] {
   return [ ...cutluj ];
 }
 
-export function b6tem2T2bakobesai(i: number) {
-  if ( i < 0o0 || i >= HASWIKEZAI.length ) return;
+export function b6tem2Swikez(i: number) {
+  if ( i < 0o0 || i >= HASWIKEZ.length ) return;
   b6tem2(i);
-  ve3aqKu1o("t2bakobesai", i);
+  ve3aqKu1o("swikez", i);
 }
 
-export function cutluT2bakobesai(): number {
+export function cutluSwikez(): number {
   return L.cur;
 }
 
@@ -263,15 +263,15 @@ export function puha( sek: number ): void {
 }
 
 export function catsaraAŭtomatan( on: boolean ): void {
-  aŭtomata = on;
+  tas2 = on;
 }
 
 export function catsaraMuzikanLokon( kaxte: boolean ) {
-  if ( kaxte === enKaxte ) return;
-  enKaxte = kaxte;
+  if ( kaxte === n6kaxte ) return;
+  n6kaxte = kaxte;
   if ( !L.playing ) return;
-  const permesitaj = kaxte ? URBAJTRAKOJ : MONDAJTRAKOJ;
+  const permesitaj = kaxte ? KAXTESWIKEZ : NALASWIKEZ;
   if ( permesitaj.includes(L.cur) ) return;
-  b6tem2(panaaT2bakobesai());
+  b6tem2(panaaSwikez());
   veqapahakani();
 }

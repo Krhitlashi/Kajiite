@@ -1,4 +1,4 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷᴜ j͑ʃп́ɹ ɭ(ɹ 📃 ⧽≻
 
 import * as THREE from "three";
 import { kf2S2banaCac2sex } from "../../p6kpu/gek2f.js";

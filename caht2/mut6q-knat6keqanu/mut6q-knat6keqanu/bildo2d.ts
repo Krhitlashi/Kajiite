@@ -1,12 +1,12 @@
 // ≺⧼ ɭʃᴜ ֭ſɭᴜȝ ʌ ʃꞇ j͐ʃԏ͕ɜ ꞁȷ̀ɹԏ͕ 🗺️ ⧽≻
 
 import { Nala, MONDOHALFO, REZ } from "./havecax2l.js";
-import { kozunuCanvas, pentri, revek2feDeklik6h6n } from "./tsane.js";
+import { kozunuCanvas, pentri, revek2feDeklik6h6n } from "./1ane.js";
 import { hakaxte, sukf2qitaKaxte, hak6h6, haqakaj2, sukf2qitaK6h6, sukf2qitaN2k, sukf2qitaQakaj2,
   sukf2qitaNek2resaiK6liq, qox2n2kOfsX, qox2n2kOfsZ, k6h6P2somaniSefini, vidotajHaqox2n2k,
   b6vakantaDeKaxte, k2fKradanTavolon } from "./haqox2n2k.js";
-import { tsekeKaxteLaqazata, tsekeVidebla } from "./kix2Ka5ik.js";
-import { hatsiq, sukf2qitaTsiq } from "./tsasa.js";
+import { tsekeKaxteLaqazata, tsekeVidebla } from "./kix2-ka5ik.js";
+import { hatsiq, sukf2qitaTsiq } from "./1asa.js";
 import { hazace, oxemaniModo, sukf2qitaOxemani, oxemaniBakaP2t6zo } from "./zacej.js";
 import { formajHapukaz } from "./caqavop2.js";
 import { kfe, kuns2bana2d } from "../../cas2tas/dom.js";

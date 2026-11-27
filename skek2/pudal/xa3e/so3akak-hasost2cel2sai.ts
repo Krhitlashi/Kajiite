@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { kf2S2cel2nCac2sex } from "../../p6kpu/cac2sex/s2cel2.js";
 import { kf2S2cel2nBumpanCac2sex } from "../../p6kpu/cac2sex/s2cel2-tok.js";
-import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import { PunktaKp6taf, n2kKfekoc2kai, type Cel2Raqa } from "./raqa.js";
 
 export function vepaqSotlakaknHasost2cel2sain(qena: THREE.Scene,

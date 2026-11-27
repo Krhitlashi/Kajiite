@@ -2,7 +2,7 @@
 
 import { strict as kamai } from "node:assert";
 import { test as provi } from "node:test";
-import { kf2Ku1o, vefalKu1o, ve3aqKu1o } from "../../skek2/p6kpu/kutso.js";
+import { kf2Ku1o, vefalKu1o, ve3aqKu1o } from "../../skek2/p6kpu/ku1o.js";
 import { kf2Sakxo, kf2SakxoKlasika } from "../../skek2/p6kpu/caq2q.js";
 
 provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
@@ -23,24 +23,24 @@ provi("ku1o / persistence, caching, namespaces and unavailable storage", () => {
     },
   });
   try {
-    hax2ni.set("aranis-haku1o", JSON.stringify({ bolero: false, t2bakobesai: 0o2 }));
+    hax2ni.set("aranis-haku1o", JSON.stringify({ bolero: false, swikez: 0o2 }));
     kamai.equal(vefalKu1o("bolero", true), false);
-    kamai.equal(vefalKu1o("t2bakobesai", -0o1), 0o2);
+    kamai.equal(vefalKu1o("swikez", -0o1), 0o2);
     kamai.equal(legadoj, 0o1);
     ve3aqKu1o("bolero", false);
     kamai.equal(skriboj, 0o0);
     ve3aqKu1o("bolero", true);
     kamai.equal(skriboj, 0o1);
-    kamai.deepEqual(JSON.parse(hax2ni.get("aranis-haku1o")!), { bolero: true, t2bakobesai: 0o2 });
+    kamai.deepEqual(JSON.parse(hax2ni.get("aranis-haku1o")!), { bolero: true, swikez: 0o2 });
 
     const xaqadi = kf2Ku1o("xaqadi");
     const p2sadi = kf2Ku1o("p2sadi");
-    xaqadi.ve3aqKu1o("t2bakobesai", 0o3);
-    p2sadi.ve3aqKu1o("t2bakobesai", 0o4);
-    kamai.equal(xaqadi.vefalKu1o("t2bakobesai", -0o1), 0o3);
-    kamai.equal(p2sadi.vefalKu1o("t2bakobesai", -0o1), 0o4);
-    kamai.equal(kf2Ku1o("xaqadi").vefalKu1o("t2bakobesai", -0o1), 0o3);
-    kamai.equal(xaqadi.vefalKu1o("t2bakobesai", "apriora"), "apriora");
+    xaqadi.ve3aqKu1o("swikez", 0o3);
+    p2sadi.ve3aqKu1o("swikez", 0o4);
+    kamai.equal(xaqadi.vefalKu1o("swikez", -0o1), 0o3);
+    kamai.equal(p2sadi.vefalKu1o("swikez", -0o1), 0o4);
+    kamai.equal(kf2Ku1o("xaqadi").vefalKu1o("swikez", -0o1), 0o3);
+    kamai.equal(xaqadi.vefalKu1o("swikez", "apriora"), "apriora");
 
     hax2ni.set("filtrita", '{"xobe":false,"k2fe":2,"s2bana":"","nula":null,"aro":[],"zace":{},"sentlakak":1e999,"proto":"propra"}');
     const filtrita = kf2Ku1o("filtrita");

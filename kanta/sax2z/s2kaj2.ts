@@ -1,9 +1,9 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ j͑ʃɹ ſɭᴜ ɭl̀ɹ 📃 ⧽≻
 
-import { animaciiS2tani, tlak2KanotanFizikon } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
-import type { S2tani } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
+import { animaciiS2tani, tlak2KanotanFizikon } from "../../skek2/qa12ke/b6tem2-kas2kanta.js";
+import type { S2tani } from "../../skek2/qa12ke/b6tem2-kas2kanta.js";
 import { l6da, tsasa, tsasaVem2, s2xuruVem2, k6siZ, LAGOX, s2xuruZ, s2xuruCabole, tsekeEnLaqRaqK6si,
-  k6siLaqRaqX, k6siLaqRaqVem2, k6siAkvaVem2 } from "../nala/mut6qSoza.js";
+  k6siLaqRaqX, k6siLaqRaqVem2, k6siAkvaVem2 } from "../nala/mut6q-soza.js";
 import { skakef } from "../gawe/baskakefani.js";
 import type { PiedaNala } from "./kata.js";
 import type { Masax2z } from "./masax2z.js";

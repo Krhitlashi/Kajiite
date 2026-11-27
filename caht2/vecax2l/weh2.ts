@@ -1,8 +1,8 @@
 // ≺⧼ ᶅſɔ ֭ſɭɹ 📃 ⧽≻
 
 import * as THREE from "three";
-import { mut6qWeh2En as weh2Sef4 } from "../../skek2/p6kpu/mut6qHaweh2.js";
-import { mut6qWeh2En as weh2H2y2k } from "./h2y2k-mut6qHaweh2.js";
+import { mut6qWeh2En as weh2Sef4 } from "../../skek2/p6kpu/mut6q-haweh2.js";
+import { mut6qWeh2En as weh2H2y2k } from "./h2y2k-mut6q-haweh2.js";
 import { T2BAK2P2, VEQ6K2, k2fKanaq, knak2 } from "./k61e.js";
 
 const C2QR = 0o11;

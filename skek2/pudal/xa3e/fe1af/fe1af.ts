@@ -1,13 +1,13 @@
 // ≺⧼ ſȷɔ ſᶘᴜʞ 🌿 ⧽≻
 import * as THREE from "three";
 import { kf2HerbanTavolanKlinganCac2sex } from "../../../p6kpu/cac2sex/kofa-kxa-fe1af.js";
-import { fe1afKekWeh2, nex2caFe1afKekWeh2, mut6qWeh2En } from "../../../p6kpu/mut6qHaweh2.js";
+import { fe1afKekWeh2, nex2caFe1afKekWeh2, mut6qWeh2En } from "../../../p6kpu/mut6q-haweh2.js";
 import { veb6qaiWeh2Skek } from "../../../p6kpu/haweh2.js";
 import { vakox2qSenIndekson } from "../../../p6kpu/hakox2q.js";
-import { kf2Xa3eHazardon } from "../sakxoXa3e.js";
-import { K6H6AEKSTERAP2SOMANI } from "../../../qatsiike/hak6h6/havecax2l.js";
+import { kf2Xa3eHazardon } from "../sakxo-xa3e.js";
+import { K6H6AEKSTERAP2SOMANI } from "../../../qa12ke/hak6h6/havecax2l.js";
 import { bs2, tsasaVem2, tsasaVem2Tsiike, SKULPTAN, SKULPTAPASO, SKULPTAORIGINO,
-  type Bs2 } from "../../../../kanta/nala/mut6qSoza.js";
+  type Bs2 } from "../../../../kanta/nala/mut6q-soza.js";
 import { kf2HerbanKxa } from "./hakxa.js";
 import { kf2HerbanPukekn, hatsiicaTavoloj, devigiHerbanGxisdatigon } from "./g2b2.js";
 

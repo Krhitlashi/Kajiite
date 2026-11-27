@@ -148,7 +148,7 @@ export const JA: Record<string, string> = {
   "harWeh2Blonda": "金髪",
   "harWeh2Griza": "グレー",
 
-  "muziko": "音楽",
+  "swikez": "音楽",
 
   "ariaKrepuskoCatsiina": "夕暮れモードを切り替え",
   "ariaKrepuskoKama": "夕暮れのレベル",

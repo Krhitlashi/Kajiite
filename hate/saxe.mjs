@@ -26,7 +26,7 @@ function t6h6k(hakek, ksaka) {
 
 t6h6k([ "hate/hate.js" ], "caxlefkakai");
 t6h6k([ "node_modules/vite/bin/vite.js" ], "vite");
-t6h6k([ "hate/tlaq.mjs" ], "vetlaqilo");
+t6h6k([ "hate/3aq.mjs" ], "vetlaqilo");
 
 for ( const kol2kek of [ "SIGINT", "SIGTERM" ] ) {
   process.on(kol2kek, () => {

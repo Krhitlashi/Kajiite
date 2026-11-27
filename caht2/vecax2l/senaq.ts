@@ -1,9 +1,9 @@
 // ≺⧼ j͑ʃɔ }ʃᴜȝ 📃 ⧽≻
 
-import { xetoh2D as bruo2DSef4, mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
-import { px01oBikuba as bikubaSef4 } from "../../kanta/nala/tsasaVek2fe.js";
-import { bruo2DH2y2k, bikubaH2y2k, l6daH2y2k, l6daSef4 } from "./kozunuCah6k6.js";
-import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
+import { xetoh2D as bruo2DSef4, mut6qWeh2En } from "../../skek2/p6kpu/mut6q-haweh2.js";
+import { px01oBikuba as bikubaSef4 } from "../../kanta/nala/1asa-vek2fe.js";
+import { bruo2DH2y2k, bikubaH2y2k, l6daH2y2k, l6daSef4 } from "./kozunu-cah6k6.js";
+import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6q-soza.js";
 import * as THREE from "three";
 import { k2fStih2Nlakani, k2fKanaq } from "./k61e.js";
 

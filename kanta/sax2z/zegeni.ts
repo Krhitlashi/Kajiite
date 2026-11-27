@@ -1,8 +1,8 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭ,ɔ ſ͔ɭɔ }ʃꞇ 📃 ⧽≻
 
 import type { M7xEro } from "../../skek2/w2ta/m7x/hahunaq.js";
-import type { S2tani } from "../../skek2/qatsiike/b6tem2Kas2kanta.js";
-import { tsekeLaqazbolesai, sfx } from "../../skek2/bole/boleS2t2bakano.js";
+import type { S2tani } from "../../skek2/qa12ke/b6tem2-kas2kanta.js";
+import { tsekeLaqazbolesai, sfx } from "../../skek2/bole/bole-s2t2bakano.js";
 import { skakef, kunCatlaq } from "../gawe/baskakefani.js";
 import { m7xCatlaq } from "../s2cel2f/mak2zaf.js";
 import type { CamutsaInfo, Masax2z } from "./masax2z.js";

@@ -1,12 +1,12 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ 📃 ⧽≻
 
 import { Habal2 } from "../../../kanta/mut6q-havop2/bal2.js";
-import caqavop2Ca1ara from "../../../kanta/mut6q-havop2/caqavop2Ca1ara.json" with { type: "json" };
-import { bal2DeS2kanta } from "../../../kanta/mut6q-havop2/bal2S2kanta.js";
+import caqavop2Ca1ara from "../../../kanta/mut6q-havop2/caqavop2-ca1ara.json" with { type: "json" };
+import { bal2DeS2kanta } from "../../../kanta/mut6q-havop2/bal2-s2kanta.js";
 import { QOXA, qoxaPukazN2k } from "../../../skek2/p6kpu/mapqoxa.js";
-import { kf2Int16, kf2K6liq, kf2Bit3 } from "../../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { kf2Int16, kf2K6liq, kf2Bit3 } from "../../../kanta/mut6q-havop2/3ohk2ni52sai.js";
 import { catsaraHatsiqn, catsaraSukf2qitanTsiqn, catsaraTsiqTrenatan, catsaraAkvanVem2n,
-  tsasaVem2Vem2, hatsiq, s2tasTsasaS23ohk2sain, revek2feTsasa } from "./tsasa.js";
+  tsasaVem2Vem2, hatsiq, s2tasTsasaS23ohk2sain, revek2feTsasa } from "./1asa.js";
 import { catsaraHatoxemani, catsaraSukf2qitanOxemanin, tlak2ObjektoCatsara,
   vepaqTom6Hatoxemani, hazace } from "./zacej.js";
 import { catsaraHakaxten, catsaraSukf2qitanKaxten, catsaraHak6h6n, catsaraHaqakaj2n, sukf2qiKaxten,
@@ -15,10 +15,10 @@ import { tlak2Qoxan3D } from "./vido3d.js";
 import { kfe } from "../../cas2tas/dom.js";
 import { knak2fecajasai, KNAK2FECAJASAI } from "../../../kanta/k2fe/s2cax2l.js";
 import type { Bal2Qoxa } from "../../../skek2/p6kpu/mapqoxa.js";
-import type { Bal2Vop2 } from "../../../kanta/mut6q-havop2/bal2S2kanta.js";
-import type { LasTsiq } from "./tsasa.js";
+import type { Bal2Vop2 } from "../../../kanta/mut6q-havop2/bal2-s2kanta.js";
+import type { LasTsiq } from "./1asa.js";
 import type { Neq2qObjekto, Knat6keqanuKuba, Knat6keqanuK6h6N2k, Knat6keqanuTap2Qoxa } from "../../../kanta/nala/kaxte/hahunaq.js";
-import type { K6h6N2k } from "../../../skek2/qatsiike/k6h6-caxlefkakai.js";
+import type { K6h6N2k } from "../../../skek2/qa12ke/k6h6-caxlefkakai.js";
 import type { HistoriaMomento } from "./kumu.js";
 
 export const bal2S2kanta = new URLSearchParams(location.search).get("bal2");
@@ -296,8 +296,8 @@ export function dosierujo(s2kanta: string): string { return "mut6q-havop2/" + s2
 export const bal2Dosierujo = dosierujo(bal2Vop2.s2kanta);
 export const CAQAVOP2KSAKA = {
   [bal2Dosierujo + "qox2n2k.ts"]: "// ≺⧼ ſ͕ɭɜᶗ‹ ꞁȷ̀ɹ }ʃɹƽ 📃 ⧽≻",
-  [bal2Dosierujo + "tsasa.ts"]: "// ≺⧼ ſᶘᴜ j͑ʃᴜ 📃 ⧽≻",
-  [bal2Dosierujo + "tsasahatsiq.ts"]: "// ≺⧼ ſᶘꞇȝ 🌊 ⧽≻",
+  [bal2Dosierujo + "1asa.ts"]: "// ≺⧼ ſᶘᴜ j͑ʃᴜ 📃 ⧽≻",
+  [bal2Dosierujo + "1asaha1iq.ts"]: "// ≺⧼ ſᶘꞇȝ 🌊 ⧽≻",
   [bal2Dosierujo + "habs2.ts"]: "// ≺⧼ ʃɔ˞ɹ 📃 ⧽≻",
   [bal2Dosierujo + "hapaga.ts"]: "// ≺⧼ ſןᴜ ſ͔ɭᴜ 📃 ⧽≻",
   [bal2Dosierujo + "hazace.ts"]: "// ≺⧼ j͑ʃƽɔ ſɭɹ ı],ɔ ŋᷠᴜ j͑ʃᴜꞇ 📃 ⧽≻",
@@ -342,7 +342,7 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
     "",
     "// ⟨ ſᶘᴜ j͑ʃᴜ ɭʃᴜ 📃 ⟩ ｡ ſᶘꞇȝ ｡",
     "// ( ſᶘᴜ j͑ʃᴜ ｡ ſᶘᴜ j͑ʃᴜ ｡",
-    "// ſᶘꞇȝ ʌ kanta/nala/tsasaVek2fe.ts ) ⟅",
+    "// ſᶘꞇȝ ʌ kanta/nala/1asa-vek2fe.ts ) ⟅",
     "export const SKULPTAAKVANIVELO = " + knak2fe(tsasaVem2Vem2) + ";",
     "export const SKULPTAAKVAMASKO = " + JSON.stringify(masko64) + ";",
   ].join("\n");
@@ -351,7 +351,7 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
     ...p6kpuKom,
     "",
     "// ⟨ ſᶘꞇȝ ɭʃᴜ 📃 ⟩ ｡ ſᶘꞇȝ ｡ ſᶘᴜ j͑ʃᴜ ｡",
-    "// ſᶘꞇȝ ſɭɹ ſȷɔ ɭl̀ᴜ j͑ʃᴜ ( kanta/nala/tsasaVek2fe.ts ) ｡",
+    "// ſᶘꞇȝ ſɭɹ ſȷɔ ɭl̀ᴜ j͑ʃᴜ ( kanta/nala/1asa-vek2fe.ts ) ｡",
     "// ſᶘᴜ j͑ʃᴜ ｡ j͑ʃɹ ı],w ɽ͑ʃ'w ⟅ ſᶘꞇȝ ɭʃᴜ - x, z ( }ʃᴜ j͐ʃᴜ",
     "// ) ｡ j͐ʃᴜɔ˞ ( j͐ʃᴜɔ˞ ſɭᴜ = ſɭэ j͑ʃꞇ ſɭɜ ſɟᴜ ) ⟅",
     "export const SKULPTAHAXAIQ = " + skribiVem2(hatsiq) + ";",
@@ -421,8 +421,8 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
     "// pal6 ｡ ſɭэ }ʃᴜ ʌ ſ͕ɭɜ ı],ᴜ ｡ ſɭᴜ ſɭˬꞇƽ ｡",
     "// ſɭэ }ʃᴜ ʌ ſɭɜ ſɭᴜ ı],ᴜ ｡ ſɭɜ ı],ᴜ ⟅",
     "//",
-    "// ſɭɹ ſȷɔ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ kanta/mut6q-havop2/bal2S2kanta.ts ⟅",
-    "import type { Bal2Vop2 } from \"./bal2S2kanta.js\";",
+    "// ſɭɹ ſȷɔ ｡ ſɟᴜᴜ̩ ɭʃɹ ｡ kanta/mut6q-havop2/bal2-s2kanta.ts ⟅",
+    "import type { Bal2Vop2 } from \"./bal2-s2kanta.js\";",
     "",
     "export const Habal2: Bal2Vop2[] = [",
     ...bal2Havalaqaz.map(m => "  { s2kanta: " + JSON.stringify(m.s2kanta) + ", ksaka: " + JSON.stringify(m.ksaka)
@@ -444,8 +444,8 @@ export function generiHacaqavop2(s2kanta: string = bal2Vop2.s2kanta): Record<str
   ].join("\n");
   return {
     [dosierujoDeBal2 + "qox2n2k.ts"]: qox2n2kS2bana,
-    [dosierujoDeBal2 + "tsasa.ts"]: tsasaS2bana,
-    [dosierujoDeBal2 + "tsasahatsiq.ts"]: tsiqS2bana,
+    [dosierujoDeBal2 + "1asa.ts"]: tsasaS2bana,
+    [dosierujoDeBal2 + "1asaha1iq.ts"]: tsiqS2bana,
     [dosierujoDeBal2 + "habs2.ts"]: bs2Dosiero,
     [dosierujoDeBal2 + "hapaga.ts"]: pagaDosiero,
     [dosierujoDeBal2 + "hazace.ts"]: oxemaniS2bana,

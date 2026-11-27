@@ -5,11 +5,11 @@ import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
 import { kf2AsfanTrunkanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai.js";
 import { kf2AsfanTrunkanBumpanCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-tok.js";
 import { kf2AsfanTronkoxabenCac2sex } from "../../p6kpu/cac2sex/asfa-sost2cel2sai-xabe.js";
-import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import { vepaqAsfanRozeton, vepaqTavolanFc2qnKronon } from "./fhac2q.js";
 import { KRONALIBERO, PURPURAJTRUNKAJRADIOJ, kronaKa5ikLam2v } from "./hasoza.js";
 import { PunktaKp6taf, n2kKfekoc2kai, kf2Grok6h6n, hazardaGrovaQar, type Cel2Raqa } from "./raqa.js";
-import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+import { bs2, type Bs2 } from "../../../kanta/nala/mut6q-soza.js";
 
 export function vepaqAsfajnPlantojn(qena: THREE.Scene,
   vem2: number,

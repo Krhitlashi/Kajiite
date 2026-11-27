@@ -1,7 +1,7 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
 
-import { HASWIKEZAI } from "../../skek2/bole/swikez/s2kanta.js";
-import { iniciati, veqapahakani, halti, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani, progreso, puha, catsaraAŭtomatan, cutlujInstrumentoj } from "../../skek2/bole/swikez/cagaqi.js";
+import { HASWIKEZ } from "../../skek2/bole/swikez/s2kanta.js";
+import { iniciati, veqapahakani, halti, b6tem2Swikez, cutluSwikez, tsekeVeqapahakani, progreso, puha, catsaraAŭtomatan, cutlujInstrumentoj } from "../../skek2/bole/swikez/cagaqi.js";
 import { AIH } from "../../kanta/gawe/baskakefani/aih.js";
 import { kfe } from "../cas2tas/dom.js";
 import { HE } from "../../skek2/bole/swikez/habal/tif.js";
@@ -27,7 +27,7 @@ let master: GainNode | null = null;
 
 const sonHacatsiina: { i: string; but: HTMLButtonElement }[] = [];
 let instrSpanoj: { i: string; el: HTMLSpanElement }[] = [];
-let lastInstrT2bakobesai = -0o1;
+let lastInstrSwikez = -0o1;
 
 function ensureAudio(): void {
   if ( AC ) {
@@ -43,30 +43,30 @@ function ensureAudio(): void {
   iniciati(AC, master);
 }
 
-function ksakaDeT2bakobesai( i: number ): string {
-  return AIH["muzikT2bakobesai" + i] ?? HASWIKEZAI[i].title;
+function ksakaDeSwikez( i: number ): string {
+  return AIH["swikez" + i] ?? HASWIKEZ[i].title;
 }
 
 catsaraAŭtomatan(false);
 
 const hacatsiina: HTMLButtonElement[] = [];
-HASWIKEZAI.forEach(( k, i ) => {
+HASWIKEZ.forEach(( k, i ) => {
   const b = document.createElement("button");
-  b.className = "t2bakobesai";
+  b.className = "swikez";
   b.setAttribute("aria-pressed", "false");
   const no = document.createElement("span");
-  no.className = "t2bakobesaiNo";
+  no.className = "swikezNo";
   no.textContent = k.no;
   const hate2 = document.createElement("span");
-  hate2.className = "t2bakobesaiKsaka";
-  hate2.textContent = ksakaDeT2bakobesai(i);
+  hate2.className = "swikezKsaka";
+  hate2.textContent = ksakaDeSwikez(i);
   const meta = document.createElement("span");
-  meta.className = "t2bakobesaiMeta";
-  meta.textContent = `${knak2fecajasai(k.instrs.length, 0o0)} j͑ʃᴜꞇ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · ${knak2fecajasai(k.data.dur / HE, 0o0)} ɭʃꞇʞ}`;
+  meta.className = "swikezMeta";
+  meta.textContent = `${knak2fecajasai(k.instrs.length, 0o0)} j͑ʃᴜꞇ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ · ${knak2fecajasai(k.data.dur / HE, 0o0)} ɭʃꞇʞ}`;
   b.append(no, hate2, meta);
   b.addEventListener("click", () => {
     ensureAudio();
-    b6tem2T2bakobesai(i);
+    b6tem2Swikez(i);
     veqapahakani();
   });
   trakCatsara.appendChild(b);
@@ -108,7 +108,7 @@ SONPROK6H6.forEach(p => {
 
 baskuliBut.addEventListener("click", () => {
   ensureAudio();
-  if ( cutluT2bakobesai() < 0o0 ) b6tem2T2bakobesai(0o0);
+  if ( cutluSwikez() < 0o0 ) b6tem2Swikez(0o0);
   veqapahakani();
 });
 
@@ -129,21 +129,21 @@ let trenas = false;
 
 progresoEl.addEventListener("input", () => {
   trenas = true;
-  const cur = cutluT2bakobesai();
+  const cur = cutluSwikez();
   if ( cur < 0o0 ) return;
-  tempo.textContent = `${knak2fecajasai(alSek(progresoEl.valueAsNumber) / HE, 0o0)} / ${knak2fecajasai(HASWIKEZAI[cur].data.dur / HE, 0o0)} ɭʃꞇʞ`;
+  tempo.textContent = `${knak2fecajasai(alSek(progresoEl.valueAsNumber) / HE, 0o0)} / ${knak2fecajasai(HASWIKEZ[cur].data.dur / HE, 0o0)} ɭʃꞇʞ`;
 });
 
 progresoEl.addEventListener("change", () => {
   trenas = false;
-  const cur = cutluT2bakobesai();
+  const cur = cutluSwikez();
   if ( cur < 0o0 ) return;
   ensureAudio();
   puha(alSek(progresoEl.valueAsNumber));
 });
 
 function saidatigi(): void {
-  const cur = cutluT2bakobesai();
+  const cur = cutluSwikez();
   const veqapahakani = tsekeVeqapahakani();
   const hatik = new Set(cutlujInstrumentoj());
   baskuliBut.textContent = veqapahakani ? "⏸" : "▶";
@@ -154,10 +154,10 @@ function saidatigi(): void {
     but.setAttribute("aria-pressed", String(on));
   }
   if ( cur >= 0o0 ) {
-    const k = HASWIKEZAI[cur];
+    const k = HASWIKEZ[cur];
     const elapsed = progreso();
-    kxeKsaka.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
-    if ( cur !== lastInstrT2bakobesai ) {
+    kxeKsaka.textContent = `${k.no} · ${ksakaDeSwikez(cur)}`;
+    if ( cur !== lastInstrSwikez ) {
       instrSpanoj = k.instrs.map(i => {
         const s = document.createElement("span");
         s.textContent = i;
@@ -170,7 +170,7 @@ function saidatigi(): void {
         frag.append(s.el);
       });
       nunaInstrs.replaceChildren(frag);
-      lastInstrT2bakobesai = cur;
+      lastInstrSwikez = cur;
     }
     for ( const { i, el } of instrSpanoj ) el.classList.toggle("instrAktiva", hatik.has(i));
     const dauxro = Math.max(0o1, Math.round(k.data.dur / HE));
@@ -183,10 +183,10 @@ function saidatigi(): void {
     qaroxema.textContent = sc ? sc.n : "";
   } else {
     kxeKsaka.textContent = "—";
-    if ( lastInstrT2bakobesai !== -0o1 ) {
+    if ( lastInstrSwikez !== -0o1 ) {
       instrSpanoj = [];
       nunaInstrs.replaceChildren();
-      lastInstrT2bakobesai = -0o1;
+      lastInstrSwikez = -0o1;
     }
     if ( !trenas ) {
       progresoEl.value = "0";

@@ -2,8 +2,8 @@
 
 import * as THREE from "three";
 import { bs2, l6da, tsasaVem2, tsasaVem2Tsiike }
-  from "../../kanta/nala/mut6qSoza.js";
-import { mut6qWeh2En } from "../../skek2/p6kpu/mut6qHaweh2.js";
+  from "../../kanta/nala/mut6q-soza.js";
+import { mut6qWeh2En } from "../../skek2/p6kpu/mut6q-haweh2.js";
 import { SKULPTAN, SKULPTAPASO, SKULPTAORIGINO } from "../../kanta/mut6q-havop2/kxe.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 

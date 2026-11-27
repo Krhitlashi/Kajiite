@@ -1,8 +1,8 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſɭᴜ ɭʃᴜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { kf2KolizianQox2n2k } from "../nala/s2cel2Sap2.js";
-import { l6da } from "../nala/mut6qSoza.js";
+import { kf2KolizianQox2n2k } from "../nala/s2cel2-sap2.js";
+import { l6da } from "../nala/mut6q-soza.js";
 import type { Masax2z } from "./masax2z.js";
 
 export type KoliziaQox2n2k = ReturnType<typeof kf2KolizianQox2n2k>;

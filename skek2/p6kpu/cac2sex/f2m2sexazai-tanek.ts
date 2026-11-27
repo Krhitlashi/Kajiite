@@ -1,4 +1,4 @@
-// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ }ʃɔ ʃw j͐ʃᴜ ƨ j͑ʃ'ɜ j͐ʃɜ 📃 ⧽≻
+// ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ſȷɹ ŋᷠɹ j͑ʃɔ ı],ᴜ ſɭ,ᴜꞇ ʌ ɭʃᴜ }ʃɔƽ 📃 ⧽≻
 
 import * as THREE from "three";
 import { kf2P2t6zoCac2sex } from "./pukek.js";

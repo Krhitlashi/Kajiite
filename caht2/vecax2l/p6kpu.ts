@@ -1,24 +1,24 @@
 // ≺⧼ ſןэ ſɭɘw 📃 ⧽≻
 
 import * as THREE from "three";
-import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
-import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6q-soza.js";
+import { tikHak6h6, tikHaqakaj2, tikHakaxte } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
 import { vepaqQox2n2kKaxten } from "../../kanta/nala/kaxte/qox2n2k-kaxte.js";
 import type { Knat6keqanuK6h6N2k } from "../../kanta/nala/kaxte/hahunaq.js";
-import { gluiK6h6tlakakn } from "../../skek2/qatsiike/hak6h6/scac6.js";
+import { gluiK6h6tlakakn } from "../../skek2/qa12ke/hak6h6/scac6.js";
 import { troviK6h6RetajnHaveb6kekn, tamc2kHakneceElHak6h6, type K6h6CaxlefkakaiVeb6kek,
-  type K6h6CaxlefkakaiK6h6 } from "../../skek2/qatsiike/k6h6-caxlefkakai.js";
-import type { K6h6N2k } from "../../skek2/qatsiike/k6h6-caxlefkakai/hahunaq.js";
-import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qatsiike/hak6h6/l6da.js";
+  type K6h6CaxlefkakaiK6h6 } from "../../skek2/qa12ke/k6h6-caxlefkakai.js";
+import type { K6h6N2k } from "../../skek2/qa12ke/k6h6-caxlefkakai/hahunaq.js";
+import { kf2BazanK6h6L6dan, kf2K6h6L6dan } from "../../skek2/qa12ke/hak6h6/l6da.js";
 import { kf2NivelanS2qena, type NivelaVeb6kek,
-  type NivelaS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
-import { k6h6Teru as k6h6TeruBaza, k6h6TeruDeVeb6kek } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
-import { kf2Haknece, tamc2kTap2L6da, tamc2kTap2Vem2 } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { tap2L6daDeVeb6kek } from "../../skek2/qatsiike/hak6h6/veb6kek-havem2.js";
+  type NivelaS2qena } from "../../skek2/qa12ke/hak6h6/havem2.js";
+import { k6h6Teru as k6h6TeruBaza, k6h6TeruDeVeb6kek } from "../../skek2/qa12ke/hak6h6/haqoxa.js";
+import { kf2Haknece, tamc2kTap2L6da, tamc2kTap2Vem2 } from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import { tap2L6daDeVeb6kek } from "../../skek2/qa12ke/hak6h6/veb6kek-havem2.js";
 import { kf2KuhalPukek } from "../../skek2/p6kpu/pukek.js";
 import { K6H6AAKVAKLARANCO, K6H6ADIORITAP2SOMANI, K6H6AEKSTERAP2SOMANI,
-  KORNAR, surGrid, k6h6SefiniP2somani } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
-import { type Tap2Vem2 } from "../../skek2/qatsiike/hak6h6/haqoxa.js";
+  KORNAR, surGrid, k6h6SefiniP2somani } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
+import { type Tap2Vem2 } from "../../skek2/qa12ke/hak6h6/haqoxa.js";
 
 export function tsekeVeraTsasa( x: number, z: number ): boolean {
   return l6da(x, z) < tsasaVem2(x, z) - 0o1/0o200;

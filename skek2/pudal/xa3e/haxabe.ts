@@ -3,10 +3,10 @@
 import * as THREE from "three";
 import { kf2XabenCac2sex } from "../../p6kpu/cac2sex/xabe.js";
 import { kf2AsfanFc2qnCac2sex } from "../../p6kpu/cac2sex/asfa-fc2q.js";
-import { kf2Xa3eHazardon } from "./sakxoXa3e.js";
+import { kf2Xa3eHazardon } from "./sakxo-xa3e.js";
 import { vepaqXabenRozeton, vepaqFc2qnKronon, vepaqAsfanRozeton } from "./fhac2q.js";
 import { PunktaKp6taf, n2kKfekoc2kai, kf2Grok6h6n, hazardaGrovaQar, type Cel2Raqa } from "./raqa.js";
-import { bs2, type Bs2 } from "../../../kanta/nala/mut6qSoza.js";
+import { bs2, type Bs2 } from "../../../kanta/nala/mut6q-soza.js";
 
 export function vepaqXabejn(qena: THREE.Scene,
   vem2: number,

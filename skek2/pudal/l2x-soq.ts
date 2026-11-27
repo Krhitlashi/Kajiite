@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { kf2LoftoQoxa } from "../p6kpu/haqoxa.js";
 import type { Paga } from "./pudal-hahunaq.js";
-import { kf2KombilanCac2sex } from "../p6kpu/cac2sex/siicatsiicana.js";
+import { kf2KombilanCac2sex } from "../p6kpu/cac2sex/s2ca12cana.js";
 
 export function kf2Korpon( gelo: { weh2: THREE.CanvasTexture; reliefo: THREE.CanvasTexture },
   cac2sex: THREE.CanvasTexture, s2qena: [ number, number ][],

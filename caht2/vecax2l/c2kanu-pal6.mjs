@@ -18580,7 +18580,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// ../../skek2/p6kpu/haqoxa.ts
+// skek2/p6kpu/haqoxa.ts
 function sax0baPukazQan2k(qoxa) {
 	const uv = qoxa.getAttribute("uv");
 	if (!uv || qoxa.getAttribute("uv1")) return qoxa;
@@ -18613,13 +18613,13 @@ function sax0baPukazQan2k(qoxa) {
 	uv.needsUpdate = true;
 	return qoxa;
 }
-// ../../skek2/qatsiike/hak6h6/havecax2l.ts
+// skek2/qa12ke/hak6h6/havecax2l.ts
 const K6H6ASEFINI = 5 / 64;
 const K6H6ABORDASEFINI = 3 / 5;
 function k6h6SefiniP2somani(sefini) {
 	return (sefini || 7 / 2) / 4 + K6H6ABORDASEFINI;
 }
-// ../../skek2/qatsiike/qakaj2/c2kanu.ts
+// skek2/qa12ke/qakaj2/c2kanu.ts
 const PONTSEFINI = K6H6ASEFINI;
 const PONTKORPADIKECO = 6 / 8;
 const PONTTERAPROFUNDECO = 1 / 8;
@@ -18727,7 +18727,7 @@ function vepaqC2kanu(qena, ax, az, bx, bz, sefini, andezitaPukek, deko, mut6qL6d
 	}
 	qena.add(hate2);
 }
-// c2kanu-pal6.ts
+// caht2/vecax2l/c2kanu-pal6.ts
 const FUNDO = 2;
 const DEKO = 10;
 const DEKOARKECO = 4;

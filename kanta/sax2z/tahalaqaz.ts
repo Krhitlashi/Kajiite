@@ -2,8 +2,8 @@
 
 import * as THREE from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { tlak2Tsasa } from "../../skek2/qatsiike/tsasa.js";
-import { animaciiFlammojn } from "../../skek2/hapaq/hxeuxfa/tahalaqaz.js";
+import { tlak2Tsasa } from "../../skek2/qa12ke/1asa.js";
+import { animaciiFlammojn } from "../../skek2/hapaq/hx0xfa/tahalaqaz.js";
 import { tlak2C2h2 } from "../../skek2/hapaq/hac2h2.js";
 import { animaciiKrasesxagxon } from "../../skek2/hapaq/krasesxagxa-kosmosxipo.js";
 import { tlak2Hapagan, tlak2Hatemekn } from "../../skek2/pudal/hapaga.js";
@@ -11,12 +11,12 @@ import { tlak2Npc, kataCab6ka } from "../../skek2/pudal/hamaz.js";
 import { tlak2Fe1afn } from "../../skek2/pudal/xa3e/fe1af/g2b2.js";
 import type { Qoxa } from "../../skek2/pudal/hamaz.js";
 import type { Bal2Qoxa } from "../../skek2/p6kpu/mapqoxa.js";
-import { l6da, tsasaVem2 } from "../nala/mut6qSoza.js";
+import { l6da, tsasaVem2 } from "../nala/mut6q-soza.js";
 import type { UrbaKanta } from "../nala/kaxte/hahunaq.js";
 import { tlak2Vidhaplosteq } from "../tahaq/vidlimo.js";
-import type { Minimapo } from "../tahaq/k6liqBal2.js";
+import type { Minimapo } from "../tahaq/k6liq-bal2.js";
 import type { Vop2kekai } from "../s2cel2f/vop2kekai.js";
-import type { S2qenaHaba } from "../s2cel2f/qatlaq.js";
+import type { S2qenaHaba } from "../s2cel2f/qa3aq.js";
 import { kf2HerbajnHamasurok } from "./fe1af-hamasurok.js";
 import type { Caxlefkakai, LokaS2k61o } from "./caxlefkakai.js";
 import type { Masax2z } from "./masax2z.js";
@@ -27,9 +27,9 @@ import { kf2Internanton } from "./c2h2.js";
 import type { Kanuanto } from "./s2kaj2.js";
 import { veb6qaiQena, veb6qaiSef4Qena } from "../../skek2/p6kpu/haweh2.js";
 import { catsaraMuzikanLokon } from "../../skek2/bole/swikez/cagaqi.js";
-import { tikHakaxte } from "../mut6q-havop2/tlohk2nikziisai.js";
+import { tikHakaxte } from "../mut6q-havop2/3ohk2ni52sai.js";
 import { tbo } from "../k2fe/s2cax2l.js";
-import { kf2Rultemon } from "../tahaq/tlohk2nikziisai.js";
+import { kf2Rultemon } from "../tahaq/3ohk2ni52sai.js";
 import { MALPOTENCAAPARATO } from "../tahaq/scena/cak2p2.js";
 
 function tsekeEnKaxte( x: number, z: number ): boolean {

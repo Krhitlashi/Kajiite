@@ -1,7 +1,7 @@
 // ≺⧼ ſɟᴜ ſ͕ɭᴜ j͑ʃ'ɜ ſןɹ ʌ ֭ſɭɔ }ʃɔ ı],ɜ 📃 ⧽≻
 
 import * as THREE from "three";
-import { laqaziSargxanTlohk2nik2p2 } from "../tahaq/scena/tlohk2nik2p2.js";
+import { laqaziSargxanTlohk2nik2p2 } from "../tahaq/scena/3ohk2nik2p2.js";
 
 export interface EnkondukajHasukf2qani {
   p2t6zo: HTMLCanvasElement;

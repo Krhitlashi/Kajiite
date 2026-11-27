@@ -20225,7 +20225,7 @@ if (typeof window !== "undefined") {
 	if (window.__THREE__) warn("WARNING: Multiple instances of Three.js being imported.");
 	else window.__THREE__ = "187";
 }
-// ../../skek2/p6kpu/haqoxa.ts
+// skek2/p6kpu/haqoxa.ts
 function kf2Cawez2Qoxa(w, h) {
 	const s = new Shape();
 	const hw = w / 2, r = h / 2;
@@ -20439,7 +20439,7 @@ function kf2F2kQan2k(qoxa, rB, rT, namaVek2fe = false, k6liqPal6 = [0, 0]) {
 	g.setAttribute("aKonturaK6liq", new BufferAttribute(k6liq, 1));
 	return g;
 }
-// ../../skek2/qatsiike/hak6h6/havecax2l.ts
+// skek2/qa12ke/hak6h6/havecax2l.ts
 const K6H6ASEFINI = 5 / 64;
 const K6H6AKMARL6DA = .09375;
 const K6H6ADIORITAP2SOMANI = 7 / 8;
@@ -20461,7 +20461,7 @@ function subGrid(l6da) {
 	return Math.floor(l6da / STUPARISERO + 8 ** -6) * STUPARISERO;
 }
 const K6H6ABURIL6DALERANCO = 1 / 16;
-// ../../skek2/qatsiike/qakaj2/c2kanu.ts
+// skek2/qa12ke/qakaj2/c2kanu.ts
 const PONTSEFINI = K6H6ASEFINI;
 const PONTKORPADIKECO = 6 / 8;
 const PONTTERAPROFUNDECO = 1 / 8;
@@ -20569,7 +20569,7 @@ function vepaqC2kanu(qena, ax, az, bx, bz, sefini, andezitaPukek, deko, mut6qL6d
 	}
 	qena.add(hate2);
 }
-// ../../node_modules/three/examples/jsm/math/ConvexHull.js
+// node_modules/three/examples/jsm/math/ConvexHull.js
 const Visible = 0;
 const Deleted = 1;
 const _v1 = new Vector3();
@@ -21516,7 +21516,7 @@ var VertexList = class {
 		return this.head === null;
 	}
 };
-// ../../node_modules/three/examples/jsm/geometries/ConvexGeometry.js
+// node_modules/three/examples/jsm/geometries/ConvexGeometry.js
 /**
 * This class can be used to generate a convex hull for a given array of 3D points.
 * The average time complexity for this task is considered to be O(nlog(n)).
@@ -21556,7 +21556,7 @@ var ConvexGeometry = class extends BufferGeometry {
 		this.setAttribute("normal", new Float32BufferAttribute(normals, 3));
 	}
 };
-// ../../skek2/hapaq/satalaj/haqoxa.ts
+// skek2/hapaq/satalaj/haqoxa.ts
 const MURAKLINO = 5 / 16;
 const SANKTEJABAZPA12KROMO = 58 / 64;
 const SANKTEJABAZPA12L6DA = 1 / 8;
@@ -21619,7 +21619,7 @@ function diamantajHap2somani(s, rc = 1 / 16) {
 	}
 	return n2k;
 }
-// ../../skek2/hapaq/satalaj/c2h2.ts
+// skek2/hapaq/satalaj/c2h2.ts
 function kf2JoqanKkaxten(qoxa, z, sampoj = 16) {
 	const putho = new CurvePath();
 	const n2k = [];
@@ -21737,7 +21737,7 @@ function tlunakEnirejon(group, d, joqaPukek, eniraPukek, vek2fe = 1, b6k61oL6da 
 		group.add(kopio);
 	}
 }
-// ../../skek2/p6kpu/hakox2q.ts
+// skek2/p6kpu/hakox2q.ts
 function vakox2qQoxaKefoujn(geos) {
 	if (geos.length === 0) return new BufferGeometry();
 	let tv = 0, ti = 0;
@@ -21827,7 +21827,7 @@ function vakox2qKajVeldoi(geos) {
 	out.computeVertexNormals();
 	return out;
 }
-// ../../skek2/p6kpu/haweh2.ts
+// skek2/p6kpu/haweh2.ts
 const weh2Ruva = (weh2) => "#" + weh2.toString(16).padStart(6, "0");
 function veb6qaiWeh2(weh2) {
 	if (weh2 === 16777215 || weh2 === 0) return weh2;
@@ -21892,7 +21892,7 @@ function hunanuWeh2(weh2, n = 1) {
 	const qar6xe = (sovo) => Math.max(0, (kozuni >> sovo & 255) - havepat6ni);
 	return qar6xe(16) << 16 | qar6xe(8) << 8 | qar6xe(0);
 }
-// ../../skek2/p6kpu/caq2q.ts
+// skek2/p6kpu/caq2q.ts
 function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, tlunak) {
 	let skek = ruva >>> 0;
 	return () => {
@@ -21905,7 +21905,7 @@ function kf2SakxoRuva(ruva, santaKozuni, p6zukKozuni, tlunak) {
 function kf2Sakxo(ruva, tlunak = 1831565813) {
 	return kf2SakxoRuva(ruva, 16, 64, tlunak);
 }
-// ../../skek2/p6kpu/cac2sex/mafezi.ts
+// skek2/p6kpu/cac2sex/pukek.ts
 const konturajKampoj = /* @__PURE__ */ new Map();
 function k2fKonturanCac2sex(kuns2bana, weh2Cax2lo, tk2ni, hakolumno = 4, hax2pa = 4, reliefo = false) {
 	const { width: sefini, height: l6da } = kuns2bana.canvas;
@@ -22034,10 +22034,10 @@ function kf2P2t6zoCac2sex(w, h, pentri, ripeto = [1, 1], haku1o = {}) {
 	if (haku1o.sRGB !== false) cac2sex.colorSpace = SRGBColorSpace;
 	cac2sex.wrapS = cac2sex.wrapT = haku1o.g2b2 ?? 1e3;
 	cac2sex.repeat.set(ripeto[0], ripeto[1]);
-	if (haku1o.anisotropio) cac2sex.anisotropy = haku1o.anisotropio;
+	if (haku1o.peq2) cac2sex.anisotropy = haku1o.peq2;
 	return cac2sex;
 }
-// ../../skek2/p6kpu/cac2sex/t6hna.ts
+// skek2/p6kpu/cac2sex/t6hna.ts
 const kf2T6hnaCac2sex = p2somani(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kuns2bana) => {
@@ -22048,10 +22048,10 @@ const kf2T6hnaCac2sex = p2somani(() => {
 		], 3307, 4, 6);
 	}, [3, 3], {
 		g2b2: RepeatWrapping,
-		anisotropio: 4
+		peq2: 4
 	});
 });
-// ../../skek2/p6kpu/cac2sex/t6g6.ts
+// skek2/p6kpu/cac2sex/t6g6.ts
 const kf2T6g6Cac2sex = p2somani(() => {
 	const pal6 = 512;
 	return kf2P2t6zoCac2sex(pal6, pal6, (kuns2bana) => {
@@ -22063,10 +22063,10 @@ const kf2T6g6Cac2sex = p2somani(() => {
 		], 2447, 6, 6);
 	}, [2, 2], {
 		g2b2: RepeatWrapping,
-		anisotropio: 4
+		peq2: 4
 	});
 });
-// ../../skek2/p6kpu/pukek.ts
+// skek2/p6kpu/pukek.ts
 function kf2KevPukek(tu5ekani1el2saiPukek) {
 	const kev = tu5ekani1el2saiPukek.clone();
 	kev.color = new Color(hunanuWeh2(tu5ekani1el2saiPukek.color.getHex(), 1 / 2));
@@ -22104,7 +22104,7 @@ function kf2KuhalPukek(weh2) {
 		envMapIntensity: 10 / 8
 	});
 }
-// ../../node_modules/three/examples/jsm/geometries/RoundedBoxGeometry.js
+// node_modules/three/examples/jsm/geometries/RoundedBoxGeometry.js
 const _tempNormal = new Vector3();
 function getUv(faceDirVector, normal, uvAxis, projectionAxis, radius, sideLength) {
 	const totArcLength = 2 * Math.PI * radius / 4;
@@ -22232,7 +22232,7 @@ var RoundedBoxGeometry = class RoundedBoxGeometry extends BoxGeometry {
 		return new RoundedBoxGeometry(data.width, data.height, data.depth, data.segments, data.radius);
 	}
 };
-// ../../skek2/w2ta/cax2loj.ts
+// skek2/w2ta/cax2loj.ts
 const KEHUWEH2 = 5783600;
 const kuhalCax2lPukaz = new MeshStandardMaterial({
 	color: 14200936,
@@ -22275,7 +22275,7 @@ function tlunakMangxCax2l(hate2, x, z, y, kehuPukek, pukazPukek, namaTlVek2fe = 
 	];
 	for (const [ox, oz] of cacap2baz2X2pa) tlunakCacap2baz2(hate2, x + ox, z + oz, y, kehuPukek, pukazPukek, oz === 0 ? Math.PI / 2 : 0);
 }
-// ../../skek2/hapaq/satalaj/hahunaq.ts
+// skek2/hapaq/satalaj/hahunaq.ts
 const TIPARO = {
 	kap2: {
 		labelKey: "vepaqHunaqKap2",
@@ -22329,7 +22329,7 @@ function paqPukek(ca3aq, kf2) {
 	}
 	return m;
 }
-// ../../skek2/hapaq/satalaj/cah6k6.ts
+// skek2/hapaq/satalaj/cah6k6.ts
 const fenProud = 1 / 64;
 const joqaRondigo = 1 / 16;
 function fenestraSubFaco(facaKa5ik, s2sabo, fenL6da, b6k61oL6da, psaz = false) {
@@ -22396,7 +22396,7 @@ function tlunakPilolCah6k6(group, joqaPukek, fenestraPukek, facoVecax2l, ySost2,
 function fenestraPukek() {
 	return paqPukek("cah6k6", () => kf2Cah6k6Pukek());
 }
-// ../../skek2/hapaq/satalaj/hac2nu.ts
+// skek2/hapaq/satalaj/hac2nu.ts
 function tlunakDiamantanSpegulon(qena, spec, group, w) {
 	const mg = group.clone();
 	mg.scale.y = -1;
@@ -22466,7 +22466,7 @@ function tlunakTavolanRandon(geos, hw, hd, y, s2sabo, b6k61oL6da) {
 	geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da - RANDOL6DA, s2sabo));
 	geos.push(kf2TanekanPukazanQoxaKefoun(hw, hd, y + b6k61oL6da, s2sabo, lipoL6da));
 }
-// ../../skek2/hapaq/satalaj/cel2nu.ts
+// skek2/hapaq/satalaj/cel2nu.ts
 function kf2Pilierhajoqan(curve, has2nasce, H) {
 	const tangents = [], moj = [], Loj = [], Woj = [];
 	const V = new Vector3(), ne3ak2V = new Vector3().copy(H);
@@ -22597,7 +22597,7 @@ function tlunakJoqanTubon(geos, cX, cZ, yB, yT, sX, sZ, upward, s2sabo = 0, slaf
 	}
 	if (!(upward || slaf)) geos.push(vakox2qKajVeldoi(hakek));
 }
-// ../../skek2/p6kpu/gek2f.ts
+// skek2/p6kpu/gek2f.ts
 const GAWEKIIFDAKAQ = `"j͑ʃꞇȝ","ı],ᴜ }ʃᴜ","ʃɹ ı],ɔ ꞁȷ̀ɔ ꞁȷ̀ɹ ſɭˬꞇᴜ",sans-serif`;
 function kf2S2banaCac2sex(s2banani, ku1o = {}) {
 	const hakef = s2banani.split(/\s+/).filter(Boolean);
@@ -22642,7 +22642,7 @@ function kf2S2banaCac2sex(s2banani, ku1o = {}) {
 	} catch (e) {}
 	return cac2sex;
 }
-// ../../kanta/gawe/boleS2kanta.ts
+// kanta/gawe/bole-s2kanta.ts
 const GAWEKIIFBAL2 = [
 	[
 		"ᶅſ",
@@ -22735,7 +22735,7 @@ const GAWEKIIFBAL2 = [
 		"c"
 	],
 	[
-		"1],",
+		"ı],",
 		"x",
 		"ç"
 	],
@@ -22862,7 +22862,7 @@ const C2H2BAL2 = [
 		"θ"
 	],
 	[
-		"7",
+		"ƨ",
 		"t",
 		"t"
 	],
@@ -22877,7 +22877,7 @@ const C2H2BAL2 = [
 		"ts"
 	],
 	[
-		"0˞",
+		"ɔ˞",
 		"s",
 		"s"
 	],
@@ -22967,7 +22967,7 @@ const C2H2BAL2 = [
 		"ǂ"
 	],
 	[
-		"7ȏ",
+		"ƨȏ",
 		"t'",
 		"ǃ"
 	],
@@ -23002,7 +23002,7 @@ const C2H2BAL2 = [
 		"i"
 	],
 	[
-		"0",
+		"ɔ",
 		"e",
 		"ɛ"
 	],
@@ -23027,12 +23027,12 @@ const C2H2BAL2 = [
 		"ɤ"
 	],
 	[
-		"4",
+		"э",
 		"6",
 		"ɑ"
 	],
 	[
-		"0ⅎ",
+		"ɔⅎ",
 		"0",
 		"ɛ̃"
 	],
@@ -23042,7 +23042,7 @@ const C2H2BAL2 = [
 		"ɤ̃"
 	],
 	[
-		"4ⅎ",
+		"эⅎ",
 		"4",
 		"ɑ̃"
 	],
@@ -23470,12 +23470,12 @@ function ipaAlGawe(ipaaS2bana, lingvaS2kanta) {
 	return s2banaKekCatsara.join("");
 }
 function gkAlIpa(gkaS2bana) {
-	const qun2S2bana = gkaS2bana.replace(/\s+/g, "");
+	const qun2S2bana = gkaS2bana.replace(/[ʌ\s]+/g, "");
 	const gkIpaBal2 = {};
 	for (const [gk, , ipa] of [...GAWEKIIFBAL2, ...C2H2BAL2]) gkIpaBal2[gk] = ipa;
 	return kaltokS2bana(qun2S2bana, KAK2GK).map((gk) => gkIpaBal2[gk] ?? gk).join("");
 }
-// ../../kanta/s2cel2f/vula.ts
+// kanta/s2cel2f/vula.ts
 const s2k61oBal2 = /* @__PURE__ */ new Map();
 const h6w6iCa1ara = /* @__PURE__ */ new Map();
 let stih2Id = null;
@@ -23527,7 +23527,7 @@ function kf2S2k61o(id, onH6w6i, jeVasaka) {
 	});
 	return s2k61o;
 }
-// ../../kanta/gawe/baskakefani.ts
+// kanta/gawe/baskakefani.ts
 const skakefani = {
 	aih: {
 		"hate2Aranis": "ꞁȷ̀ᴜƣ̋ ꞁȷ̀ᴜ }ʃꞇɔ˞",
@@ -23567,7 +23567,7 @@ const skakefani = {
 		"agoLevi": "j͑ʃᴜ ʃɜƽ",
 		"hate2Bal2": "ʃᴜ j͐ʃɹ",
 		"hate2Hak6h6": "ſɭэ ֭ſɭэ",
-		"ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
+		"ksakat2xaHelpo": "j͑ʃп́ɔ ſɭᴜ ı],ƨɔ ʌ ſᶘᴜ j͐ʃɹ",
 		"caxlefkakaiP2d2": "ſɭw ſ̀ȷᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 		"caxlefkakaiSunta": "j͑ʃwc̗ ɭʃᴜ ʌ ⺓ ʌ ŋᷠᴜ ɽ͑ʃ'ɔ ɽ͑ʃ'ɹ j͑ʃᴜꞇ ⟅",
 		"manĝFok0": "ſȷɜƽ ꞁȷ̀ɹ ŋᷠᴜ j͑ʃᴜꞇ • ı],ꞇƽ",
@@ -23655,7 +23655,7 @@ const skakefani = {
 		"pudalTolxu": "ɭʃɜͷ̗ ı],w",
 		"pudalPriskriboTolxu": "j͑ʃɹ ɭʃɜͷ̗ ı],w",
 		"pudalNeĝotemek": "ɭʃɔ ŋᷠɔƽ",
-		"pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
+		"pudalPriskriboNeĝotemek": "}ʃɹ ɭʃᴜ j͑ʃɔ ʌ ſɭэ j͑ʃꞇ j͐ʃ ʌ ı],ᴜ }ʃᴜ j͑ʃᴜꞇ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ ʌ ſɭэ ſɭɔ ⟅",
 		"hatePlanto": "ı],ᴜ ſ̀ȷɔ",
 		"pudalBetulo": "j͐ʃᴜ ŋᷠɹⰱ",
 		"pudalPriskriboBetulo": "j͑ʃ'ɔ ſ͔ɭэ ʌ ſɭɔ ֭ſɭw ʌ ſɟɔ ⟅",
@@ -23664,7 +23664,7 @@ const skakefani = {
 		"pudalTlexlefhxakai": "ſ̀ȷɔ ı],ͷ̗ɔʞ v ֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ",
 		"pudalPriskriboTlexlefhxakai": "֭ſɭᶗ‹ᴜƽ ꞁȷ̀ᴜꞇ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ⟅ ꞁȷ̀ɜ j͑ʃ'ᴜ ſᶘᴜ ֭ſɭᴜͷ̗ ⟅",
 		"pudalTlexlefp2sai": "ſ̀ȷɔ ı],ͷ̗ɔʞ v ſןɹɔ˞ ꞁȷ̀ᴜꞇ",
-		"pudalPriskriboTlexlefp2sai": "ŋᷠɜ ı],ᴜ ſ̀ȷɔ j͑ʃᴜꞇ j͑ʃ ʌ ı],ɔ ſɭᴜȝ ʌ ı],ᴜ ʃɔ ʌ j͑ʃп́ɔ ſןᴜ j͐ʃэ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ʌ ꞁȷ̀ɹ ſןꞇƽ ⟅",
+		"pudalPriskriboTlexlefp2sai": "ŋᷠɜ ı],ᴜ ſ̀ȷɔ j͑ʃᴜꞇ j͑ʃ ʌ ı],ɔ ſɭᴜȝ ʌ ı],ᴜ ʃɔ ʌ j͑ʃп́ɔ ſןᴜ j͐ʃэ ʌ ſ̀ȷɔ ı],ͷ̗ɔʞ ʌ ꞁȷ̀ɹ ſןꞇƽ ⟅",
 		"pudalXabe": "ı],ᴜ ʃɔ",
 		"pudalPriskriboXabe": "j͐ʃᴜ̩ᴜ ʌ ı],ᴜ ſ̀ȷɔ ʌ ɭl̀э ſɭɜ ſɭ,w ⟅",
 		"pudalAsfaXabe": "ſ̀ȷɔ ı],ͷ̗ɔʞ v ı],ᴜ ʃɔ j͑ʃᴜꞇ",
@@ -23691,27 +23691,27 @@ const skakefani = {
 		"soqteWeh2Obsidian": "֭ſɭw }ʃᴜ",
 		"soqteWeh2Cyan": "ꞁȷ̀ꞇ j͑ʃɔⅎᶗ‹",
 		"cax2lHararo": "ſᶘᴜȝ",
-		"tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
+		"tsaqQaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ֭ſɭᴜ ı],ɔ",
 		"tsaqPsazai": "ſɟɹ }ʃᴜ ſᶘᴜȝ",
 		"tsaqSahakani": "j͑ʃᴜʞ",
-		"harWeh2Qaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
+		"harWeh2Qaroxema": "ſᶘᴜȝ ʌ j͑ʃп́ɔ ᶅſɔ ֭ſɭɹ",
 		"harWeh2Bruna": "ſ̀ȷwɔ˞",
 		"harWeh2Hunasai": "֭ſɭw }ʃᴜ j͑ʃᴜꞇ",
 		"harWeh2Ruĝeta": "ᶅſɔ j͐ʃᴜ ſ̀ȷwɔ˞",
 		"harWeh2Kaŝtana": "ſɭɜᴜ̩ ſɭэ",
 		"harWeh2Blonda": "ſɟꞇ",
 		"harWeh2Griza": "֭ſɭwƽ",
-		"muziko": "j͑ʃп́ꞇ ſɭɔƴ",
-		"muzikT2bakobesai0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
-		"muzikT2bakobesai1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
-		"muzikT2bakobesai2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
-		"muzikT2bakobesai3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
-		"muzikT2bakobesai4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-		"muzikT2bakobesai5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
-		"muzikT2bakobesai6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
-		"muzikT2bakobesai7": "ſɭɘᴜ ֭ſɭᴜ",
+		"swikez": "j͑ʃп́ꞇ ſɭɔƴ",
+		"muzikSwikez0": "ſןw ſןᴜɔ˞ ɭʃꞇʞ ʌ ᶅſɔ ɽ͑ʃ'ɔ",
+		"muzikSwikez1": "ſןᴜ ʃɜƽ ʌ ſ͔ɭɹ ʃɹ",
+		"muzikSwikez2": "ſɭэ j͐ʃᴜ j͑ʃƨꞇʞ",
+		"muzikSwikez3": "j͐ʃɜ ɭʃᴜ ʌ ſɭᴜͷ̗ ʌ ɭʃɜ ı],ɔƽ",
+		"muzikSwikez4": "ɭl̀э ſɭᴜ ı],ƨɔ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+		"muzikSwikez5": "ɭl̀э ſɭэ ſᶘɹ ʌ j͑ʃп́ɔ j͑ʃɹ ɭl̀ᴜ",
+		"muzikSwikez6": "j͑ʃɜ j͑ʃƨɹ ʌ ſɭᴜ ɭl̀ɹ ɭʃɔ",
+		"muzikSwikez7": "ſɭɘᴜ ֭ſɭᴜ",
 		"ariaKrepuskoCatsiina": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ",
-		"ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
+		"ariaKrepuskoKama": "ſןw ſɭɜ ʃɔ j͑ʃƨꞇʞ ʌ j͑ʃп́ɔ j͑ʃ'ɔ ŋᷠɹ",
 		"ariaVet6limaCatsiina": "ſ͕ɭɹ ſᶘɜ",
 		"vet6limaNebula": "ŋᷠᴜ ֭ſɭᴜ",
 		"vet6limaPluva": "֭ſɭᴜ ɭʃᴜ",
@@ -23732,7 +23732,7 @@ const skakefani = {
 		"ariaNalaDuobligi": "ſןw ſɟw ɭʃᴜ",
 		"catsiinaVetlaqiEliri": "j͑ʃ'ɔ ſ̀ȷᴜȝ ʌ ſɭᴜ j͑ʃᴜ ʌ j͑ʃwc̗ ɭʃᴜ ʌ }ʃᴜ j͐ʃᴜ ⟅",
 		"hate2Haku1o": "ſɭw ſᶘɜ",
-		"ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
+		"ksakat2xaHaku1o": "ſ͔ɭᴜ ᶅſɔ ｡ ʃɔ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡ ſ͕ɭᴜ j͑ʃɜȝ ɭʃɔ ⟅",
 		"catsiinaSono": "ʃɔ",
 		"catsiinaBruo": "ſȷᴜ ŋᷠᴜʞ",
 		"ariaGaweCatsiina": "ſ͔ɭᴜ ᶅſɔ",
@@ -23864,7 +23864,7 @@ const skakefani = {
 		"harWeh2Kaŝtana": "Kaŝtana",
 		"harWeh2Blonda": "Blonda",
 		"harWeh2Griza": "Griza",
-		"muziko": "Muziko",
+		"swikez": "Muziko",
 		"ariaKrepuskoCatsiina": "Krepusko",
 		"ariaKrepuskoKama": "Krepuska vem2",
 		"ariaVet6limaCatsiina": "Vetero",
@@ -23887,7 +23887,7 @@ const skakefani = {
 		"ariaNalaDuobligi": "Duobligi",
 		"catsiinaVetlaqiEliri": "Vetlaqi kaj eliri el la nala.",
 		"hate2Haku1o": "Hacatsara",
-		"ksakat2xaHaku1o": "Gawe, bole, muziko, vestaro.",
+		"ksakat2xaHaku1o": "Gawe, bole, swikez, vestaro.",
 		"catsiinaSono": "Bole",
 		"catsiinaBruo": "Fona famaf",
 		"ariaGaweCatsiina": "Gawe",
@@ -24019,7 +24019,7 @@ const skakefani = {
 		"harWeh2Kaŝtana": "Chestnut",
 		"harWeh2Blonda": "Blonde",
 		"harWeh2Griza": "Gray",
-		"muziko": "Music",
+		"swikez": "Music",
 		"ariaKrepuskoCatsiina": "Dusk",
 		"ariaKrepuskoKama": "Dusk level",
 		"ariaVet6limaCatsiina": "Weather",
@@ -24089,13 +24089,13 @@ const skakefani = {
 		"ksakat2xaHelpo": "街のノート",
 		"caxlefkakaiP2d2": "誰かが加わりました。",
 		"caxlefkakaiSunta": "誰かが去りました。",
-		"manĝPuss0": "ピクセトレシレフプウスア",
 		"manĝFok0": "フォクウマスア • シク",
 		"manĝFok1": "フォクウマスア • ンアトウワ",
 		"manĝFok2": "フォクウマスア • トラシア",
 		"manĝTla0": "トラトウワ • トクウ",
 		"manĝTla1": "トラトウワ • トウク",
 		"manĝTla2": "トラトウワ • ラムウス",
+		"manĝPuss0": "ピクセトレシレフプウスア",
 		"manĝFok0Gusto": "リケンパンの鴨入り包子。",
 		"manĝFok1Gusto": "ツァハラ酢とアイスフィッシュ。",
 		"manĝFok2Gusto": "ツァハラ酢、ウミグモ、アイスフィッシュ、シュレフ。",
@@ -24180,7 +24180,7 @@ const skakefani = {
 		"harWeh2Kaŝtana": "栗色",
 		"harWeh2Blonda": "金髪",
 		"harWeh2Griza": "グレー",
-		"muziko": "音楽",
+		"swikez": "音楽",
 		"ariaKrepuskoCatsiina": "夕暮れモードを切り替え",
 		"ariaKrepuskoKama": "夕暮れのレベル",
 		"ariaVet6limaCatsiina": "天気",
@@ -24250,13 +24250,13 @@ const skakefani = {
 		"ksakat2xaHelpo": "កំណត់ត្រាជំនួយអំពីទីក្រុង",
 		"caxlefkakaiP2d2": "នរណាម្នាក់បានចូលរួម។",
 		"caxlefkakaiSunta": "នរណាម្នាក់បានចាកចេញ។",
-		"manĝPuss0": "ពីកសេត្លេឆលេផពិសឺ",
 		"manĝFok0": "ផុកិមាសឺ • ឆីក",
 		"manĝFok1": "ផុកិមាសឺ • ងាតិវា",
 		"manĝFok2": "ផុកិមាសឺ • តុលឆឺ",
 		"manĝTla0": "ត្លាតិវា • តុកិ",
 		"manĝTla1": "ត្លាតិវា • តិក",
 		"manĝTla2": "ត្លាតិវា • លាមិថ",
+		"manĝPuss0": "ពីកសេត្លេឆលេផពិសឺ",
 		"manĝFok0Gusto": "នំប៉័ងលីខេន មានប៉ាវសាច់ទាខាងក្នុង។",
 		"manĝFok1Gusto": "ទឹកខ្មេះត្សាហាល និងត្រីទឹកកក។",
 		"manĝFok2Gusto": "ទឹកខ្មេះត្សាហាល ពីងពាងសមុទ្រ ត្រីទឹកកក និងស្លេហ្វ។",
@@ -24341,7 +24341,7 @@ const skakefani = {
 		"harWeh2Kaŝtana": "ដើមទ្រូង",
 		"harWeh2Blonda": "ទង់ដែង",
 		"harWeh2Griza": "ប្រផេះ",
-		"muziko": "តន្ត្រី",
+		"swikez": "តន្ត្រី",
 		"ariaKrepuskoCatsiina": "ប្តូររបៀបព្រលប់",
 		"ariaKrepuskoKama": "កម្រិតព្រលប់",
 		"ariaVet6limaCatsiina": "អាកាសធាតុ",
@@ -24407,7 +24407,7 @@ const VEPAQKSKAOJ = /* @__PURE__ */ new Set([
 ]);
 function ksan2Ksaka(ca3aq) {
 	if (tikGawe === "aih") return null;
-	if (!/^(vepaqKsaka|muzikT2bakobesai|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !G6ZXA3EKSKAOJ.has(ca3aq) && !VEPAQKSKAOJ.has(ca3aq)) return null;
+	if (!/^(vepaqKsaka|swikez|manĝFok|manĝTla|manĝPuss)\d+$/.test(ca3aq) && !G6ZXA3EKSKAOJ.has(ca3aq) && !VEPAQKSKAOJ.has(ca3aq)) return null;
 	const aihQoxa = skakefani.aih[ca3aq];
 	if (!aihQoxa) return null;
 	const ksaka = aihQoxa.split("•").map((p) => ipaAlGawe(gkAlIpa(p.trim()), tikGawe)).join(" • ");
@@ -24541,7 +24541,7 @@ if (typeof document !== "undefined") {
 	if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", saxeGawe);
 	else saxeGawe();
 }
-// ../../skek2/hapaq/satalaj/fasw2d2.ts
+// skek2/hapaq/satalaj/fasw2d2.ts
 function sexieaVitro() {
 	return paqPukek("sexieo", () => new MeshStandardMaterial({
 		color: 16777215,
@@ -24629,7 +24629,7 @@ function tlunakSexieanKaatse(group, name, hunaq, w, d) {
 	face.position.set(w * 11 / 32, signaY, d / 2 + 74 / 64);
 	group.add(face);
 }
-// ../../skek2/hapaq/satalaj-hapaq.ts
+// skek2/hapaq/satalaj-hapaq.ts
 function hatanekHavem2(w, d, tiers, b6k61oL6da) {
 	const teruSefini = Math.max(141 / 64, w * 19 / 64);
 	const teruProfundo = Math.max(2, d * 19 / 64);
@@ -24822,7 +24822,7 @@ function vepaqSatalon(spec, qena, knasukf2qdalai, mut6qFn) {
 	if (eksterajHacax2l) group.add(eksterajHacax2l);
 	return group;
 }
-// ../../node_modules/three/examples/jsm/utils/BufferGeometryUtils.js
+// node_modules/three/examples/jsm/utils/BufferGeometryUtils.js
 /**
 * Merges a set of geometries into a single instance. All geometries must have compatible attributes.
 *
@@ -24984,7 +24984,7 @@ function mergeAttributes(attributes) {
 	if (gpuType !== void 0) result.gpuType = gpuType;
 	return result;
 }
-// ../../skek2/qatsiike/hak6h6/habakaweKatoma.ts
+// skek2/qa12ke/hak6h6/habakawe-katoma.ts
 function kf2GeometriajnHabakaweKatoman() {
 	const haca1ara = /* @__PURE__ */ new Map();
 	return {
@@ -25123,7 +25123,7 @@ function tlunakC2qjnKek(habakaweKatoma, hakek, teruPukek, bordaPukek, mut6qFn) {
 		}
 	}
 }
-// ../../skek2/qatsiike/hak6h6/haqoxa.ts
+// skek2/qa12ke/hak6h6/haqoxa.ts
 function k6h6TeruDeVeb6kek(x, z, hac2w2q, ka5ik, heightFn) {
 	let maks = heightFn(x, z), m2m2 = maks;
 	const konsideru = (px, pz, r) => {
@@ -25389,7 +25389,7 @@ function kf2SegmentQoxaKefoun(w, l, hateru, hapsaz, ofsetoX = 0) {
 	zace.computeVertexNormals();
 	return zace;
 }
-// ../../skek2/qatsiike/hak6h6/l6da.ts
+// skek2/qa12ke/hak6h6/l6da.ts
 const K6H6ATERARADII = [
 	1 / 2,
 	1,
@@ -25407,7 +25407,7 @@ const K6H6ATERARADII = [
 	}
 	return ca1ara;
 })();
-// ../../skek2/qatsiike/hak6h6/havem2.ts
+// skek2/qa12ke/hak6h6/havem2.ts
 const NIVELAPASO = STUPAF2KKURO;
 const NIVELASTUPADISTO = STUPAF2KKURO;
 const LAUXAJ = [
@@ -25791,7 +25791,7 @@ function kf2UnuformajnHacaqasahaxn(s2qena, hah6k6 = []) {
 	tlunakani(tlakakaitlakak, sahakani, vem2, vem2);
 	return hacaqasahax;
 }
-// ../../skek2/qatsiike/hak6h6/veb6kek-havem2.ts
+// skek2/qa12ke/hak6h6/veb6kek-havem2.ts
 function tamc2kCatlaq(x, z) {
 	return x + "," + z;
 }
@@ -25830,7 +25830,7 @@ function sukf2qiTap2nL6da(knece, rezervo) {
 	}
 	return Math.max(surGrid(sukf2qita), mut6q);
 }
-// ../../skek2/qatsiike/hak6h6/hapa12.ts
+// skek2/qa12ke/hak6h6/hapa12.ts
 const DUOBLAPI = Math.PI * 2;
 const ANGULATOLERO = 1 / 512;
 function normAng(tafkaq) {
@@ -25888,9 +25888,9 @@ function tamc2kTap2Vem2(x, z, knece, heightFn) {
 	const hap2somani = knece.map((b) => b.p2somani);
 	return kf2Tap2Vem2n(hac2w2q, hap2somani, tamc2kBrakHal6da(x, z, hac2w2q, hap2somani, heightFn).map((l6da) => Number.isFinite(l6da) ? l6da : NaN), tamc2kTap2L6da(x, z, knece, heightFn));
 }
-// ../../skek2/qatsiike/hak6h6/hahunaq.ts
+// skek2/qa12ke/hak6h6/hahunaq.ts
 const kas2kantaHasoza = [];
-// ../../skek2/qatsiike/hak6h6/has2nasce.ts
+// skek2/qa12ke/hak6h6/has2nasce.ts
 function hatafkaqDeTreado(l6daA, l6daB, ax, az, bx, bz, latX, latZ, mut6qFn, kofBaza) {
 	const hateru = [
 		l6daA,
@@ -26103,7 +26103,7 @@ function kf2EksteranP2somani(hasiitsii) {
 	}
 	return p2somani;
 }
-// ../../skek2/qatsiike/hak6h6.ts
+// skek2/qa12ke/hak6h6.ts
 const PROJEKTAMEMORO = /* @__PURE__ */ new WeakMap();
 function projekcioDe(n2k) {
 	const vetlaqita = PROJEKTAMEMORO.get(n2k);
@@ -26489,7 +26489,7 @@ function aldonuHapx01on(samples, aX, aZ, bX, bZ, altFn) {
 		samples.push(new Vector3(sx, altFn(sx, sz), sz));
 	}
 }
-// 1ale1a-n2k.ts
+// caht2/vecax2l/1ale1a-n2k.ts
 function cel2nu(thaweni, vop2lna) {
 	if (!thaweni) throw new Error(`( ſ̀ȷɜᴜ̩ ſɭɹ }ʃꞇ ) ${vop2lna}`);
 }

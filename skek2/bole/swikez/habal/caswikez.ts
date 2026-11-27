@@ -1,4 +1,4 @@
-// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
+// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
 
 import { siku } from "./siku.js";
 import { ocarina } from "./ocarina.js";
@@ -8,10 +8,10 @@ import { tjurunga } from "./tjurunga.js";
 import { slenthem } from "./slenthem.js";
 import { inanga } from "./inanga.js";
 import { mbira } from "./mbira.js";
-import { kiiqflak } from "./kiiqflak.js";
+import { kiiqflak } from "./k2qflak.js";
 import { hiwe } from "./hiwe.js";
 import type { BoleEg2b2 } from "./hahunaq.js";
-import { vap6zukani } from "./hakfeKx2keve.js";
+import { vap6zukani } from "./hakfe-kx2keve.js";
 export function instrumento(ctx: AudioContext, out: AudioNode, e: BoleEg2b2, t: number) {
   const f = e.f ?? 0o0;
 

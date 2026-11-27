@@ -2,7 +2,7 @@
 
 import { kf2Qox2n2k, hunaqDeK6liq } from "./kxawa.js";
 import { k2reiHatik } from "./teru.js";
-import { qox2n2kSef4 } from "./qox2n2kSef4.js";
+import { qox2n2kSef4 } from "./qox2n2k-sef4.js";
 import { skaniK6h6nCaxlefkakai } from "./s2t2bakano.js";
 import type { Nek2resaiK6liq, K2paHunaq, Qox2n2kPtalu, Qox2n2kKekkozusai, Qox2n2kB6vakanta,
   Qox2n2kC2k, Qox2n2kKas2kantaS2nasce } from "./hahunaq.js";

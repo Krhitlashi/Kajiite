@@ -3,7 +3,7 @@
 import * as THREE from "three";
 import { vepaqC2kanu, kf2PontanSubon, pontaFinaOrdo,
   PONTKORPADIKECO, PONTTERAPROFUNDECO, PONTK6H6AKMAERPONO }
-  from "../../skek2/qatsiike/qakaj2/c2kanu.js";
+  from "../../skek2/qa12ke/qakaj2/c2kanu.js";
 
 const FUNDO = 0o2;
 const DEKO = 0o12;

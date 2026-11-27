@@ -1,16 +1,16 @@
 // ≺⧼ ſɟᴜ ſןᴜ ɭʃэ ʌ ʃᴜ j͐ʃɹ 📃 ⧽≻
 
 import * as THREE from "three";
-import { tikHaqakaj2 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
-import { l6da, tsasaVem2 } from "../../kanta/nala/mut6qSoza.js";
-import { vepaqQakaj2n } from "../../skek2/qatsiike/qakaj2.js";
-import { kf2Qakaj2nStuparon } from "../../skek2/qatsiike/qakaj2/hatona.js";
-import { vepaqHak6h6n } from "../../skek2/qatsiike/hak6h6.js";
-import { vepaqIntersekcajnHapa12n } from "../../skek2/qatsiike/hak6h6/hapa12.js";
-import { qakaj2L6daJe, tamc2kHavem2 } from "../../skek2/qatsiike/hak6h6/veb6kek-havem2.js";
-import { STUPARISERO, K6H6ATRUAP2SOMANI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { tikHaqakaj2 } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
+import { l6da, tsasaVem2 } from "../../kanta/nala/mut6q-soza.js";
+import { vepaqQakaj2n } from "../../skek2/qa12ke/qakaj2.js";
+import { kf2Qakaj2nStuparon } from "../../skek2/qa12ke/qakaj2/hatona.js";
+import { vepaqHak6h6n } from "../../skek2/qa12ke/hak6h6.js";
+import { vepaqIntersekcajnHapa12n } from "../../skek2/qa12ke/hak6h6/hapa12.js";
+import { qakaj2L6daJe, tamc2kHavem2 } from "../../skek2/qa12ke/hak6h6/veb6kek-havem2.js";
+import { STUPARISERO, K6H6ATRUAP2SOMANI } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 import { kf2Vecax2lanNala } from "./p6kpu.js";
-import type { Kas2kantaDitlakak } from "../../skek2/qatsiike/hak6h6/hahunaq.js";
+import type { Kas2kantaDitlakak } from "../../skek2/qa12ke/hak6h6/hahunaq.js";
 
 const nala = kf2Vecax2lanNala(false);
 const HAQAKAJ2 = tikHaqakaj2();

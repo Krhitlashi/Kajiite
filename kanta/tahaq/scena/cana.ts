@@ -1,6 +1,6 @@
 // ≺⧼ ſɟᴜ }ʃᴜ 🌤 ⧽≻
 import * as THREE from "three";
-import { kf2CananPukekn, type CanaUnihaqoxa } from "../../../skek2/p6kpu/tsije.js";
+import { kf2CananPukekn, type CanaUnihaqoxa } from "../../../skek2/p6kpu/1ije.js";
 
 export function kf2Canan(qena: THREE.Scene): {
   cana: THREE.Mesh;

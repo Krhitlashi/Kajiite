@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { kf2Lam2vnSlafCac2sex } from "../../../p6kpu/cac2sex/lam2v-slaf.js";
 import { kf2S2cel2nCac2sex } from "../../../p6kpu/cac2sex/s2cel2.js";
 import { kf2S2cel2nBumpanCac2sex } from "../../../p6kpu/cac2sex/s2cel2-tok.js";
-import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "../sakxoXa3e.js";
+import { kf2S2saboQuaternionon, kf2Poziciilon, hazardaWeh2, kf2Xa3eHazardon } from "../sakxo-xa3e.js";
 import { type Cel2Raqa } from "../raqa.js";
 import { kf2TrunkanQoxaKefoun } from "../hasost2cel2sai.js";
 import { vepaqLam2vnSlafanQoxaKefoun } from "./slaf.js";

@@ -5,7 +5,7 @@ import type { Vet6lima } from "../tahaq/scena/hahunaq.js";
 import { kf2S2k61o } from "./vula.js";
 import type { S2k61o } from "./vula.js";
 import { bole } from "./bole.js";
-import { vefalKu1o, ve3aqKu1o } from "../../skek2/p6kpu/kutso.js";
+import { vefalKu1o, ve3aqKu1o } from "../../skek2/p6kpu/ku1o.js";
 
 export interface MenuajHasukf2qani {
   navPopUp: HTMLElement;
@@ -56,7 +56,7 @@ export function kf2Menuon( hasukf2qani: MenuajHasukf2qani ): Menuo {
   navCatsiina.addEventListener("click", tsiinanusabosaiNaviganPopUp);
 
   bole().bokKfeni(navPopUp, ( okef ) => {
-    if ( okef !== "t2bakobesai" ) pukxeiNaviganPopUp();
+    if ( okef !== "swikez" ) pukxeiNaviganPopUp();
   });
 
   let krepuskaVem2 = 0o0;

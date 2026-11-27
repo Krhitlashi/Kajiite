@@ -1,11 +1,11 @@
 // ≺⧼ ŋᷠw ɭʃэȝ 📃 ⧽≻
 
 import * as THREE from "three";
-import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6qSoza.js";
-import { hagek2fhagasai, mut6qWeh2En, xetoh2D } from "../../skek2/p6kpu/mut6qHaweh2.js";
-import { mut6qWeh2En as kozuaWeh2EnH2y2k } from "./h2y2k-mut6qHaweh2.js";
+import { l6da, tsasaVem2Tsiike } from "../../kanta/nala/mut6q-soza.js";
+import { hagek2fhagasai, mut6qWeh2En, xetoh2D } from "../../skek2/p6kpu/mut6q-haweh2.js";
+import { mut6qWeh2En as kozuaWeh2EnH2y2k } from "./h2y2k-mut6q-haweh2.js";
 import { surokQoxa } from "../../skek2/p6kpu/mapqoxa.js";
-import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2S2kanta.js";
+import { kxeBal2 } from "../../kanta/mut6q-havop2/bal2-s2kanta.js";
 import { tbo, knak2fecajasai } from "../../kanta/k2fe/s2cax2l.js";
 
 const GRANDECO = 0o1400;

@@ -6,7 +6,7 @@ import { eniriC2h2, eliriC2h2 as eliriElC2h2 } from "../../skek2/hapaq/hac2h2.js
 import { ca3aqDePudal, type C2h2Kanta } from "../../skek2/hapaq/hac2h2/hahunaq.js";
 import type { VepaqSpec } from "../../skek2/hapaq/satalaj/hahunaq.js";
 import type { Qoxa } from "../../skek2/pudal/hamaz.js";
-import type { S2qenaHaba } from "../s2cel2f/qatlaq.js";
+import type { S2qenaHaba } from "../s2cel2f/qa3aq.js";
 import type { Masax2z } from "./masax2z.js";
 import type { Caxlefkakai } from "./caxlefkakai.js";
 

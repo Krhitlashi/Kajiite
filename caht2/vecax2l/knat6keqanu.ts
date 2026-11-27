@@ -1,9 +1,9 @@
 // ≺⧼ ſɭc̗ᴜ ɭʃэ ſɭɔ ſ͕ɭᴜ }ʃw 📃 ⧽≻
 
-import { tikHak6h6 } from "../../kanta/mut6q-havop2/tlohk2nikziisai.js";
-import { l6da } from "../../kanta/nala/mut6qSoza.js";
-import { kf2NivelanS2qena } from "../../skek2/qatsiike/hak6h6/havem2.js";
-import { K6H6ABORDASEFINI } from "../../skek2/qatsiike/hak6h6/havecax2l.js";
+import { tikHak6h6 } from "../../kanta/mut6q-havop2/3ohk2ni52sai.js";
+import { l6da } from "../../kanta/nala/mut6q-soza.js";
+import { kf2NivelanS2qena } from "../../skek2/qa12ke/hak6h6/havem2.js";
+import { K6H6ABORDASEFINI } from "../../skek2/qa12ke/hak6h6/havecax2l.js";
 
 const YTROIGO = 0o24 / 0o10;
 const HAKAS2KANTA = tikHak6h6().filter(v => v.n2k.length >= 0o2);
