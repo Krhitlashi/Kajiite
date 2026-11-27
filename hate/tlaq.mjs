@@ -39,7 +39,7 @@ function muzikaMarkilo(nomo) {
     if ( n < 0o1 || n > 0o143 ) return null;
     return [ "export function buildTrack" + n + "(", "SpuroDateno" ];
   }
-  if ( nomo === "muziko/kantoj.ts" ) return [ "export const KANTOJ" ];
+  if ( nomo === "muziko/kantoj.ts" ) return [ "export const HASWIKEZAI" ];
   return null;
 }
 function markiloDe(nomo) {

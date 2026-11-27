@@ -150,9 +150,9 @@ export function vepaqTom6Hak6h6n3D(): void {
     const ofsX = qox2n2k.ofsX, ofsZ = qox2n2k.ofsZ;
     for ( const r of qox2n2k.b6vakanta.hak6h6 ) {
       if ( r.kuk ) continue;
-      const pts: K6h6N2k[] = r.orient === "EW"
-        ? [ [ ofsX + r.de, ofsZ + r.haxekuxa ], [ ofsX + r.al, ofsZ + r.haxekuxa ] ]
-        : [ [ ofsX + r.haxekuxa, ofsZ + r.de ], [ ofsX + r.haxekuxa, ofsZ + r.al ] ];
+      const pts: K6h6N2k[] = r.kanto === "EW"
+        ? [ [ ofsX + r.l6, ofsZ + r.haxekuxa ], [ ofsX + r.sai, ofsZ + r.haxekuxa ] ]
+        : [ [ ofsX + r.haxekuxa, ofsZ + r.l6 ], [ ofsX + r.haxekuxa, ofsZ + r.sai ] ];
       havop2ni.push({ pts, w: KRADAK6H6ASEFINI, hateruni: false });
     }
     for ( const s of qox2n2k.b6vakanta.hatohtanu ) {

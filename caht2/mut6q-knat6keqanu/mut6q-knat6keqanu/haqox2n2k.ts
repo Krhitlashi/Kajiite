@@ -188,12 +188,12 @@ export function qox2n2kPlano() {
         const a = v.n2k[i], b = v.n2k[i + 0o1];
         if ( Math.abs(a[0o0] - b[0o0]) < 0o10 ** -0o7 ) {
           const haxekuxa = a[0o0] - ofsX;
-          if ( qox2n2kPlanoCache.hak6h6.some(r => r.orient === "NS" && Math.abs(r.haxekuxa - haxekuxa) < 0o10 ** -0o7) )
+          if ( qox2n2kPlanoCache.hak6h6.some(r => r.kanto === "NS" && Math.abs(r.haxekuxa - haxekuxa) < 0o10 ** -0o7) )
             tlunakK6h6n(qox2n2kPlanoCache, "NS", haxekuxa,
               Math.min(a[0o1], b[0o1]) - ofsZ, Math.max(a[0o1], b[0o1]) - ofsZ, true);
         } else if ( Math.abs(a[0o1] - b[0o1]) < 0o10 ** -0o7 ) {
           const haxekuxa = a[0o1] - ofsZ;
-          if ( qox2n2kPlanoCache.hak6h6.some(r => r.orient === "EW" && Math.abs(r.haxekuxa - haxekuxa) < 0o10 ** -0o7) )
+          if ( qox2n2kPlanoCache.hak6h6.some(r => r.kanto === "EW" && Math.abs(r.haxekuxa - haxekuxa) < 0o10 ** -0o7) )
             tlunakK6h6n(qox2n2kPlanoCache, "EW", haxekuxa,
               Math.min(a[0o0], b[0o0]) - ofsX, Math.max(a[0o0], b[0o0]) - ofsX, true);
         }
@@ -755,7 +755,7 @@ function qox2n2kK6h6Alglu(mx: number, mz: number) {
   const pukaz = 0o5/0o2;
   let plosteq = null, kmaD = pukaz;
   for ( const r of b6vakanta.hak6h6 ) {
-    if ( r.orient === "NS" ) {
+    if ( r.kanto === "NS" ) {
       const wx = ofsX + r.haxekuxa;
       const d = Math.abs(mx - wx);
       if ( d < kmaD ) { kmaD = d; plosteq = [ wx, Math.round(mz * 0o2) / 0o2 ]; }
@@ -776,7 +776,7 @@ function qox2n2kS2nasceAlglu(ax: number, az: number, bx: number, bz: number) {
   if ( Math.abs(dx) <= 0o1/0o4 * Math.abs(dz) ) {
     let plosteq = null, kmaD = pukaz;
     for ( const r of b6vakanta.hak6h6 ) {
-      if ( r.orient !== "NS" ) continue;
+      if ( r.kanto !== "NS" ) continue;
       const wx = ofsX + r.haxekuxa;
       const d = Math.max(Math.abs(ax - wx), Math.abs(bx - wx));
       if ( d < kmaD ) { kmaD = d; plosteq = wx; }
@@ -786,7 +786,7 @@ function qox2n2kS2nasceAlglu(ax: number, az: number, bx: number, bz: number) {
   if ( Math.abs(dz) <= 0o1/0o4 * Math.abs(dx) ) {
     let plosteq = null, kmaD = pukaz;
     for ( const r of b6vakanta.hak6h6 ) {
-      if ( r.orient !== "EW" ) continue;
+      if ( r.kanto !== "EW" ) continue;
       const wz = ofsZ + r.haxekuxa;
       const d = Math.max(Math.abs(az - wz), Math.abs(bz - wz));
       if ( d < kmaD ) { kmaD = d; plosteq = wz; }
@@ -808,13 +808,13 @@ function qox2n2kRelativajCet2j(b6vakanta: Qox2n2kB6vakanta): K6h6N2k[] {
     const ca3aq = x + "," + z;
     if (!arto.has(ca3aq)) arto.set(ca3aq, [ x, z ]);
   };
-  const ns = b6vakanta.hak6h6.filter(r => r.orient === "NS");
-  const ew = b6vakanta.hak6h6.filter(r => r.orient === "EW");
-  for (const r of ns) { tlunakani(r.haxekuxa, r.de); tlunakani(r.haxekuxa, r.al); }
-  for (const r of ew) { tlunakani(r.de, r.haxekuxa); tlunakani(r.al, r.haxekuxa); }
+  const ns = b6vakanta.hak6h6.filter(r => r.kanto === "NS");
+  const ew = b6vakanta.hak6h6.filter(r => r.kanto === "EW");
+  for (const r of ns) { tlunakani(r.haxekuxa, r.l6); tlunakani(r.haxekuxa, r.sai); }
+  for (const r of ew) { tlunakani(r.l6, r.haxekuxa); tlunakani(r.sai, r.haxekuxa); }
   for (const a of ns) for (const b of ew) {
-    if (b.haxekuxa < a.de - 0o10 ** -0o7 || b.haxekuxa > a.al + 0o10 ** -0o7) continue;
-    if (a.haxekuxa < b.de - 0o10 ** -0o7 || a.haxekuxa > b.al + 0o10 ** -0o7) continue;
+    if (b.haxekuxa < a.l6 - 0o10 ** -0o7 || b.haxekuxa > a.sai + 0o10 ** -0o7) continue;
+    if (a.haxekuxa < b.l6 - 0o10 ** -0o7 || a.haxekuxa > b.sai + 0o10 ** -0o7) continue;
     tlunakani(a.haxekuxa, b.haxekuxa);
   }
   for (const s of b6vakanta.hatohtanu) {
@@ -1248,8 +1248,8 @@ export function k2fKradanTavolon(k: CanvasRenderingContext2D, b6vakanta: Qox2n2k
   k.strokeStyle = "rgba(216,216,224,0.9)";
   k.beginPath();
   for ( const v of b6vakanta.hak6h6 ) {
-    if ( v.orient === "EW" ) { k.moveTo(X(v.de), Z(v.haxekuxa)); k.lineTo(X(v.al), Z(v.haxekuxa)); }
-    else { k.moveTo(X(v.haxekuxa), Z(v.de)); k.lineTo(X(v.haxekuxa), Z(v.al)); }
+    if ( v.kanto === "EW" ) { k.moveTo(X(v.l6), Z(v.haxekuxa)); k.lineTo(X(v.sai), Z(v.haxekuxa)); }
+    else { k.moveTo(X(v.haxekuxa), Z(v.l6)); k.lineTo(X(v.haxekuxa), Z(v.sai)); }
   }
   k.stroke();
   k.lineWidth = Math.max(0o1, 0o55/0o40 * p6zukani);

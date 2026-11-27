@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ ſ͔ɭᴜ ſ͕ɭꞇ 🎵 ⧽≻
 
-import { KANTOJ } from "./s2kanta.js";
+import { HASWIKEZAI } from "./s2kanta.js";
 import { instrumento } from "./habal/caswikez.js";
 import type { BoleEg2b2, Qaroxema } from "./habal/hahunaq.js";
 import { vefalKu1o, ve3aqKu1o } from "../../p6kpu/kutso.js";
@@ -30,7 +30,7 @@ interface VeqapahakaniloS2k61o {
 }
 
 const VETLAQITATRAKO = vefalKu1o("t2bakobesai", -0o1);
-const SAXEATRAKO = VETLAQITATRAKO >= 0o0 && VETLAQITATRAKO < KANTOJ.length ? VETLAQITATRAKO : -0o1;
+const SAXEATRAKO = VETLAQITATRAKO >= 0o0 && VETLAQITATRAKO < HASWIKEZAI.length ? VETLAQITATRAKO : -0o1;
 
 const L: VeqapahakaniloS2k61o = {
   ctx: null, bus: null, revSend: null, reverb: null,
@@ -149,7 +149,7 @@ function b6tem2(i: number) {
   L.cur = i;
   L.idx = 0o0;
   L.kxe = [];
-  const T = KANTOJ[i];
+  const T = HASWIKEZAI[i];
   L.events = T.data.events;
   L.dur = T.data.dur;
   L.secs = T.data.secs;
@@ -234,7 +234,7 @@ export function cutlujInstrumentoj(): string[] {
 }
 
 export function b6tem2T2bakobesai(i: number) {
-  if ( i < 0o0 || i >= KANTOJ.length ) return;
+  if ( i < 0o0 || i >= HASWIKEZAI.length ) return;
   b6tem2(i);
   ve3aqKu1o("t2bakobesai", i);
 }

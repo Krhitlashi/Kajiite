@@ -70,7 +70,7 @@ export function generiT2bakobesai(d: T2bakobesaiVop2): string {
     "    { n: " + JSON.stringify(s.n) + ", a: " + knak2fe(s.a, 0o10000) + ", b: " + knak2fe(s.b, 0o10000) + " },");
   return [
     "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ " + d.no + " · " + d.hate2 + " 🎵 ⧽≻",
-    "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( hacaht2/swikezcaht2/swikezcaht2.html ) ｡",
+    "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( caht2/swikezcaht2/swikezcaht2.html ) ｡",
     "// ( ʃэ ɭʃɔ }ʃᴜ }ʃꞇ ) ｡ ſɭɜ ｡ j͑ʃ'ɔ ſ̀ȷᴜȝ ｡ ſȷɔ ſɭ,ꞇ ｡",
     "// ı],ɔ ſɭw ｡ ꞙɭ" + d.bpq.toString(0o10) + " ı],ɔ ſɭw ｡ ſɭᴜ ſɭᴜ ꞙɭ" + d.ppb.toString(0o10) + " ｡",
     "",
@@ -96,7 +96,7 @@ export function generiKantoj(havalaqaz: Registro[]): string {
     "// ≺⧼ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻",
     "// j͑ʃп́ꞇ ſɭɔƴ ｡ ſɭᴜ ｡ kanta/ ｡",
     "// ſɟᴜ ſᶘᴜ ɽ͑ʃ'ᴜ ｡ j͑ʃп́ꞇ ſɭɔƴ ｡",
-    "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( hacaht2/swikezcaht2/swikezcaht2.html ) ｡",
+    "// j͑ʃп́ꞇ ſɭɔƴ ｡ j͑ʃ'ɜ ſןɹ ſɭɹ ſᶘɔ ｡ ( caht2/swikezcaht2/swikezcaht2.html ) ｡",
     "",
     "import type { SpuroDateno } from \"./habal/hahunaq.js\";",
   ];
@@ -112,7 +112,7 @@ export function generiKantoj(havalaqaz: Registro[]): string {
     "  data: SpuroDateno;",
     "}",
     "",
-    "export const KANTOJ: Vek2fe[] = [",
+    "export const HASWIKEZAI: Vek2fe[] = [",
   );
   for ( const r of hahaxe ) {
     const tit = r.titolCatlaq ? "AIH[" + JSON.stringify(r.titolCatlaq) + "]" : JSON.stringify(r.hate2);

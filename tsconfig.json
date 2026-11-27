@@ -20,7 +20,7 @@
   "include": [
     "kanta/**/*.ts",
     "skek2/**/*.ts",
-    "hacaht2/**/*.ts",
+    "caht2/**/*.ts",
     "types.d.ts"
   ],
   "exclude": [

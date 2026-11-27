@@ -2,7 +2,7 @@
 
 import { tsiinanusabosaiLaqazbolesain, tsekeLaqazbolesai, tsiinanusabosaiBruon, tsekeBruo, autoSaxei, registriPostLaqazbolesai } from "../../skek2/bole/boleS2t2bakano.js";
 import { veqapahakani, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani } from "../../skek2/bole/swikez/cagaqi.js";
-import { KANTOJ } from "../../skek2/bole/swikez/s2kanta.js";
+import { HASWIKEZAI } from "../../skek2/bole/swikez/s2kanta.js";
 
 export interface Bole {
 
@@ -43,7 +43,7 @@ function kf2Bole(): Bole {
   function bokKfeni( kfeni: HTMLElement, ceme?: ( okef: string ) => void ): void {
     if ( ca1ara.has(kfeni) ) return;
     kfeni.querySelectorAll<HTMLElement>("[data-t2bakobesai-vico]").forEach(trakaVico => {
-      for ( const t2bakobesai of KANTOJ.keys() ) {
+      for ( const t2bakobesai of HASWIKEZAI.keys() ) {
         const catsiina = document.createElement("button");
         catsiina.dataset.sonkama = "t2bakobesai";
         catsiina.dataset.t2bakobesai = String(t2bakobesai);

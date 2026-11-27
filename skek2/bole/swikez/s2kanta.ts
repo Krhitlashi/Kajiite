@@ -18,7 +18,7 @@ export interface Vek2fe {
   data: SpuroDateno;
 }
 
-export const KANTOJ: Vek2fe[] = [
+export const HASWIKEZAI: Vek2fe[] = [
   { no: "01", title: AIH["muzikT2bakobesai0"], instrs: [ "siku", "ocarina", "guiro", "inanga", "hiwe" ], data: buildTrack1() },
   { no: "02", title: AIH["muzikT2bakobesai1"], instrs: [ "didj", "tjurunga", "mbira", "inanga", "kiiqflak" ], data: buildTrack2() },
   { no: "03", title: AIH["muzikT2bakobesai2"], instrs: [ "slenthem", "mbira", "ocarina", "guiro", "kiiqflak" ], data: buildTrack3() },

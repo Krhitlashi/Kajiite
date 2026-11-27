@@ -47,9 +47,9 @@ export function konektiCaxlefkakain(hate, opcioj = {}) {
   function pritrakti(kliento, s2banani) {
     let mesagxo;
     try { mesagxo = JSON.parse(s2banani); } catch { return; }
-    if ( mesagxo && mesagxo.t === "stato" && typeof mesagxo.x === "number" && finiajHaqan2k(mesagxo) ) {
+    if ( mesagxo && mesagxo.t === "s2k61o" && typeof mesagxo.x === "number" && finiajHaqan2k(mesagxo) ) {
       kliento.stato = mesagxo;
-      elsxuti(klientoj, kliento.id, JSON.stringify({ t: "stato", id: kliento.id, ...mesagxo }));
+      elsxuti(klientoj, kliento.id, JSON.stringify({ t: "s2k61o", id: kliento.id, ...mesagxo }));
     }
   }
 

@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ŋᷠw ſɭ,ꞇ ſɭƣ̋ ɭ(ᴜ ſɭƨꞇ j͐ʃɜ 🎵 ⧽≻
 
-import { KANTOJ } from "../../skek2/bole/swikez/s2kanta.js";
+import { HASWIKEZAI } from "../../skek2/bole/swikez/s2kanta.js";
 import { instrumento } from "../../skek2/bole/swikez/habal/caswikez.js";
 import { F, A4 } from "../../skek2/bole/swikez/habal/p6zuk.js";
 import { HE, caxomani } from "../../skek2/bole/swikez/habal/tif.js";
@@ -170,7 +170,7 @@ const statusoEl = kfe("statuso");
 type Ilo = "sukf2qi" | "k2f" | "h2li";
 
 let t2bakobesai: T2bakobesaiVop2 = elVek2fe(0o0);
-const havalaqaz: Registro[] = KANTOJ.map((kk, i) => ({
+const havalaqaz: Registro[] = HASWIKEZAI.map((kk, i) => ({
   no: String(kk.no).padStart(0o2, "0"),
   hate2: kk.title,
   titolCatlaq: "muzikT2bakobesai" + i,
@@ -241,7 +241,7 @@ function deduktiPpb(secs: Qaroxema[], e8x: number): number {
 }
 
 function elVek2fe(i: number): T2bakobesaiVop2 {
-  const kk = KANTOJ[i];
+  const kk = HASWIKEZAI[i];
   const bpq = deduktiBpq(kk.data.events);
   const e8x = caxomani(bpq);
   const ppb = deduktiPpb(kk.data.secs, e8x);
@@ -269,8 +269,8 @@ function sinkronigiRegistron(): void {
   if ( !reg ) return;
   reg.hate2 = t2bakobesai.hate2;
   reg.instrs = [ ...t2bakobesai.instrs ];
-  const idx = KANTOJ.findIndex(kk => String(kk.no).padStart(0o2, "0") === t2bakobesai.no);
-  reg.titolCatlaq = idx >= 0o0 && KANTOJ[idx].title === t2bakobesai.hate2 ? "muzikT2bakobesai" + idx : null;
+  const idx = HASWIKEZAI.findIndex(kk => String(kk.no).padStart(0o2, "0") === t2bakobesai.no);
+  reg.titolCatlaq = idx >= 0o0 && HASWIKEZAI[idx].title === t2bakobesai.hate2 ? "muzikT2bakobesai" + idx : null;
 }
 
 function mezaX2pa(): number {
@@ -285,7 +285,7 @@ function b6tem2T2bakobesai(no: string, tlohe = false): void {
   halti();
   let d = kuba.get(no);
   if ( !d ) {
-    const idx = KANTOJ.findIndex(kk => String(kk.no).padStart(0o2, "0") === no);
+    const idx = HASWIKEZAI.findIndex(kk => String(kk.no).padStart(0o2, "0") === no);
     if ( idx < 0o0 ) { tlak2T2bakobesaiMasukf2q(); return; }
     d = elVek2fe(idx);
     kuba.set(no, d);
@@ -1757,7 +1757,6 @@ window.redaktilo = {
   pura: () => pura,
   hatsal2: () => t2bakobesai.hatsal2.length,
   havalaqaz: () => havalaqaz,
-  veqapahakani: () => L.veqapahakani,
   progreso,
   grandigi,
   k2f,

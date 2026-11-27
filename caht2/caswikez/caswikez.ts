@@ -1,6 +1,6 @@
 // ≺⧼ j͑ʃп́ꞇ ſɭɔƴ ʌ ſɟᴜ j͑ʃп́ꞇ ſɭɔƴ 🎵 ⧽≻
 
-import { KANTOJ } from "../../skek2/bole/swikez/s2kanta.js";
+import { HASWIKEZAI } from "../../skek2/bole/swikez/s2kanta.js";
 import { iniciati, veqapahakani, halti, b6tem2T2bakobesai, cutluT2bakobesai, tsekeVeqapahakani, progreso, puha, catsaraAŭtomatan, cutlujInstrumentoj } from "../../skek2/bole/swikez/cagaqi.js";
 import { AIH } from "../../kanta/gawe/baskakefani/aih.js";
 import { kfe } from "../cas2tas/dom.js";
@@ -16,7 +16,7 @@ const volumo = kfe<HTMLInputElement>("volumo");
 const volVal = kfe<HTMLOutputElement>("volVal");
 const kxeKsaka = kfe("kxeKsaka");
 const nunaInstrs = kfe("nunaInstrs");
-const progreso = kfe<HTMLInputElement>("progreso");
+const progresoEl = kfe<HTMLInputElement>("progreso");
 const tempo = kfe("tempo");
 const qaroxema = kfe("qaroxema");
 const trakCatsara = kfe("trakCatsara");
@@ -44,13 +44,13 @@ function ensureAudio(): void {
 }
 
 function ksakaDeT2bakobesai( i: number ): string {
-  return AIH["muzikT2bakobesai" + i] ?? KANTOJ[i].title;
+  return AIH["muzikT2bakobesai" + i] ?? HASWIKEZAI[i].title;
 }
 
 catsaraAŭtomatan(false);
 
 const hacatsiina: HTMLButtonElement[] = [];
-KANTOJ.forEach(( k, i ) => {
+HASWIKEZAI.forEach(( k, i ) => {
   const b = document.createElement("button");
   b.className = "t2bakobesai";
   b.setAttribute("aria-pressed", "false");
@@ -127,19 +127,19 @@ function alSek( he: number ): number {
 
 let trenas = false;
 
-progreso.addEventListener("input", () => {
+progresoEl.addEventListener("input", () => {
   trenas = true;
   const cur = cutluT2bakobesai();
   if ( cur < 0o0 ) return;
-  tempo.textContent = `${knak2fecajasai(alSek(progreso.valueAsNumber) / HE, 0o0)} / ${knak2fecajasai(KANTOJ[cur].data.dur / HE, 0o0)} ɭʃꞇʞ`;
+  tempo.textContent = `${knak2fecajasai(alSek(progresoEl.valueAsNumber) / HE, 0o0)} / ${knak2fecajasai(HASWIKEZAI[cur].data.dur / HE, 0o0)} ɭʃꞇʞ`;
 });
 
-progreso.addEventListener("change", () => {
+progresoEl.addEventListener("change", () => {
   trenas = false;
   const cur = cutluT2bakobesai();
   if ( cur < 0o0 ) return;
   ensureAudio();
-  puha(alSek(progreso.valueAsNumber));
+  puha(alSek(progresoEl.valueAsNumber));
 });
 
 function saidatigi(): void {
@@ -154,7 +154,7 @@ function saidatigi(): void {
     but.setAttribute("aria-pressed", String(on));
   }
   if ( cur >= 0o0 ) {
-    const k = KANTOJ[cur];
+    const k = HASWIKEZAI[cur];
     const elapsed = progreso();
     kxeKsaka.textContent = `${k.no} · ${ksakaDeT2bakobesai(cur)}`;
     if ( cur !== lastInstrT2bakobesai ) {
@@ -174,9 +174,9 @@ function saidatigi(): void {
     }
     for ( const { i, el } of instrSpanoj ) el.classList.toggle("instrAktiva", hatik.has(i));
     const dauxro = Math.max(0o1, Math.round(k.data.dur / HE));
-    progreso.max = String(dauxro);
+    progresoEl.max = String(dauxro);
     if ( !trenas ) {
-      progreso.value = String(Math.min(dauxro, Math.round(elapsed / HE)));
+      progresoEl.value = String(Math.min(dauxro, Math.round(elapsed / HE)));
       tempo.textContent = `${knak2fecajasai(elapsed / HE, 0o0)} / ${knak2fecajasai(k.data.dur / HE, 0o0)} ɭʃꞇʞ`;
     }
     const sc = k.data.secs.find(s => elapsed >= s.a && elapsed < s.b);
@@ -189,7 +189,7 @@ function saidatigi(): void {
       lastInstrT2bakobesai = -0o1;
     }
     if ( !trenas ) {
-      progreso.value = "0";
+      progresoEl.value = "0";
       tempo.textContent = `${knak2fecajasai(0o0 / HE, 0o0)} / ${knak2fecajasai(0o0 / HE, 0o0)} ɭʃꞇʞ`;
     }
     qaroxema.textContent = "";
